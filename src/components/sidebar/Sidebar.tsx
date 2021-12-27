@@ -8,22 +8,8 @@ import classes from './Sidebar.module.css';
 const Sidebar = () => {
     return (
         <div className={classes.sidebar}>
-            <div className={classes.sidebar_header}>
-                <div className={classes.user_info}>
-                    <img src={userLogo} alt={'user photo'}/>
-                    <div className={classes.user_name}>
-                        <p>Name Full</p>
-                        <small>status</small>
-                    </div>
-                </div>
-
-                <div className={classes.sidebar_header_icons}>
-                    <img src={chat} alt={chat}/>
-                    <img src={config} alt={'configuration'}/>
-                </div>
-            </div>
             <div className={classes.search_chat}>
-                <div className={classes.search_bar}>
+                <div className={classes.search_box}>
                     <img src={search} alt={'search'}/>
                     <input type='text' placeholder='Search to start new chat'/>
                 </div>
@@ -31,47 +17,94 @@ const Sidebar = () => {
             <div className={classes.chats}>
                 <div className={classes.chat}>
                     <div className={classes.chat_left}>
-                        <img src={userLogo} alt={'user photo'}/>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
                     </div>
                     <div className={classes.chat_right}>
-                        <div className={classes.chat_right_top}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.chat_date}>12:54</span>
-                        </div>
-                        <div className={classes.chat_right_bottom}>
-
-                        </div>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
                     </div>
                 </div>
                 <div className={classes.chat}>
                     <div className={classes.chat_left}>
-                        <img src={userLogo}/>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
                     </div>
                     <div className={classes.chat_right}>
-                        <div className={classes.chat_right_top}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.chat_date}>12:54</span>
-                        </div>
-                        <div className={classes.chat_right_bottom}>
-
-                        </div>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
                     </div>
                 </div>
                 <div className={classes.chat}>
                     <div className={classes.chat_left}>
-                        <img src={userLogo}/>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
                     </div>
                     <div className={classes.chat_right}>
-                        <div className={classes.chat_right_top}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.chat_date}>12:54</span>
-                        </div>
-                        <div className={classes.chat_right_bottom}>
-
-                        </div>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
                     </div>
                 </div>
-
+                <div className={classes.chat}>
+                    <div className={classes.chat_left}>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
+                    </div>
+                    <div className={classes.chat_right}>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
+                    </div>
+                </div>
+                <div className={classes.chat}>
+                    <div className={classes.chat_left}>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
+                    </div>
+                    <div className={classes.chat_right}>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
+                    </div>
+                </div>
+                <div className={classes.chat}>
+                    <div className={classes.chat_left}>
+                        <div className={classes.chat_img}>
+                            <img src={userLogo} alt={'user photo'}/>
+                        </div>
+                        <div className={classes.contact_info}>
+                            <span className={classes.contact_name}>Alice</span>
+                            <span className={classes.contact_mes}>Hello! How are you?</span>
+                        </div>
+                    </div>
+                    <div className={classes.chat_right}>
+                        <span className={classes.chat_date}>12:54</span>
+                        <span className={classes.chat_notice}>2</span>
+                    </div>
+                </div>
             </div>
         </div>
     );
