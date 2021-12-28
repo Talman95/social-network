@@ -14,7 +14,7 @@
     align-items: center;
     padding: 0 15px;
     margin-right: 15px;
-    height: 50px;
+    height: 60px;
 }
 .search_img {
     background: #1876f2;
@@ -38,7 +38,7 @@
 }
 
 .chats {
-    height: 90%;
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -59,7 +59,7 @@
     border-bottom: 1px solid #ededed;
 }
 .chat:hover {
-    background: #1876f2;
+    background: #ebebeb;
 }
 .chat_img img {
     width: 50px;
@@ -92,7 +92,7 @@
     max-width: 100%;
     min-width: 20px;
     border-radius: 50%;
-    background: #919191;
+    background: #1876f2;
     color: #ededed;
     padding: 2px;
 }
