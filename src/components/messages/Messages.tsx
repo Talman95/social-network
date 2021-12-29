@@ -1,37 +1,72 @@
 import React from 'react';
 import classes from './Messages.module.css';
 import userLogo from './../../assets/images/userLogo.png';
+import smile from './../../assets/images/smile.png';
 
 const Messages = () => {
     return (
-        <div className={classes.chatbox}>
+        <div className={classes.main}>
             <div className={classes.header}>
-                <img src={userLogo} alt='user' />
-                <div className={classes.person}>
-                    <span className={classes.name}>Anna Luzhina</span>
-                    <span className={classes.status}>Online</span>
-                </div>
-                <a href="">
-                    <img src="" alt=""/>
-                </a>
-            </div>
-
-            <div className={classes.chat_logs}>
-                <div className={classes.chat}>
-                    <div className={classes.user_photo}>
-                        <img src={userLogo} alt=""/>
+                <div className={classes.header_left}>
+                    <img src={userLogo} alt ='user'/>
+                    <div className={classes.chat_name}>
+                        <span className={classes.contact_name}>Full Name</span>
+                        <span className={classes.contact_status}>Online</span>
                     </div>
-                    <p className={classes.chat_message}>
-                        something else...
-                    </p>
+                </div>
+                <div className={classes.header_right}>
+
                 </div>
             </div>
-
-            <div className={classes.chatForm}>
-                <div className={classes.textarea}>
-                    <textarea rows={3} placeholder={"Enter your message"}></textarea>
+            <div className={classes.chat_window}>
+                <div className={classes.sender}>
+                    <span className={classes.sender_message}>Hey! How are you? dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:21</span>
                 </div>
-                <button>Send</button>
+                <div className={classes.receiver}>
+                    <span className={classes.receiver_message}>I'm fine! Thank you. dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:24</span>
+                </div>
+                <div className={classes.sender}>
+                    <span className={classes.sender_message}>Hey! How are you? dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:21</span>
+                </div>
+                <div className={classes.receiver}>
+                    <span className={classes.receiver_message}>I'm fine! Thank you. dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:24</span>
+                </div>
+                <div className={classes.sender}>
+                    <span className={classes.sender_message}>Hey! How are you? dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:21</span>
+                </div>
+                <div className={classes.receiver}>
+                    <span className={classes.receiver_message}>I'm fine! Thank you. dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:24</span>
+                </div>
+                <div className={classes.sender}>
+                    <span className={classes.sender_message}>Hey! How are you? dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:21</span>
+                </div>
+                <div className={classes.receiver}>
+                    <span className={classes.receiver_message}>I'm fine! Thank you. dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:24</span>
+                </div>
+                <div className={classes.sender}>
+                    <span className={classes.sender_message}>Hey! How are you? dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:21</span>
+                </div>
+                <div className={classes.receiver}>
+                    <span className={classes.receiver_message}>I'm fine! Thank you. dfngkdflgfkdglkdfjglkdfjgkljdfklgjkldfgjdflk gfhhfhgfh gfhgfhfgh fghfhfhfh fghf</span>
+                    <span className={classes.message_time}>14:24</span>
+                </div>
+            </div>
+            <div className={classes.message_bar}>
+                <div className={classes.bar_left}>
+                    <img src={smile} alt={'smile'}/>
+                </div>
+                <div className={classes.bar_center}>
+                    <input type='text' placeholder='Type a message' />
+                </div>
             </div>
         </div>
     );
