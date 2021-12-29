@@ -9,8 +9,8 @@ function App() {
     <div className="app">
         <Header />
         <div className='app_container'>
-            <Sidebar />
-            <Messages />
+            <Sidebar name={'Artyom Vasiliev'} lastMessage={'Let\'s get it started'} notice={11}/>
+            <Messages name={'Someone\'s Name'} status={'Online'}/>
         </div>
     </div>
   );
