@@ -1,15 +1,10 @@
 import React from 'react';
-import userLogo from './../../assets/images/userLogo.png';
 import white_search from './../../assets/images/white_search.png';
 import classes from './Sidebar.module.css';
+import SidebarItem from './sidebarItem/SidebarItem';
 
-type SidebarPropsType = {
-    name: string,
-    lastMessage: string,
-    notice: number
-}
 
-const Sidebar = (props: SidebarPropsType) => {
+const Sidebar = (props: any) => {
     return (
         <div className={classes.sidebar}>
             <div className={classes.search_chat}>
@@ -21,96 +16,9 @@ const Sidebar = (props: SidebarPropsType) => {
                 </div>
             </div>
             <div className={classes.chats}>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>{props.name}</span>
-                            <span className={classes.contact_mes}>{props.lastMessage}</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>{props.notice}</span>
-                    </div>
-                </div>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.contact_mes}>Hello! How are you?</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>2</span>
-                    </div>
-                </div>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.contact_mes}>Hello! How are you?</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>2</span>
-                    </div>
-                </div>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.contact_mes}>Hello! How are you?</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>2</span>
-                    </div>
-                </div>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.contact_mes}>Hello! How are you?</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>2</span>
-                    </div>
-                </div>
-                <div className={classes.chat}>
-                    <div className={classes.chat_left}>
-                        <div className={classes.chat_img}>
-                            <img src={userLogo} alt={'user'}/>
-                        </div>
-                        <div className={classes.contact_info}>
-                            <span className={classes.contact_name}>Alice</span>
-                            <span className={classes.contact_mes}>Hello! How are you?</span>
-                        </div>
-                    </div>
-                    <div className={classes.chat_right}>
-                        <span className={classes.chat_date}>12:54</span>
-                        <span className={classes.chat_notice}>2</span>
-                    </div>
-                </div>
+                <SidebarItem name={'Dmitrii Antonov'} lastMessage={'Hey. Do you have any props?'} notice={1} date={'12:33'}/>
+                <SidebarItem name={'Artyom Vasiliev'} lastMessage={'Let\'s get it started!'} notice={11} date={'00:19'}/>
+                <SidebarItem name={'Dariya Bugaeva'} lastMessage={'Merry Christmas'} notice={2} date={'23:07'}/>
             </div>
         </div>
     );
