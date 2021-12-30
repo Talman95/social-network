@@ -1,0 +1,72 @@
+.chat_window {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 100px 30px 100px;
+    height: 660px;
+    background: #fff;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.chat_window::-webkit-scrollbar {
+    width: 5px;
+    height: 45px;
+}
+.chat_window::-webkit-scrollbar-track {
+    background: #e5ddd5;
+}
+.chat_window::-webkit-scrollbar-thumb {
+    background: #bab3ae;
+}
+.sender,
+.receiver {
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.sender {
+    background: #ebebeb;
+    align-self: flex-end;
+    max-width: 450px;
+}
+.receiver {
+    background: #ebebeb;
+    align-self: flex-start;
+    max-width: 450px;
+}
+.sender_message,
+.receiver_message {
+    font-size: 18px;
+    margin-right: 45px;
+}
+.message_time {
+    color: #1876f2;
+    vertical-align: bottom;
+}
+
+.message_bar {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    background: #f0f0f0;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+}
+.bar_left img {
+    cursor: pointer;
+}
+.bar_center {
+    flex: 1;
+}
+.bar_center input {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px;
+    flex: 1;
+    border-radius: 10px;
+    font-family: 'Segoe UI';
+}
