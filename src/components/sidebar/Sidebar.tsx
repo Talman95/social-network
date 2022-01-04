@@ -3,17 +3,17 @@ import white_search from './../../assets/images/white_search.png';
 import classes from './Sidebar.module.css';
 import SidebarItem from './sidebarItem/SidebarItem';
 
-type propsType = {
+type PropsType = {
     chats: Array<inArray>
 }
 type inArray = {
     name: string
     lastMessage: string
     notice: number
-    date: string
+    time: string
 }
 
-const Sidebar = (props: propsType) => {
+const Sidebar: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.sidebar}>
             <div className={classes.search_chat}>
@@ -27,7 +27,7 @@ const Sidebar = (props: propsType) => {
             <div className={classes.chats}>
                 {props.chats.map(m => {
                     return (
-                        <SidebarItem name={m.name} lastMessage={m.lastMessage} notice={m.notice} date={m.date} />
+                        <SidebarItem name={m.name} lastMessage={m.lastMessage} notice={m.notice} date={m.time} />
                     )
                 })}
             </div>

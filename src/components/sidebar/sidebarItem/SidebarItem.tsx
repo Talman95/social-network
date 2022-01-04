@@ -9,7 +9,7 @@ type PropsType = {
     date: string
 }
 
-const SidebarItem = (props: PropsType) => {
+const SidebarItem: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.chat}>
             <div className={classes.chat_left}>

@@ -42,6 +42,7 @@
 .message_time {
     color: #1876f2;
     vertical-align: bottom;
+    horiz-align: right;
 }
 
 .message_bar {

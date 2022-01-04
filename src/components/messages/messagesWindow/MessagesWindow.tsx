@@ -2,24 +2,30 @@ import React from 'react';
 import classes from "./MessagesWindow.module.css";
 import smile from "../../../assets/images/smile.png";
 
-type PropsType = {
-    messageBodySender: string,
-    timeSender: string,
-    messageBodyReceiver: string,
-    timeReceiver: string
+type InArray = {
+    id: number
+    body: string
+    time: string
 }
-const MessagesWindow = (props: PropsType) => {
+type PropsType = {
+    messages: Array<InArray>
+}
+const MessagesWindow: React.FC<PropsType> = (props) => {
     return (
         <div>
             <div className={classes.chat_window}>
-                <div className={classes.sender}>
-                    <span className={classes.sender_message}>{props.messageBodySender}</span>
-                    <span className={classes.message_time}>{props.timeSender}</span>
-                </div>
-                <div className={classes.receiver}>
-                    <span className={classes.receiver_message}>{props.messageBodyReceiver}</span>
-                    <span className={classes.message_time}>{props.timeReceiver}</span>
-                </div>
+                {props.messages.map(m => {
+                    return (
+                    <div className={classes.receiver}>
+                        <span className={classes.receiver_message}>{m.body}</span>
+                        <span className={classes.message_time}>{m.time}</span>
+                    </div>
+                    )
+                })}
+                {/*<div className={classes.receiver}>*/}
+                {/*    <span className={classes.receiver_message}>{props.body}</span>*/}
+                {/*    <span className={classes.message_time}>{props.time}</span>*/}
+                {/*</div>*/}
             </div>
             <div className={classes.message_bar}>
                 <div className={classes.bar_left}>

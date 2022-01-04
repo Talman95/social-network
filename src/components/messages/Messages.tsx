@@ -3,19 +3,22 @@ import classes from './Messages.module.css';
 import MessagesHeader from "./messagesHeader/MessagesHeader";
 import MessagesWindow from "./messagesWindow/MessagesWindow";
 
-type MessagesPropsType = {
+type PropsType = {
     name: string,
     status: string
+    messages: Array<InArray>
+}
+type InArray = {
+    id: number
+    body: string
+    time: string
 }
 
-const Messages = (props: MessagesPropsType) => {
+const Messages:React.FC<PropsType> = (props) => {
     return (
         <div className={classes.main}>
             <MessagesHeader name={'Anna Luzhina'} status={'Online'} />
-            <MessagesWindow messageBodySender={'Hello! How are you? When you start to learn react?'}
-                            timeSender={'22:22'}
-                            messageBodyReceiver={'Hi! We will start after the new year. 3 january'}
-                            timeReceiver={'22:24'} />
+            <MessagesWindow messages={props.messages} />
         </div>
     );
 };
