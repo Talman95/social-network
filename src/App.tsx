@@ -13,7 +13,7 @@ function App() {
         <Header />
         <div className='app_container'>
             <Sidebar chats={chats} />
-            <Messages name={'Someone\'s Name'} status={'Online'} messages={messages}/>
+            <Messages name={'Dmitrii Antonov'} status={'Online'} messages={messages}/>
         </div>
     </div>
   );

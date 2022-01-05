@@ -1,25 +1,24 @@
 import React from 'react';
-import classes from "./MessagesWindow.module.css";
+import classes from "./Chat.module.css";
 import smile from "../../../assets/images/smile.png";
+import {Message} from "./message/Message";
 
 type InArray = {
     id: number
-    body: string
+    name: string
+    message: string
     time: string
 }
 type PropsType = {
     messages: Array<InArray>
 }
-const MessagesWindow: React.FC<PropsType> = (props) => {
+const Chat: React.FC<PropsType> = (props) => {
     return (
         <div>
             <div className={classes.chat_window}>
                 {props.messages.map(m => {
                     return (
-                    <div className={classes.receiver}>
-                        <span className={classes.receiver_message}>{m.body}</span>
-                        <span className={classes.message_time}>{m.time}</span>
-                    </div>
+                    <Message name={m.name} message={m.message} time={m.time} />
                     )
                 })}
                 {/*<div className={classes.receiver}>*/}
@@ -39,4 +38,4 @@ const MessagesWindow: React.FC<PropsType> = (props) => {
     );
 };
 
-export default MessagesWindow;
+export default Chat;

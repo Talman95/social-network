@@ -1,7 +1,7 @@
 .chat_window {
     display: flex;
     flex-direction: column;
-    padding: 30px 100px 30px 100px;
+    padding: 30px;
     height: 660px;
     background: #fff;
     overflow: scroll;
@@ -17,33 +17,7 @@
 .chat_window::-webkit-scrollbar-thumb {
     background: #bab3ae;
 }
-.sender,
-.receiver {
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 5px;
-    position: relative;
-}
-.sender {
-    background: #ebebeb;
-    align-self: flex-end;
-    max-width: 450px;
-}
-.receiver {
-    background: #ebebeb;
-    align-self: flex-start;
-    max-width: 450px;
-}
-.sender_message,
-.receiver_message {
-    font-size: 18px;
-    margin-right: 45px;
-}
-.message_time {
-    color: #1876f2;
-    vertical-align: bottom;
-    horiz-align: right;
-}
+
 
 .message_bar {
     position: relative;

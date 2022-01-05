@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Messages.module.css';
 import MessagesHeader from "./messagesHeader/MessagesHeader";
-import MessagesWindow from "./messagesWindow/MessagesWindow";
+import Chat from "./chat/Chat";
 
 type PropsType = {
     name: string,
@@ -10,15 +10,16 @@ type PropsType = {
 }
 type InArray = {
     id: number
-    body: string
+    name: string
+    message: string
     time: string
 }
 
 const Messages:React.FC<PropsType> = (props) => {
     return (
         <div className={classes.main}>
-            <MessagesHeader name={'Anna Luzhina'} status={'Online'} />
-            <MessagesWindow messages={props.messages} />
+            <MessagesHeader name={props.name} status={props.status} />
+            <Chat messages={props.messages} />
         </div>
     );
 };
