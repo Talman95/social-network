@@ -2,41 +2,48 @@
     background: #fff;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
-/*CHAT*/
-.search_chat {
+/* Profile Info */
+.profile_info {
+    height: 61px;
     background: #efefef;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+.profile_info img {
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+/* CHAT */
 .search_box {
     background: #efefef;
-    width: 100%;
+    border-radius: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 0 15px;
-    margin-right: 15px;
-    height: 60px;
-}
-.search_img {
-    background: #1876f2;
-    text-align: center;
-    padding: 5px;
-    height: 35px;
-    cursor: pointer;
+    margin: 10px;
 }
 .search_box img{
-    width: 25px;
+    width: 18px;
 }
 .search_box input {
     width: 95%;
-    background: #fff;
+    background: transparent;
     padding: 10px;
     outline: none;
     border: 0;
+    color: #919191;
 }
 .search_box input::placeholder {
     color: #919191;
 }
 
+/* Chats */
 .chats {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -97,4 +104,9 @@
 .contact_mes {
     color: #919191;
     font-size: 14px;
+}
+.active {
+    background: #74b9ff;
+    cursor: pointer;
+    color: #fff;
 }

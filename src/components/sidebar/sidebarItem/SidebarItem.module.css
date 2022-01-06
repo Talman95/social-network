@@ -48,3 +48,16 @@
     color: #919191;
     font-size: 14px;
 }
+.chat:active {
+    background: #74b9ff;
+    cursor: pointer;
+    color: #fff;
+}
+.chat:active .chat_date,
+.chat:active .contact_mes {
+    color: #fff;
+}
+.chat:active .chat_notice {
+    background: #fff;
+    color: #74b9ff;
+}
