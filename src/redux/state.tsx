@@ -7,6 +7,7 @@ type MessageType = {
     time: string
 }
 type DialogType = {
+    id: number
     name: string
     lastMessage: string
     notice: number
@@ -26,9 +27,9 @@ type RootStateType = {
 let state: RootStateType = {
     sidebar: {
         dialogs: [
-            {name: 'Dmitrii Antonov', lastMessage: 'Hey. Do you have any props?', notice: 1, time: '12:33'},
-            {name: 'Mitya Bugaev', lastMessage: 'Let\'s get it started!', notice: 11, time: '00:19'},
-            {name: 'Dariya Bugaeva', lastMessage: 'Merry Christmas', notice: 2, time: '23:07'}
+            {id: 1, name: 'Dmitrii Antonov', lastMessage: 'Hey. Do you have any props?', notice: 1, time: '12:33'},
+            {id: 2, name: 'Mitya Bugaev', lastMessage: 'Let\'s get it started!', notice: 11, time: '00:19'},
+            {id: 3, name: 'Dariya Bugaeva', lastMessage: 'Merry Christmas', notice: 2, time: '23:07'}
         ]
     },
     messagesPage: {

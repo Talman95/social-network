@@ -9,6 +9,7 @@ type PropsType = {
     chats: Array<inArray>
 }
 type inArray = {
+    id: number
     name: string
     lastMessage: string
     notice: number
@@ -33,7 +34,8 @@ const Sidebar: React.FC<PropsType> = (props) => {
             <div className={classes.chats}>
                 {props.chats.map(m => {
                     return (
-                        <SidebarItem name={m.name} lastMessage={m.lastMessage} notice={m.notice} date={m.time}/>
+                        <SidebarItem name={m.name} lastMessage={m.lastMessage} notice={m.notice} date={m.time}
+                        id={m.id}/>
                     )
                 })}
             </div>
