@@ -4,7 +4,6 @@
     align-items: center;
     height: 61px;
     background: #efefef;
-    border-radius: 8px;
 }
 .header_left {
     display: flex;

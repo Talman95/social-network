@@ -6,7 +6,6 @@
 .profile_info {
     height: 61px;
     background: #efefef;
-    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;

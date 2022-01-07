@@ -5,6 +5,7 @@ import Messages from "./components/messages/Messages";
 import './App.css';
 import state from './redux/state';
 import {Routes, Route} from 'react-router-dom';
+import {Profile} from "./components/profile/Profile";
 
 function App() {
     let chats = state.sidebar.dialogs;
@@ -16,8 +17,8 @@ function App() {
                 <Sidebar chats={chats}/>
                 <Routes>
                     <Route path={'/:id'} element={<Messages name={'Dmitrii Antonov'} status={'Online'} messages={messages}/>} />
+                    <Route path={'/profile'} element={<Profile />} />
                 </Routes>
-
             </div>
         </div>
     );

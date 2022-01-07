@@ -1,9 +1,9 @@
 import React from 'react';
-import white_search from './../../assets/images/white_search.png';
 import classes from './Sidebar.module.css';
 import SidebarItem from './sidebarItem/SidebarItem';
 import userLogo from '../../assets/images/userLogo.png';
 import search from "../../assets/images/search.png";
+import {NavLink} from "react-router-dom";
 
 type PropsType = {
     chats: Array<inArray>
@@ -20,7 +20,9 @@ const Sidebar: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.sidebar}>
             <div className={classes.profile_info}>
-                <img className={classes.profile_img} src={userLogo} alt={'Profile'}/>
+                <NavLink to={'/profile'}>
+                    <img className={classes.profile_img} src={userLogo} alt={'Profile'}/>
+                </NavLink>
                 <span>
 
                 </span>
