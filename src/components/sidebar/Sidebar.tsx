@@ -4,6 +4,10 @@ import SidebarItem from './sidebarItem/SidebarItem';
 import userLogo from '../../assets/images/userLogo.png';
 import search from "../../assets/images/search.png";
 import {NavLink} from "react-router-dom";
+import account from '../../assets/images/test_account.png';
+import find_user from '../../assets/images/find_user.png';
+import settings from '../../assets/images/settings.png';
+import contacts from '../../assets/images/contacts.png';
 
 type PropsType = {
     chats: Array<inArray>
@@ -21,11 +25,13 @@ const Sidebar: React.FC<PropsType> = (props) => {
         <div className={classes.sidebar}>
             <div className={classes.profile_info}>
                 <NavLink to={'/profile'}>
-                    <img className={classes.profile_img} src={userLogo} alt={'Profile'}/>
+                    <img className={classes.profile_img} src={account} alt={'Profile'}/>
                 </NavLink>
-                <span>
-
-                </span>
+                <div className={classes.menu}>
+                    <a href={'/contacts'}><span className={classes.menu_link}><img src={contacts}/></span></a>
+                    <a href={'/contacts'}><span className={classes.menu_link}><img src={find_user}/></span></a>
+                    <a href={'/contacts'}><span className={classes.menu_link}><img src={settings}/></span></a>
+                </div>
             </div>
             <div className={classes.search_box}>
                 <div className={classes.search_button}>

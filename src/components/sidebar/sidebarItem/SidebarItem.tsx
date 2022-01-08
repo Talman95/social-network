@@ -14,7 +14,7 @@ type PropsType = {
 const SidebarItem: React.FC<PropsType> = (props) => {
     return (
         <>
-            <NavLink to={`/${props.id}`} className={classes.active}>
+            <NavLink to={`/${props.id}`}>
                 <div className={classes.chat}>
                     <div className={classes.chat_left}>
                         <div className={classes.chat_img}>

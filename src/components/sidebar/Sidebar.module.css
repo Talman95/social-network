@@ -16,6 +16,34 @@
     cursor: pointer;
     margin-left: 30px;
 }
+.menu {
+    margin-right: 10px;
+}
+.menu_link {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.menu_link:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: white;
+    top: 35px;
+    width: 0;
+    height: 4px;
+    transition: width .3s ease-in;
+}
+.menu_link:hover:after {
+    width: 100%;
+}
+.menu_link img {
+    width: 30px;
+    border-radius: 30%;
+    margin: 0 5px;
+}
+
 
 /* CHAT */
 .search_box {
