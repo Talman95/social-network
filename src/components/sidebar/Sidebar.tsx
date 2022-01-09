@@ -8,6 +8,7 @@ import account from '../../assets/images/test_account.png';
 import find_user from '../../assets/images/find_user.png';
 import settings from '../../assets/images/settings.png';
 import contacts from '../../assets/images/contacts.png';
+import {MyInput} from "../UI/input/MyInput";
 
 type PropsType = {
     chats: Array<inArray>
@@ -33,12 +34,7 @@ const Sidebar: React.FC<PropsType> = (props) => {
                     <a href={'/contacts'}><span className={classes.menu_link}><img src={settings}/></span></a>
                 </div>
             </div>
-            <div className={classes.search_box}>
-                <div className={classes.search_button}>
-                    <img src={search} alt="search button"/>
-                </div>
-                <input type="text" placeholder="Search here..." />
-            </div>
+            <MyInput />
             <div className={classes.chats}>
                 {props.chats.map(m => {
                     return (

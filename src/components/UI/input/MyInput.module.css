@@ -1,0 +1,23 @@
+.search_box {
+    background: #efefef;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    margin: 10px;
+}
+.search_box img{
+    width: 18px;
+}
+.search_box input {
+    width: 95%;
+    background: transparent;
+    padding: 10px;
+    outline: none;
+    border: 0;
+    color: #919191;
+}
+.search_box input::placeholder {
+    color: #919191;
+}
