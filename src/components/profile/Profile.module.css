@@ -1,3 +1,7 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+}
 .header {
     display: flex;
     justify-content: flex-start;
@@ -9,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 6px;
 }
 .photo img {
     width: 200px;
@@ -18,6 +23,17 @@
 .photo button {
     width: 150px;
 }
+.job {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 150px;
+}
+.job input{
+    width: 20px;
+    height: 20px;
+}
 .info {
     margin-left: 15px;
     padding: 15px;
@@ -25,6 +41,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    border-radius: 6px;
+    height: 100%;
 }
 .about {
     display: flex;
@@ -48,4 +66,44 @@
     background: #ebebeb;
     width: 100%;
     height: 30px;
+}
+
+/* Write post container*/
+
+.write_post_container {
+    margin: 15px 15px 15px 15px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    color: #626262;
+    display: flex;
+}
+.user_profile img{
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user_profile p{
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #626262;
+}
+.post_input_container{
+    padding-left: 55px;
+    padding-top: 20px;
+    width: 100%;
+}
+.post_input_container textarea{
+    width: 100%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    resize: none;
+}
+.add_post_button {
+    display: flex;
+    margin-top: 10px;
+    margin-right: 10px;
+    justify-content: flex-end;
 }
