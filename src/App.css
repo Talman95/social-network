@@ -5,17 +5,21 @@
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 body {
-    width: 100%;
     background: #efefef;
 }
 a {
     text-decoration: none;
     color: inherit;
 }
-.app_container {
+.app {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    width: 100%;
+    grid-template-areas:
+    "header header header"
+    "nav content sidebar";
+    grid-template-columns: 20% 1fr 15%;
+    grid-template-rows: 52px 1fr;
+    grid-gap: 15px;
+    height: 100vh;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 0 1rem 0.05rem rgba(0,0,0,0.2);
 }

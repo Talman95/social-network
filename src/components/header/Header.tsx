@@ -4,7 +4,7 @@ import menu from './../../assets/images/menu.png';
 import user from '../../assets/images/userLogo.png'
 import {MyInput} from "../UI/input/MyInput";
 
-const Header = () => {
+export const Header = () => {
     return (
         <div className={cl.header}>
             <div className={cl.header_user_icon}>
@@ -25,5 +25,3 @@ const Header = () => {
         </div>
     );
 };
-
-export default Header;
