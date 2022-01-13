@@ -3,7 +3,8 @@
     justify-content: space-between;
     align-items: center;
     height: 61px;
-    background: #efefef;
+    background: #fff;
+    border-bottom: 1px solid #ededed;
 }
 .header_left {
     display: flex;

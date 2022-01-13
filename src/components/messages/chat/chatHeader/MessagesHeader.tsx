@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from "./MessagesHeader.module.css";
-import userLogo from "../../../assets/images/userLogo.png";
+import userLogo from "../../../../assets/images/userLogo.png";
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
     name: string,
     status: string
 }
-const MessagesHeader = (props: PropsType) => {
+export const MessagesHeader = (props: PropsType) => {
     return (
         <div className={classes.header}>
             <NavLink to={'/profile'}>
@@ -25,5 +25,3 @@ const MessagesHeader = (props: PropsType) => {
         </div>
     );
 };
-
-export default MessagesHeader;

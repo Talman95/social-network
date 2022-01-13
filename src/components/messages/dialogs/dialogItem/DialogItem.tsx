@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from './SidebarItem.module.css';
-import userLogo from '../../../assets/images/userLogo.png';
+import classes from './DialogItem.module.css';
 import {NavLink} from "react-router-dom";
+import userLogo from '../../../../assets/images/userLogo.png';
 
 type PropsType = {
     id: number
@@ -11,10 +11,10 @@ type PropsType = {
     date: string
 }
 
-const SidebarItem: React.FC<PropsType> = (props) => {
+const DialogItem: React.FC<PropsType> = (props) => {
     return (
         <>
-            <NavLink to={`/${props.id}`}>
+            <NavLink to={`/messages/${props.id}`}>
                 <div className={classes.chat}>
                     <div className={classes.chat_left}>
                         <div className={classes.chat_img}>
@@ -36,4 +36,4 @@ const SidebarItem: React.FC<PropsType> = (props) => {
     );
 };
 
-export default SidebarItem;
+export default DialogItem;

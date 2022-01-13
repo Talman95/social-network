@@ -1,0 +1,27 @@
+.dialogs {
+    background: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    grid-area: dialogs;
+}
+/* Profile Info */
+.profile_info {
+    height: 61px;
+    background: #efefef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* CHAT */
+
+.chats {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 680px;
+}
+.chats::-webkit-scrollbar {
+    width: 5px;
+    height: 45px;
+}
+.chats::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+}
