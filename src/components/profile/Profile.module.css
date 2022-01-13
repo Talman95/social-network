@@ -2,11 +2,11 @@
     grid-area: content;
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
 }
 .header {
     display: flex;
     justify-content: flex-start;
-    margin: 15px 15px 0 15px;
 }
 .photo {
     background: #fff;
@@ -72,7 +72,7 @@
 /* Write post container*/
 
 .write_post_container {
-    margin: 15px 15px 15px 15px;
+    margin: 15px 0;
     background: #fff;
     border-radius: 6px;
     padding: 20px;
