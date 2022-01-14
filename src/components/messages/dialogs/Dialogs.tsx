@@ -2,16 +2,10 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import {MyInput} from "../../UI/input/MyInput";
 import DialogItem from "./dialogItem/DialogItem";
+import {DialogType} from "../../../redux/state";
 
 type PropsType = {
-    chats: Array<inArray>
-}
-type inArray = {
-    id: number
-    name: string
-    lastMessage: string
-    notice: number
-    time: string
+    dialogs: DialogType[]
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
@@ -19,10 +13,14 @@ export const Dialogs: React.FC<PropsType> = (props) => {
         <div className={classes.dialogs}>
             <MyInput/>
             <div className={classes.chats}>
-                {props.chats.map(m => {
+                {props.dialogs.map(d => {
                     return (
-                        <DialogItem name={m.name} lastMessage={m.lastMessage} notice={m.notice} date={m.time}
-                                    id={m.id}/>
+                        <DialogItem id={d.id}
+                                    name={d.name}
+                                    lastMessage={d.lastMessage}
+                                    notice={d.notice}
+                                    date={d.time}
+                        />
                     )
                 })}
             </div>

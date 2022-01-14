@@ -1,26 +1,21 @@
-import React from 'react';
-import classes from './Messages.module.css';
-import Chat from "./chat/Chat";
+import React, {useState} from 'react';
+import cl from './Messages.module.css';
+import {Chat} from "./chat/Chat";
 import {Dialogs} from "./dialogs/Dialogs";
+import {MessagesPageType} from "../../redux/state";
 
 type PropsType = {
-    name: string,
-    status: string
-    messages: Array<InArray>
-    chats: any
-}
-type InArray = {
-    id: number
-    name: string
-    message: string
-    time: string
+    messagesPage: MessagesPageType
 }
 
 const Messages:React.FC<PropsType> = (props) => {
+    const [currentDialog, setCurrentDialog] = useState(false);
+
     return (
-        <div className={classes.messages}>
-            <Dialogs chats={props.chats}/>
-            <Chat messages={props.messages} />
+        <div className={cl.messages}>
+            <Dialogs dialogs={props.messagesPage.dialogs}/>
+            {currentDialog ? <p>Empty Page</p> :
+            <Chat messages={props.messagesPage.messages} />}
         </div>
     );
 };

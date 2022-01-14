@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from "./MessagesHeader.module.css";
+import classes from "./ChatHeader.module.css";
 import userLogo from "../../../../assets/images/userLogo.png";
 import {NavLink} from "react-router-dom";
 
@@ -7,7 +7,7 @@ type PropsType = {
     name: string,
     status: string
 }
-export const MessagesHeader = (props: PropsType) => {
+export const ChatHeader = (props: PropsType) => {
     return (
         <div className={classes.header}>
             <NavLink to={'/profile'}>

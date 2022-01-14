@@ -9,8 +9,9 @@ import {Header} from "./components/header/Header";
 import {Sidebar} from "./components/sidebar/Sidebar";
 
 function App() {
-    let chats = state.sidebar.dialogs;
-    let messages = state.messagesPage.messages;
+    let profilePage = state.profilePage
+    let messagesPage = state.messagesPage;
+    let sidebar = state.sidebar;
     return (
         <div className={'app'}>
             <Header/>
@@ -19,14 +20,10 @@ function App() {
                 <Route path={'/'} element={<Profile/>}/>
                 <Route path={'/:id'} element={<Profile/>}/>
                 <Route path={'/messages'}
-                       element={<Messages
-                           name={'Dmitrii Antonov'} status={'Online'} messages={messages} chats={chats}/>
-                       }
+                       element={<Messages messagesPage={messagesPage}/>}
                 />
                 <Route path={'/messages/:id'}
-                       element={<Messages
-                           name={'Dmitrii Antonov'} status={'Online'} messages={messages} chats={chats}/>
-                       }
+                       element={<Messages messagesPage={messagesPage}/>}
                 />
             </Routes>
             <Sidebar/>

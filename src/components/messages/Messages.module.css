@@ -1,7 +1,8 @@
 .messages {
     grid-area: content;
     background: #efefef;
-    margin: 15px 0;
+    margin-bottom: 15px;
     display: grid;
     grid-template-areas: "dialogs chat";
+    grid-template-columns: 40% 60%;
 }
