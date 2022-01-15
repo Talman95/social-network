@@ -1,24 +1,24 @@
 import React from 'react';
-import classes from './Sidebar.module.css';
-import {NavLink} from "react-router-dom";
-import user from '../../assets/images/userLogo.png';
+import cl from './Sidebar.module.css';
+import {FollowingType} from "../../redux/state";
+import {Friend} from "./Friend/Friend";
 
+type PropsType = {
+    sidebar: FollowingType[]
+}
 
-export const Sidebar: React.FC<any> = (props) => {
+export const Sidebar: React.FC<PropsType> = (props) => {
+
+    const mapFriends = props.sidebar.map(f =>
+        <Friend key={f.id} name={f.name} status={f.status}/>)
+
     return (
-        <div className={classes.sidebar}>
-            <div className={classes.sidebar_tittle}>
-                <h4>Following</h4>
-                <NavLink to="/">
-                    Hide Chat
-                </NavLink>
+        <div className={cl.sidebar}>
+            <div className={cl.sidebar_tittle}>
+                <h4>Following | 3</h4>
             </div>
-
-            <div className={classes.online_list}>
-                <div className={classes.online}>
-                    <img src={user} alt="User logo" />
-                </div>
-                <p>Full Name</p>
+            <div className={cl.online_list}>
+                {mapFriends}
             </div>
         </div>
     );

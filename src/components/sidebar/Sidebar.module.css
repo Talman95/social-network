@@ -12,8 +12,9 @@
 .sidebar_tittle{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 18px;
+
 }
 .sidebar_tittle h4{
     font-weight: 600;
@@ -26,29 +27,6 @@
 }
 .online_list{
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.online_list .online img {
-    width: 40px;
-    border-radius: 50%;
-}
-.online_list .online{
-    width: 40px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
-.online {
-    position: relative;
-}
-.online::after {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    background: #41db51;
-    position: absolute;
-    top: 0;
-    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
 }

@@ -26,7 +26,7 @@ function App() {
                        element={<Messages messagesPage={messagesPage}/>}
                 />
             </Routes>
-            <Sidebar/>
+            <Sidebar sidebar={sidebar}/>
         </div>
     );
 }

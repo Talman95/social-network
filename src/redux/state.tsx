@@ -31,6 +31,8 @@ export type ProfileType = {
 export type FollowingType = {
     id: number
     name: string
+    status: string
+    followed: boolean
 }
 export type MessagesPageType = {
     dialogs: DialogType[]
@@ -70,7 +72,9 @@ let state: RootStateType = {
         ]
     },
     sidebar: [
-        {id:1, name: 'Vitalii Konorov'}
+        {id:1, name: 'Vitalii Konorov', status: 'Hi', followed: true},
+        {id:2, name: 'Vasya Kotlovan', status: 'Hi', followed: true},
+        {id:3, name: 'Sasha Katy', status: 'Hi', followed: true},
     ]
 }
 

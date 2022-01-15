@@ -1,0 +1,33 @@
+.friend {
+    display: flex;
+    margin-bottom: 20px;
+}
+.online img {
+    width: 40px;
+    border-radius: 50%;
+}
+.info p {
+    font-size: 18px;
+}
+.info span {
+    font-size: 12px;
+}
+.online{
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.online {
+    position: relative;
+}
+.online::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #41db51;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
