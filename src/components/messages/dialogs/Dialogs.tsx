@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Dialogs.module.css';
+import cl from './Dialogs.module.css';
 import {MyInput} from "../../UI/input/MyInput";
 import DialogItem from "./dialogItem/DialogItem";
 import {DialogType} from "../../../redux/state";
@@ -10,9 +10,9 @@ type PropsType = {
 
 export const Dialogs: React.FC<PropsType> = (props) => {
     return (
-        <div className={classes.dialogs}>
+        <div className={cl.dialogs}>
             <MyInput/>
-            <div className={classes.chats}>
+            <div className={cl.chats}>
                 {props.dialogs.map(d => {
                     return (
                         <DialogItem id={d.id}

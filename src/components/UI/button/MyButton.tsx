@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './MyButton.module.css';
+import cl from './MyButton.module.css';
 
 type PropsType = {
     children?: React.ReactChild | React.ReactChild[];
@@ -7,7 +7,7 @@ type PropsType = {
 
 export const MyButton = ({children}: PropsType) => {
     return (
-        <button className={classes.myBtn}>
+        <button className={cl.myBtn}>
             {children}
         </button>
     )

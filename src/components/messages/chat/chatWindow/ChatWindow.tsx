@@ -10,14 +10,17 @@ type PropsType = {
 }
 
 export const ChatWindow: React.FC<PropsType> = (props) => {
+
+    const mapMessages = props.messages.map(m => {
+        return (
+            <Message name={m.name} message={m.message} time={m.time}/>
+        )
+    })
+
     return (
         <>
             <div className={cl.chat_window}>
-                {props.messages.map(m => {
-                    return (
-                        <Message name={m.name} message={m.message} time={m.time}/>
-                    )
-                })}
+                {mapMessages}
                 {/*<div className={cl.receiver}>*/}
                 {/*    <span className={cl.receiver_message}>{props.body}</span>*/}
                 {/*    <span className={cl.message_time}>{props.time}</span>*/}

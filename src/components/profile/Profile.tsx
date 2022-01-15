@@ -1,35 +1,35 @@
 import React from 'react';
-import classes from './Profile.module.css';
+import cl from './Profile.module.css';
 import user from '../../assets/images/userLogo.png';
 import {MyButton} from "../UI/button/MyButton";
 
 export const Profile: React.FC<any> = (props) => {
     return (
-        <div className={classes.profile}>
-            <div className={classes.header}>
-                <div className={classes.photo}>
-                    <img src={user}/>
+        <div className={cl.profile}>
+            <div className={cl.header}>
+                <div className={cl.photo}>
+                    <img src={user} alt={'User'}/>
                     <MyButton>Edit</MyButton>
-                    <div className={classes.job}>
+                    <div className={cl.job}>
                         <input type={'checkbox'} checked={true}/> <span>Ищу работу</span>
                     </div>
                 </div>
-                <div className={classes.info}>
-                    <div className={classes.about}>
-                        <span className={classes.name}>Roman Talman</span>
-                        <span className={classes.online}>Online</span>
+                <div className={cl.info}>
+                    <div className={cl.about}>
+                        <span className={cl.name}>Roman Talman</span>
+                        <span className={cl.online}>Online</span>
                     </div>
-                    <span className={classes.status}>Set the status</span>
+                    <span className={cl.status}>Set the status</span>
                 </div>
             </div>
 
-            <div className={classes.write_post_container}>
-                <div className={classes.user_profile}>
+            <div className={cl.write_post_container}>
+                <div className={cl.user_profile}>
                     <img src={user} alt=""/>
                 </div>
-                <div className={classes.post_input_container}>
+                <div className={cl.post_input_container}>
                     <textarea rows={3} placeholder={"How you doin?"}></textarea>
-                    <div className={classes.add_post_button}>
+                    <div className={cl.add_post_button}>
                         <MyButton>Add a post</MyButton>
                     </div>
                 </div>
