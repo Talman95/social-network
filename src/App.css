@@ -16,7 +16,7 @@ a {
     grid-template-areas:
     "header header header"
     "nav content sidebar";
-    grid-template-columns: 15% 1fr 20%;
+    grid-template-columns: 15% 1fr 25%;
     grid-template-rows: 52px 1fr;
     grid-gap: 15px;
     height: 100vh;
