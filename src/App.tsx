@@ -17,8 +17,7 @@ function App() {
             <Header/>
             <Nav/>
             <Routes>
-                <Route path={'/'} element={<Profile/>}/>
-                <Route path={'/:id'} element={<Profile/>}/>
+                <Route path={'/profile'} element={<Profile posts={profilePage.posts}/>}/>
                 <Route path={'/messages'}
                        element={<Messages messagesPage={messagesPage}/>}
                 />
