@@ -1,7 +1,7 @@
 .nav {
     grid-area: nav;
     position: sticky;
-    padding: 15%;
+    padding-left: 15%;
 }
 .links a {
     text-decoration: none;

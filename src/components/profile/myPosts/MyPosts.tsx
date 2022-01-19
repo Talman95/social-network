@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from "../Profile.module.css";
+import cl from "./MyPosts.module.css";
 import user from "../../../assets/images/userLogo.png";
 import {MyButton} from "../../UI/button/MyButton";
 import {Post} from "./post/Post";
@@ -17,7 +17,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
                                                   likesCount={p.likesCount}/>)
 
     return (
-        <>
+        <div className={cl.my_posts}>
             <div className={cl.write_post_container}>
                 <div className={cl.user_profile}>
                     <img src={user} alt="user"/>
@@ -34,6 +34,6 @@ export const MyPosts: React.FC<PropsType> = (props) => {
                 </div>
             </div>
             {mapToPosts}
-        </>
+        </div>
     );
 };

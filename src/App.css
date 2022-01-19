@@ -18,7 +18,7 @@ a {
     "nav content sidebar";
     grid-template-columns: 15% 1fr 25%;
     grid-template-rows: 52px 1fr;
-    grid-gap: 15px;
+    grid-gap: 25px;
     height: 100vh;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 0 1rem 0.05rem rgba(0,0,0,0.2);

@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from "../../Profile.module.css";
+import cl from "./Post.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
 import comments from "../../../../assets/images/like.png";
