@@ -1,8 +1,26 @@
 .myBtn {
-    padding: 5px 15px;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
     background: #1876f2;
     cursor: pointer;
     border-style: none;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    padding: 6px 10px;
+    border-radius: 3px;
+}
+.myBtn:active {
+    box-shadow: 0 0 0 1px #1876f2;
+}
+.myBtn:hover {
+    background: #3e8df4;
+}
+.myBtn img{
+    height: 15px;
+    margin-right: 10px;
+}
+.follow {
+    background: #e4e6eb;
+    color: #000;
 }

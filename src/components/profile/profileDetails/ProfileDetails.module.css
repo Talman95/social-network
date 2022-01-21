@@ -1,0 +1,37 @@
+.details {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-between;
+}
+.left_row {
+    display: flex;
+    align-items: flex-start;
+}
+.profile_image {
+    width: 150px;
+    margin-right: 20px;
+    border-radius: 6px;
+}
+.left_row div h3 {
+    font-size: 25px;
+    font-weight: 600;
+}
+.left_row div p {
+    font-size: 13px;
+    cursor: pointer;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    color: #626262;
+    background: transparent; /* Цвет фона */
+    padding: 2px; /* Поля вокруг текста */
+    transition: 0.5s linear; /* Время изменения */
+}
+.left_row div p:hover{
+    background: #efefef;
+    padding: 10px;
+    background: #efefef;
+}

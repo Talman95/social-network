@@ -2,7 +2,7 @@ import React from 'react';
 import cl from './Profile.module.css';
 import {MyPosts} from "./myPosts/MyPosts";
 import {PostType} from "../../redux/state";
-import {ProfileInfo} from "./profileInfo/ProfileInfo";
+import {ProfileDetails} from "./profileDetails/ProfileDetails";
 
 type PropsType = {
     posts: PostType[]
@@ -10,8 +10,8 @@ type PropsType = {
 
 export const Profile: React.FC<PropsType> = (props) => {
     return (
-        <div className={cl.profile}>
-            <ProfileInfo />
+        <div className={cl.profile_container}>
+            <ProfileDetails/>
             <MyPosts posts={props.posts}/>
         </div>
     );

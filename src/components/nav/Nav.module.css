@@ -1,7 +1,9 @@
 .nav {
     grid-area: nav;
     position: sticky;
-    padding-left: 15%;
+    top: 70px;
+    z-index: 100;
+    align-self: flex-start;
 }
 .links a {
     text-decoration: none;
@@ -11,7 +13,7 @@
     padding-bottom: 15px;
     padding-left: 15px;
     color: #626262;
-    width: 80%;
+    width: 85%;
 }
 .item {
     display: inline-block;
@@ -23,14 +25,9 @@
     background-color: #1876f2;
     transition-duration: 500ms;
     border-radius: 10px;
-    width: 80%;
+    width: 85%;
     cursor: pointer;
     color: #fff;
-}
-.active {
-    color: #fff;
-    font-size: 20px;
-    border-bottom: #fff;
 }
 .item:after {
     content: '';
@@ -39,9 +36,10 @@
     background-color: #fff;
     top: 35px;
     width: 0;
-    height: 4px;
-    transition: width .3s ease-in;
+    height: 2px;
+    /*transition: width .3s ease-in;*/
+    transition: width 0.5s;
 }
 .item:hover:after {
-    width: 80%;
+    width: 60%;
 }

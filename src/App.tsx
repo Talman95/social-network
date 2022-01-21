@@ -15,17 +15,18 @@ function App() {
     return (
         <div className={'app'}>
             <Header/>
-            <Nav/>
-            <Routes>
-                <Route path={'/profile'} element={<Profile posts={profilePage.posts}/>}/>
-                <Route path={'/messages'}
-                       element={<Messages messagesPage={messagesPage}/>}
-                />
-                <Route path={'/messages/:id'}
-                       element={<Messages messagesPage={messagesPage}/>}
-                />
-            </Routes>
-            <Sidebar sidebar={sidebar}/>
+            <div className={'content'}>
+                <Nav/>
+                <Routes>
+                    <Route path={'/profile'} element={<Profile posts={profilePage.posts}/>}/>
+                    <Route path={'/messages'}
+                           element={<Messages messagesPage={messagesPage}/>}
+                    />
+                    <Route path={'/messages/:id'}
+                           element={<Messages messagesPage={messagesPage}/>}
+                    />
+                </Routes>
+            </div>
         </div>
     );
 }

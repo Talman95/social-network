@@ -68,6 +68,11 @@ let state: RootStateType = {
             userId: 2, fullName: 'Roman Talman', photosLarge: 'null'
         },
         posts: [
+            {id: 1, message: 'Hello everyone', likesCount: 45},
+            {id: 1, message: 'Hello everyone', likesCount: 45},
+            {id: 1, message: 'Hello everyone', likesCount: 45},
+            {id: 1, message: 'Hello everyone', likesCount: 45},
+            {id: 1, message: 'Hello everyone', likesCount: 45},
             {id: 1, message: 'Hello everyone', likesCount: 45}
         ]
     },

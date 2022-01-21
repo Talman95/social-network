@@ -8,11 +8,8 @@ type PropsType = {
 
 export const MyInput = ({children}: PropsType) => {
     return (
-        <div className={cl.search_box}>
-            <div className={cl.search_button}>
-                <img src={search} alt="search button"/>
-            </div>
-            <input type="text" placeholder="Search here...">{children}</input>
+        <div className={cl.myInput}>
+            <input type="text" placeholder="Search">{children}</input>
         </div>
     );
 };

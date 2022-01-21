@@ -23,7 +23,6 @@ export const MyPosts: React.FC<PropsType> = (props) => {
                     <img src={user} alt="user"/>
                     <div>
                         <p>Roman Talmanof</p>
-                        <span className={cl.status}>Set the status</span>
                     </div>
                 </div>
                 <div className={cl.post_input_container}>

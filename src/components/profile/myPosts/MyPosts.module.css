@@ -1,5 +1,5 @@
 .my_posts {
-    grid-area: my_posts;
+    margin-top: 15px;
 }
 .write_post_container {
     width: 100%;

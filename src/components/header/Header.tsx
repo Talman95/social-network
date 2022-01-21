@@ -10,7 +10,7 @@ export const Header = () => {
             <div className={cl.header_user_icon}>
                 <a href={'/profile'}>
                     <img src={user} alt="User"/>
-                    <p>Talman Roman</p>
+                    <p className={cl.name}>Talman Roman</p>
                 </a>
             </div>
 
