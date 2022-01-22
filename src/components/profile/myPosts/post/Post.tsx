@@ -2,7 +2,7 @@ import React from 'react';
 import cl from "./Post.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
-import comments from "../../../../assets/images/like.png";
+import comments from "../../../../assets/images/comments.png";
 
 type PropsType = {
     id: number
@@ -10,7 +10,7 @@ type PropsType = {
     likesCount: number
 }
 
-export const Post:React.FC<PropsType> = (props) => {
+export const Post:React.FC<PropsType> = ({message, likesCount}) => {
     return (
         <div className={cl.post_container}>
             <div className={cl.user_profile}>
@@ -21,11 +21,11 @@ export const Post:React.FC<PropsType> = (props) => {
                 </div>
             </div>
 
-            <p className={cl.post_text}>Something text</p>
+            <p className={cl.post_text}>{message}</p>
 
             <div className={cl.post_row}>
                 <div className={cl.activity_icons}>
-                    <div><img src={like} alt="like" />5</div>
+                    <div><img src={like} alt="like" />{likesCount}</div>
                     <div><img src={comments} alt="comments" />2</div>
                 </div>
             </div>

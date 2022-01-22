@@ -1,5 +1,3 @@
-
-
 /* TYPE OF DATA */
 export type MessageType = {
     id: number
@@ -46,7 +44,6 @@ export type ProfilePageType = {
 type RootStateType = {
     profilePage: ProfilePageType
     messagesPage: MessagesPageType
-    sidebar: FollowingType[]
 }
 
 let state: RootStateType = {
@@ -57,7 +54,12 @@ let state: RootStateType = {
             {id: 3, name: 'Dariya Bugaeva', lastMessage: 'Merry Christmas', notice: 2, time: '23:07'}
         ],
         messages: [
-            {id: 1, name: 'Dmitrii Antonov', message: 'Hello! How are you? When are you start to learn react?', time: '22:22'},
+            {
+                id: 1,
+                name: 'Dmitrii Antonov',
+                message: 'Hello! How are you? When are you start to learn react?',
+                time: '22:22'
+            },
             {id: 2, name: 'Dmitrii Antonov', message: 'Hi! We will start after the new year. 3 january', time: '22:24'},
             {id: 3, name: 'Dmitrii Antonov', message: 'Yo, cooool', time: '22:28'},
             {id: 4, name: 'Dmitrii Antonov', message: 'Yes, it\'s awesome!', time: '22:30'}
@@ -68,19 +70,17 @@ let state: RootStateType = {
             userId: 2, fullName: 'Roman Talman', photosLarge: 'null'
         },
         posts: [
-            {id: 1, message: 'Hello everyone', likesCount: 45},
-            {id: 1, message: 'Hello everyone', likesCount: 45},
-            {id: 1, message: 'Hello everyone', likesCount: 45},
-            {id: 1, message: 'Hello everyone', likesCount: 45},
-            {id: 1, message: 'Hello everyone', likesCount: 45},
-            {id: 1, message: 'Hello everyone', likesCount: 45}
+            {id: 4, message: 'Hi, how are you?', likesCount: 12},
+            {id: 3, message: 'Yo yo yo!!!', likesCount: 11},
+            {id: 2, message: 'Hello everyone!', likesCount: 7},
+            {id: 1, message: 'It\'s my first post', likesCount: 28}
         ]
-    },
-    sidebar: [
-        {id:1, name: 'Vitalii Konorov', status: 'Hi', followed: true},
-        {id:2, name: 'Vasya Kotlovan', status: 'Hi', followed: true},
-        {id:3, name: 'Sasha Katy', status: 'Hi', followed: true},
-    ]
+    }
+}
+
+export const addPostFromState = (message: string) => {
+    let newPost = {id: 5, message: message, likesCount: 0};
+    state.profilePage.posts.unshift(newPost);
 }
 
 export default state;

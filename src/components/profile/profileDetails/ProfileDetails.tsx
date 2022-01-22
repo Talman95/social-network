@@ -20,8 +20,14 @@ export const ProfileDetails: React.FC<any> = (props) => {
                 </div>
             </div>
             <div className={cl.right_pd}>
-                <MyButton><img src={follow} alt={'Follow button'}/>Follow</MyButton>
-                <MyButton><img src={message} alt={'Start to message button'}/>Message</MyButton>
+                <MyButton callback={() => console.log('Follow')}>
+                    <img src={follow} alt={'Follow button'}/>
+                    Follow
+                </MyButton>
+                <MyButton callback={() => console.log('Message')}>
+                    <img src={message} alt={'Start to message button'}/>
+                    Message
+                </MyButton>
             </div>
         </div>
     );

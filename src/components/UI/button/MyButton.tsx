@@ -3,11 +3,15 @@ import cl from './MyButton.module.css';
 
 type PropsType = {
     children?: React.ReactChild | React.ReactChild[];
+    callback: () => void
 };
 
-export const MyButton = ({children}: PropsType) => {
+export const MyButton: React.FC<PropsType> = ({children, callback}) => {
+    const onClickHandler = () => {
+        callback();
+    }
     return (
-        <button className={cl.myBtn}>
+        <button onClick={() => onClickHandler()} className={cl.myBtn}>
             {children}
         </button>
     )

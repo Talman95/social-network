@@ -33,7 +33,7 @@ export const ChatWindow: React.FC<PropsType> = (props) => {
                         <img src={smile} alt={'smile'}/>
                     </div>
                     <div>
-                        <MyButton>Send</MyButton>
+                        <MyButton callback={() => console.log('Send')}>Send</MyButton>
                     </div>
                 </div>
             </div>
