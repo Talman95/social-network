@@ -26,7 +26,7 @@ export const Post:React.FC<PropsType> = ({message, likesCount}) => {
             <div className={cl.post_row}>
                 <div className={cl.activity_icons}>
                     <div><img src={like} alt="like" />{likesCount}</div>
-                    <div><img src={comments} alt="comments" />2</div>
+                    <div><img src={comments} alt="comments" />0</div>
                 </div>
             </div>
         </div>

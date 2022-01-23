@@ -6,7 +6,9 @@ import {WriteField} from "./writeField/WriteField";
 
 type PropsType = {
     posts: PostType[]
-    addPost: (message: string) => void
+    addPost: () => void
+    postMessage: string
+    updatePostMessage: (postMessage: string) => void
 }
 
 export const MyPosts: React.FC<PropsType> = (props) => {
@@ -19,7 +21,10 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 
     return (
         <div className={cl.my_posts}>
-            <WriteField addPost={props.addPost}/>
+            <WriteField addPost={props.addPost}
+                        postMessage={props.postMessage}
+                        updatePostMessage={props.updatePostMessage}
+            />
             {mapToPosts}
         </div>
     );

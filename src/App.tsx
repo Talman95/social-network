@@ -1,7 +1,7 @@
 import React from 'react';
 import Messages from "./components/messages/Messages";
 import './App.css';
-import state, {addPostFromState} from './redux/state';
+import state, {addPost, updatePostMessage} from './redux/state';
 import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/profile/Profile";
 import {Nav} from "./components/nav/Nav";
@@ -17,7 +17,9 @@ function App() {
                 <Nav/>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile posts={profilePage.posts} addPost={addPostFromState}
+                           element={<Profile profilePage={profilePage}
+                                             addPost={addPost}
+                                             updatePostMessage={updatePostMessage}
                            />}
                     />
                     <Route path={'/messages'}

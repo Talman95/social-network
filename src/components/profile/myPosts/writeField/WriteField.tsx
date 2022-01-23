@@ -4,18 +4,23 @@ import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
 
 type PropsType = {
-    addPost: (message: string) => void
+    addPost: () => void
+    postMessage: string
+    updatePostMessage: (postMessage: string) => void
 }
 
 export const WriteField: React.FC<PropsType> = (props) => {
-    const [message, setMessage] = useState<string>('');
+    // const [message, setMessage] = useState<string>(props.postMessage);
+    // const onTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     setMessage(e.currentTarget.value);
+    // }
 
-    const onTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setMessage(e.currentTarget.value);
+    const updateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updatePostMessage(e.currentTarget.value);
     }
+
     const addPost = () => {
-        props.addPost(message);
-        setMessage('');
+        props.addPost();
     }
 
     return (
@@ -27,8 +32,10 @@ export const WriteField: React.FC<PropsType> = (props) => {
                 </div>
             </div>
             <div className={cl.post_input_container}>
-                <textarea rows={3} placeholder={"How you doin?"} value={message}
-                          onChange={onTextChangeHandler}></textarea>
+                <textarea rows={3} placeholder={"How you doin?"}
+                          value={props.postMessage}
+                          onChange={updateMessageHandler}
+                />
                 <div className={cl.add_post_button}>
                     <MyButton callback={() => addPost()}>Add a post</MyButton>
                 </div>
