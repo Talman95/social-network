@@ -10,16 +10,12 @@ type PropsType = {
 }
 
 export const WriteField: React.FC<PropsType> = (props) => {
-    // const [message, setMessage] = useState<string>(props.postMessage);
-    // const onTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     setMessage(e.currentTarget.value);
-    // }
 
     const updateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updatePostMessage(e.currentTarget.value);
     }
 
-    const addPost = () => {
+    const addPostHandler = () => {
         props.addPost();
     }
 
@@ -37,7 +33,7 @@ export const WriteField: React.FC<PropsType> = (props) => {
                           onChange={updateMessageHandler}
                 />
                 <div className={cl.add_post_button}>
-                    <MyButton callback={() => addPost()}>Add a post</MyButton>
+                    <MyButton callback={addPostHandler}>Add a post</MyButton>
                 </div>
             </div>
         </div>

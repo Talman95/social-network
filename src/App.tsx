@@ -6,6 +6,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/profile/Profile";
 import {Nav} from "./components/nav/Nav";
 import {Header} from "./components/header/Header";
+import {Users} from "./components/users/Users";
 
 function App() {
     let profilePage = state.profilePage
@@ -28,6 +29,7 @@ function App() {
                     <Route path={'/messages/:id'}
                            element={<Messages messagesPage={messagesPage}/>}
                     />
+                    <Route path={'/users'} element={<Users />} />
                 </Routes>
             </div>
         </div>

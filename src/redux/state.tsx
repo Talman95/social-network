@@ -83,7 +83,11 @@ let state: RootStateType = {
 }
 
 export const addPost = () => {
-    let newPost = {id: 5, message: state.profilePage.postMessage, likesCount: 0};
+    let newPost = {
+        id: new Date().getTime(),
+        message: state.profilePage.postMessage,
+        likesCount: 0
+    };
     state.profilePage.posts.unshift(newPost);
     state.profilePage.postMessage = '';
     rerenderEntireTree(state);
