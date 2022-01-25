@@ -1,0 +1,45 @@
+.item {
+    background: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.item:hover {
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+    border: 1px solid #1876f2;
+}
+
+.leftSide {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.photo img {
+    border-radius: 50%;
+    width: 100px;
+}
+
+.description {
+    margin-left: 20px;
+}
+
+.item .leftSide .description h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.item .leftSide .description p {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.rightSide {
+    margin-left: 25px;
+}
+
+.rightSide button {
+    width: 80px;
+}

@@ -2,25 +2,3 @@
     color: #626262;
     grid-area: content;
 }
-
-.item {
-    background: #fff;
-    margin-bottom: 10px;
-}
-.container .leftSide img {
-    border-radius: 50%;
-    width: 100px;
-}
-.item {
-    display: flex;
-    padding: 5px;
-}
-.container .item .leftSide button {
-    text-align: center;
-    width: 80px;
-}
-.container .item .leftSide {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-}
