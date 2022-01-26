@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from "./Chat.module.css";
-import {ChatHeader} from "./chatHeader/ChatHeader";
-import {ChatWindow} from "./chatWindow/ChatWindow";
+import {ChatHeader} from "./ChatHeader/ChatHeader";
+import {ChatWindow} from "./ChatWindow/ChatWindow";
 import {MessageType} from "../../../redux/state";
 
 type PropsType = {

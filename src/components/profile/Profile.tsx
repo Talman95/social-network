@@ -1,8 +1,8 @@
 import React from 'react';
 import cl from './Profile.module.css';
-import {MyPosts} from "./myPosts/MyPosts";
-import {PostType, ProfilePageType, updatePostMessage} from "../../redux/state";
-import {ProfileDetails} from "./profileDetails/ProfileDetails";
+import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfilePageType} from "../../redux/state";
+import {ProfileDetails} from "./ProfileDetails/ProfileDetails";
 
 type PropsType = {
     profilePage: ProfilePageType

@@ -1,8 +1,8 @@
 import React from 'react';
 import cl from "./MyPosts.module.css";
-import {Post} from "./post/Post";
+import {Post} from "./Post/Post";
 import {PostType} from "../../../redux/state";
-import {WriteField} from "./writeField/WriteField";
+import {WriteField} from "./WriteField/WriteField";
 
 type PropsType = {
     posts: PostType[]

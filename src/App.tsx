@@ -1,12 +1,12 @@
 import React from 'react';
-import Messages from "./components/messages/Messages";
+import Messages from "./components/Messages/Messages";
 import './App.css';
 import state, {addPost, updatePostMessage} from './redux/state';
 import {Route, Routes} from 'react-router-dom';
-import {Profile} from "./components/profile/Profile";
-import {Nav} from "./components/nav/Nav";
-import {Header} from "./components/header/Header";
-import {Users} from "./components/users/Users";
+import {Profile} from "./components/Profile/Profile";
+import {Nav} from "./components/Nav/Nav";
+import {Header} from "./components/Header/Header";
+import {Users} from "./components/Users/Users";
 
 function App() {
     let profilePage = state.profilePage

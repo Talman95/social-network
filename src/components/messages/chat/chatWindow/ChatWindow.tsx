@@ -2,7 +2,7 @@ import React from 'react';
 import cl from "./ChatWindow.module.css";
 import smile from "../../../../assets/images/smile.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {Message} from "./message/Message";
+import {Message} from "./Message/Message";
 import {MessageType} from "../../../../redux/state";
 
 type PropsType = {

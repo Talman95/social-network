@@ -1,6 +1,6 @@
 import React from 'react';
 import cl from './Users.module.css';
-import {User} from "./user/User";
+import {User} from "./User/User";
 
 
 export const Users: React.FC<any> = (props) => {
