@@ -1,10 +1,10 @@
 import React from 'react';
-import state, {subscribe} from "./redux/state";
+import store from "./redux/state";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 
-let rerenderEntireTree = (state: any) => {
+let rerenderEntireTree = (store: any) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
@@ -15,6 +15,6 @@ let rerenderEntireTree = (state: any) => {
     );
 }
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState());
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree);

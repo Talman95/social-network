@@ -13,7 +13,7 @@ export const ChatWindow: React.FC<PropsType> = (props) => {
 
     const mapMessages = props.messages.map(m => {
         return (
-            <Message name={m.name} message={m.message} time={m.time}/>
+            <Message key={m.id} name={m.name} message={m.message} time={m.time}/>
         )
     })
 

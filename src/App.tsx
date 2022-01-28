@@ -1,7 +1,7 @@
 import React from 'react';
 import Messages from "./components/Messages/Messages";
 import './App.css';
-import state, {addPost, updatePostMessage} from './redux/state';
+import store from './redux/state';
 import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Nav} from "./components/Nav/Nav";
@@ -9,8 +9,7 @@ import {Header} from "./components/Header/Header";
 import {Users} from "./components/Users/Users";
 
 function App() {
-    let profilePage = state.profilePage
-    let messagesPage = state.messagesPage;
+    let state = store.getState();
     return (
         <div className={'app'}>
             <Header/>
@@ -18,16 +17,16 @@ function App() {
                 <Nav/>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={profilePage}
-                                             addPost={addPost}
-                                             updatePostMessage={updatePostMessage}
+                           element={<Profile profilePage={state.profilePage}
+                                             addPost={store.addPost.bind(store)}
+                                             updatePostMessage={store.updatePostMessage.bind(store)}
                            />}
                     />
                     <Route path={'/messages'}
-                           element={<Messages messagesPage={messagesPage}/>}
+                           element={<Messages messagesPage={state.messagesPage}/>}
                     />
                     <Route path={'/messages/:id'}
-                           element={<Messages messagesPage={messagesPage}/>}
+                           element={<Messages messagesPage={state.messagesPage}/>}
                     />
                     <Route path={'/users'} element={<Users />} />
                 </Routes>

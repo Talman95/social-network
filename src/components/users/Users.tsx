@@ -8,7 +8,7 @@ export const Users: React.FC<any> = (props) => {
         {name: 'Dmitrii Antonov', status: 'Hi'},
         {name: 'Dmitrii Antonov', status: 'Hi'}
     ]
-    const mappedUsers = users.map(u => <User user={u}/>)
+    const mappedUsers = users.map((u, index) => <User key={index} user={u}/>)
 
     return (
         <div className={cl.container}>
