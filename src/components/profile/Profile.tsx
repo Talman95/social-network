@@ -6,8 +6,7 @@ import {ProfileDetails} from "./ProfileDetails/ProfileDetails";
 
 type PropsType = {
     profilePage: ProfilePageType
-    addPost: () => void
-    updatePostMessage: (postMessage: string) => void
+    dispatch: any
 }
 
 export const Profile: React.FC<PropsType> = (props) => {
@@ -15,9 +14,8 @@ export const Profile: React.FC<PropsType> = (props) => {
         <div className={cl.profile_container}>
             <ProfileDetails/>
             <MyPosts posts={props.profilePage.posts}
-                     addPost={props.addPost}
+                     dispatch={props.dispatch}
                      postMessage={props.profilePage.postMessage}
-                     updatePostMessage={props.updatePostMessage}
             />
         </div>
     );

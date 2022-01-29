@@ -18,8 +18,7 @@ function App() {
                 <Routes>
                     <Route path={'/profile'}
                            element={<Profile profilePage={state.profilePage}
-                                             addPost={store.addPost.bind(store)}
-                                             updatePostMessage={store.updatePostMessage.bind(store)}
+                                             dispatch={store.dispatch.bind(store)}
                            />}
                     />
                     <Route path={'/messages'}
