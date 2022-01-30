@@ -1,4 +1,5 @@
-/* TYPE OF DATA */
+const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
+const ADD_POST = 'ADD_POST';
 
 export type MessageType = {
     id: number
@@ -102,5 +103,10 @@ let store = {
         }
     }
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updateMessageActionCreator = (newMessage: string) => (
+    {type: UPDATE_POST_MESSAGE, postMessage: newMessage}
+)
 
 export default store;

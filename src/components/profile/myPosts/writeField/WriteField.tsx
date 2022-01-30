@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
+import {addPostActionCreator, updateMessageActionCreator} from "../../../../redux/state";
 
 type PropsType = {
     postMessage: string
@@ -12,11 +13,11 @@ export const WriteField: React.FC<PropsType> = (props) => {
 
     const onUpdateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = e.currentTarget.value;
-        props.dispatch({type: 'UPDATE_POST_MESSAGE', postMessage: newMessage})
+        props.dispatch(updateMessageActionCreator(newMessage));
     }
 
     const onAddPostHandler = () => {
-        props.dispatch({type: 'ADD_POST'})
+        props.dispatch(addPostActionCreator());
     }
 
     return (
