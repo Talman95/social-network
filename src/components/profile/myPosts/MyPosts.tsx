@@ -16,6 +16,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
                                                   id={p.id}
                                                   message={p.message}
                                                   likesCount={p.likesCount}
+                                                  dispatch={props.dispatch}
     />)
 
     return (

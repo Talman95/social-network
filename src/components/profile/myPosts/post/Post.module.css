@@ -39,3 +39,7 @@
     margin-right: 30px;
     cursor: pointer;
 }
+.user_header {
+    display: flex;
+    justify-content: space-between;
+}

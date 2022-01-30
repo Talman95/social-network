@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
@@ -20,6 +20,12 @@ export const WriteField: React.FC<PropsType> = (props) => {
         props.dispatch(addPostActionCreator());
     }
 
+    const onEnterPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            onAddPostHandler();
+        }
+    }
+
     return (
         <div className={cl.write_post_container}>
             <div className={cl.user_profile}>
@@ -29,9 +35,10 @@ export const WriteField: React.FC<PropsType> = (props) => {
                 </div>
             </div>
             <div className={cl.post_input_container}>
-                <textarea rows={3} placeholder={"How you doin?"}
+                <textarea rows={5} placeholder={"How you doin?"}
                           value={props.postMessage}
                           onChange={onUpdateMessageHandler}
+                          onKeyPress={onEnterPressHandler}
                 />
                 <div className={cl.add_post_button}>
                     <MyButton callback={onAddPostHandler}>

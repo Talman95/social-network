@@ -1,5 +1,6 @@
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const ADD_POST = 'ADD_POST';
+const DELETE_POST = 'DELETE_POST';
 
 export type MessageType = {
     id: number
@@ -60,7 +61,12 @@ let store = {
                     message: 'Hello! How are you? When are you start to learn react?',
                     time: '22:22'
                 },
-                {id: 2, name: 'Dmitrii Antonov', message: 'Hi! We will start after the new year. 3 january', time: '22:24'},
+                {
+                    id: 2,
+                    name: 'Dmitrii Antonov',
+                    message: 'Hi! We will start after the new year. 3 january',
+                    time: '22:24'
+                },
                 {id: 3, name: 'Dmitrii Antonov', message: 'Yo, cooool', time: '22:28'},
                 {id: 4, name: 'Dmitrii Antonov', message: 'Yes, it\'s awesome!', time: '22:30'}
             ]
@@ -78,7 +84,8 @@ let store = {
             postMessage: ''
         }
     },
-    _callSubscriber(state: any) {},
+    _callSubscriber(state: any) {
+    },
 
     getState() {
         return this._state;
@@ -88,7 +95,7 @@ let store = {
     },
 
     dispatch(action: any) {
-        if (action.type === 'ADD_POST') {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: new Date().getTime(),
                 message: this.getState().profilePage.postMessage,
@@ -97,8 +104,11 @@ let store = {
             this._state.profilePage.posts.unshift(newPost);
             this._state.profilePage.postMessage = '';
             this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE_POST_MESSAGE') {
+        } else if (action.type === UPDATE_POST_MESSAGE) {
             this._state.profilePage.postMessage = action.postMessage;
+            this._callSubscriber(this._state);
+        } else if (action.type === DELETE_POST) {
+            this._state.profilePage.posts = this._state.profilePage.posts.filter(p => p.id !== action.postId);
             this._callSubscriber(this._state);
         }
     }
@@ -108,5 +118,6 @@ export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateMessageActionCreator = (newMessage: string) => (
     {type: UPDATE_POST_MESSAGE, postMessage: newMessage}
 )
+export const deletePostActionCreator = (postId: number) => ({type: DELETE_POST, postId: postId})
 
 export default store;
