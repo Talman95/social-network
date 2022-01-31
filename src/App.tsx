@@ -1,15 +1,19 @@
 import React from 'react';
 import Messages from "./components/Messages/Messages";
 import './App.css';
-import store from './redux/state';
+import {StoreType} from './redux/state';
 import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Nav} from "./components/Nav/Nav";
 import {Header} from "./components/Header/Header";
 import {Users} from "./components/Users/Users";
 
-function App() {
-    let state = store.getState();
+type AppPropsType = {
+    store: StoreType
+}
+
+const App:React.FC<AppPropsType> = (props) => {
+    let state = props.store.getState();
     return (
         <div className={'app'}>
             <Header/>
@@ -18,7 +22,7 @@ function App() {
                 <Routes>
                     <Route path={'/profile'}
                            element={<Profile profilePage={state.profilePage}
-                                             dispatch={store.dispatch.bind(store)}
+                                             dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                     <Route path={'/messages'}

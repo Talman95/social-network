@@ -1,12 +1,12 @@
 import React from 'react';
 import cl from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import {ActionTypes, PostType} from "../../../redux/state";
 import {WriteField} from "./WriteField/WriteField";
 
 type PropsType = {
     posts: PostType[]
-    dispatch: any
+    dispatch: (action: ActionTypes) => void
     postMessage: string
 }
 

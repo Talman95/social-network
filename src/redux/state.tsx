@@ -40,13 +40,21 @@ export type ProfilePageType = {
     posts: PostType[]
     postMessage: string
 }
-
-type RootStateType = {
+export type RootStateType = {
     profilePage: ProfilePageType
     messagesPage: MessagesPageType
 }
 
-let store = {
+
+export type StoreType = {
+    _state: RootStateType
+    _callSubscriber: () => void
+    getState: () => RootStateType
+    subscribe: (callback: () => void) => void
+    dispatch: (action: ActionTypes) => void
+}
+
+let store: StoreType = {
     _state: {
         messagesPage: {
             dialogs: [
@@ -84,7 +92,7 @@ let store = {
             postMessage: ''
         }
     },
-    _callSubscriber(state: any) {
+    _callSubscriber() {
     },
 
     getState() {
@@ -103,21 +111,28 @@ let store = {
             };
             this._state.profilePage.posts.unshift(newPost);
             this._state.profilePage.postMessage = '';
-            this._callSubscriber(this._state);
+            this._callSubscriber();
         } else if (action.type === UPDATE_POST_MESSAGE) {
             this._state.profilePage.postMessage = action.postMessage;
-            this._callSubscriber(this._state);
+            this._callSubscriber();
         } else if (action.type === DELETE_POST) {
             this._state.profilePage.posts = this._state.profilePage.posts.filter(p => p.id !== action.postId);
-            this._callSubscriber(this._state);
+            this._callSubscriber();
         }
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateMessageActionCreator = (newMessage: string) => (
-    {type: UPDATE_POST_MESSAGE, postMessage: newMessage}
-)
-export const deletePostActionCreator = (postId: number) => ({type: DELETE_POST, postId: postId})
+export type ActionTypes =
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateMessageAC> |
+    ReturnType<typeof deletePostAC>;
+
+export const addPostAC = () => ({type: 'ADD_POST'} as const);
+export const updateMessageAC = (newMessage: string) => (
+    {type: UPDATE_POST_MESSAGE, postMessage: newMessage} as const
+);
+export const deletePostAC = (postId: number) => (
+    {type: DELETE_POST, postId: postId} as const
+);
 
 export default store;

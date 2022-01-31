@@ -4,18 +4,18 @@ import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
 import comments from "../../../../assets/images/comments.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {deletePostActionCreator} from "../../../../redux/state";
+import {ActionTypes, deletePostAC} from "../../../../redux/state";
 
 type PropsType = {
     id: number
     message: string
     likesCount: number
-    dispatch: any
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Post: React.FC<PropsType> = ({id, message, likesCount, ...restProps}) => {
     const onDeletePostHandler = (postId: number) => {
-        restProps.dispatch(deletePostActionCreator(postId));
+        restProps.dispatch(deletePostAC(postId));
     }
 
     return (

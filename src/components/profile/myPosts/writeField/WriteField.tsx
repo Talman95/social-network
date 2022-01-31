@@ -2,22 +2,22 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {addPostActionCreator, updateMessageActionCreator} from "../../../../redux/state";
+import {ActionTypes, addPostAC, updateMessageAC} from "../../../../redux/state";
 
 type PropsType = {
     postMessage: string
-    dispatch: any
+    dispatch: (action: ActionTypes) => void
 }
 
 export const WriteField: React.FC<PropsType> = (props) => {
 
     const onUpdateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = e.currentTarget.value;
-        props.dispatch(updateMessageActionCreator(newMessage));
+        props.dispatch(updateMessageAC(newMessage));
     }
 
     const onAddPostHandler = () => {
-        props.dispatch(addPostActionCreator());
+        props.dispatch(addPostAC());
     }
 
     const onEnterPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
