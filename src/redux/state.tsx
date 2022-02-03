@@ -1,6 +1,8 @@
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
+const SEND_MESSAGE = 'SEND_MESSAGE';
+const UPDATE_MESSAGE_BODY = 'UPDATE_MESSAGE_BODY';
 
 export type MessageType = {
     id: number
@@ -34,6 +36,7 @@ export type FollowingType = {
 export type MessagesPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    messageBody: string
 }
 export type ProfilePageType = {
     profile: ProfileType
@@ -77,7 +80,8 @@ let store: StoreType = {
                 },
                 {id: 3, name: 'Dmitrii Antonov', message: 'Yo, cooool', time: '22:28'},
                 {id: 4, name: 'Dmitrii Antonov', message: 'Yes, it\'s awesome!', time: '22:30'}
-            ]
+            ],
+            messageBody: ''
         },
         profilePage: {
             profile: {
@@ -118,6 +122,19 @@ let store: StoreType = {
         } else if (action.type === DELETE_POST) {
             this._state.profilePage.posts = this._state.profilePage.posts.filter(p => p.id !== action.postId);
             this._callSubscriber();
+        } else if (action.type === UPDATE_MESSAGE_BODY) {
+            this._state.messagesPage.messageBody = action.newBody;
+            this._callSubscriber();
+        } else if (action.type === SEND_MESSAGE) {
+            let newMessage = {
+                id: new Date().getTime(),
+                name: 'Dmitrii Antonov',
+                message: this._state.messagesPage.messageBody,
+                time: 'new time'
+            }
+            this._state.messagesPage.messages.push(newMessage);
+            this._state.messagesPage.messageBody = '';
+            this._callSubscriber();
         }
     }
 }
@@ -125,7 +142,9 @@ let store: StoreType = {
 export type ActionTypes =
     ReturnType<typeof addPostAC> |
     ReturnType<typeof updateMessageAC> |
-    ReturnType<typeof deletePostAC>;
+    ReturnType<typeof deletePostAC> |
+    ReturnType<typeof sendMessageAC> |
+    ReturnType<typeof updateMessageBodyAC>;
 
 export const addPostAC = () => ({type: 'ADD_POST'} as const);
 export const updateMessageAC = (newMessage: string) => (
@@ -134,5 +153,7 @@ export const updateMessageAC = (newMessage: string) => (
 export const deletePostAC = (postId: number) => (
     {type: DELETE_POST, postId: postId} as const
 );
+export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody});
+export const sendMessageAC = () => ({type: SEND_MESSAGE} as const);
 
 export default store;

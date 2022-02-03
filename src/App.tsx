@@ -12,7 +12,7 @@ type AppPropsType = {
     store: StoreType
 }
 
-const App:React.FC<AppPropsType> = (props) => {
+const App: React.FC<AppPropsType> = (props) => {
     let state = props.store.getState();
     return (
         <div className={'app'}>
@@ -26,12 +26,16 @@ const App:React.FC<AppPropsType> = (props) => {
                            />}
                     />
                     <Route path={'/messages'}
-                           element={<Messages messagesPage={state.messagesPage}/>}
+                           element={<Messages messagesPage={state.messagesPage}
+                                              dispatch={props.store.dispatch.bind(props.store)}
+                           />}
                     />
                     <Route path={'/messages/:id'}
-                           element={<Messages messagesPage={state.messagesPage}/>}
+                           element={<Messages messagesPage={state.messagesPage}
+                                              dispatch={props.store.dispatch.bind(props.store)}
+                           />}
                     />
-                    <Route path={'/users'} element={<Users />} />
+                    <Route path={'/users'} element={<Users/>}/>
                 </Routes>
             </div>
         </div>

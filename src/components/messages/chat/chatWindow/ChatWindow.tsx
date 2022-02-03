@@ -1,39 +1,60 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import cl from "./ChatWindow.module.css";
 import smile from "../../../../assets/images/smile.png";
 import {MyButton} from "../../../UI/button/MyButton";
 import {Message} from "./Message/Message";
-import {MessageType} from "../../../../redux/state";
+import {ActionTypes, MessageType, sendMessageAC, updateMessageBodyAC} from "../../../../redux/state";
 
 type PropsType = {
     messages: MessageType[]
+    messagesBody: string
+    dispatch: (action: ActionTypes) => void
 }
 
 export const ChatWindow: React.FC<PropsType> = (props) => {
 
-    const mapMessages = props.messages.map(m => {
+    const mappedMessages = props.messages.map(m => {
         return (
             <Message key={m.id} name={m.name} message={m.message} time={m.time}/>
         )
     })
 
+    const onChangeMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newBody = e.currentTarget.value
+        props.dispatch(updateMessageBodyAC(newBody));
+    }
+    const onClickSendMessage = () => {
+        props.dispatch(sendMessageAC());
+    }
+
     return (
         <>
             <div className={cl.chat_window}>
-                {mapMessages}
+                {mappedMessages}
+
                 {/*<div className={cl.receiver}>*/}
                 {/*    <span className={cl.receiver_message}>{props.body}</span>*/}
                 {/*    <span className={cl.message_time}>{props.time}</span>*/}
                 {/*</div>*/}
+
             </div>
             <div className={cl.chatForm}>
-                <textarea rows={3} placeholder="Enter your message"></textarea>
+                <textarea
+                    rows={3}
+                    placeholder="Enter your message"
+                    value={props.messagesBody}
+                    onChange={onChangeMessageBody}
+                />
                 <div className={cl.bar_right}>
                     <div>
                         <img src={smile} alt={'smile'}/>
                     </div>
                     <div>
-                        <MyButton callback={() => console.log('Send')}>Send</MyButton>
+                        <MyButton
+                            callback={onClickSendMessage}
+                        >
+                            Send
+                        </MyButton>
                     </div>
                 </div>
             </div>
