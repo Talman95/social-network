@@ -3,7 +3,8 @@ import cl from "./ChatWindow.module.css";
 import smile from "../../../../assets/images/smile.png";
 import {MyButton} from "../../../UI/button/MyButton";
 import {Message} from "./Message/Message";
-import {ActionTypes, MessageType, sendMessageAC, updateMessageBodyAC} from "../../../../redux/state";
+import {ActionTypes, MessageType} from "../../../../redux/state";
+import {sendMessageAC, updateMessageBodyAC} from "../../../../redux/messages-reducer";
 
 type PropsType = {
     messages: MessageType[]

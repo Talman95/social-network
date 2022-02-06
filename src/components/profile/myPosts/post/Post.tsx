@@ -4,7 +4,8 @@ import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
 import comments from "../../../../assets/images/comments.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ActionTypes, deletePostAC} from "../../../../redux/state";
+import {ActionTypes} from "../../../../redux/state";
+import {deletePostAC} from "../../../../redux/profile-reducer";
 
 type PropsType = {
     id: number

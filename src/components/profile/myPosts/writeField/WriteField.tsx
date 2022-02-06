@@ -2,7 +2,8 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ActionTypes, addPostAC, updateMessageAC} from "../../../../redux/state";
+import {ActionTypes} from "../../../../redux/state";
+import {addPostAC, updateMessageAC} from "../../../../redux/profile-reducer";
 
 type PropsType = {
     postMessage: string

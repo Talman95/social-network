@@ -1,8 +1,6 @@
-const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SEND_MESSAGE = 'SEND_MESSAGE';
-const UPDATE_MESSAGE_BODY = 'UPDATE_MESSAGE_BODY';
+import ProfileReducer, {addPostAC, deletePostAC, updateMessageAC} from "./profile-reducer";
+import MessagesReducer, {sendMessageAC, updateMessageBodyAC} from "./messages-reducer";
+
 
 export type MessageType = {
     id: number
@@ -51,7 +49,7 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    _callSubscriber: () => void
+    _callSubscriber: (state: any) => void
     getState: () => RootStateType
     subscribe: (callback: () => void) => void
     dispatch: (action: ActionTypes) => void
@@ -96,7 +94,7 @@ let store: StoreType = {
             postMessage: ''
         }
     },
-    _callSubscriber() {
+    _callSubscriber(state: any) {
     },
 
     getState() {
@@ -106,36 +104,11 @@ let store: StoreType = {
         this._callSubscriber = observer;
     },
 
-    dispatch(action: any) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: new Date().getTime(),
-                message: this.getState().profilePage.postMessage,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.unshift(newPost);
-            this._state.profilePage.postMessage = '';
-            this._callSubscriber();
-        } else if (action.type === UPDATE_POST_MESSAGE) {
-            this._state.profilePage.postMessage = action.postMessage;
-            this._callSubscriber();
-        } else if (action.type === DELETE_POST) {
-            this._state.profilePage.posts = this._state.profilePage.posts.filter(p => p.id !== action.postId);
-            this._callSubscriber();
-        } else if (action.type === UPDATE_MESSAGE_BODY) {
-            this._state.messagesPage.messageBody = action.newBody;
-            this._callSubscriber();
-        } else if (action.type === SEND_MESSAGE) {
-            let newMessage = {
-                id: new Date().getTime(),
-                name: 'Dmitrii Antonov',
-                message: this._state.messagesPage.messageBody,
-                time: 'new time'
-            }
-            this._state.messagesPage.messages.push(newMessage);
-            this._state.messagesPage.messageBody = '';
-            this._callSubscriber();
-        }
+    dispatch(action: ActionTypes) {
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action);
+        this._state.messagesPage = MessagesReducer(this._state.messagesPage, action);
+
+        this._callSubscriber(this._state);
     }
 }
 
@@ -145,15 +118,5 @@ export type ActionTypes =
     ReturnType<typeof deletePostAC> |
     ReturnType<typeof sendMessageAC> |
     ReturnType<typeof updateMessageBodyAC>;
-
-export const addPostAC = () => ({type: 'ADD_POST'} as const);
-export const updateMessageAC = (newMessage: string) => (
-    {type: UPDATE_POST_MESSAGE, postMessage: newMessage} as const
-);
-export const deletePostAC = (postId: number) => (
-    {type: DELETE_POST, postId: postId} as const
-);
-export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody});
-export const sendMessageAC = () => ({type: SEND_MESSAGE} as const);
 
 export default store;
