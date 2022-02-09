@@ -1,15 +1,15 @@
 import React from 'react';
 import Messages from "./components/Messages/Messages";
 import './App.css';
-import {StoreType} from './redux/state';
 import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Nav} from "./components/Nav/Nav";
 import {Header} from "./components/Header/Header";
 import {Users} from "./components/Users/Users";
+import {ReduxStoreType} from "./redux/store";
 
 type AppPropsType = {
-    store: StoreType
+    store: ReduxStoreType
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -21,17 +21,17 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Nav/>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={state.profilePage}
+                           element={<Profile profilePage={state.profile}
                                              dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                     <Route path={'/messages'}
-                           element={<Messages messagesPage={state.messagesPage}
+                           element={<Messages messagesPage={state.messages}
                                               dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                     <Route path={'/messages/:id'}
-                           element={<Messages messagesPage={state.messagesPage}
+                           element={<Messages messagesPage={state.messages}
                                               dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />

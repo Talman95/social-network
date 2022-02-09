@@ -1,8 +1,9 @@
 import React from 'react';
 import cl from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ActionTypes, PostType} from "../../../redux/state";
+import {ActionTypes} from "../../../redux/state";
 import {WriteField} from "./WriteField/WriteField";
+import {PostType} from "../../../redux/profileReducer";
 
 type PropsType = {
     posts: PostType[]

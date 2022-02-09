@@ -1,49 +1,10 @@
-import ProfileReducer, {addPostAC, deletePostAC, updateMessageAC} from "./profile-reducer";
-import MessagesReducer, {sendMessageAC, updateMessageBodyAC} from "./messages-reducer";
+import {addPostAC, deletePostAC, profileReducer, ProfileState, updateMessageAC} from "./profileReducer";
+import {messagesReducer, MessagesState, sendMessageAC, updateMessageBodyAC} from "./messagesReducer";
 
 
-export type MessageType = {
-    id: number
-    name: string
-    message: string
-    time: string
-}
-export type DialogType = {
-    id: number
-    name: string
-    lastMessage: string
-    notice: number
-    time: string
-}
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-export type ProfileType = {
-    userId: number
-    fullName: string
-    photosLarge: string
-}
-export type FollowingType = {
-    id: number
-    name: string
-    status: string
-    followed: boolean
-}
-export type MessagesPageType = {
-    dialogs: DialogType[]
-    messages: MessageType[]
-    messageBody: string
-}
-export type ProfilePageType = {
-    profile: ProfileType
-    posts: PostType[]
-    postMessage: string
-}
 export type RootStateType = {
-    profilePage: ProfilePageType
-    messagesPage: MessagesPageType
+    profilePage: ProfileState
+    messagesPage: MessagesState
 }
 
 
@@ -55,7 +16,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-let store: StoreType = {
+export const store: StoreType = {
     _state: {
         messagesPage: {
             dialogs: [
@@ -105,8 +66,8 @@ let store: StoreType = {
     },
 
     dispatch(action: ActionTypes) {
-        this._state.profilePage = ProfileReducer(this._state.profilePage, action);
-        this._state.messagesPage = MessagesReducer(this._state.messagesPage, action);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
 
         this._callSubscriber(this._state);
     }
@@ -118,5 +79,3 @@ export type ActionTypes =
     ReturnType<typeof deletePostAC> |
     ReturnType<typeof sendMessageAC> |
     ReturnType<typeof updateMessageBodyAC>;
-
-export default store;

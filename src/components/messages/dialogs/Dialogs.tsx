@@ -2,7 +2,7 @@ import React from 'react';
 import cl from './Dialogs.module.css';
 import {MyInput} from "../../UI/input/MyInput";
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogType} from "../../../redux/state";
+import {DialogType} from "../../../redux/messagesReducer";
 
 type PropsType = {
     dialogs: DialogType[]

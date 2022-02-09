@@ -2,10 +2,11 @@ import React from 'react';
 import cl from "./Chat.module.css";
 import {ChatHeader} from "./ChatHeader/ChatHeader";
 import {ChatWindow} from "./ChatWindow/ChatWindow";
-import {ActionTypes, MessagesPageType} from "../../../redux/state";
+import {ActionTypes} from "../../../redux/state";
+import {MessagesState} from "../../../redux/messagesReducer";
 
 type PropsType = {
-    messagesPage: MessagesPageType
+    messagesPage: MessagesState
     dispatch: (action: ActionTypes) => void
 }
 export const Chat: React.FC<PropsType> = (props) => {

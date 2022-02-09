@@ -1,10 +1,9 @@
 import React from 'react';
 import cl from './Sidebar.module.css';
-import {FollowingType} from "../../redux/state";
 import {Friend} from "./Friend/Friend";
 
 type PropsType = {
-    sidebar: FollowingType[]
+    sidebar: any[]
 }
 
 export const Sidebar: React.FC<PropsType> = (props) => {

@@ -3,7 +3,7 @@ import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
 import {ActionTypes} from "../../../../redux/state";
-import {addPostAC, updateMessageAC} from "../../../../redux/profile-reducer";
+import {addPostAC, updateMessageAC} from "../../../../redux/profileReducer";
 
 type PropsType = {
     postMessage: string
