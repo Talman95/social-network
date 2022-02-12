@@ -1,24 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from './Messages.module.css';
-import {Chat} from "./Chat/Chat";
-import {Dialogs} from "./Dialogs/Dialogs";
-import {ActionTypes} from "../../redux/state";
-import {MessagesState} from "../../redux/messagesReducer";
+import {ReduxStoreType} from "../../redux/store";
+import {ChatContainer} from "./Chat/ChatContainer";
+import {DialogsContainer} from "./Dialogs/DialogsContainer";
 
 type PropsType = {
-    messagesPage: MessagesState
-    dispatch: (action: ActionTypes) => void
+    store: ReduxStoreType
 }
 
-const Messages: React.FC<PropsType> = (props) => {
+const Messages: FC<PropsType> = (props) => {
 
     return (
         <div className={cl.messages}>
-            <Dialogs dialogs={props.messagesPage.dialogs}/>
-            <Chat
-                messagesPage={props.messagesPage}
-                dispatch={props.dispatch}
-            />
+            <DialogsContainer store={props.store}/>
+            <ChatContainer store={props.store}/>
         </div>
     );
 };

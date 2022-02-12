@@ -1,32 +1,33 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import cl from "./ChatWindow.module.css";
 import smile from "../../../../assets/images/smile.png";
 import {MyButton} from "../../../UI/button/MyButton";
 import {Message} from "./Message/Message";
-import {ActionTypes} from "../../../../redux/state";
-import {MessageType, sendMessageAC, updateMessageBodyAC} from "../../../../redux/messagesReducer";
+import {MessageType} from "../../../../redux/messagesReducer";
 
 type PropsType = {
     messages: MessageType[]
-    messagesBody: string
-    dispatch: (action: ActionTypes) => void
+    messageBody: string
+    updateMessageBody: (newBody: string) => void
+    sendMessage: () => void
 }
 
-export const ChatWindow: React.FC<PropsType> = (props) => {
-
-    const mappedMessages = props.messages.map(m => {
-        return (
-            <Message key={m.id} name={m.name} message={m.message} time={m.time}/>
-        )
-    })
-
-    const onChangeMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newBody = e.currentTarget.value
-        props.dispatch(updateMessageBodyAC(newBody));
+export const ChatWindow: FC<PropsType> = (
+    {
+        messages, messageBody, updateMessageBody, sendMessage
     }
-    const onClickSendMessage = () => {
-        props.dispatch(sendMessageAC());
+) => {
+
+    const mappedMessages = messages.map(m => <Message key={m.id}
+                                                      name={m.name}
+                                                      message={m.message}
+                                                      time={m.time}
+    />)
+
+    const onUpdateMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        updateMessageBody(e.currentTarget.value)
     }
+    const onSendMessage = () => sendMessage()
 
     return (
         <>
@@ -43,8 +44,8 @@ export const ChatWindow: React.FC<PropsType> = (props) => {
                 <textarea
                     rows={3}
                     placeholder="Enter your message"
-                    value={props.messagesBody}
-                    onChange={onChangeMessageBody}
+                    value={messageBody}
+                    onChange={onUpdateMessageBody}
                 />
                 <div className={cl.bar_right}>
                     <div>
@@ -52,7 +53,7 @@ export const ChatWindow: React.FC<PropsType> = (props) => {
                     </div>
                     <div>
                         <MyButton
-                            callback={onClickSendMessage}
+                            callback={onSendMessage}
                         >
                             Send
                         </MyButton>

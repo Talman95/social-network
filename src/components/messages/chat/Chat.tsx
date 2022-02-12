@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from "./Chat.module.css";
 import {ChatHeader} from "./ChatHeader/ChatHeader";
 import {ChatWindow} from "./ChatWindow/ChatWindow";
-import {ActionTypes} from "../../../redux/state";
-import {MessagesState} from "../../../redux/messagesReducer";
+import {MessageType} from "../../../redux/messagesReducer";
 
 type PropsType = {
-    messagesPage: MessagesState
-    dispatch: (action: ActionTypes) => void
+    messages: MessageType[]
+    messageBody: string
+    updateMessageBody: (newBody: string) => void
+    sendMessage: () => void
 }
-export const Chat: React.FC<PropsType> = (props) => {
+export const Chat: FC<PropsType> = (props) => {
     return (
         <div className={cl.chat}>
             <ChatHeader
@@ -17,9 +18,10 @@ export const Chat: React.FC<PropsType> = (props) => {
                 status={'Heeeeeeey'}
             />
             <ChatWindow
-                messages={props.messagesPage.messages}
-                messagesBody={props.messagesPage.messageBody}
-                dispatch={props.dispatch}
+                messages={props.messages}
+                messageBody={props.messageBody}
+                updateMessageBody={props.updateMessageBody}
+                sendMessage={props.sendMessage}
             />
         </div>
     );

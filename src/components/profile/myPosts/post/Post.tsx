@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from "./Post.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
@@ -12,7 +12,7 @@ type PropsType = {
     deletePost: (postID: number) => void
 }
 
-export const Post: React.FC<PropsType> = (
+export const Post: FC<PropsType> = (
     {
         id, message, likesCount, deletePost
     }

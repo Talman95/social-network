@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from './Profile.module.css';
 import {ProfileDetails} from "./ProfileDetails/ProfileDetails";
 import {ReduxStoreType} from "../../redux/store";
@@ -8,7 +8,7 @@ type PropsType = {
     store: ReduxStoreType
 }
 
-export const Profile: React.FC<PropsType> = (props) => {
+export const Profile: FC<PropsType> = (props) => {
     return (
         <div className={cl.profile_container}>
             <ProfileDetails/>

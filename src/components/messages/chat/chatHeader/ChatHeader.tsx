@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from "./ChatHeader.module.css";
 import userLogo from "../../../../assets/images/userLogo.png";
 import {NavLink} from "react-router-dom";
@@ -7,7 +7,7 @@ type PropsType = {
     name: string,
     status: string
 }
-export const ChatHeader = (props: PropsType) => {
+export const ChatHeader: FC<PropsType> = (props) => {
     return (
         <div className={cl.header}>
             <NavLink to={'/profile'}>

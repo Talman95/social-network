@@ -13,7 +13,6 @@ type AppPropsType = {
 }
 
 const App: React.FC<AppPropsType> = (props) => {
-    let state = props.store.getState();
     return (
         <div className={'app'}>
             <Header/>
@@ -24,14 +23,10 @@ const App: React.FC<AppPropsType> = (props) => {
                            element={<Profile store={props.store}/>}
                     />
                     <Route path={'/messages'}
-                           element={<Messages messagesPage={state.messages}
-                                              dispatch={props.store.dispatch.bind(props.store)}
-                           />}
+                           element={<Messages store={props.store}/>}
                     />
                     <Route path={'/messages/:id'}
-                           element={<Messages messagesPage={state.messages}
-                                              dispatch={props.store.dispatch.bind(props.store)}
-                           />}
+                           element={<Messages store={props.store}/>}
                     />
                     <Route path={'/users'} element={<Users/>}/>
                 </Routes>

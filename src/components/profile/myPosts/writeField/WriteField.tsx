@@ -9,16 +9,19 @@ type PropsType = {
     addPost: () => void
 }
 
-export const WriteField: FC<PropsType> = ({postMessage, updateMessage, addPost}) => {
+export const WriteField: FC<PropsType> = (
+    {
+        postMessage, updateMessage, addPost
+    }
+) => {
 
     const onUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newMessage = e.currentTarget.value;
-        updateMessage(newMessage);
+        updateMessage(e.currentTarget.value)
     }
-    const onAddPost = () => addPost();
+    const onAddPost = () => addPost()
     const onEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
-            addPost();
+            addPost()
         }
     }
 

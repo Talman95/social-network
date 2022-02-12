@@ -10,18 +10,18 @@ type PropsType = {
 export const MyPostsContainer: FC<PropsType> = (props) => {
     let state = props.store.getState();
 
-    const onDeletePost = (postID: number) => props.store.dispatch(deletePostAC(postID))
-    const onUpdateMessage = (newMessage: string) => props.store.dispatch(updateMessageAC(newMessage))
-    const onAddPost = () => props.store.dispatch(addPostAC())
+    const deletePost = (postID: number) => props.store.dispatch(deletePostAC(postID))
+    const updateMessage = (newMessage: string) => props.store.dispatch(updateMessageAC(newMessage))
+    const addPost = () => props.store.dispatch(addPostAC())
 
     return (
         <div>
             <MyPosts
                 posts={state.profile.posts}
-                deletePost={onDeletePost}
+                deletePost={deletePost}
                 postMessage={state.profile.postMessage}
-                updateMessage={onUpdateMessage}
-                addPost={onAddPost}
+                updateMessage={updateMessage}
+                addPost={addPost}
             />
         </div>
     );

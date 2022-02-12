@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from './Message.module.css';
 import avatar from '../../../../../assets/images/userLogo.png';
 
@@ -8,7 +8,7 @@ type PropsType = {
     time: string
 }
 
-export const Message: React.FC<PropsType> = (props) => {
+export const Message: FC<PropsType> = (props) => {
     return (
         <div className={cl.message}>
             <img src={avatar} alt={'Friend'} className={cl.profile_img}/>
