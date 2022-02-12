@@ -1,29 +1,24 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ActionTypes} from "../../../../redux/state";
-import {addPostAC, updateMessageAC} from "../../../../redux/profileReducer";
 
 type PropsType = {
     postMessage: string
-    dispatch: (action: ActionTypes) => void
+    updateMessage: (newMessage: string) => void
+    addPost: () => void
 }
 
-export const WriteField: React.FC<PropsType> = (props) => {
+export const WriteField: FC<PropsType> = ({postMessage, updateMessage, addPost}) => {
 
-    const onUpdateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = e.currentTarget.value;
-        props.dispatch(updateMessageAC(newMessage));
+        updateMessage(newMessage);
     }
-
-    const onAddPostHandler = () => {
-        props.dispatch(addPostAC());
-    }
-
-    const onEnterPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    const onAddPost = () => addPost();
+    const onEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
-            onAddPostHandler();
+            addPost();
         }
     }
 
@@ -37,12 +32,12 @@ export const WriteField: React.FC<PropsType> = (props) => {
             </div>
             <div className={cl.post_input_container}>
                 <textarea rows={5} placeholder={"How you doin?"}
-                          value={props.postMessage}
-                          onChange={onUpdateMessageHandler}
-                          onKeyPress={onEnterPressHandler}
+                          value={postMessage}
+                          onChange={onUpdateMessage}
+                          onKeyPress={onEnterPress}
                 />
                 <div className={cl.add_post_button}>
-                    <MyButton callback={onAddPostHandler}>
+                    <MyButton callback={onAddPost}>
                         Add a post
                     </MyButton>
                 </div>

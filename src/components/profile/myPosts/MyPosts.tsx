@@ -1,14 +1,15 @@
 import React from 'react';
 import cl from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ActionTypes} from "../../../redux/state";
 import {WriteField} from "./WriteField/WriteField";
 import {PostType} from "../../../redux/profileReducer";
 
 type PropsType = {
     posts: PostType[]
-    dispatch: (action: ActionTypes) => void
+    deletePost: (postID: number) => void
     postMessage: string
+    updateMessage: (newMessage: string) => void
+    addPost: () => void
 }
 
 export const MyPosts: React.FC<PropsType> = (props) => {
@@ -17,13 +18,14 @@ export const MyPosts: React.FC<PropsType> = (props) => {
                                                   id={p.id}
                                                   message={p.message}
                                                   likesCount={p.likesCount}
-                                                  dispatch={props.dispatch}
+                                                  deletePost={props.deletePost}
     />)
 
     return (
         <div className={cl.my_posts}>
             <WriteField postMessage={props.postMessage}
-                        dispatch={props.dispatch}
+                        updateMessage={props.updateMessage}
+                        addPost={props.addPost}
             />
             {mapToPosts}
         </div>

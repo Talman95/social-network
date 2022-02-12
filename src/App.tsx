@@ -21,9 +21,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Nav/>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={state.profile}
-                                             dispatch={props.store.dispatch.bind(props.store)}
-                           />}
+                           element={<Profile store={props.store}/>}
                     />
                     <Route path={'/messages'}
                            element={<Messages messagesPage={state.messages}

@@ -4,19 +4,21 @@ import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
 import comments from "../../../../assets/images/comments.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ActionTypes} from "../../../../redux/state";
-import {deletePostAC} from "../../../../redux/profileReducer";
 
 type PropsType = {
     id: number
     message: string
     likesCount: number
-    dispatch: (action: ActionTypes) => void
+    deletePost: (postID: number) => void
 }
 
-export const Post: React.FC<PropsType> = ({id, message, likesCount, ...restProps}) => {
-    const onDeletePostHandler = (postId: number) => {
-        restProps.dispatch(deletePostAC(postId));
+export const Post: React.FC<PropsType> = (
+    {
+        id, message, likesCount, deletePost
+    }
+) => {
+    const onDeletePost = (postID: number) => {
+        deletePost(postID);
     }
 
     return (
@@ -30,7 +32,7 @@ export const Post: React.FC<PropsType> = ({id, message, likesCount, ...restProps
                     </div>
                 </div>
                 <div className={cl.delete_btn}>
-                    <MyButton callback={() => onDeletePostHandler(id)}>X</MyButton>
+                    <MyButton callback={() => onDeletePost(id)}>X</MyButton>
                 </div>
             </div>
 
