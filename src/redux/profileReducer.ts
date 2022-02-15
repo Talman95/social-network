@@ -1,5 +1,3 @@
-import {ActionTypes} from "./state";
-
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
@@ -38,7 +36,7 @@ const initialState: ProfileStateType = {
     postMessage: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionTypes): ProfileStateType => {
+export const profileReducer = (state = initialState, action: ProfileActionTypes): ProfileStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
@@ -46,16 +44,16 @@ export const profileReducer = (state = initialState, action: ActionTypes): Profi
                 message: state.postMessage,
                 likesCount: 0
             };
-            state.posts.unshift(newPost);
+            state = {...state, posts: [newPost, ...state.posts]};
             state.postMessage = '';
             return state;
         }
         case UPDATE_POST_MESSAGE: {
-            state.postMessage = action.newMessage;
+            state = {...state, postMessage: action.newMessage};
             return state;
         }
         case DELETE_POST: {
-            state.posts = state.posts.filter(p => p.id !== action.postId);
+            state = {...state, posts: [...state.posts.filter(p => p.id !== action.postId)]};
             return state;
         }
         default:

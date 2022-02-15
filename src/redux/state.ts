@@ -1,14 +1,20 @@
 import {addPostAC, deletePostAC, profileReducer, ProfileStateType, updateMessageAC} from "./profileReducer";
-import {messagesReducer, MessagesStateType, sendMessageAC, updateMessageBodyAC} from "./messagesReducer";
+import {
+    messagesReducer,
+    MessagesStateType,
+    removeMessageAC,
+    sendMessageAC,
+    updateMessageBodyAC
+} from "./messagesReducer";
 
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfileStateType
     messagesPage: MessagesStateType
 }
 
 
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: (state: any) => void
     getState: () => RootStateType
@@ -16,7 +22,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         messagesPage: {
             dialogs: [
@@ -65,7 +71,7 @@ export const store: StoreType = {
         this._callSubscriber = observer;
     },
 
-    dispatch(action: ActionTypes) {
+    dispatch(action: any) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
 
@@ -73,9 +79,10 @@ export const store: StoreType = {
     }
 }
 
-export type ActionTypes =
+type ActionTypes =
     ReturnType<typeof addPostAC> |
     ReturnType<typeof updateMessageAC> |
     ReturnType<typeof deletePostAC> |
     ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof updateMessageBodyAC>;
+    ReturnType<typeof updateMessageBodyAC> |
+    ReturnType<typeof removeMessageAC>;

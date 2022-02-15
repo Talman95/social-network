@@ -1,7 +1,6 @@
-import {ActionTypes} from "./state";
-
 const SEND_MESSAGE = 'SEND_MESSAGE';
 const UPDATE_MESSAGE_BODY = 'UPDATE_MESSAGE_BODY';
+const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 
 export type MessageType = {
     id: number
@@ -19,7 +18,8 @@ export type DialogType = {
 
 export type MessagesActionTypes =
     ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof updateMessageBodyAC>;
+    ReturnType<typeof updateMessageBodyAC> |
+    ReturnType<typeof removeMessageAC>;
 
 
 const initialState = {
@@ -49,21 +49,26 @@ const initialState = {
 
 export type MessagesStateType = typeof initialState
 
-export const messagesReducer = (state: MessagesStateType = initialState, action: ActionTypes): MessagesStateType => {
+export const messagesReducer = (state: MessagesStateType = initialState, action: MessagesActionTypes): MessagesStateType => {
     switch (action.type) {
         case UPDATE_MESSAGE_BODY: {
-            state.messageBody = action.newBody;
+            state = {...state, messageBody: action.newBody};
             return state;
         }
         case SEND_MESSAGE: {
+            let date = new Date()
             let newMessage = {
-                id: new Date().getTime(),
+                id: date.getTime(),
                 name: 'Dmitrii Antonov',
                 message: state.messageBody,
-                time: 'new time'
+                time: `${date.getHours()}:${date.getMinutes()}`
             }
-            state.messages.push(newMessage);
+            state = {...state, messages: [...state.messages, newMessage]};
             state.messageBody = '';
+            return state;
+        }
+        case REMOVE_MESSAGE: {
+            state = {...state, messages: [...state.messages.filter(m => m.id !== action.messageID)]}
             return state;
         }
         default:
@@ -72,5 +77,6 @@ export const messagesReducer = (state: MessagesStateType = initialState, action:
 
 };
 
-export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody} as const) ;
+export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody} as const);
 export const sendMessageAC = () => ({type: SEND_MESSAGE} as const);
+export const removeMessageAC = (messageID: number) => ({type: REMOVE_MESSAGE, messageID} as const);
