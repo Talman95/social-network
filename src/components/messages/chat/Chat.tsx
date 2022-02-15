@@ -2,15 +2,10 @@ import React, {FC} from 'react';
 import cl from "./Chat.module.css";
 import {ChatHeader} from "./ChatHeader/ChatHeader";
 import {ChatWindow} from "./ChatWindow/ChatWindow";
-import {MessageType} from "../../../redux/messagesReducer";
+import {ChatPropsType} from "./ChatContainer";
 
-type PropsType = {
-    messages: MessageType[]
-    messageBody: string
-    updateMessageBody: (newBody: string) => void
-    sendMessage: () => void
-}
-export const Chat: FC<PropsType> = (props) => {
+
+export const Chat: FC<ChatPropsType> = (props) => {
     return (
         <div className={cl.chat}>
             <ChatHeader

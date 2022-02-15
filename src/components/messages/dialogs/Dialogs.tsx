@@ -2,13 +2,10 @@ import React, {FC} from 'react';
 import cl from './Dialogs.module.css';
 import {MyInput} from "../../UI/input/MyInput";
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogType} from "../../../redux/messagesReducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type PropsType = {
-    dialogs: DialogType[]
-}
 
-export const Dialogs: FC<PropsType> = (
+export const Dialogs: FC<DialogsPropsType> = (
     {
         dialogs
     }

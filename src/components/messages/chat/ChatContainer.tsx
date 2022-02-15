@@ -1,25 +1,37 @@
-import React, {FC} from 'react';
-import {ReduxStoreType} from "../../../redux/store";
+import React from 'react';
+import {AppStateType} from "../../../redux/store";
 import {Chat} from "./Chat";
-import {sendMessageAC, updateMessageBodyAC} from "../../../redux/messagesReducer";
+import {MessageType, sendMessageAC, updateMessageBodyAC} from "../../../redux/messagesReducer";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
 
-type PropsType = {
-    store: ReduxStoreType
+
+export type MapStatePropsType = {
+    messages: Array<MessageType>,
+    messageBody: string
 }
-export const ChatContainer: FC<PropsType> = (props) => {
-    const state = props.store.getState()
+export type MapDispatchPropsType = {
+    updateMessageBody: (newBody: string) => void,
+    sendMessage: () => void
+}
 
-    const updateMessageBody = (newBody: string) => props.store.dispatch(updateMessageBodyAC(newBody))
-    const sendMessage = () => props.store.dispatch(sendMessageAC())
+export type ChatPropsType = MapStatePropsType & MapDispatchPropsType
 
-    return (
-        <div>
-            <Chat
-                messages={state.messages.messages}
-                messageBody={state.messages.messageBody}
-                updateMessageBody={updateMessageBody}
-                sendMessage={sendMessage}
-            />
-        </div>
-    );
-};
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        messages: state.messages.messages,
+        messageBody: state.messages.messageBody
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+    return {
+        updateMessageBody: (newBody: string) => {
+            dispatch(updateMessageBodyAC(newBody))
+        },
+        sendMessage: () => {
+            dispatch(sendMessageAC())
+        }
+    }
+}
+export const ChatContainer = connect(mapStateToProps, mapDispatchToProps)(Chat)

@@ -1,14 +1,18 @@
-import React, {FC} from 'react';
-import {ReduxStoreType} from "../../../redux/store";
+import React from 'react';
+import {AppStateType} from "../../../redux/store";
 import {Dialogs} from "./Dialogs";
+import {DialogType} from "../../../redux/messagesReducer";
+import {connect} from "react-redux";
 
-type PropsType = {
-    store: ReduxStoreType
+type MapStatePropsType = {
+    dialogs: Array<DialogType>
 }
 
-export const DialogsContainer: FC<PropsType> = (props) => {
-    const state = props.store.getState();
-    return (
-        <Dialogs dialogs={state.messages.dialogs}/>
-    )
-};
+export type DialogsPropsType = MapStatePropsType
+
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        dialogs: state.messages.dialogs
+    }
+}
+export const DialogsContainer = connect(mapStateToProps)(Dialogs)

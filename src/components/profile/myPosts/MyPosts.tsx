@@ -2,23 +2,15 @@ import React, {FC} from 'react';
 import cl from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {WriteField} from "./WriteField/WriteField";
-import {PostType} from "../../../redux/profileReducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type PropsType = {
-    posts: PostType[]
-    deletePost: (postID: number) => void
-    postMessage: string
-    updateMessage: (newMessage: string) => void
-    addPost: () => void
-}
+export const MyPosts: FC<MyPostsPropsType> = (props) => {
 
-export const MyPosts: FC<PropsType> = (props) => {
-
-    const mappedPosts = props.posts.map(p => <Post key={p.id}
-                                                   id={p.id}
-                                                   message={p.message}
-                                                   likesCount={p.likesCount}
-                                                   deletePost={props.deletePost}
+    const postsComponents = props.posts.map(p => <Post key={p.id}
+                                                       id={p.id}
+                                                       message={p.message}
+                                                       likesCount={p.likesCount}
+                                                       deletePost={props.deletePost}
     />)
 
     return (
@@ -28,7 +20,7 @@ export const MyPosts: FC<PropsType> = (props) => {
                 updateMessage={props.updateMessage}
                 addPost={props.addPost}
             />
-            {mappedPosts}
+            {postsComponents}
         </div>
     );
 };

@@ -1,10 +1,10 @@
-import {addPostAC, deletePostAC, profileReducer, ProfileState, updateMessageAC} from "./profileReducer";
-import {messagesReducer, MessagesState, sendMessageAC, updateMessageBodyAC} from "./messagesReducer";
+import {addPostAC, deletePostAC, profileReducer, ProfileStateType, updateMessageAC} from "./profileReducer";
+import {messagesReducer, MessagesStateType, sendMessageAC, updateMessageBodyAC} from "./messagesReducer";
 
 
 export type RootStateType = {
-    profilePage: ProfileState
-    messagesPage: MessagesState
+    profilePage: ProfileStateType
+    messagesPage: MessagesStateType
 }
 
 

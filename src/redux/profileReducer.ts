@@ -14,7 +14,7 @@ export type ProfileType = {
     fullName: string
     photosLarge: string
 }
-export type ProfileState = {
+export type ProfileStateType = {
     profile: ProfileType
     posts: PostType[]
     postMessage: string
@@ -25,7 +25,7 @@ export type ProfileActionTypes =
     ReturnType<typeof deletePostAC>;
 
 
-const initialState: ProfileState = {
+const initialState: ProfileStateType = {
     profile: {
         userId: 2, fullName: 'Roman Talman', photosLarge: 'null'
     },
@@ -38,7 +38,7 @@ const initialState: ProfileState = {
     postMessage: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionTypes): ProfileState => {
+export const profileReducer = (state = initialState, action: ActionTypes): ProfileStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
