@@ -61,7 +61,7 @@ export const profileReducer = (state = initialState, action: ProfileActionTypes)
     }
 };
 
-export const addPostAC = () => ({type: 'ADD_POST'} as const);
+export const addPostAC = () => ({type: ADD_POST} as const);
 export const updateMessageAC = (newMessage: string) => (
     {type: UPDATE_POST_MESSAGE, newMessage} as const
 );
