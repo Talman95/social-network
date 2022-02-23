@@ -5,7 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Nav} from "./components/Nav/Nav";
 import {Header} from "./components/Header/Header";
-import {Users} from "./components/Users/Users";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 const App: React.FC = () => {
     return (
@@ -17,7 +17,7 @@ const App: React.FC = () => {
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/messages'} element={<Messages/>}/>
                     <Route path={'/messages/:id'} element={<Messages/>}/>
-                    <Route path={'/users'} element={<Users/>}/>
+                    <Route path={'/users'} element={<UsersContainer/>}/>
                 </Routes>
             </div>
         </div>

@@ -7,7 +7,7 @@ type PhotosType = {
     large: string
 }
 
-type UserType = {
+export type UserType = {
     id: number
     name: string
     status: string
@@ -16,11 +16,7 @@ type UserType = {
 }
 
 let initialState = {
-    users: [
-        {id: 1, name: 'Roman', status: "Boss", photos: {small: 'small', large: 'large'}, followed: false},
-        {id: 2, name: 'Dmitrii', status: "Boss too", photos: {small: 'small', large: 'large'}, followed: true},
-        {id: 3, name: 'Ann', status: "Boss too", photos: {small: 'small', large: 'large'}, followed: true},
-    ] as Array<UserType>
+    users: [] as Array<UserType>
 }
 
 export type ProfileStateType = typeof initialState

@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from "./User.module.css";
 import {NavLink} from "react-router-dom";
 import userLogo from "../../../assets/images/userLogo.png";
 import {MyButton} from "../../UI/button/MyButton";
+import {UserType} from "../../../redux/usersReducer";
 
-export const User: React.FC<any> = ({user}) => {
+type UserPropsType = {
+    user: UserType
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+}
+
+export const User: FC<UserPropsType> = (
+    {
+        user, follow, unfollow
+    }) => {
     return (
         <div className={cl.item}>
             <div className={cl.leftSide}>
                 <div className={cl.photo}>
-                    <NavLink to={'/' + 1}>
+                    <NavLink to={'/profile/' + 1}>
                         <img src={userLogo} alt="User"/>
                     </NavLink>
                 </div>
@@ -19,7 +29,10 @@ export const User: React.FC<any> = ({user}) => {
                 </div>
             </div>
             <div className={cl.rightSide}>
-                <MyButton callback={() => console.log('unfollow')}>Unfollow</MyButton>
+                {user.followed
+                    ? <MyButton callback={() => unfollow(user.id)}>UNFOLLOW</MyButton>
+                    : <MyButton callback={() => follow(user.id)}>FOLLOW</MyButton>
+                }
             </div>
         </div>
     );
