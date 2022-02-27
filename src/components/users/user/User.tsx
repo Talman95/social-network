@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import cl from "./User.module.css";
 import {NavLink} from "react-router-dom";
-import userLogo from "../../../assets/images/userLogo.png";
+import userPhoto from "../../../assets/images/userLogo.png";
 import {MyButton} from "../../UI/button/MyButton";
 import {UserType} from "../../../redux/usersReducer";
 
@@ -20,7 +20,7 @@ export const User: FC<UserPropsType> = (
             <div className={cl.leftSide}>
                 <div className={cl.photo}>
                     <NavLink to={'/profile/' + 1}>
-                        <img src={userLogo} alt="User"/>
+                        <img src={user.photos.small ? user.photos.small : userPhoto} alt="User"/>
                     </NavLink>
                 </div>
                 <div className={cl.description}>

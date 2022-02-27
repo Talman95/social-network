@@ -2,15 +2,14 @@ import React, {FC} from 'react';
 import cl from './Users.module.css';
 import {User} from "./User/User";
 import {UsersContainerPropsType} from "./UsersContainer";
+import axios from "axios";
 
 export const Users: FC<UsersContainerPropsType> = (props) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            {id: 1, name: 'Roman', status: "Boss", photos: {small: 'small', large: 'large'}, followed: false},
-            {id: 2, name: 'Dmitrii', status: "Boss too", photos: {small: 'small', large: 'large'}, followed: true},
-            {id: 3, name: 'Ann', status: "Boss too", photos: {small: 'small', large: 'large'}, followed: true}
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            props.setUsers(response.data.items)
+        })
     }
 
     const mappedUsers = props.users.map((u, index) => <User
