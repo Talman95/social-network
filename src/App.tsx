@@ -5,7 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Profile} from "./components/Profile/Profile";
 import {Nav} from "./components/Nav/Nav";
 import {Header} from "./components/Header/Header";
-import {UsersContainer} from "./components/Users/UsersContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App: React.FC = () => {
     return (
