@@ -2,3 +2,17 @@
     color: #626262;
     grid-area: content;
 }
+
+.pagination {
+    display: flex;
+}
+
+.selectedPage {
+    color: white;
+    background: #1876f2;
+
+}
+
+.page {
+
+}
