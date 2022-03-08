@@ -3,6 +3,7 @@ export enum ACTIONS_TYPES {
     UNFOLLOW = 'Users/UNFOLLOW',
     SET_USERS = 'Users/SET_USERS',
     SET_CURRENT_PAGE = 'Users/SET_CURRENT_PAGE',
+    SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
 }
 
 type PhotosType = {
@@ -21,8 +22,8 @@ export type UserType = {
 const initialState = {
     users: [] as Array<UserType>,
     currentPage: 1,
-    sizePage: 10,
-    totalCount: 100,
+    pageSize: 10,
+    totalCount: 0,
 }
 
 export type ProfileStateType = typeof initialState
@@ -51,6 +52,8 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
             return {...state, users: action.users}
         case ACTIONS_TYPES.SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
+        case ACTIONS_TYPES.SET_TOTAL_MEMBERS:
+            return {...state, totalCount: action.totalCount}
         default:
             return state
     }
@@ -60,11 +63,15 @@ type UsersActionType =
     ReturnType<typeof follow> |
     ReturnType<typeof unfollow> |
     ReturnType<typeof setUsers> |
-    ReturnType<typeof setCurrentPage>
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalMembers>
 
 export const follow = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW, userID} as const);
 export const unfollow = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW, userID} as const);
 export const setUsers = (users: Array<UserType>) => ({type: ACTIONS_TYPES.SET_USERS, users} as const);
 export const setCurrentPage = (currentPage: number) => (
     {type: ACTIONS_TYPES.SET_CURRENT_PAGE, currentPage} as const
+)
+export const setTotalMembers = (totalCount: number) => (
+    {type: ACTIONS_TYPES.SET_TOTAL_MEMBERS, totalCount} as const
 )

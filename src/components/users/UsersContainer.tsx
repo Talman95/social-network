@@ -1,14 +1,14 @@
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {follow, setCurrentPage, setUsers, unfollow, UserType} from "../../redux/usersReducer";
+import {follow, setCurrentPage, setTotalMembers, setUsers, unfollow, UserType} from "../../redux/usersReducer";
 import React from "react";
 import axios from "axios";
 
 type MapStatePropsType = {
     users: Array<UserType>
     currentPage: number
-    sizePage: number
+    pageSize: number
     totalCount: number
 }
 type MapDispatchPropsType = {
@@ -16,6 +16,7 @@ type MapDispatchPropsType = {
     unfollow: (userID: number) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
+    setTotalMembers: (totalCount: number) => void
 }
 export type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -23,7 +24,15 @@ export type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalMembers(response.data.totalCount)
+        })
+    }
+
+    switchPage = (page: number) => {
+        this.props.setCurrentPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
         })
     }
@@ -35,9 +44,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 currentPage={this.props.currentPage}
-                setCurrentPage={this.props.setCurrentPage}
-                sizePage={this.props.sizePage}
+                pageSize={this.props.pageSize}
                 totalCount={this.props.totalCount}
+                switchPage={this.switchPage}
             />)
     }
 }
@@ -46,13 +55,13 @@ export const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: state.users.users,
         currentPage: state.users.currentPage,
-        sizePage: state.users.sizePage,
+        pageSize: state.users.pageSize,
         totalCount: state.users.totalCount,
     }
 }
 
 export default connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage
+    follow, unfollow, setUsers, setCurrentPage, setTotalMembers
 })(UsersContainer)
 
 
