@@ -32,7 +32,8 @@ export class Users extends React.Component<UsersPropsType> {
 
         return (
             <div className={cl.container}>
-                <div className={cl.pagination}>
+                {mappedUsers}
+                <div className={cl.pageWrapper}>
                     {pages.map(p => {
                         return <span
                             className={p === this.props.currentPage ? cl.selectedPage : cl.page}
@@ -42,7 +43,6 @@ export class Users extends React.Component<UsersPropsType> {
                             </span>
                     })}
                 </div>
-                {mappedUsers}
             </div>
         );
     }
