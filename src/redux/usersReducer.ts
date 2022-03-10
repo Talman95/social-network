@@ -4,6 +4,7 @@ export enum ACTIONS_TYPES {
     SET_USERS = 'Users/SET_USERS',
     SET_CURRENT_PAGE = 'Users/SET_CURRENT_PAGE',
     SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
+    TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
 }
 
 type PhotosType = {
@@ -24,6 +25,7 @@ const initialState = {
     currentPage: 1,
     pageSize: 10,
     totalCount: 0,
+    isFetching: false,
 }
 
 export type ProfileStateType = typeof initialState
@@ -54,6 +56,8 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
             return {...state, currentPage: action.currentPage}
         case ACTIONS_TYPES.SET_TOTAL_MEMBERS:
             return {...state, totalCount: action.totalCount}
+        case ACTIONS_TYPES.TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
         default:
             return state
     }
@@ -64,7 +68,8 @@ type UsersActionType =
     ReturnType<typeof unfollow> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
-    ReturnType<typeof setTotalMembers>
+    ReturnType<typeof setTotalMembers> |
+    ReturnType<typeof toggleIsFetching>
 
 export const follow = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW, userID} as const);
 export const unfollow = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW, userID} as const);
@@ -74,4 +79,7 @@ export const setCurrentPage = (currentPage: number) => (
 )
 export const setTotalMembers = (totalCount: number) => (
     {type: ACTIONS_TYPES.SET_TOTAL_MEMBERS, totalCount} as const
+)
+export const toggleIsFetching = (isFetching: boolean) => (
+    {type: ACTIONS_TYPES.TOGGLE_IS_FETCHING, isFetching} as const
 )

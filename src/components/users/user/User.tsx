@@ -30,8 +30,18 @@ export const User: FC<UserPropsType> = (
             </div>
             <div className={cl.rightSide}>
                 {user.followed
-                    ? <MyButton callback={() => unfollow(user.id)}>UNFOLLOW</MyButton>
-                    : <MyButton callback={() => follow(user.id)}>FOLLOW</MyButton>
+                    ?
+                    <MyButton
+                        callback={() => unfollow(user.id)}
+                    >
+                        UNFOLLOW
+                    </MyButton>
+                    :
+                    <MyButton
+                        callback={() => follow(user.id)}
+                    >
+                        FOLLOW
+                    </MyButton>
                 }
             </div>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import cl from './Users.module.css';
 import {User} from "./User/User";
 import {UserType} from "../../redux/usersReducer";
+import {Preloader} from "../common/Preloader/Preloader";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -11,6 +12,7 @@ type UsersPropsType = {
     pageSize: number
     totalCount: number
     switchPage: (page: number) => void
+    isFetching: boolean
 }
 
 export class Users extends React.Component<UsersPropsType> {
@@ -32,7 +34,6 @@ export class Users extends React.Component<UsersPropsType> {
 
         return (
             <div className={cl.container}>
-                {mappedUsers}
                 <div className={cl.pageWrapper}>
                     {pages.map(p => {
                         return <span
@@ -43,6 +44,10 @@ export class Users extends React.Component<UsersPropsType> {
                             </span>
                     })}
                 </div>
+                {this.props.isFetching
+                    ? <Preloader/>
+                    : mappedUsers
+                }
             </div>
         );
     }
