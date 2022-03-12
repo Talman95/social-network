@@ -49,9 +49,7 @@ const store: StoreType = {
             messageBody: ''
         },
         profilePage: {
-            profile: {
-                userId: 2, fullName: 'Roman Talman', photosLarge: 'null'
-            },
+            profile: null,
             posts: [
                 {id: 4, message: 'Hi, how are you?', likesCount: 12},
                 {id: 3, message: 'Yo yo yo!!!', likesCount: 11},

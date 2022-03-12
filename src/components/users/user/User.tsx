@@ -19,7 +19,7 @@ export const User: FC<UserPropsType> = (
         <div className={cl.item}>
             <div className={cl.leftSide}>
                 <div className={cl.photo}>
-                    <NavLink to={'/profile/' + 1}>
+                    <NavLink to={'/profile/' + user.id}>
                         <img src={user.photos.small ? user.photos.small : userPhoto} alt="User"/>
                     </NavLink>
                 </div>

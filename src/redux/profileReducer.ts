@@ -1,6 +1,7 @@
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export type PostType = {
     id: number
@@ -8,25 +9,28 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
     fullName: string
-    photosLarge: string
+    userId: number
+    photos: { small: string, large: string, }
+
 }
 export type ProfileStateType = {
-    profile: ProfileType
+    profile: ProfileType | null
     posts: PostType[]
     postMessage: string
 }
-export type ProfileActionTypes =
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateMessageAC> |
-    ReturnType<typeof deletePostAC>;
 
+export type ProfileActionTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateMessageAC>
+    | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof setUserProfile>
 
 const initialState: ProfileStateType = {
-    profile: {
-        userId: 2, fullName: 'Roman Talman', photosLarge: 'null'
-    },
+    profile: null,
     posts: [
         {id: 4, message: 'Hi, how are you?', likesCount: 12},
         {id: 3, message: 'Yo yo yo!!!', likesCount: 11},
@@ -56,6 +60,11 @@ export const profileReducer = (state = initialState, action: ProfileActionTypes)
             state = {...state, posts: [...state.posts.filter(p => p.id !== action.postId)]};
             return state;
         }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state;
     }
@@ -67,4 +76,7 @@ export const updateMessageAC = (newMessage: string) => (
 );
 export const deletePostAC = (postId: number) => (
     {type: DELETE_POST, postId: postId} as const
+);
+export const setUserProfile = (profile: ProfileType) => (
+    {type: SET_USER_PROFILE, profile} as const
 );
