@@ -3,14 +3,14 @@ import Messages from "./components/Messages/Messages";
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
 import {Nav} from "./components/Nav/Nav";
-import {Header} from "./components/Header/Header";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App: React.FC = () => {
     return (
         <div className={'app'}>
-            <Header/>
+            <HeaderContainer/>
             <div className={'content'}>
                 <Nav/>
                 <Routes>
