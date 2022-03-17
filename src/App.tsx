@@ -14,10 +14,8 @@ const App: React.FC = () => {
             <div className={'content'}>
                 <Nav/>
                 <Routes>
-                    <Route path={'/profile'} element={<ProfileContainer/>}/>
-                    <Route path={'/profile/:id'} element={<ProfileContainer/>}/>
-                    <Route path={'/messages'} element={<Messages/>}/>
-                    <Route path={'/messages/:id'} element={<Messages/>}/>
+                    <Route path={'/profile/*'} element={<ProfileContainer/>}/>
+                    <Route path={'/messages/*'} element={<Messages/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                 </Routes>
             </div>

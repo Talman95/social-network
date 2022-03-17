@@ -35,7 +35,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        }).then(response => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
             this.props.setTotalMembers(response.data.totalCount)
@@ -45,10 +47,11 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
     switchPage = (page: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-        })
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.toggleIsFetching(false)
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
@@ -79,18 +82,3 @@ export const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 export default connect(mapStateToProps, {
     follow, unfollow, setUsers, setCurrentPage, setTotalMembers, toggleIsFetching
 })(UsersContainer)
-
-
-// export const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//     return {
-//         follow: (userID) => {
-//             dispatch(follow(userID))
-//         },
-//         unfollow: (userID) => {
-//             dispatch(unfollow(userID))
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsers(users))
-//         }
-//     }
-// }

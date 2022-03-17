@@ -64,12 +64,9 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
 };
 
 type UsersActionType =
-    ReturnType<typeof follow> |
-    ReturnType<typeof unfollow> |
-    ReturnType<typeof setUsers> |
-    ReturnType<typeof setCurrentPage> |
-    ReturnType<typeof setTotalMembers> |
-    ReturnType<typeof toggleIsFetching>
+    ReturnType<typeof follow> | ReturnType<typeof unfollow> |
+    ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalMembers> | ReturnType<typeof toggleIsFetching>
 
 export const follow = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW, userID} as const);
 export const unfollow = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW, userID} as const);

@@ -18,7 +18,8 @@ type UsersPropsType = {
 export class Users extends React.Component<UsersPropsType> {
 
     render() {
-        const mappedUsers = this.props.users.map((u, index) => <User
+        const mappedUsers = this.props.users.map((u, index) =>
+            <User
                 key={u.id}
                 user={u}
                 follow={this.props.follow}
