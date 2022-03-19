@@ -5,6 +5,7 @@ export enum ACTIONS_TYPES {
     SET_CURRENT_PAGE = 'Users/SET_CURRENT_PAGE',
     SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
     TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
+    TOGGLE_PRESSING_IN_PROGRESS = 'Users/TOGGLE_PRESSING_IN_PROGRESS',
 }
 
 type PhotosType = {
@@ -26,6 +27,7 @@ const initialState = {
     pageSize: 10,
     totalCount: 0,
     isFetching: false,
+    pressingInProgress: [] as Array<number>,
 }
 
 export type ProfileStateType = typeof initialState
@@ -58,15 +60,23 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
             return {...state, totalCount: action.totalCount}
         case ACTIONS_TYPES.TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case ACTIONS_TYPES.TOGGLE_PRESSING_IN_PROGRESS:
+            return {
+                ...state,
+                pressingInProgress: action.isPressed
+                    ? [...state.pressingInProgress, action.userId]
+                    : state.pressingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
 };
 
 type UsersActionType =
-    ReturnType<typeof follow> | ReturnType<typeof unfollow> |
-    ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> |
-    ReturnType<typeof setTotalMembers> | ReturnType<typeof toggleIsFetching>
+    ReturnType<typeof follow> | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalMembers> | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof togglePressingInProgress>
 
 export const follow = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW, userID} as const);
 export const unfollow = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW, userID} as const);
@@ -79,4 +89,7 @@ export const setTotalMembers = (totalCount: number) => (
 )
 export const toggleIsFetching = (isFetching: boolean) => (
     {type: ACTIONS_TYPES.TOGGLE_IS_FETCHING, isFetching} as const
+)
+export const togglePressingInProgress = (isPressed: boolean, userId: number) => (
+    {type: ACTIONS_TYPES.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId} as const
 )

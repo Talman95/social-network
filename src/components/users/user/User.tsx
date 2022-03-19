@@ -10,11 +10,14 @@ type UserPropsType = {
     user: UserType
     follow: (userID: number) => void
     unfollow: (userID: number) => void
+    pressingInProgress: Array<number>
+    togglePressingInProgress: (isPressed: boolean, userId: number) => void
 }
 
 export const User: FC<UserPropsType> = (
     {
-        user, follow, unfollow
+        user, follow, unfollow,
+        pressingInProgress, togglePressingInProgress
     }) => {
     return (
         <div className={cl.item}>
@@ -33,25 +36,31 @@ export const User: FC<UserPropsType> = (
                 {user.followed
                     ?
                     <MyButton
+                        disabled={pressingInProgress.some(id => id === user.id)}
                         callback={() => {
+                            togglePressingInProgress(true, user.id)
                             usersAPI.unfollow(user.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         unfollow(user.id)
                                     }
+                                    togglePressingInProgress(false, user.id)
                                 })
-                        }}> UNFOLLOW
+                        }}>UNFOLLOW
                     </MyButton>
                     :
                     <MyButton
+                        disabled={pressingInProgress.some(id => id === user.id)}
                         callback={() => {
+                            togglePressingInProgress(true, user.id)
                             usersAPI.follow(user.id)
                                 .then(data => {
-                                if (data.resultCode === 0) {
-                                    follow(user.id)
-                                }
-                            })
-                        }}> FOLLOW
+                                    if (data.resultCode === 0) {
+                                        follow(user.id)
+                                    }
+                                    togglePressingInProgress(false, user.id)
+                                })
+                        }}>FOLLOW
                     </MyButton>
                 }
             </div>

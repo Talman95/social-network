@@ -13,6 +13,8 @@ type UsersPropsType = {
     totalCount: number
     switchPage: (page: number) => void
     isFetching: boolean
+    pressingInProgress: Array<number>
+    togglePressingInProgress: (isPressed: boolean, userId: number) => void
 }
 
 export class Users extends React.Component<UsersPropsType> {
@@ -24,6 +26,8 @@ export class Users extends React.Component<UsersPropsType> {
                 user={u}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
+                pressingInProgress={this.props.pressingInProgress}
+                togglePressingInProgress={this.props.togglePressingInProgress}
             />
         )
 
