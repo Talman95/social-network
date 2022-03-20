@@ -4,7 +4,7 @@ import './App.css';
 import {Route, Routes} from 'react-router-dom';
 import {Nav} from "./components/Nav/Nav";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App: React.FC = () => {
@@ -14,7 +14,8 @@ const App: React.FC = () => {
             <div className={'content'}>
                 <Nav/>
                 <Routes>
-                    <Route path={'/profile/*'} element={<ProfileContainer/>}/>
+                    <Route path={'/profile'} element={<ProfileContainer/>}/>
+                    <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
                     <Route path={'/messages/*'} element={<Messages/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                 </Routes>
