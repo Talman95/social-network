@@ -24,9 +24,9 @@ export type ProfileStateType = {
 }
 
 export type ProfileActionTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateMessageAC>
-    | ReturnType<typeof deletePostAC>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof updateMessage>
+    | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
 
 const initialState: ProfileStateType = {
@@ -70,12 +70,12 @@ export const profileReducer = (state = initialState, action: ProfileActionTypes)
     }
 };
 
-export const addPostAC = () => ({type: ADD_POST} as const);
-export const updateMessageAC = (newMessage: string) => (
+export const addPost = () => ({type: ADD_POST} as const);
+export const updateMessage = (newMessage: string) => (
     {type: UPDATE_POST_MESSAGE, newMessage} as const
 );
-export const deletePostAC = (postId: number) => (
-    {type: DELETE_POST, postId: postId} as const
+export const deletePost = (postId: number) => (
+    {type: DELETE_POST, postId} as const
 );
 export const setUserProfile = (profile: ProfileType) => (
     {type: SET_USER_PROFILE, profile} as const

@@ -1,40 +1,33 @@
-import React from 'react';
-import {addPostAC, deletePostAC, PostType, updateMessageAC} from "../../../redux/profileReducer";
+import React, {FC} from 'react';
+import {addPost, deletePost, ProfileActionTypes, updateMessage} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {AppStateType} from "../../../redux/store";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from 'redux';
 
-type MapStatePropsType = {
-    posts: PostType[]
-    postMessage: string
-}
-type MapDispatchPropsType = {
-    deletePost: (postId: number) => void
-    updateMessage: (newMessage: string) => void
-    addPost: () => void
-}
+export const MyPostsContainer: FC = () => {
+    const dispatch = useDispatch<Dispatch<ProfileActionTypes>>()
 
-export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType
+    const {posts, postMessage, profile} = useSelector((state: AppStateType) => state.profile)
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        posts: state.profile.posts,
-        postMessage: state.profile.postMessage
+    const deletePostHandler = (postId: number) => {
+        dispatch(deletePost(postId))
     }
-}
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        deletePost: (postID: number) => {
-            dispatch(deletePostAC(postID))
-        },
-        updateMessage: (newMessage: string) => {
-            dispatch(updateMessageAC(newMessage))
-        },
-        addPost: () => {
-            dispatch(addPostAC())
-        }
+    const updateMessageHandler = (newMessage: string) => {
+        dispatch(updateMessage(newMessage))
     }
-}
+    const addPostHandler = () => {
+        dispatch(addPost())
+    }
 
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+    return (
+        <MyPosts
+            posts={posts}
+            addPost={addPostHandler}
+            deletePost={deletePostHandler}
+            postMessage={postMessage}
+            updateMessage={updateMessageHandler}
+            profile={profile}
+        />
+    )
+}

@@ -2,16 +2,19 @@ import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
+import {ProfileType} from "../../../../redux/profileReducer";
+import {Preloader} from "../../../common/Preloader/Preloader";
 
 type PropsType = {
     postMessage: string
     updateMessage: (newMessage: string) => void
     addPost: () => void
+    profile: ProfileType | null
 }
 
 export const WriteField: FC<PropsType> = (
     {
-        postMessage, updateMessage, addPost
+        postMessage, updateMessage, addPost, profile
     }
 ) => {
 
@@ -25,12 +28,16 @@ export const WriteField: FC<PropsType> = (
         }
     }
 
+    if (!profile) {
+        return <Preloader />
+    }
+
     return (
         <div className={cl.write_post_container}>
             <div className={cl.user_profile}>
-                <img src={user} alt="user"/>
+                <img src={profile.photos.small ? profile.photos.small : user} alt="user"/>
                 <div>
-                    <p>Roman Talmanof</p>
+                    <p>{profile.fullName}</p>
                 </div>
             </div>
             <div className={cl.post_input_container}>
