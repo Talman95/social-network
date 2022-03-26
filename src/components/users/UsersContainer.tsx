@@ -1,8 +1,9 @@
 import {Users} from "./Users";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {
     follow,
+    getUsersThunkCreator,
     setCurrentPage,
     setTotalMembers,
     setUsers,
@@ -22,38 +23,16 @@ type MapStatePropsType = {
     isFetching: boolean
     pressingInProgress: Array<number>
 }
-type MapDispatchPropsType = {
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalMembers: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-    togglePressingInProgress: (isPressed: boolean, userId: number) => void
-}
-export type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
-
-class UsersContainer extends React.Component<UsersContainerPropsType> {
+class UsersContainer extends React.Component<UsersContainerProps> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalMembers(data.totalCount)
-            })
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
 
     switchPage = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -84,6 +63,11 @@ export const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage, setTotalMembers, toggleIsFetching, togglePressingInProgress
-})(UsersContainer)
+const connector = connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage, setTotalMembers, toggleIsFetching, togglePressingInProgress,
+    getUsersThunkCreator
+})
+
+type UsersContainerProps = ConnectedProps<typeof connector>;
+
+export default connector(UsersContainer);

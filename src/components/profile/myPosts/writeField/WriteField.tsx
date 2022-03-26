@@ -12,11 +12,7 @@ type PropsType = {
     profile: ProfileType | null
 }
 
-export const WriteField: FC<PropsType> = (
-    {
-        postMessage, updateMessage, addPost, profile
-    }
-) => {
+export const WriteField: FC<PropsType> = ({postMessage, updateMessage, addPost, profile}) => {
 
     const onUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         updateMessage(e.currentTarget.value)
@@ -29,7 +25,7 @@ export const WriteField: FC<PropsType> = (
     }
 
     if (!profile) {
-        return <Preloader />
+        return <Preloader/>
     }
 
     return (

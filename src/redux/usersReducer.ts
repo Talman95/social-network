@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 export enum ACTIONS_TYPES {
     FOLLOW = 'Users/FOLLOW',
     UNFOLLOW = 'Users/UNFOLLOW',
@@ -93,3 +96,15 @@ export const toggleIsFetching = (isFetching: boolean) => (
 export const togglePressingInProgress = (isPressed: boolean, userId: number) => (
     {type: ACTIONS_TYPES.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId} as const
 )
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalMembers(data.totalCount))
+            })
+    }
+}
