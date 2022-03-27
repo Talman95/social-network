@@ -2,8 +2,8 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 
 export enum ACTIONS_TYPES {
-    FOLLOW = 'Users/FOLLOW',
-    UNFOLLOW = 'Users/UNFOLLOW',
+    FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',
+    UNFOLLOW_SUCCESS = 'Users/UNFOLLOW_SUCCESS',
     SET_USERS = 'Users/SET_USERS',
     SET_CURRENT_PAGE = 'Users/SET_CURRENT_PAGE',
     SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
@@ -37,7 +37,7 @@ export type ProfileStateType = typeof initialState
 
 export const usersReducer = (state = initialState, action: UsersActionType): ProfileStateType => {
     switch (action.type) {
-        case ACTIONS_TYPES.FOLLOW:
+        case ACTIONS_TYPES.FOLLOW_SUCCESS:
             state = {
                 ...state,
                 users: state.users.map(u => u.id === action.userID
@@ -46,7 +46,7 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
                 )
             }
             return state
-        case ACTIONS_TYPES.UNFOLLOW:
+        case ACTIONS_TYPES.UNFOLLOW_SUCCESS:
             state = {
                 ...state,
                 users: state.users.map(u => u.id === action.userID
@@ -76,13 +76,13 @@ export const usersReducer = (state = initialState, action: UsersActionType): Pro
 };
 
 type UsersActionType =
-    ReturnType<typeof follow> | ReturnType<typeof unfollow>
+    ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalMembers> | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof togglePressingInProgress>
 
-export const follow = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW, userID} as const);
-export const unfollow = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW, userID} as const);
+export const followSuccess = (userID: number) => ({type: ACTIONS_TYPES.FOLLOW_SUCCESS, userID} as const);
+export const unfollowSuccess = (userID: number) => ({type: ACTIONS_TYPES.UNFOLLOW_SUCCESS, userID} as const);
 export const setUsers = (users: Array<UserType>) => ({type: ACTIONS_TYPES.SET_USERS, users} as const);
 export const setCurrentPage = (currentPage: number) => (
     {type: ACTIONS_TYPES.SET_CURRENT_PAGE, currentPage} as const
@@ -97,14 +97,36 @@ export const togglePressingInProgress = (isPressed: boolean, userId: number) => 
     {type: ACTIONS_TYPES.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId} as const
 )
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
-            .then(data => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalMembers(data.totalCount))
-            })
-    }
+// Redux-Thunk
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalMembers(data.totalCount))
+        })
+}
+
+export const follow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togglePressingInProgress(true, userId))
+    usersAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followSuccess(userId))
+            }
+            dispatch(togglePressingInProgress(false, userId))
+        })
+}
+
+export const unfollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(togglePressingInProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+            }
+            dispatch(togglePressingInProgress(false, userId))
+        })
 }

@@ -14,7 +14,6 @@ type UsersPropsType = {
     switchPage: (page: number) => void
     isFetching: boolean
     pressingInProgress: Array<number>
-    togglePressingInProgress: (isPressed: boolean, userId: number) => void
 }
 
 export class Users extends React.Component<UsersPropsType> {
@@ -27,13 +26,12 @@ export class Users extends React.Component<UsersPropsType> {
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 pressingInProgress={this.props.pressingInProgress}
-                togglePressingInProgress={this.props.togglePressingInProgress}
             />
         )
 
         const pages: number[] = []
         const countPages = Math.ceil(this.props.totalCount / this.props.pageSize)
-        for (let i = 1; i <= 15; i++) {
+        for (let i = 1; i <= 20; i++) {
             pages.push(i)
         }
 

@@ -1,19 +1,8 @@
 import {Users} from "./Users";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {
-    follow,
-    getUsersThunkCreator,
-    setCurrentPage,
-    setTotalMembers,
-    setUsers,
-    toggleIsFetching,
-    togglePressingInProgress,
-    unfollow,
-    UserType
-} from "../../redux/usersReducer";
+import {follow, getUsers, setCurrentPage, unfollow, UserType} from "../../redux/usersReducer";
 import React from "react";
-import {usersAPI} from "../../api/api";
 
 type MapStatePropsType = {
     users: Array<UserType>
@@ -27,12 +16,12 @@ type MapStatePropsType = {
 class UsersContainer extends React.Component<UsersContainerProps> {
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     switchPage = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -47,7 +36,6 @@ class UsersContainer extends React.Component<UsersContainerProps> {
                 switchPage={this.switchPage}
                 isFetching={this.props.isFetching}
                 pressingInProgress={this.props.pressingInProgress}
-                togglePressingInProgress={this.props.togglePressingInProgress}
             />)
     }
 }
@@ -64,8 +52,7 @@ export const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 const connector = connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage, setTotalMembers, toggleIsFetching, togglePressingInProgress,
-    getUsersThunkCreator
+    follow, unfollow, setCurrentPage, getUsers,
 })
 
 type UsersContainerProps = ConnectedProps<typeof connector>;

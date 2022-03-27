@@ -4,21 +4,15 @@ import {NavLink} from "react-router-dom";
 import userPhoto from "../../../assets/images/userLogo.png";
 import {MyButton} from "../../UI/button/MyButton";
 import {UserType} from "../../../redux/usersReducer";
-import {usersAPI} from "../../../api/api";
 
 type UserPropsType = {
     user: UserType
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     pressingInProgress: Array<number>
-    togglePressingInProgress: (isPressed: boolean, userId: number) => void
 }
 
-export const User: FC<UserPropsType> = (
-    {
-        user, follow, unfollow,
-        pressingInProgress, togglePressingInProgress
-    }) => {
+export const User: FC<UserPropsType> = ({user, follow, unfollow, pressingInProgress}) => {
     return (
         <div className={cl.item}>
             <div className={cl.leftSide}>
@@ -38,28 +32,14 @@ export const User: FC<UserPropsType> = (
                     <MyButton
                         disabled={pressingInProgress.some(id => id === user.id)}
                         callback={() => {
-                            togglePressingInProgress(true, user.id)
-                            usersAPI.unfollow(user.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        unfollow(user.id)
-                                    }
-                                    togglePressingInProgress(false, user.id)
-                                })
+                            unfollow(user.id)
                         }}>UNFOLLOW
                     </MyButton>
                     :
                     <MyButton
                         disabled={pressingInProgress.some(id => id === user.id)}
                         callback={() => {
-                            togglePressingInProgress(true, user.id)
-                            usersAPI.follow(user.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        follow(user.id)
-                                    }
-                                    togglePressingInProgress(false, user.id)
-                                })
+                            follow(user.id)
                         }}>FOLLOW
                     </MyButton>
                 }
