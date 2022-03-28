@@ -1,19 +1,12 @@
 import React from "react";
 import {Header} from "./Header";
 import {connect, ConnectedProps} from "react-redux";
-import {AuthStateType, setUserData} from "../../redux/authReducer";
-import {authAPI} from "../../api/api";
+import {AuthStateType, getAuthUserData} from "../../redux/authReducer";
 
 
 class HeaderContainer extends React.Component<TProps> {
     componentDidMount() {
-        authAPI.authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, email, login} = data.data
-                    this.props.setUserData(id, email, login)
-                }
-            })
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -33,7 +26,7 @@ const mapStateToProps = ({auth}: { auth: AuthStateType }): MapStateToPropsType =
     isAuth: auth.isAuth,
 })
 
-const connector = connect(mapStateToProps, {setUserData})
+const connector = connect(mapStateToProps, {getAuthUserData})
 
 type TProps = ConnectedProps<typeof connector>
 

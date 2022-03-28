@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
+
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
@@ -80,3 +83,8 @@ export const deletePost = (postId: number) => (
 export const setUserProfile = (profile: ProfileType) => (
     {type: SET_USER_PROFILE, profile} as const
 );
+
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
+}

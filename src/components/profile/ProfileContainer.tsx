@@ -1,15 +1,13 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
-import {ProfileActionTypes, setUserProfile} from "../../redux/profileReducer";
+import {getUserProfile} from "../../redux/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {profileAPI} from "../../api/api";
 import {useParams} from "react-router-dom";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/store";
 
 export const ProfileContainer: FC = () => {
 
-    const dispatch = useDispatch<Dispatch<ProfileActionTypes>>()
+    const dispatch = useDispatch<any>()
 
     const profile = useSelector((state: AppStateType) => state.profile.profile)
     const authId = useSelector((state: AppStateType) => state.auth.id)
@@ -20,11 +18,8 @@ export const ProfileContainer: FC = () => {
         if (!userId) {
             userId = String(authId)
         }
-        profileAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data))
-            })
-    }, [dispatch, userId])
+        dispatch(getUserProfile(userId))
+    }, [userId, authId])
 
     return (
         <Profile profile={profile}/>
