@@ -7,13 +7,15 @@ import follow from "../../../assets/images/follow.png";
 import message from "../../../assets/images/message.png";
 import {ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
+    status: string
 }
 
-export const ProfileDetails: React.FC<ProfileDetailsPropsType> = ({profile}) => {
-    if (!profile) {
+export const ProfileDetails: React.FC<ProfileDetailsPropsType> = (props) => {
+    if (!props.profile) {
         return <Preloader/>
     }
 
@@ -22,15 +24,15 @@ export const ProfileDetails: React.FC<ProfileDetailsPropsType> = ({profile}) => 
             <div className={cl.left_pd}>
                 <div className={cl.left_row}>
                     <img
-                        src={profile.photos.large ? profile.photos.large : userPhoto}
+                        src={props.profile.photos.large ? props.profile.photos.large : userPhoto}
                         alt={'User'}
                         className={cl.profile_image}
                     />
                     <div>
-                        <h3>{profile.fullName}</h3>
-                        <p>set the status</p>
+                        <h3>{props.profile.fullName}</h3>
+                        <ProfileStatus status={props.status}/>
                     </div>
-                    {profile.lookingForAJob &&
+                    {props.profile.lookingForAJob &&
                         <img src={check_job} alt={'Check looking for a job'} className={cl.check_job}/>
                     }
                 </div>

@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 
-const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const UPDATE_POST_MESSAGE = 'Profile/UPDATE_POST_MESSAGE';
+const ADD_POST = 'Profile/ADD_POST';
+const DELETE_POST = 'Profile/DELETE_POST';
+const SET_USER_PROFILE = 'Profile/SET_USER_PROFILE';
+const SET_PROFILE_STATUS = 'Profile/SET_PROFILE_STATUS'
 
 export type PostType = {
     id: number
@@ -24,13 +25,8 @@ export type ProfileStateType = {
     profile: ProfileType | null
     posts: PostType[]
     postMessage: string
+    profileStatus: string
 }
-
-export type ProfileActionTypes =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof updateMessage>
-    | ReturnType<typeof deletePost>
-    | ReturnType<typeof setUserProfile>
 
 const initialState: ProfileStateType = {
     profile: null,
@@ -40,7 +36,8 @@ const initialState: ProfileStateType = {
         {id: 2, message: 'Hello everyone!', likesCount: 7},
         {id: 1, message: 'It\'s my first post', likesCount: 28}
     ],
-    postMessage: ''
+    postMessage: '',
+    profileStatus: '',
 }
 
 export const profileReducer = (state = initialState, action: ProfileActionTypes): ProfileStateType => {
@@ -68,10 +65,20 @@ export const profileReducer = (state = initialState, action: ProfileActionTypes)
                 ...state,
                 profile: action.profile
             }
+        case SET_PROFILE_STATUS:
+            return {
+                ...state,
+                profileStatus: action.status,
+            }
         default:
             return state;
     }
 };
+
+export type ProfileActionTypes =
+    ReturnType<typeof addPost> | ReturnType<typeof updateMessage>
+    | ReturnType<typeof deletePost> | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setProfileStatus>
 
 export const addPost = () => ({type: ADD_POST} as const);
 export const updateMessage = (newMessage: string) => (
@@ -83,8 +90,21 @@ export const deletePost = (postId: number) => (
 export const setUserProfile = (profile: ProfileType) => (
     {type: SET_USER_PROFILE, profile} as const
 );
+export const setProfileStatus = (status: string) => (
+    {type: SET_PROFILE_STATUS, status} as const
+)
 
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
+}
+export const getProfileStatus = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getStatus(userId)
+    dispatch(setProfileStatus(response.data))
+}
+export const updateProfileStatus = (status: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setProfileStatus(status))
+    }
 }
