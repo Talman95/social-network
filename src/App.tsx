@@ -1,11 +1,8 @@
 import React from 'react';
-import Messages from "./components/Messages/Messages";
 import './App.css';
-import {Route, Routes} from 'react-router-dom';
 import {Nav} from "./components/Nav/Nav";
-import UsersContainer from "./components/Users/UsersContainer";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {AppRouter} from "./router/AppRouter";
 
 const App: React.FC = () => {
     return (
@@ -13,12 +10,7 @@ const App: React.FC = () => {
             <HeaderContainer/>
             <div className={'content'}>
                 <Nav/>
-                <Routes>
-                    <Route path={'/profile'} element={<ProfileContainer/>}/>
-                    <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
-                    <Route path={'/messages/*'} element={<Messages/>}/>
-                    <Route path={'/users'} element={<UsersContainer/>}/>
-                </Routes>
+                <AppRouter />
             </div>
         </div>
     );
