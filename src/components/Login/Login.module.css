@@ -1,9 +1,38 @@
-.form {
-    display: flex;
-    flex-direction: column;
+.login {
+    grid-area: content;
+    color: #626262;
 }
 
-.box {
+.container {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formTitle {
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rememberMe {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.error {
+    border: red 1px solid;
+}
+
+.errorMessage {
+    color: red;
 }
