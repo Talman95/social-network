@@ -1,30 +1,34 @@
 import React from 'react';
-import {useFormik} from 'formik';
+import {FormikHelpers, useFormik} from 'formik';
 import s from './Login.module.css';
+import * as Yup from 'yup';
+import {Preloader} from "../common/Preloader/Preloader";
+import {useDispatch} from "react-redux";
+import {login} from "../../redux/authReducer";
 
-const validate = (values: formValuesModel) => {
-    const errors: any = {};
 
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-    }
-
-    if (!values.password) {
-        errors.password = 'Required';
-    }
-
-    return errors;
-};
-
-type formValuesModel = {
+export type formValuesModel = {
     email: string
     password: string
     rememberMe: boolean
 }
 
 export const Login = () => {
+    const dispatch = useDispatch()
+
+    const schema = Yup.object({
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Required'),
+        password: Yup.string()
+            .required('Required')
+    })
+
+    const submit = (values: formValuesModel, {resetForm, setStatus}: FormikHelpers<formValuesModel>) => {
+        dispatch(login(values))
+        resetForm({})
+        setStatus({success: true})
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -32,11 +36,16 @@ export const Login = () => {
             password: '',
             rememberMe: true
         },
-        validate,
-        onSubmit: (values: formValuesModel) => {
-            alert(JSON.stringify(values));
-        },
+        validationSchema: schema,
+        onSubmit: submit,
     });
+
+    if (formik.isSubmitting) {
+        return <div className={s.login}>
+            <Preloader/>
+        </div>
+    }
+
     return (
         <div className={s.login}>
             <div className={s.container}>
@@ -54,11 +63,11 @@ export const Login = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
-                            className={formik.errors.email ? s.error : ''}
+                            className={formik.errors.email && formik.touched.email ? s.error : ''}
                         />
                         {formik.touched.email && formik.errors.email ? (
-                            <div className={s.errorMessage}>{formik.errors.email}</div>) : null}
-
+                            <p className={s.errorMessage}>{formik.errors.email}</p>) : null}
+                        {}
                         <label htmlFor="password">Password:</label>
                         <input
                             id="password"
@@ -67,13 +76,12 @@ export const Login = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.password}
-                            className={formik.errors.password ? s.error : ''}
+                            className={formik.errors.password && formik.touched.password ? s.error : ''}
                         />
                         {formik.touched.password && formik.errors.password ? (
-                            <div className={s.errorMessage}>{formik.errors.password}</div>) : null}
+                            <p className={s.errorMessage}>{formik.errors.password}</p>) : null}
 
                         <div className={s.rememberMe}>
-                            <label htmlFor="checkbox">Remember Me?</label>
                             <input
                                 id={"rememberMe"}
                                 name={'rememberMe'}
@@ -81,6 +89,7 @@ export const Login = () => {
                                 onChange={formik.handleChange}
                                 checked={formik.values.rememberMe}
                             />
+                            <label htmlFor="checkbox">Remember Me?</label>
                         </div>
 
                         <button type="submit">Sign In</button>

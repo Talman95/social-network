@@ -3,13 +3,15 @@ import cl from './Header.module.css';
 import menu from './../../assets/images/menu.png';
 import user from '../../assets/images/userLogo.png'
 import {MyInput} from "../UI/input/MyInput";
+import {MyButton} from "../UI/button/MyButton";
 
 type HeaderPropsType = {
     login: string | null
     isAuth: boolean
+    logout: () => void
 }
 
-export const Header: FC<HeaderPropsType> = ({login, isAuth}) => {
+export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
     return (
         <div className={cl.header}>
             {isAuth
@@ -24,7 +26,7 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth}) => {
                 </div>
                 :
                 <div className={cl.header_user_icon}>
-                    Login
+                    LogIn
                 </div>
             }
 
@@ -34,6 +36,9 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth}) => {
                 </div>
                 <div className={cl.right_menu}>
                     <img src={menu} alt='right menu'/>
+                    {isAuth &&
+                        <MyButton callback={logout}>Log Out</MyButton>
+                    }
                 </div>
             </div>
         </div>
