@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
-import {addPost, deletePost, ProfileActionTypes, updateMessage} from "../../../redux/profileReducer";
+import {addPost, deletePost, ProfileActionsType, updateMessage} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {AppStateType} from "../../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from 'redux';
 
 export const MyPostsContainer: FC = () => {
-    const dispatch = useDispatch<Dispatch<ProfileActionTypes>>()
+    const dispatch = useDispatch<Dispatch<ProfileActionsType>>()
 
     const {posts, postMessage, profile} = useSelector((state: AppStateType) => state.profile)
 

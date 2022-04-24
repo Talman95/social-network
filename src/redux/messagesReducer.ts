@@ -2,26 +2,6 @@ const SEND_MESSAGE = 'SEND_MESSAGE';
 const UPDATE_MESSAGE_BODY = 'UPDATE_MESSAGE_BODY';
 const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 
-export type MessageType = {
-    id: number
-    name: string
-    message: string
-    time: string
-}
-export type DialogType = {
-    id: number
-    name: string
-    lastMessage: string
-    notice: number
-    time: string
-}
-
-export type MessagesActionTypes =
-    ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof updateMessageBodyAC> |
-    ReturnType<typeof removeMessageAC>;
-
-
 const initialState = {
     dialogs: [
         {id: 1, name: 'Dmitrii Antonov', lastMessage: 'Hey. Do you have any props?', notice: 1, time: '12:33'},
@@ -49,7 +29,7 @@ const initialState = {
 
 export type MessagesStateType = typeof initialState
 
-export const messagesReducer = (state: MessagesStateType = initialState, action: MessagesActionTypes): MessagesStateType => {
+export const messagesReducer = (state: MessagesStateType = initialState, action: MessagesActionsType): MessagesStateType => {
     switch (action.type) {
         case UPDATE_MESSAGE_BODY: {
             state = {...state, messageBody: action.newBody};
@@ -68,15 +48,38 @@ export const messagesReducer = (state: MessagesStateType = initialState, action:
             return state;
         }
         case REMOVE_MESSAGE: {
-            state = {...state, messages: [...state.messages.filter(m => m.id !== action.messageID)]}
+            state = {
+                ...state,
+                messages: [...state.messages.filter(m => m.id !== action.messageID)]
+            }
             return state;
         }
         default:
             return state;
     }
-
 };
 
-export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody} as const);
-export const sendMessageAC = () => ({type: SEND_MESSAGE} as const);
-export const removeMessageAC = (messageID: number) => ({type: REMOVE_MESSAGE, messageID} as const);
+//actions
+export const updateMessageBodyAC = (newBody: string) => ({type: UPDATE_MESSAGE_BODY, newBody} as const)
+export const sendMessageAC = () => ({type: SEND_MESSAGE} as const)
+export const removeMessageAC = (messageID: number) => ({type: REMOVE_MESSAGE, messageID} as const)
+
+//types
+export type MessageType = {
+    id: number
+    name: string
+    message: string
+    time: string
+}
+export type DialogType = {
+    id: number
+    name: string
+    lastMessage: string
+    notice: number
+    time: string
+}
+
+export type MessagesActionsType =
+    ReturnType<typeof sendMessageAC> |
+    ReturnType<typeof updateMessageBodyAC> |
+    ReturnType<typeof removeMessageAC>;
