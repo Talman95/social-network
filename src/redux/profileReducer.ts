@@ -1,4 +1,4 @@
-import {profileAPI} from "../api/api";
+import {profileAPI, ProfileType} from "../api/api";
 import {AppThunk} from "./store";
 
 export enum ActionsType {
@@ -94,15 +94,6 @@ export type PostType = {
     id: number
     message: string
     likesCount: number
-}
-export type ProfileType = {
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: { small: string, large: string, }
-
 }
 export type ProfileStateType = {
     profile: ProfileType | null

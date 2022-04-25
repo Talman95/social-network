@@ -2,8 +2,8 @@ import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import cl from "./WriteField.module.css";
 import user from "../../../../assets/images/userLogo.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ProfileType} from "../../../../redux/profileReducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
+import {ProfileType} from "../../../../api/api";
 
 type PropsType = {
     postMessage: string

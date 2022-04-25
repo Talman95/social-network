@@ -1,8 +1,8 @@
 import React from 'react';
 import cl from './Users.module.css';
 import {User} from "./User/User";
-import {UserType} from "../../redux/usersReducer";
 import {Preloader} from "../common/Preloader/Preloader";
+import {UserType} from "../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>

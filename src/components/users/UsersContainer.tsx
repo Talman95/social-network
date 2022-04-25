@@ -1,8 +1,9 @@
 import {Users} from "./Users";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {follow, getUsers, setCurrentPage, unfollow, UserType} from "../../redux/usersReducer";
+import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
 import React from "react";
+import {UserType} from "../../api/api";
 
 type MapStatePropsType = {
     users: Array<UserType>

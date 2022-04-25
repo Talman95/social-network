@@ -3,7 +3,7 @@ import cl from "./User.module.css";
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../../assets/images/userLogo.png";
 import {MyButton} from "../../UI/button/MyButton";
-import {UserType} from "../../../redux/usersReducer";
+import {UserType} from "../../../api/api";
 
 type UserPropsType = {
     user: UserType

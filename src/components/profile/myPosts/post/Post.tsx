@@ -4,8 +4,8 @@ import user from "../../../../assets/images/userLogo.png";
 import like from "../../../../assets/images/like.png";
 import comments from "../../../../assets/images/comments.png";
 import {MyButton} from "../../../UI/button/MyButton";
-import {ProfileType} from "../../../../redux/profileReducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
+import {ProfileType} from "../../../../api/api";
 
 type PropsType = {
     id: number
@@ -26,7 +26,7 @@ export const Post: FC<PropsType> = (
     }
 
     if (!profile) {
-        return <Preloader />
+        return <Preloader/>
     }
 
     return (

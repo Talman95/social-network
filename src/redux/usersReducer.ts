@@ -1,4 +1,4 @@
-import {usersAPI} from "../api/api";
+import {usersAPI, UserType} from "../api/api";
 import {AppThunk} from "./store";
 
 export enum ACTIONS_TYPE {
@@ -111,17 +111,6 @@ export const unfollow = (userId: number): AppThunk => {
 //types
 export type ProfileStateType = typeof initialState
 
-export type PhotosType = {
-    small: string
-    large: string
-}
-export type UserType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-}
 export type UsersActionsType =
     ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>

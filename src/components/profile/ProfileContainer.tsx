@@ -5,13 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
 import {Dispatch} from 'redux';
+import {ProfileType} from "../../api/api";
 
 export const ProfileContainer: FC = () => {
 
     const dispatch = useDispatch<Dispatch<any>>()
 
-    const profile = useSelector((state: AppStateType) => state.profile.profile)
-    const authId = useSelector((state: AppStateType) => state.auth.id)
+    const profile = useSelector<AppStateType, ProfileType | null>(state=> state.profile.profile)
+    const authId = useSelector<AppStateType, number | null>(state => state.auth.id)
     const status = useSelector<AppStateType, string>(state => state.profile.profileStatus)
 
     let {userId} = useParams()

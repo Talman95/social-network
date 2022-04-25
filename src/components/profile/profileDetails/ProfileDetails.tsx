@@ -5,9 +5,9 @@ import check_job from "../../../assets/images/check_job.png";
 import {MyButton} from "../../UI/button/MyButton";
 import follow from "../../../assets/images/follow.png";
 import message from "../../../assets/images/message.png";
-import {ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import {ProfileType} from "../../../api/api";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
