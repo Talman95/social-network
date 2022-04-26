@@ -87,18 +87,18 @@ export type ProfileType = {
         large: null | string
     }
 }
-type GetUsersResponseType = {
+export type GetUsersResponseType = {
     items: Array<UserType>
     totalCount: number
     error: string | null
 }
-type ResponseType<D> = {
+export type ResponseType<D> = {
     data: D
     messages: Array<string>
     fieldsErrors: []
     resultCode: number
 }
-type AuthMeDataType = {
+export type AuthMeDataType = {
     id: number
     login: string
     email: string

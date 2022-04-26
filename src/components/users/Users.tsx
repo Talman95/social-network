@@ -40,6 +40,7 @@ export class Users extends React.Component<UsersPropsType> {
                 <div className={cl.pageWrapper}>
                     {pages.map(p => {
                         return <span
+                            key={p}
                             className={p === this.props.currentPage ? cl.selectedPage : cl.page}
                             onClick={() => this.props.switchPage(p)}
                         >
