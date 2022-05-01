@@ -7,9 +7,16 @@ import Messages from "../components/Messages/Messages";
 import UsersContainer from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
+import {Preloader} from "../components/common/Preloader/Preloader";
 
 export const AppRouter = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const isLoading = useSelector<AppStateType, boolean>(state => state.auth.isLoading)
+
+    if (isLoading) {
+        return <Preloader />
+    }
+
     return (
         <div>
             {isAuth

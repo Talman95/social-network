@@ -3,6 +3,15 @@ import {formValuesModel} from "../components/Login/Login";
 import {AppThunk} from "./store";
 
 const SET_USER_DATA = 'SET_USER_DATA'
+const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS'
+
+const initialState: AuthStateType = {
+    id: null,
+    email: null,
+    login: null,
+    isAuth: false,
+    isLoading: true,
+}
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthStateType => {
     switch (action.type) {
@@ -10,6 +19,11 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
             return {
                 ...state,
                 ...action.payload,
+            }
+        case LOADING_IN_PROGRESS:
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
         default:
             return state
@@ -20,6 +34,7 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
+export const setLoading = (isLoading: boolean) => ({type: LOADING_IN_PROGRESS, isLoading} as const)
 
 //thunks
 export const getAuthUserData = (): AppThunk => {
@@ -29,6 +44,7 @@ export const getAuthUserData = (): AppThunk => {
             let {id, email, login} = response.data
             dispatch(setUserData(id, email, login, true))
         }
+        dispatch(setLoading(false))
     }
 }
 export const login = ({email, password, rememberMe}: formValuesModel): AppThunk => {
@@ -37,7 +53,8 @@ export const login = ({email, password, rememberMe}: formValuesModel): AppThunk 
         if (response.resultCode === 0) {
             dispatch(getAuthUserData())
         } else {
-            return response.messages
+            const message = response.messages.length > 0 ? response.messages[0] : 'Some error'
+            return message
         }
     }
 }
@@ -56,11 +73,7 @@ export type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    isLoading: boolean
 }
-const initialState: AuthStateType = {
-    id: null,
-    email: null,
-    login: null,
-    isAuth: false,
-}
-export type AuthActionsType = ReturnType<typeof setUserData>
+
+export type AuthActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setLoading>

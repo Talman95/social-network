@@ -24,10 +24,17 @@ export const Login = () => {
             .required('Required')
     })
 
-    const submit = (values: formValuesModel, {resetForm, setStatus}: FormikHelpers<formValuesModel>) => {
-        dispatch(login(values))
-        resetForm({})
-        setStatus({success: true})
+    const submit = async (values: formValuesModel, {resetForm, setStatus, validateForm, setFieldError}: FormikHelpers<formValuesModel>) => {
+        const res = await dispatch(login(values))
+        if (res) {
+            setStatus(res)
+            // validateForm(schema).then(err => {
+            //     setFieldError('email', 'Incorrect')
+            //     setFieldError('password', 'Incorrect')
+            // })
+        } else {
+            resetForm({})
+        }
     }
 
     const formik = useFormik({
@@ -38,6 +45,8 @@ export const Login = () => {
         },
         validationSchema: schema,
         onSubmit: submit,
+        // validateOnBlur: false,
+        // validateOnChange: false,
     });
 
     if (formik.isSubmitting) {
@@ -92,6 +101,7 @@ export const Login = () => {
                             <label htmlFor="checkbox">Remember Me?</label>
                         </div>
 
+                        {formik.status && <div>{formik.status}</div>}
                         <button type="submit">Sign In</button>
                     </form>
                 </div>
