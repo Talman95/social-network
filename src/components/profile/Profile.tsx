@@ -3,6 +3,7 @@ import cl from './Profile.module.css';
 import {ProfileDetails} from "./ProfileDetails/ProfileDetails";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../api/api";
+import Box from "@mui/material/Box";
 
 type ProfilePropsType = {
     profile: ProfileType | null
@@ -11,9 +12,10 @@ type ProfilePropsType = {
 
 export const Profile: FC<ProfilePropsType> = (props) => {
     return (
-        <div className={cl.profile_container}>
-            <ProfileDetails profile={props.profile} status={props.status}/>
-            <MyPostsContainer/>
-        </div>
+        <Box>
+            Profile
+            {/*<ProfileDetails profile={props.profile} status={props.status}/>*/}
+            {/*<MyPostsContainer/>*/}
+        </Box>
     );
 };

@@ -1,9 +1,17 @@
-import React, {FC} from 'react';
-import cl from './Header.module.css';
-import menu from './../../assets/images/menu.png';
-import user from '../../assets/images/userLogo.png'
-import {MyInput} from "../UI/input/MyInput";
-import {MyButton} from "../UI/button/MyButton";
+import React, {FC, useState} from 'react';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import {styled} from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import Avatar from '@mui/material/Avatar';
+import {blue} from '@mui/material/colors';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 type HeaderPropsType = {
     login: string | null
@@ -11,36 +19,101 @@ type HeaderPropsType = {
     logout: () => void
 }
 
-export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
-    return (
-        <div className={cl.header}>
-            {isAuth
-                ?
-                <div className={cl.header_user_icon}>
-                    <a href={'/profile'}>
-                        <img src={user} alt="User"/>
-                        <p className={cl.name}>
-                            {login}
-                        </p>
-                    </a>
-                </div>
-                :
-                <div className={cl.header_user_icon}>
-                    LogIn
-                </div>
-            }
+const StyledToolbar = styled(Toolbar)({
+    display: 'flex',
+    justifyContent: 'space-between',
+})
+const SearchContainer = styled('div')(({theme}) => ({
+    backgroundColor: 'white',
+    padding: '0 10px',
+    borderRadius: theme.shape.borderRadius,
+    width: '40%'
+}))
+const IconsContainer = styled(Box)(({theme}) => ({
+    display: 'none',
+    alignItems: 'center',
+    gap: '20px',
+    [theme.breakpoints.up("sm")]: {
+        display: "flex"
+    }
+}))
+const UserContainer = styled(Box)(({theme}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    [theme.breakpoints.up("sm")]: {
+        display: "none"
+    }
+}))
 
-            <div className={cl.header_right}>
-                <div className={cl.input}>
-                    <MyInput/>
-                </div>
-                <div className={cl.right_menu}>
-                    <img src={menu} alt='right menu'/>
-                    {isAuth &&
-                        <MyButton callback={logout}>Log Out</MyButton>
-                    }
-                </div>
-            </div>
-        </div>
+export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
+    const [openMenu, setOpenMenu] = useState(false)
+
+    const logoutHandler = () => {
+        setOpenMenu(false)
+        logout()
+    }
+
+    return (
+        <AppBar position={"static"}>
+            <StyledToolbar>
+                <Typography
+                    variant={'h6'}
+                    // sx={{display: {xs: 'none', sm: 'block'}}}
+                >
+                    SOCIAL NETWORK
+                </Typography>
+                {isAuth &&
+                    <SearchContainer sx={{display: {xs: 'none', sm: "block"}}}>
+                        <InputBase placeholder={'Search'}/>
+                    </SearchContainer>
+                }
+                {isAuth ?
+                    <Box>
+                        <IconsContainer>
+                            <Badge badgeContent={2} color="error">
+                                <MailIcon/>
+                            </Badge>
+                            <Badge badgeContent={5} color="error">
+                                <NotificationsIcon/>
+                            </Badge>
+                            <Avatar
+                                alt={"Romandrovsky"}
+                                src="/broken-image.jpg"
+                                sx={{bgcolor: blue[500], width: 50, height: 50}}
+                                onClick={() => setOpenMenu(true)}
+                            />
+                        </IconsContainer>
+                        <UserContainer onClick={() => setOpenMenu(true)}>
+                            <Avatar
+                                alt={"Romandrovsky"}
+                                src="/broken-image.jpg"
+                                sx={{bgcolor: blue[500], width: 50, height: 50}}
+                            />
+                            {/*<Typography variant={'body1'} component={'span'}>Romandrovsky</Typography>*/}
+                        </UserContainer>
+                        <Menu
+                            open={openMenu}
+                            onClose={() => setOpenMenu(false)}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <MenuItem>Profile</MenuItem>
+                            <MenuItem onClick={logoutHandler}>LogOut</MenuItem>
+                        </Menu>
+                    </Box>
+                    :
+                    <Typography variant={'body1'} component={'span'}>
+                        LogIn
+                    </Typography>
+                }
+            </StyledToolbar>
+        </AppBar>
     );
 };

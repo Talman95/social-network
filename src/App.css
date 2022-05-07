@@ -1,7 +1,7 @@
-* {
-    padding: 0;
-    box-sizing: border-box;
-}
+/** {*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
 body {
     background: #efefef;
 }
@@ -9,17 +9,17 @@ a {
     text-decoration: none;
     color: inherit;
 }
-.app {
-    display: grid;
-    grid-template-areas:
-            "header"
-            "main";
-    grid-template-rows: 52px 1fr;
-}
-.content {
-    grid-area: main;
-    display: grid;
-    grid-template-areas: "nav content";
-    grid-template-columns: 20% 1fr;
-    padding: 15px 15%;
-}
+/*.app {*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*            "header"*/
+/*            "main";*/
+/*    grid-template-rows: 52px 1fr;*/
+/*}*/
+/*.content {*/
+/*    grid-area: main;*/
+/*    display: grid;*/
+/*    grid-template-areas: "nav content";*/
+/*    grid-template-columns: 20% 1fr;*/
+/*    padding: 15px 15%;*/
+/*}*/

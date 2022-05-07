@@ -8,17 +8,22 @@ import UsersContainer from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
 import {Preloader} from "../components/common/Preloader/Preloader";
+import Box from "@mui/material/Box";
 
 export const AppRouter = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const isLoading = useSelector<AppStateType, boolean>(state => state.auth.isLoading)
 
     if (isLoading) {
-        return <Preloader />
+        return <Preloader/>
     }
 
     return (
-        <div>
+        <Box
+            flex={4}
+            p={2}
+            bgcolor={'red'}
+        >
             {isAuth
                 ?
                 <Routes>
@@ -38,6 +43,6 @@ export const AppRouter = () => {
                     />
                 </Routes>
             }
-        </div>
+        </Box>
     );
 };
