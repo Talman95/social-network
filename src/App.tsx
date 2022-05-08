@@ -28,13 +28,11 @@ const App: React.FC = () => {
     return (
         <Box>
             <HeaderContainer/>
-            {/*<Container>*/}
-                <Stack direction={'row'} spacing={3} justifyContent={'space-between'} mt={2}>
-                    <Nav/>
-                    <AppRouter/>
-                    <Sidebar/>
-                </Stack>
-            {/*</Container>*/}
+            <Stack direction={'row'} spacing={3} justifyContent={'space-between'}>
+                <Nav/>
+                <AppRouter/>
+                <Sidebar/>
+            </Stack>
         </Box>
     );
 }
