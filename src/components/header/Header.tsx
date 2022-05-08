@@ -12,6 +12,7 @@ import {blue} from '@mui/material/colors';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {NavLink} from "react-router-dom";
 
 type HeaderPropsType = {
     login: string | null
@@ -54,8 +55,12 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
         logout()
     }
 
+    const profileHadler = () => {
+        setOpenMenu(false)
+    }
+
     return (
-        <AppBar position={"static"}>
+        <AppBar position={"sticky"}>
             <StyledToolbar>
                 <Typography
                     variant={'h6'}
@@ -104,7 +109,9 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
                                 horizontal: 'right',
                             }}
                         >
-                            <MenuItem>Profile</MenuItem>
+                            <NavLink to={'/profile'}>
+                                <MenuItem onClick={profileHadler}>Profile</MenuItem>
+                            </NavLink>
                             <MenuItem onClick={logoutHandler}>LogOut</MenuItem>
                         </Menu>
                     </Box>

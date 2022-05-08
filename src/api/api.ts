@@ -21,6 +21,10 @@ export const usersAPI = {
         const response = await instance.delete<ResponseType<{}>>(`follow/${userId}`)
         return response.data
     },
+    async getFriends() {
+        const response = await instance.get<GetUsersResponseType>('users?friend=true')
+        return response.data
+    },
 }
 
 export const authAPI = {
@@ -56,14 +60,14 @@ export const profileAPI = {
 
 //types
 export type UserType = {
-    id: number
     name: string
+    id: number
     uniqueUrlName: string | null
-    status: string | null
     photos: {
         small: string | null
         large: string | null
     }
+    status: string | null
     followed: boolean
 }
 export type ProfileType = {

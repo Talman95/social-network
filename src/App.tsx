@@ -8,10 +8,9 @@ import {Dispatch} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import {AppStateType} from "./redux/store";
 import {Preloader} from "./components/common/Preloader/Preloader";
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import {Sidebar} from "./components/Sidebar/Sidebar";
+import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<Dispatch<any>>()
@@ -31,7 +30,7 @@ const App: React.FC = () => {
             <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
                 <Nav/>
                 <AppRouter/>
-                <Sidebar/>
+                <SidebarContainer/>
             </Stack>
         </Box>
     );
