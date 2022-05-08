@@ -12,10 +12,10 @@ export enum ActionsType {
 const initialState: ProfileStateType = {
     profile: null,
     posts: [
-        {id: 4, message: 'Hi, how are you?', likesCount: 12},
-        {id: 3, message: 'Yo yo yo!!!', likesCount: 11},
-        {id: 2, message: 'Hello everyone!', likesCount: 7},
-        {id: 1, message: 'It\'s my first post', likesCount: 28}
+        {id: 4, message: 'Hi, how are you guys?', picture: ''},
+        {id: 3, message: 'Yo yo yo!!!', picture: 'https://www.freecodecamp.org/news/content/images/size/w2000/2022/03/photo-1619410283995-43d9134e7656.jpeg'},
+        {id: 2, message: 'My hometown', picture: 'https://img-cdn.tinkoffjournal.ru/i/n7_9ShaavMSV9O0eeTbqy1Z0udl7C-EcxHVE1uc-CXU/w:1200/aHR0cHM6Ly9pbWct/Y2RuLnRpbmtvZmZq/b3VybmFsLnJ1Ly0v/bWFpbl9fX19fc2h1/dHRlcnN0b2NrXzE0/OTk0MDEwMDEuaDBq/eXdxaWxtNDBoLmpw/Zw'},
+        {id: 1, message: 'It\'s my first post! Hello everyone! Glad to see you here. Don\'t forget about the likes) Good luck!', picture: 'https://www.4vsar.ru/i/news/xxl/283806.jpg'}
     ],
     postMessage: '',
     profileStatus: '',
@@ -27,7 +27,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
             let newPost = {
                 id: new Date().getTime(),
                 message: state.postMessage,
-                likesCount: 0
+                picture: ''
             };
             state = {...state, posts: [newPost, ...state.posts]};
             state.postMessage = '';
@@ -93,7 +93,7 @@ export const updateProfileStatus = (status: string): AppThunk => {
 export type PostType = {
     id: number
     message: string
-    likesCount: number
+    picture: string
 }
 export type ProfileStateType = {
     profile: ProfileType | null

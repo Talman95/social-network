@@ -28,7 +28,7 @@ const App: React.FC = () => {
     return (
         <Box>
             <HeaderContainer/>
-            <Stack direction={'row'} spacing={3} justifyContent={'space-between'}>
+            <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
                 <Nav/>
                 <AppRouter/>
                 <Sidebar/>

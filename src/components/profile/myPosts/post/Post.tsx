@@ -1,23 +1,30 @@
 import React, {FC} from 'react';
-import cl from "./Post.module.css";
-import user from "../../../../assets/images/userLogo.png";
-import like from "../../../../assets/images/like.png";
-import comments from "../../../../assets/images/comments.png";
-import {MyButton} from "../../../UI/button/MyButton";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import {ProfileType} from "../../../../api/api";
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Favorite from '@mui/icons-material/Favorite';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 
 type PropsType = {
     id: number
     message: string
-    likesCount: number
+    picture: string
     deletePost: (postID: number) => void
     profile: ProfileType | null
 }
 
 export const Post: FC<PropsType> = (
     {
-        id, message, likesCount, deletePost, profile
+        id, message, picture, deletePost, profile
     }
 ) => {
 
@@ -30,28 +37,40 @@ export const Post: FC<PropsType> = (
     }
 
     return (
-        <div className={cl.post_container}>
-            <div className={cl.user_header}>
-                <div className={cl.user_profile}>
-                    <img src={profile.photos.small ? profile.photos.small : user} alt="user"/>
-                    <div>
-                        <p>{profile.fullName}</p>
-                        <span>time</span>
-                    </div>
-                </div>
-                <div className={cl.delete_btn}>
-                    <MyButton callback={() => onDeletePost(id)}>X</MyButton>
-                </div>
-            </div>
-
-            <p className={cl.post_text}>{message}</p>
-
-            <div className={cl.post_row}>
-                <div className={cl.activity_icons}>
-                    <div><img src={like} alt="like"/>{likesCount}</div>
-                    <div><img src={comments} alt="comments"/>0</div>
-                </div>
-            </div>
-        </div>
+        <Card sx={{margin: 1}}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{bgcolor: "red"}} alt={profile.fullName}/>
+                }
+                action={
+                    <IconButton aria-label={"settings"}>
+                        <MoreVertIcon/>
+                    </IconButton>
+                }
+                title={profile.fullName}
+                subheader={"May 8, 2022"}
+            />
+            {picture &&
+                <CardMedia
+                    component={"img"}
+                    height={"20%"}
+                    image={picture}
+                    alt={"Post media"}
+                />
+            }
+            <CardContent>
+                <Typography variant={"body2"} color={"text.secondary"}>
+                    {message}
+                </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                    <Checkbox
+                        icon={<FavoriteBorder/>}
+                        checkedIcon={<Favorite sx={{color: "red"}}/>}
+                    />
+                </IconButton>
+            </CardActions>
+        </Card>
     );
 };

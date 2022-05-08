@@ -15,65 +15,63 @@ import Switch from '@mui/material/Switch';
 
 export const Nav: React.FC = () => {
     return (
-        <Box
-            flex={1}
-            p={2}
-            sx={{display: {xs: 'none', sm: 'block'}}}
-        >
-            <List>
-                <NavLink to={"/profile"}>
+        <Box flex={1} p={2} sx={{display: {xs: 'none', sm: 'block'}}}>
+            <Box position={"fixed"}>
+                <List>
+                    <NavLink to={"/profile"}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <AccountBoxIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Profile"}/>
+                            </ListItemButton>
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to={"/messages"}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <MessageIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Messages"}/>
+                            </ListItemButton>
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to={"/users"}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <PeopleIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Users"}/>
+                            </ListItemButton>
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to={"/settings"}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <SettingsIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Settings"}/>
+                            </ListItemButton>
+                        </ListItem>
+                    </NavLink>
+
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                <AccountBoxIcon/>
+                                <ModeNightIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={"Profile"}/>
+                            <Switch/>
                         </ListItemButton>
                     </ListItem>
-                </NavLink>
-
-                <NavLink to={"/messages"}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <MessageIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Messages"}/>
-                        </ListItemButton>
-                    </ListItem>
-                </NavLink>
-
-                <NavLink to={"/users"}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <PeopleIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Users"}/>
-                        </ListItemButton>
-                    </ListItem>
-                </NavLink>
-
-                <NavLink to={"/settings"}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <SettingsIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Settings"}/>
-                        </ListItemButton>
-                    </ListItem>
-                </NavLink>
-
-                <ListItem disablePadding>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <ModeNightIcon/>
-                        </ListItemIcon>
-                        <Switch/>
-                    </ListItemButton>
-                </ListItem>
-            </List>
+                </List>
+            </Box>
         </Box>
     );
 };

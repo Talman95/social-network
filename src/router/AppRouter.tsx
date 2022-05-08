@@ -22,7 +22,6 @@ export const AppRouter = () => {
         <Box
             flex={4}
             p={2}
-            bgcolor={'red'}
         >
             {isAuth
                 ?

@@ -12,10 +12,9 @@ type ProfilePropsType = {
 
 export const Profile: FC<ProfilePropsType> = (props) => {
     return (
-        <Box>
-            Profile
+        <>
             {/*<ProfileDetails profile={props.profile} status={props.status}/>*/}
-            {/*<MyPostsContainer/>*/}
-        </Box>
+            <MyPostsContainer/>
+        </>
     );
 };

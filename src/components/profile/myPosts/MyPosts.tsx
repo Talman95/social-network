@@ -19,19 +19,19 @@ export const MyPosts: FC<MyPostsPropsType> = (props) => {
     const postsComponents = props.posts.map(p => <Post key={p.id}
                                                        id={p.id}
                                                        message={p.message}
-                                                       likesCount={p.likesCount}
+                                                       picture={p.picture}
                                                        deletePost={props.deletePost}
                                                        profile={props.profile}
     />)
 
     return (
         <div className={cl.my_posts}>
-            <WriteField
-                postMessage={props.postMessage}
-                updateMessage={props.updateMessage}
-                addPost={props.addPost}
-                profile={props.profile}
-            />
+            {/*<WriteField*/}
+            {/*    postMessage={props.postMessage}*/}
+            {/*    updateMessage={props.updateMessage}*/}
+            {/*    addPost={props.addPost}*/}
+            {/*    profile={props.profile}*/}
+            {/*/>*/}
             {postsComponents}
         </div>
     );
