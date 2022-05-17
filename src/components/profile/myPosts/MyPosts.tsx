@@ -25,14 +25,14 @@ export const MyPosts: FC<MyPostsPropsType> = (props) => {
     />)
 
     return (
-        <div className={cl.my_posts}>
-            {/*<WriteField*/}
-            {/*    postMessage={props.postMessage}*/}
-            {/*    updateMessage={props.updateMessage}*/}
-            {/*    addPost={props.addPost}*/}
-            {/*    profile={props.profile}*/}
-            {/*/>*/}
+        <>
+            <WriteField
+                postMessage={props.postMessage}
+                updateMessage={props.updateMessage}
+                addPost={props.addPost}
+                profile={props.profile}
+            />
             {postsComponents}
-        </div>
+        </>
     );
 };

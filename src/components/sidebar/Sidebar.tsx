@@ -13,7 +13,7 @@ export const Sidebar: FC<SidebarPropsType> = ({friends, friendsCount}) => {
     return (
         <Box flex={2} p={2} sx={{display: {xs: "none", sm: "block"}}}>
             <Box position={"fixed"}>
-                <Typography variant={"h6"} fontWeight={100}>Your Last Following</Typography>
+                <Typography variant={"h6"} fontWeight={100}>Your Following</Typography>
                 {friendsCount === 0
                     ?
                     <Typography variant={"body1"}>Following your friends</Typography>

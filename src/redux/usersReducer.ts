@@ -1,5 +1,6 @@
 import {usersAPI, UserType} from "../api/api";
 import {AppThunk} from "./store";
+import {getFriends} from "./friendsReducer";
 
 export enum ACTIONS_TYPE {
     FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',
@@ -93,6 +94,7 @@ export const follow = (userId: number): AppThunk => {
         const response = await usersAPI.follow(userId)
         if (response.resultCode === 0) {
             dispatch(followSuccess(userId))
+            dispatch(getFriends())
         }
         dispatch(togglePressingInProgress(false, userId))
     }
@@ -103,6 +105,7 @@ export const unfollow = (userId: number): AppThunk => {
         const response = await usersAPI.unfollow(userId)
         if (response.resultCode === 0) {
             dispatch(unfollowSuccess(userId))
+            dispatch(getFriends())
         }
         dispatch(togglePressingInProgress(false, userId))
     }
