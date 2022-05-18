@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import {Preloader} from "../common/Preloader/Preloader";
 import {useDispatch} from "react-redux";
 import {login} from "../../redux/authReducer";
+import Grid from '@mui/material/Grid';
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
 
 
 export type formValuesModel = {
@@ -16,22 +18,20 @@ export type formValuesModel = {
 export const Login = () => {
     const dispatch = useDispatch()
 
-    const schema = Yup.object({
+    const validationSchema = Yup.object({
         email: Yup.string()
             .email('Invalid email address')
-            .required('Required'),
+            .required('Email is required'),
         password: Yup.string()
-            .required('Required')
+            .required('Password is required'),
     })
 
-    const submit = async (values: formValuesModel, {resetForm, setStatus, validateForm, setFieldError}: FormikHelpers<formValuesModel>) => {
+    const submit = async (values: formValuesModel, {
+        resetForm, setStatus,
+    }: FormikHelpers<formValuesModel>) => {
         const res = await dispatch(login(values))
         if (res) {
             setStatus(res)
-            // validateForm(schema).then(err => {
-            //     setFieldError('email', 'Incorrect')
-            //     setFieldError('password', 'Incorrect')
-            // })
         } else {
             resetForm({})
         }
@@ -43,10 +43,8 @@ export const Login = () => {
             password: '',
             rememberMe: true
         },
-        validationSchema: schema,
+        validationSchema: validationSchema,
         onSubmit: submit,
-        // validateOnBlur: false,
-        // validateOnChange: false,
     });
 
     if (formik.isSubmitting) {
@@ -56,56 +54,41 @@ export const Login = () => {
     }
 
     return (
-        <div className={s.login}>
-            <div className={s.container}>
-                <h1 className={s.formTitle}>Sign In</h1>
-                <div className={s.formContainer}>
-                    <form
-                        onSubmit={formik.handleSubmit}
-                        className={s.form}
-                    >
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                            className={formik.errors.email && formik.touched.email ? s.error : ''}
-                        />
-                        {formik.touched.email && formik.errors.email ? (
-                            <p className={s.errorMessage}>{formik.errors.email}</p>) : null}
-                        {}
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.password}
-                            className={formik.errors.password && formik.touched.password ? s.error : ''}
-                        />
-                        {formik.touched.password && formik.errors.password ? (
-                            <p className={s.errorMessage}>{formik.errors.password}</p>) : null}
-
-                        <div className={s.rememberMe}>
-                            <input
-                                id={"rememberMe"}
-                                name={'rememberMe'}
-                                type={'checkbox'}
-                                onChange={formik.handleChange}
-                                checked={formik.values.rememberMe}
+        <Grid container justifyContent={"center"}>
+            <Grid item justifyContent={"center"}>
+                <FormControl>
+                    <form onSubmit={formik.handleSubmit}>
+                        <FormGroup>
+                            <TextField
+                                id={"email"}
+                                label={"Email"}
+                                type={"email"}
+                                margin={"normal"}
+                                {...formik.getFieldProps('email')}
+                                error={formik.touched.email && Boolean(formik.errors.email)}
+                                helperText={formik.touched.email && formik.errors.email}
                             />
-                            <label htmlFor="checkbox">Remember Me?</label>
-                        </div>
-
-                        {formik.status && <div>{formik.status}</div>}
-                        <button type="submit">Sign In</button>
+                            <TextField
+                                id={"password"}
+                                label={"Password"}
+                                type={"password"}
+                                margin={"normal"}
+                                {...formik.getFieldProps('password')}
+                                error={formik.touched.email && Boolean(formik.errors.email)}
+                                helperText={formik.touched.email && formik.errors.email}
+                            />
+                            <FormControlLabel
+                                label={"Remember me?"}
+                                control={<Checkbox {...formik.getFieldProps("rememberMe")}/>}
+                            />
+                            {formik.status && <div>{formik.status}</div>}
+                            <Button color={"primary"} variant={"contained"} type={"submit"}>
+                                Sign In
+                            </Button>
+                        </FormGroup>
                     </form>
-                </div>
-            </div>
-        </div>
+                </FormControl>
+            </Grid>
+        </Grid>
     );
 };

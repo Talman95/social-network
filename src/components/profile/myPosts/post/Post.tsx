@@ -13,6 +13,7 @@ import Favorite from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import {blue} from '@mui/material/colors';
 
 type PropsType = {
     id: number
@@ -40,7 +41,7 @@ export const Post: FC<PropsType> = (
         <Card sx={{margin: 1}}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{bgcolor: "red"}} alt={profile.fullName}/>
+                    <Avatar sx={{bgcolor: blue[500]}} alt={profile.fullName}/>
                 }
                 action={
                     <IconButton aria-label={"settings"}>
