@@ -4,7 +4,7 @@ import {AppStateType} from "../redux/store";
 import {useSelector} from 'react-redux';
 import {ProfileContainer} from "../components/Profile/ProfileContainer";
 import Messages from "../components/Messages/Messages";
-import UsersContainer from "../components/Users/UsersContainer";
+import {UsersContainer} from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
 import {Preloader} from "../components/common/Preloader/Preloader";

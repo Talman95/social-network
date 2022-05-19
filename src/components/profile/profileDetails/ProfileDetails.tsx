@@ -38,6 +38,12 @@ export const ProfileDetails: React.FC<ProfileDetailsPropsType> = (props) => {
                         <Button>Follow</Button>
                         <Button>Message</Button>
                     </ButtonGroup>
+                    {/*<IconButton aria-label={"start messaging"}*/}
+                    {/*            size={"small"}*/}
+                    {/*            color={"primary"}*/}
+                    {/*>*/}
+                    {/*    <MessageIcon/>*/}
+                    {/*</IconButton>*/}
                 </Box>
             </Box>
         </Card>

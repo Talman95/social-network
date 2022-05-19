@@ -1,11 +1,11 @@
 import {Users} from "./Users";
-import {connect, ConnectedProps} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
-import React from "react";
+import React, {ChangeEvent, MouseEvent, useEffect} from "react";
 import {UserType} from "../../api/api";
 
-type MapStatePropsType = {
+type UsersPropsType = {
     users: Array<UserType>
     currentPage: number
     pageSize: number
@@ -14,48 +14,39 @@ type MapStatePropsType = {
     pressingInProgress: Array<number>
 }
 
-class UsersContainer extends React.Component<UsersContainerProps> {
+export const UsersContainer = () => {
+    const {
+        users, currentPage, pageSize,
+        totalCount, isFetching, pressingInProgress
+    } = useSelector<AppStateType, UsersPropsType>(state => state.users)
 
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getUsers(currentPage, pageSize))
+    }, [])
+
+    const changePage = (event: ChangeEvent<unknown>, pageNumber: number) => {
+        dispatch(setCurrentPage(pageNumber))
+        dispatch(getUsers(pageNumber, pageSize))
+    }
+    const followHandler = (e: MouseEvent<HTMLButtonElement>, userID: number) => {
+        e.preventDefault()
+        dispatch(follow(userID))
+    }
+    const unfollowHandler = (e: MouseEvent<HTMLButtonElement>, userID: number) => {
+        e.preventDefault()
+        dispatch(unfollow(userID))
     }
 
-    switchPage = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.getUsers(pageNumber, this.props.pageSize)
-    }
-
-    render() {
-        return (
-            <Users
-                users={this.props.users}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                currentPage={this.props.currentPage}
-                pageSize={this.props.pageSize}
-                totalCount={this.props.totalCount}
-                switchPage={this.switchPage}
-                isFetching={this.props.isFetching}
-                pressingInProgress={this.props.pressingInProgress}
-            />)
-    }
+    return (<Users
+        users={users}
+        follow={followHandler}
+        unfollow={unfollowHandler}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        totalCount={totalCount}
+        switchPage={changePage}
+        isFetching={isFetching}
+        pressingInProgress={pressingInProgress}/>)
 }
-
-export const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        users: state.users.users,
-        currentPage: state.users.currentPage,
-        pageSize: state.users.pageSize,
-        totalCount: state.users.totalCount,
-        isFetching: state.users.isFetching,
-        pressingInProgress: state.users.pressingInProgress,
-    }
-}
-
-const connector = connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage, getUsers,
-})
-
-type UsersContainerProps = ConnectedProps<typeof connector>;
-
-export default connector(UsersContainer);
