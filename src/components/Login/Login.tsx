@@ -29,12 +29,8 @@ export const Login = () => {
     const submit = async (values: formValuesModel, {
         resetForm, setStatus,
     }: FormikHelpers<formValuesModel>) => {
-        const res = await dispatch(login(values))
-        if (res) {
-            setStatus(res)
-        } else {
-            resetForm({})
-        }
+        await dispatch(login(values))
+        resetForm({})
     }
 
     const formik = useFormik({
@@ -81,7 +77,6 @@ export const Login = () => {
                                 label={"Remember me?"}
                                 control={<Checkbox {...formik.getFieldProps("rememberMe")}/>}
                             />
-                            {formik.status && <div>{formik.status}</div>}
                             <Button color={"primary"} variant={"contained"} type={"submit"}>
                                 Sign In
                             </Button>

@@ -11,6 +11,7 @@ import {Preloader} from "./components/common/Preloader/Preloader";
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
+import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<Dispatch<any>>()
@@ -26,6 +27,7 @@ const App: React.FC = () => {
 
     return (
         <Box>
+            <ErrorSnackbar/>
             <HeaderContainer/>
             <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
                 <Nav/>

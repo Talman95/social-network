@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
 import {AppThunk} from "./store";
+import {setAppErrorMessage} from "./appReducer";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS'
@@ -49,12 +50,19 @@ export const getAuthUserData = (): AppThunk => {
 }
 export const login = ({email, password, rememberMe}: formValuesModel): AppThunk => {
     return async (dispatch) => {
-        const response = await authAPI.login(email, password, rememberMe)
-        if (response.resultCode === 0) {
-            dispatch(getAuthUserData())
-        } else {
-            const message = response.messages.length > 0 ? response.messages[0] : 'Some error'
-            return message
+        try {
+            const response = await authAPI.login(email, password, rememberMe)
+            if (response.resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else {
+                if (response.messages.length) {
+                    dispatch(setAppErrorMessage(response.messages[0]))
+                } else {
+                    dispatch(setAppErrorMessage('Some error occurred'))
+                }
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
         }
     }
 }

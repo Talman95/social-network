@@ -1,6 +1,7 @@
 import {usersAPI, UserType} from "../api/api";
 import {AppThunk} from "./store";
 import {getFriends} from "./friendsReducer";
+import {setAppErrorMessage} from "./appReducer";
 
 export enum ACTIONS_TYPE {
     FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',
@@ -91,10 +92,20 @@ export const getUsers = (currentPage: number, pageSize: number): AppThunk => {
 export const follow = (userId: number): AppThunk => {
     return async (dispatch) => {
         dispatch(togglePressingInProgress(true, userId))
-        const response = await usersAPI.follow(userId)
-        if (response.resultCode === 0) {
-            dispatch(followSuccess(userId))
-            dispatch(getFriends())
+        try {
+            const response = await usersAPI.follow(userId)
+            if (response.resultCode === 0) {
+                dispatch(followSuccess(userId))
+                dispatch(getFriends())
+            } else {
+                if (response.messages.length) {
+                    dispatch(setAppErrorMessage(response.messages[0]))
+                } else {
+                    dispatch(setAppErrorMessage('Some error occurred'))
+                }
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
         }
         dispatch(togglePressingInProgress(false, userId))
     }
@@ -102,10 +113,20 @@ export const follow = (userId: number): AppThunk => {
 export const unfollow = (userId: number): AppThunk => {
     return async (dispatch) => {
         dispatch(togglePressingInProgress(true, userId))
-        const response = await usersAPI.unfollow(userId)
-        if (response.resultCode === 0) {
-            dispatch(unfollowSuccess(userId))
-            dispatch(getFriends())
+        try {
+            const response = await usersAPI.unfollow(userId)
+            if (response.resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+                dispatch(getFriends())
+            } else {
+                if (response.messages.length) {
+                    dispatch(setAppErrorMessage(response.messages[0]))
+                } else {
+                    dispatch(setAppErrorMessage('Some error occurred'))
+                }
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
         }
         dispatch(togglePressingInProgress(false, userId))
     }
