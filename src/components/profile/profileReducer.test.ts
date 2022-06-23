@@ -3,7 +3,7 @@ import {
     deletePost,
     PostType,
     profileReducer,
-    ProfileStateType, setProfileStatus, setUserProfile,
+    ProfileStateType, setFriendship, setProfileStatus, setUserProfile,
     updateMessage
 } from "../../redux/profileReducer";
 
@@ -12,6 +12,7 @@ let startState: ProfileStateType = {
     posts: [] as PostType[],
     postMessage: '',
     profileStatus: '',
+    isFriend: false,
 }
 
 beforeEach(() => {
@@ -25,6 +26,7 @@ beforeEach(() => {
         ],
         postMessage: '',
         profileStatus: '',
+        isFriend: false,
     }
 })
 
@@ -88,4 +90,10 @@ test("status should be set", () => {
     let endState = profileReducer(startState, setProfileStatus('React Redux'))
 
     expect(endState.profileStatus).toBe('React Redux')
+})
+
+test("current user should become friend", () => {
+    let endState = profileReducer(startState, setFriendship(true))
+
+    expect(endState.isFriend).toBe(true)
 })

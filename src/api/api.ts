@@ -25,6 +25,11 @@ export const usersAPI = {
         const response = await instance.get<GetUsersResponseType>('users?friend=true')
         return response.data
     },
+    async isFollow(userId: number) {
+        const response = await instance.get<boolean>(`follow/${userId}`)
+        console.log(response.data)
+        return response.data
+    },
 }
 
 export const authAPI = {

@@ -85,7 +85,7 @@ export const User: FC<UserPropsType> = ({user, follow, unfollow, pressingInProgr
                         <Box>
                             {user.followed
                                 ?
-                                <Button variant="contained"
+                                <Button variant="outlined"
                                         startIcon={<PersonRemoveIcon/>}
                                         disabled={pressingInProgress.some(id => id === user.id)}
                                         sx={{display: {xs: "none", sm: "flex"}, width: "132px"}}

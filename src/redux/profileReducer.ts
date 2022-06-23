@@ -1,4 +1,4 @@
-import {profileAPI, ProfileType} from "../api/api";
+import {profileAPI, ProfileType, usersAPI} from "../api/api";
 import {AppThunk} from "./store";
 
 export enum ActionsType {
@@ -7,18 +7,32 @@ export enum ActionsType {
     DELETE_POST = 'Profile/DELETE_POST',
     SET_USER_PROFILE = 'Profile/SET_USER_PROFILE',
     SET_PROFILE_STATUS = 'Profile/SET_PROFILE_STATUS',
+    SET_FRIENDSHIP = 'Profile/SET_FRIENDSHIP',
 }
 
 const initialState: ProfileStateType = {
     profile: null,
     posts: [
         {id: 4, message: 'Hi, how are you guys?', picture: ''},
-        {id: 3, message: 'Yo yo yo!!!', picture: 'https://www.freecodecamp.org/news/content/images/size/w2000/2022/03/photo-1619410283995-43d9134e7656.jpeg'},
-        {id: 2, message: 'My hometown', picture: 'https://img-cdn.tinkoffjournal.ru/i/n7_9ShaavMSV9O0eeTbqy1Z0udl7C-EcxHVE1uc-CXU/w:1200/aHR0cHM6Ly9pbWct/Y2RuLnRpbmtvZmZq/b3VybmFsLnJ1Ly0v/bWFpbl9fX19fc2h1/dHRlcnN0b2NrXzE0/OTk0MDEwMDEuaDBq/eXdxaWxtNDBoLmpw/Zw'},
-        {id: 1, message: 'It\'s my first post! Hello everyone! Glad to see you here. Don\'t forget about the likes) Good luck!', picture: 'https://www.4vsar.ru/i/news/xxl/283806.jpg'}
+        {
+            id: 3,
+            message: 'Yo yo yo!!!',
+            picture: 'https://www.freecodecamp.org/news/content/images/size/w2000/2022/03/photo-1619410283995-43d9134e7656.jpeg'
+        },
+        {
+            id: 2,
+            message: 'My hometown',
+            picture: 'https://img-cdn.tinkoffjournal.ru/i/n7_9ShaavMSV9O0eeTbqy1Z0udl7C-EcxHVE1uc-CXU/w:1200/aHR0cHM6Ly9pbWct/Y2RuLnRpbmtvZmZq/b3VybmFsLnJ1Ly0v/bWFpbl9fX19fc2h1/dHRlcnN0b2NrXzE0/OTk0MDEwMDEuaDBq/eXdxaWxtNDBoLmpw/Zw'
+        },
+        {
+            id: 1,
+            message: 'It\'s my first post! Hello everyone! Glad to see you here. Don\'t forget about the likes) Good luck!',
+            picture: 'https://www.4vsar.ru/i/news/xxl/283806.jpg'
+        }
     ],
     postMessage: '',
     profileStatus: '',
+    isFriend: false,
 }
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
@@ -43,6 +57,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         }
         case ActionsType.SET_USER_PROFILE:
         case ActionsType.SET_PROFILE_STATUS:
+        case ActionsType.SET_FRIENDSHIP:
             return {
                 ...state,
                 ...action.payload,
@@ -66,6 +81,7 @@ export const setUserProfile = (profile: ProfileType) => (
 export const setProfileStatus = (profileStatus: string) => (
     {type: ActionsType.SET_PROFILE_STATUS, payload: {profileStatus}} as const
 )
+export const setFriendship = (isFriend: boolean) => ({type: ActionsType.SET_FRIENDSHIP, payload: {isFriend}} as const)
 
 //thunks
 export const getUserProfile = (userId: number): AppThunk => {
@@ -88,6 +104,17 @@ export const updateProfileStatus = (status: string): AppThunk => {
         }
     }
 }
+export const isFollow = (id: number): AppThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await usersAPI.isFollow(id)
+            console.log(response)
+            dispatch(setFriendship(response))
+        } catch (e: any) {
+
+        }
+    }
+}
 
 //types
 export type PostType = {
@@ -100,9 +127,13 @@ export type ProfileStateType = {
     posts: PostType[]
     postMessage: string
     profileStatus: string
+    isFriend: boolean
 }
 
 export type ProfileActionsType =
-    ReturnType<typeof addPost> | ReturnType<typeof updateMessage>
-    | ReturnType<typeof deletePost> | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof addPost>
+    | ReturnType<typeof updateMessage>
+    | ReturnType<typeof deletePost>
+    | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setProfileStatus>
+    | ReturnType<typeof setFriendship>
