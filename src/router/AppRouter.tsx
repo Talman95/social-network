@@ -9,6 +9,7 @@ import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
 import {Preloader} from "../components/common/Preloader/Preloader";
 import Box from "@mui/material/Box";
+import {SettingsContainer} from "../components/Settings/SettingsContainer";
 
 export const AppRouter = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
@@ -32,6 +33,7 @@ export const AppRouter = () => {
                     <Route path={'/messages/*'} element={<Messages/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                     <Route path={'*'} element={<Error404/>}/>
+                    <Route path={'/settings'} element={<SettingsContainer/>}/>
                 </Routes>
                 :
                 <Routes>
