@@ -1,6 +1,6 @@
 import {authAPI, profileAPI, ProfileType} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
-import {AppThunk} from "./store";
+import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
 
 const SET_USER_DATA = 'SET_USER_DATA'
@@ -90,6 +90,27 @@ export const logout = (): AppThunk => {
         }
     }
 }
+export const updateProfile = (values: ValuesForUpdateProfile): AppThunk => {
+    return async (dispatch, getState: () => AppStateType) => {
+        const userId = getState().auth.id
+        try {
+            const updatedProfile = {...values, userId}
+            const res = await profileAPI.updateProfile(updatedProfile)
+            if (res.data.resultCode === 0 && userId) {
+                const res = await profileAPI.getProfile(userId)
+                dispatch(setProfile(res.data))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setAppErrorMessage(res.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorMessage('Some error occurred'))
+                }
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
+        }
+    }
+}
 
 //types
 export type AuthStateType = {
@@ -99,6 +120,22 @@ export type AuthStateType = {
     isAuth: boolean
     isLoading: boolean
     profile: ProfileType | null
+}
+export type ValuesForUpdateProfile = {
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        facebook: null | string
+        website: null | string
+        vk: null | string
+        twitter: null | string
+        instagram: null | string
+        youtube: null | string
+        github: null | string
+        mainLink: null | string
+    }
+    aboutMe: string
 }
 
 export type AuthActionsType =

@@ -61,6 +61,9 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<ResponseType<{}>>('profile/status', {status})
     },
+    updateProfile(profile: ProfileUpdateType) {
+        return instance.put<ResponseType<{}>>('profile', {...profile})
+    },
 }
 
 //types
@@ -111,4 +114,21 @@ export type AuthMeDataType = {
     id: number
     login: string
     email: string
+}
+export type ProfileUpdateType = {
+    userId: number | null
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        facebook: null | string
+        website: null | string
+        vk: null | string
+        twitter: null | string
+        instagram: null | string
+        youtube: null | string
+        github: null | string
+        mainLink: null | string
+    }
+    aboutMe: string
 }

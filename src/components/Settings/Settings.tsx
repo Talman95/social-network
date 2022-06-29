@@ -11,19 +11,19 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {FormikHelpers, useFormik} from "formik";
+import {Field, FormikHelpers, useFormik} from "formik";
 import * as Yup from "yup";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {ProfileType} from "../../api/api";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import WebIcon from '@mui/icons-material/Web';
 import LinkIcon from '@mui/icons-material/Link';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import {updateProfile} from "../../redux/authReducer";
 
 export type formValuesModel = {
     aboutMe: string
@@ -43,7 +43,8 @@ export type formValuesModel = {
 }
 
 export const Settings = () => {
-    const profile = useSelector<AppStateType, ProfileType | null>(state => state.profile.profile)
+    const profile = useSelector<AppStateType, ProfileType | null>(state => state.auth.profile)
+    const dispatch = useDispatch<any>()
 
     const validationSchema = Yup.object({
         fullName: Yup.string()
@@ -51,7 +52,7 @@ export const Settings = () => {
     })
 
     const submit = (values: formValuesModel, {resetForm}: FormikHelpers<formValuesModel>) => {
-        console.log(values)
+        dispatch(updateProfile(values))
     }
     const formik = useFormik({
         initialValues: {
@@ -71,7 +72,7 @@ export const Settings = () => {
             fullName: profile?.fullName ? profile.fullName : '',
         },
         validationSchema: validationSchema,
-        onSubmit: submit
+        onSubmit: submit,
     });
 
 
@@ -123,14 +124,15 @@ export const Settings = () => {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControlLabel
+                                        control={<Checkbox />}
                                         label={"Looking for a job?"}
-                                        control={<Checkbox {...formik.getFieldProps("lookingForAJob")}/>}
+                                        name={"Looking for a job?"}
                                     />
                                 </Grid>
 
                                 <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Looking for a job description
+                                        Description
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
