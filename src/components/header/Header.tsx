@@ -13,11 +13,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {NavLink} from "react-router-dom";
+import {ProfileType} from "../../api/api";
 
 type HeaderPropsType = {
     login: string | null
     isAuth: boolean
     logout: () => void
+    profile: ProfileType | null
 }
 
 const StyledToolbar = styled(Toolbar)({
@@ -47,7 +49,7 @@ const UserContainer = styled(Box)(({theme}) => ({
     }
 }))
 
-export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
+export const Header: FC<HeaderPropsType> = ({login, isAuth, logout, profile}) => {
     const [openMenu, setOpenMenu] = useState(false)
 
     const logoutHandler = () => {
@@ -83,19 +85,19 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout}) => {
                                 <NotificationsIcon/>
                             </Badge>
                             <Avatar
-                                alt={"Romandrovsky"}
-                                src="/broken-image.jpg"
+                                alt={profile?.fullName}
+                                src={profile?.photos.small ?  profile?.photos.small : "/broken-image.jpg"}
                                 sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 onClick={() => setOpenMenu(true)}
                             />
                         </IconsContainer>
                         <UserContainer onClick={() => setOpenMenu(true)}>
                             <Avatar
-                                alt={"Romandrovsky"}
-                                src="/broken-image.jpg"
+                                alt={profile?.fullName}
+                                src={profile?.photos.small ?  profile?.photos.small : "/broken-image.jpg"}
                                 sx={{bgcolor: blue[500], width: 50, height: 50}}
                             />
-                            {/*<Typography variant={'body1'} component={'span'}>Romandrovsky</Typography>*/}
+                            <Typography variant={'body1'} component={'span'}>{profile?.fullName}</Typography>
                         </UserContainer>
                         <Menu
                             open={openMenu}

@@ -1,10 +1,11 @@
-import {authAPI} from "../api/api";
+import {authAPI, profileAPI, ProfileType} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
 import {AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS'
+const SET_PROFILE = 'Auth/SET_PROFILE'
 
 const initialState: AuthStateType = {
     id: null,
@@ -12,6 +13,7 @@ const initialState: AuthStateType = {
     login: null,
     isAuth: false,
     isLoading: true,
+    profile: null,
 }
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthStateType => {
@@ -26,6 +28,11 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
                 ...state,
                 isLoading: action.isLoading
             }
+        case SET_PROFILE:
+            return {
+                ...state,
+                profile: action.profile,
+            }
         default:
             return state
     }
@@ -36,16 +43,24 @@ export const setUserData = (id: number | null, email: string | null, login: stri
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
 export const setLoading = (isLoading: boolean) => ({type: LOADING_IN_PROGRESS, isLoading} as const)
+export const setProfile = (profile: ProfileType | null) => ({type: SET_PROFILE, profile} as const)
 
 //thunks
 export const getAuthUserData = (): AppThunk => {
     return async (dispatch) => {
-        const response = await authAPI.authMe()
-        if (response.resultCode === 0) {
-            let {id, email, login} = response.data
-            dispatch(setUserData(id, email, login, true))
+        try {
+            const response = await authAPI.authMe()
+            if (response.resultCode === 0) {
+                let {id, email, login} = response.data
+                dispatch(setUserData(id, email, login, true))
+                const res = await profileAPI.getProfile(id)
+                dispatch(setProfile(res.data))
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
+        } finally {
+            dispatch(setLoading(false))
         }
-        dispatch(setLoading(false))
     }
 }
 export const login = ({email, password, rememberMe}: formValuesModel): AppThunk => {
@@ -71,6 +86,7 @@ export const logout = (): AppThunk => {
         const response = await authAPI.logout()
         if (response.resultCode === 0) {
             dispatch(setUserData(null, null, null, false))
+            dispatch(setProfile(null))
         }
     }
 }
@@ -82,6 +98,10 @@ export type AuthStateType = {
     login: string | null
     isAuth: boolean
     isLoading: boolean
+    profile: ProfileType | null
 }
 
-export type AuthActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setLoading>
+export type AuthActionsType =
+    | ReturnType<typeof setUserData>
+    | ReturnType<typeof setLoading>
+    | ReturnType<typeof setProfile>
