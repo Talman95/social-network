@@ -7,14 +7,15 @@ import {NavLink} from "react-router-dom";
 type SidebarPropsType = {
     friends: UserType[]
     friendsCount: number
+    isAuth: boolean
 }
 
-export const Sidebar: FC<SidebarPropsType> = ({friends, friendsCount}) => {
+export const Sidebar: FC<SidebarPropsType> = ({friends, friendsCount, isAuth}) => {
     return (
         <Box flex={2} p={2} sx={{display: {xs: "none", sm: "block"}}}>
             <Box position={"fixed"}>
                 <Typography variant={"h6"} fontWeight={100}>Your Following</Typography>
-                {friendsCount === 0
+                {friendsCount === 0 || !isAuth
                     ?
                     <Typography variant={"body1"}>Following your friends</Typography>
                     :

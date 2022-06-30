@@ -9,6 +9,7 @@ import {getFriends} from "../../redux/friendsReducer";
 export const SidebarContainer = () => {
     const friends = useSelector<AppStateType, UserType[]>(state => state.friends.friends)
     const friendsCount = useSelector<AppStateType, number>(state => state.friends.friendsCount)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const dispatch = useDispatch<Dispatch<any>>()
 
@@ -20,6 +21,7 @@ export const SidebarContainer = () => {
         <Sidebar
             friends={friends}
             friendsCount={friendsCount}
+            isAuth={isAuth}
         />
     );
 };

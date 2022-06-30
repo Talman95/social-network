@@ -43,7 +43,7 @@ const IconsContainer = styled(Box)(({theme}) => ({
 const UserContainer = styled(Box)(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
+    gap: '15px',
     [theme.breakpoints.up("sm")]: {
         display: "none"
     }
@@ -86,18 +86,23 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout, profile}) =>
                             </Badge>
                             <Avatar
                                 alt={profile?.fullName}
-                                src={profile?.photos.small ?  profile?.photos.small : "/broken-image.jpg"}
+                                src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
                                 sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 onClick={() => setOpenMenu(true)}
                             />
+                            <Typography variant={'body1'} component={'span'} onClick={() => setOpenMenu(true)}>
+                                {profile?.fullName}
+                            </Typography>
                         </IconsContainer>
                         <UserContainer onClick={() => setOpenMenu(true)}>
+                            <Badge badgeContent={2} color="error">
+                                <MailIcon/>
+                            </Badge>
                             <Avatar
                                 alt={profile?.fullName}
-                                src={profile?.photos.small ?  profile?.photos.small : "/broken-image.jpg"}
+                                src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
                                 sx={{bgcolor: blue[500], width: 50, height: 50}}
                             />
-                            <Typography variant={'body1'} component={'span'}>{profile?.fullName}</Typography>
                         </UserContainer>
                         <Menu
                             open={openMenu}
