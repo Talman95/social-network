@@ -1,23 +1,16 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {AppStateType} from "../redux/store";
-import {useSelector} from 'react-redux';
 import {ProfileContainer} from "../components/Profile/ProfileContainer";
 import Messages from "../components/Messages/Messages";
 import {UsersContainer} from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
-import {Preloader} from "../components/common/Preloader/Preloader";
 import Box from "@mui/material/Box";
 import {SettingsContainer} from "../components/Settings/SettingsContainer";
+import {useAppSelector} from "../features/hooks/hooks";
 
 export const AppRouter = () => {
-    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    const isLoading = useSelector<AppStateType, boolean>(state => state.auth.isLoading)
-
-    if (isLoading) {
-        return <Preloader/>
-    }
+    const isAuth = useAppSelector(state => state.auth.isAuth)
 
     return (
         <Box

@@ -1,25 +1,30 @@
-import React, {FC, useState} from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import React, {FC, memo, useState} from 'react';
 import {styled} from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
-import Avatar from '@mui/material/Avatar';
 import {blue} from '@mui/material/colors';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import {NavLink} from "react-router-dom";
 import {ProfileType} from "../../api/api";
+import {
+    AppBar,
+    Avatar,
+    Badge,
+    Box,
+    Divider,
+    IconButton,
+    InputBase,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography
+} from "@mui/material";
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 type HeaderPropsType = {
-    login: string | null
     isAuth: boolean
     logout: () => void
     profile: ProfileType | null
+    navigateToProfile: () => void
+    navigateToUsers: () => void
+    navigateToMessages: () => void
 }
 
 const StyledToolbar = styled(Toolbar)({
@@ -49,25 +54,38 @@ const UserContainer = styled(Box)(({theme}) => ({
     }
 }))
 
-export const Header: FC<HeaderPropsType> = ({login, isAuth, logout, profile}) => {
-    const [openMenu, setOpenMenu] = useState(false)
-
+export const Header: FC<HeaderPropsType> = memo(({
+                                                     isAuth,
+                                                     logout,
+                                                     profile,
+                                                     navigateToProfile,
+                                                     navigateToUsers,
+                                                     navigateToMessages
+                                                 }) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)
     const logoutHandler = () => {
-        setOpenMenu(false)
+        setAnchorEl(null);
         logout()
     }
-
-    const profileHadler = () => {
-        setOpenMenu(false)
+    const profileHandler = () => {
+        setAnchorEl(null);
+        navigateToProfile()
+    }
+    const usersHandler = () => {
+        setAnchorEl(null);
+        navigateToUsers()
+    }
+    const messagesHandler = () => {
+        setAnchorEl(null);
+        navigateToMessages()
     }
 
     return (
         <AppBar position={"sticky"}>
             <StyledToolbar>
-                <Typography
-                    variant={'h6'}
-                    // sx={{display: {xs: 'none', sm: 'block'}}}
-                >
+                <Typography variant={'h6'}>
                     SOCIAL NETWORK
                 </Typography>
                 {isAuth &&
@@ -79,46 +97,58 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout, profile}) =>
                     <Box>
                         <IconsContainer>
                             <Badge badgeContent={2} color="error">
-                                <MailIcon/>
+                                <MailIcon onClick={messagesHandler}/>
                             </Badge>
                             <Badge badgeContent={5} color="error">
                                 <NotificationsIcon/>
                             </Badge>
-                            <Avatar
-                                alt={profile?.fullName}
-                                src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
-                                sx={{bgcolor: blue[500], width: 50, height: 50}}
-                                onClick={() => setOpenMenu(true)}
-                            />
-                            <Typography variant={'body1'} component={'span'} onClick={() => setOpenMenu(true)}>
+                            <IconButton
+                                onClick={handleClick}
+                                size="small"
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
+                                <Avatar
+                                    alt={profile?.fullName}
+                                    src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
+                                    sx={{bgcolor: blue[500], width: 50, height: 50}}
+                                />
+                            </IconButton>
+                            <Typography variant={'body1'} component={'span'} sx={{margin: "-15px"}}>
                                 {profile?.fullName}
                             </Typography>
                         </IconsContainer>
-                        <UserContainer onClick={() => setOpenMenu(true)}>
+                        <UserContainer>
                             <Badge badgeContent={2} color="error">
-                                <MailIcon/>
+                                <MailIcon onClick={messagesHandler}/>
                             </Badge>
-                            <Avatar
-                                alt={profile?.fullName}
-                                src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
-                                sx={{bgcolor: blue[500], width: 50, height: 50}}
-                            />
+                            <IconButton
+                                onClick={handleClick}
+                                size="small"
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
+                                <Avatar
+                                    alt={profile?.fullName}
+                                    src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
+                                    sx={{bgcolor: blue[500], width: 50, height: 50}}
+                                />
+                            </IconButton>
                         </UserContainer>
                         <Menu
-                            open={openMenu}
-                            onClose={() => setOpenMenu(false)}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={() => setAnchorEl(null)}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <NavLink to={'/profile'}>
-                                <MenuItem onClick={profileHadler}>Profile</MenuItem>
-                            </NavLink>
+                            <MenuItem onClick={profileHandler}>Profile</MenuItem>
+                            <MenuItem onClick={usersHandler}>Users</MenuItem>
+                            <Divider/>
                             <MenuItem onClick={logoutHandler}>LogOut</MenuItem>
                         </Menu>
                     </Box>
@@ -129,5 +159,5 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth, logout, profile}) =>
                 }
             </StyledToolbar>
         </AppBar>
-    );
-};
+    )
+})

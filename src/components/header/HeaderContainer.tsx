@@ -1,37 +1,35 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {Header} from "./Header";
-import {connect, ConnectedProps} from "react-redux";
-import {AuthStateType, logout} from "../../redux/authReducer";
-import {ProfileType} from "../../api/api";
+import {logout} from "../../redux/authReducer";
+import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
+import {useNavigate} from "react-router-dom";
 
-
-class HeaderContainer extends React.Component<TProps> {
-    render() {
-        return (
-            <Header
-                login={this.props.login}
-                isAuth={this.props.isAuth}
-                logout={this.props.logout}
-                profile={this.props.profile}
-            />
-        )
+export const HeaderContainer = () => {
+    const profile = useAppSelector(state => state.auth.profile)
+    const isAuth = useAppSelector(state => state.auth.isAuth)
+    const dispatch = useAppDispatch()
+    let navigate = useNavigate()
+    const navigateToProfile = () => {
+        navigate('/profile')
     }
-}
+    const navigateToUsers = () => {
+        navigate('/users')
+    }
+    const navigateToMessages = () => {
+        navigate('/messages')
+    }
+    const logoutHandler = useCallback(() => {
+        dispatch(logout())
+    }, [])
 
-type MapStateToPropsType = {
-    login: string | null
-    isAuth: boolean
-    profile: ProfileType | null
-}
-
-const mapStateToProps = ({auth}: { auth: AuthStateType }): MapStateToPropsType => ({
-    login: auth.login,
-    isAuth: auth.isAuth,
-    profile: auth.profile,
-})
-
-const connector = connect(mapStateToProps, {logout})
-
-type TProps = ConnectedProps<typeof connector>
-
-export default connector(HeaderContainer)
+    return (
+        <Header
+            isAuth={isAuth}
+            profile={profile}
+            logout={logoutHandler}
+            navigateToProfile={navigateToProfile}
+            navigateToUsers={navigateToUsers}
+            navigateToMessages={navigateToMessages}
+        />
+    );
+};

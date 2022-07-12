@@ -3,16 +3,14 @@ import {formValuesModel} from "../components/Login/Login";
 import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
 
-const SET_USER_DATA = 'SET_USER_DATA'
-const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS'
-const SET_PROFILE = 'Auth/SET_PROFILE'
+const SET_USER_DATA = 'auth/SET_USER_DATA'
+const SET_PROFILE = 'auth/SET_PROFILE'
 
 const initialState: AuthStateType = {
     id: null,
     email: null,
     login: null,
     isAuth: false,
-    isLoading: true,
     profile: null,
 }
 
@@ -22,11 +20,6 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
             return {
                 ...state,
                 ...action.payload,
-            }
-        case LOADING_IN_PROGRESS:
-            return {
-                ...state,
-                isLoading: action.isLoading
             }
         case SET_PROFILE:
             return {
@@ -42,7 +35,6 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
-export const setLoading = (isLoading: boolean) => ({type: LOADING_IN_PROGRESS, isLoading} as const)
 export const setProfile = (profile: ProfileType | null) => ({type: SET_PROFILE, profile} as const)
 
 //thunks
@@ -58,8 +50,6 @@ export const getAuthUserData = (): AppThunk => {
             }
         } catch (error: any) {
             dispatch(setAppErrorMessage(error.message))
-        } finally {
-            dispatch(setLoading(false))
         }
     }
 }
@@ -83,10 +73,14 @@ export const login = ({email, password, rememberMe}: formValuesModel): AppThunk 
 }
 export const logout = (): AppThunk => {
     return async (dispatch) => {
-        const response = await authAPI.logout()
-        if (response.resultCode === 0) {
-            dispatch(setUserData(null, null, null, false))
-            dispatch(setProfile(null))
+        try {
+            const response = await authAPI.logout()
+            if (response.resultCode === 0) {
+                dispatch(setUserData(null, null, null, false))
+                dispatch(setProfile(null))
+            }
+        } catch (error: any) {
+
         }
     }
 }
@@ -118,7 +112,6 @@ export type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    isLoading: boolean
     profile: ProfileType | null
 }
 export type ValuesForUpdateProfile = {
@@ -140,5 +133,4 @@ export type ValuesForUpdateProfile = {
 
 export type AuthActionsType =
     | ReturnType<typeof setUserData>
-    | ReturnType<typeof setLoading>
     | ReturnType<typeof setProfile>

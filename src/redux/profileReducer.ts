@@ -2,12 +2,12 @@ import {profileAPI, ProfileType, usersAPI} from "../api/api";
 import {AppThunk} from "./store";
 
 export enum ActionsType {
-    UPDATE_POST_MESSAGE = 'Profile/UPDATE_POST_MESSAGE',
-    ADD_POST = 'Profile/ADD_POST',
-    DELETE_POST = 'Profile/DELETE_POST',
-    SET_USER_PROFILE = 'Profile/SET_USER_PROFILE',
-    SET_PROFILE_STATUS = 'Profile/SET_PROFILE_STATUS',
-    SET_FRIENDSHIP = 'Profile/SET_FRIENDSHIP',
+    UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',
+    ADD_POST = 'profile/ADD_POST',
+    DELETE_POST = 'profile/DELETE_POST',
+    SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
+    SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS',
+    SET_FRIENDSHIP = 'profile/SET_FRIENDSHIP',
 }
 
 const initialState: ProfileStateType = {
@@ -105,11 +105,13 @@ export const updateProfileStatus = (status: string): AppThunk => {
     }
 }
 export const isFollow = (id: number): AppThunk => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
-            const response = await usersAPI.isFollow(id)
-            console.log(response)
-            dispatch(setFriendship(response))
+            const authId = getState().auth.id
+            if (authId !== id) {
+                const response = await usersAPI.isFollow(id)
+                dispatch(setFriendship(response))
+            }
         } catch (e: any) {
 
         }

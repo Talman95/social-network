@@ -1,18 +1,18 @@
 import {getAuthUserData} from "./authReducer";
 import {AppThunk} from "./store";
 
-const SET_INITIALIZED = 'SET_INITIALIZED'
-const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE'
+const SET_INITIALIZED = 'app/SET_INITIALIZED'
+const SET_ERROR_MESSAGE = 'app/SET_ERROR_MESSAGE'
 
 const initialState: InitStateType = {
-    initialized: false,
+    isInitialized: false,
     errorMessage: null,
 }
 
 export const appReducer = (state = initialState, action: InitActionsType): InitStateType => {
     switch (action.type) {
         case SET_INITIALIZED:
-            return {...state, initialized: true}
+            return {...state, isInitialized: true}
         case SET_ERROR_MESSAGE:
             return {...state, errorMessage: action.errorMessage}
         default:
@@ -34,7 +34,7 @@ export const initializeApp = (): AppThunk => {
 
 //types
 type InitStateType = {
-    initialized: boolean
+    isInitialized: boolean
     errorMessage: null | string
 }
 
