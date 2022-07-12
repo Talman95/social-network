@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
 import {Sidebar} from './Sidebar';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {UserType} from "../../api/api";
-import {Dispatch} from "redux";
 import {getFriends} from "../../redux/friendsReducer";
+import {useAppDispatch} from "../../features/hooks/hooks";
 
 export const SidebarContainer = () => {
     const friends = useSelector<AppStateType, UserType[]>(state => state.friends.friends)
     const friendsCount = useSelector<AppStateType, number>(state => state.friends.friendsCount)
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
-    const dispatch = useDispatch<Dispatch<any>>()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getFriends())

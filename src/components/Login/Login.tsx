@@ -3,10 +3,10 @@ import {FormikHelpers, useFormik} from 'formik';
 import s from './Login.module.css';
 import * as Yup from 'yup';
 import {Preloader} from "../common/Preloader/Preloader";
-import {useDispatch} from "react-redux";
 import {login} from "../../redux/authReducer";
 import Grid from '@mui/material/Grid';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
+import {useAppDispatch} from "../../features/hooks/hooks";
 
 
 export type formValuesModel = {
@@ -16,7 +16,7 @@ export type formValuesModel = {
 }
 
 export const Login = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const validationSchema = Yup.object({
         email: Yup.string()

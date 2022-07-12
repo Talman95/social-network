@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import {FormikHelpers, useFormik} from "formik";
 import * as Yup from "yup";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {ProfileType} from "../../api/api";
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -24,6 +24,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import {updateProfile} from "../../redux/authReducer";
+import {useAppDispatch} from "../../features/hooks/hooks";
 
 export type formValuesModel = {
     aboutMe: string
@@ -44,7 +45,7 @@ export type formValuesModel = {
 
 export const Settings = () => {
     const profile = useSelector<AppStateType, ProfileType | null>(state => state.auth.profile)
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
     const validationSchema = Yup.object({
         fullName: Yup.string()

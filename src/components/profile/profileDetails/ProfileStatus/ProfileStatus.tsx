@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {updateProfileStatus} from "../../../../redux/profileReducer";
-import {useDispatch} from "react-redux";
-import {Dispatch} from "redux";
+import {useAppDispatch} from "../../../../features/hooks/hooks";
 
 type StatusPropsType = {
     status: string
@@ -16,7 +15,7 @@ export const ProfileStatus: FC<StatusPropsType> = (props) => {
         setStatus(props.status)
     }, [props.status])
 
-    const dispatch = useDispatch<Dispatch<any>>()
+    const dispatch = useAppDispatch()
 
     const activateEditMode = () => {
         setEditMode(true)

@@ -3,7 +3,7 @@ import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {MessagesActionsType, messagesReducer} from "./messagesReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer, InitActionsType} from "./appReducer";
 import {FriendsActionsType, friendsReducer} from "./friendsReducer";
 
@@ -25,4 +25,6 @@ export type AppActionsType =
     | UsersActionsType | AuthActionsType
     | InitActionsType | FriendsActionsType
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = ThunkDispatch<AppStateType, unknown, AppActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionsType>

@@ -4,13 +4,14 @@ import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {ProfileType} from "../../../api/api";
 import {Avatar, Box, Button, Card, CardContent, Typography} from "@mui/material";
 import {blue} from '@mui/material/colors';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store";
 import Stack from '@mui/material/Stack';
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import {follow, unfollow} from "../../../redux/usersReducer";
 import {isFollow} from "../../../redux/profileReducer";
+import {useAppDispatch} from "../../../features/hooks/hooks";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
@@ -22,7 +23,7 @@ export const ProfileDetails: React.FC<ProfileDetailsPropsType> = (props) => {
     const userId = useSelector<AppStateType, number | null>(state => state.auth.id)
     const profileUserId = props.profile?.userId ? props.profile?.userId : 1
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
     const followHandler = async () => {
         await dispatch(follow(profileUserId))

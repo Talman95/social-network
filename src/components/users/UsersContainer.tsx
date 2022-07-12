@@ -1,9 +1,10 @@
 import {Users} from "./Users";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
 import React, {ChangeEvent, MouseEvent, useEffect} from "react";
 import {UserType} from "../../api/api";
+import {useAppDispatch} from "../../features/hooks/hooks";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -20,7 +21,7 @@ export const UsersContainer = () => {
         totalCount, isFetching, pressingInProgress
     } = useSelector<AppStateType, UsersPropsType>(state => state.users)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getUsers(currentPage, pageSize))
