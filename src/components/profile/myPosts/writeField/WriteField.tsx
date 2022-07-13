@@ -36,12 +36,12 @@ export const WriteField: FC<PropsType> = ({postMessage, updateMessage, addPost, 
                     <Avatar
                         sx={{bgcolor: blue[500]}}
                         aria-label="Field for write"
-                        alt={profile.fullName}
+                        alt={profile.fullName || ''}
                         src={profile.photos.small ? profile.photos.small : ''}
                     />
                 }
-                title={profile.fullName}
-                subheader={profile.aboutMe}
+                title={profile.fullName || ''}
+                subheader={profile.aboutMe || ''}
             />
             <CardContent>
                 <TextField

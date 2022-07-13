@@ -1,5 +1,6 @@
-import {profileAPI, ProfileType, usersAPI} from "../api/api";
+import {PhotosType, profileAPI, ProfileType, usersAPI} from "../api/api";
 import {AppThunk} from "./store";
+import {setAppErrorMessage} from "./appReducer";
 
 export enum ActionsType {
     UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',
@@ -8,10 +9,31 @@ export enum ActionsType {
     SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
     SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS',
     SET_FRIENDSHIP = 'profile/SET_FRIENDSHIP',
+    UPLOAD_USER_PHOTO_SUCCESS = 'profile/UPLOAD_USER_PHOTO_SUCCESS',
 }
 
 const initialState: ProfileStateType = {
-    profile: null,
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null,
+        },
+        lookingForAJob: null,
+        lookingForAJobDescription: null,
+        fullName: null,
+        userId: null,
+        photos: {
+            small: null,
+            large: null,
+        }
+    },
     posts: [
         {id: 4, message: 'Hi, how are you guys?', picture: ''},
         {
@@ -62,6 +84,10 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
                 ...state,
                 ...action.payload,
             }
+        case ActionsType.UPLOAD_USER_PHOTO_SUCCESS:
+            return {
+                ...state, profile: {...state.profile, photos: action.photos} as ProfileType
+            }
         default:
             return state;
     }
@@ -82,6 +108,10 @@ export const setProfileStatus = (profileStatus: string) => (
     {type: ActionsType.SET_PROFILE_STATUS, payload: {profileStatus}} as const
 )
 export const setFriendship = (isFriend: boolean) => ({type: ActionsType.SET_FRIENDSHIP, payload: {isFriend}} as const)
+export const uploadUserPhotoSuccess = (photos: PhotosType) => ({
+    type: ActionsType.UPLOAD_USER_PHOTO_SUCCESS,
+    photos,
+} as const)
 
 //thunks
 export const getUserProfile = (userId: number): AppThunk => {
@@ -117,6 +147,27 @@ export const isFollow = (id: number): AppThunk => {
         }
     }
 }
+export const uploadUserPhoto = (userPhoto: File): AppThunk => {
+    return async (dispatch, getState) => {
+        try {
+            const res = await profileAPI.uploadPhoto(userPhoto)
+            if (res.data.resultCode === 0) {
+                dispatch(uploadUserPhotoSuccess(res.data.data.photos))
+                console.log(res.data.data)
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setAppErrorMessage(res.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorMessage('Some error occurred'))
+                }
+            }
+        } catch (err: any) {
+            dispatch(setAppErrorMessage(err.message))
+        } finally {
+            console.log(getState().profile.profile?.photos.large)
+        }
+    }
+}
 
 //types
 export type PostType = {
@@ -131,6 +182,7 @@ export type ProfileStateType = {
     profileStatus: string
     isFriend: boolean
 }
+export type UploadUserPhotoSuccessType = ReturnType<typeof uploadUserPhotoSuccess>
 
 export type ProfileActionsType =
     | ReturnType<typeof addPost>
@@ -139,3 +191,4 @@ export type ProfileActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setProfileStatus>
     | ReturnType<typeof setFriendship>
+    | UploadUserPhotoSuccessType

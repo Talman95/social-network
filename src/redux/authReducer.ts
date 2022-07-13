@@ -2,6 +2,7 @@ import {authAPI, profileAPI, ProfileType} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
 import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
+import {ActionsType, UploadUserPhotoSuccessType} from "./profileReducer";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
 const SET_PROFILE = 'auth/SET_PROFILE'
@@ -25,6 +26,10 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
             return {
                 ...state,
                 profile: action.profile,
+            }
+        case ActionsType.UPLOAD_USER_PHOTO_SUCCESS:
+            return {
+                ...state, profile: {...state.profile, photos: action.photos} as ProfileType
             }
         default:
             return state
@@ -134,3 +139,4 @@ export type ValuesForUpdateProfile = {
 export type AuthActionsType =
     | ReturnType<typeof setUserData>
     | ReturnType<typeof setProfile>
+    | UploadUserPhotoSuccessType

@@ -8,7 +8,6 @@ import {ProfileType} from "../../api/api";
 import {useAppDispatch} from "../../features/hooks/hooks";
 
 export const ProfileContainer: FC = () => {
-
     const dispatch = useAppDispatch()
 
     const profile = useSelector<AppStateType, ProfileType | null>(state=> state.profile.profile)

@@ -9,15 +9,9 @@ export const HeaderContainer = () => {
     const isAuth = useAppSelector(state => state.auth.isAuth)
     const dispatch = useAppDispatch()
     let navigate = useNavigate()
-    const navigateToProfile = () => {
-        navigate('/profile')
-    }
-    const navigateToUsers = () => {
-        navigate('/users')
-    }
-    const navigateToMessages = () => {
-        navigate('/messages')
-    }
+    const navigateToProfile = () => navigate('/profile')
+    const navigateToUsers = () => navigate('/users')
+    const navigateToMessages = () => navigate('/messages')
     const logoutHandler = useCallback(() => {
         dispatch(logout())
     }, [])

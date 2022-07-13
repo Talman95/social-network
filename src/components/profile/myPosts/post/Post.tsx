@@ -41,14 +41,14 @@ export const Post: FC<PropsType> = (
         <Card sx={{margin: 1}}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{bgcolor: blue[500]}} alt={profile.fullName}/>
+                    <Avatar sx={{bgcolor: blue[500]}} alt={profile.fullName || ''}/>
                 }
                 action={
                     <IconButton aria-label={"settings"}>
                         <MoreVertIcon/>
                     </IconButton>
                 }
-                title={profile.fullName}
+                title={profile.fullName || ''}
                 subheader={"May 8, 2022"}
             />
             {picture &&

@@ -63,6 +63,15 @@ export const profileAPI = {
     updateProfile(profile: ProfileUpdateType) {
         return instance.put<ResponseType<{}>>('profile', {...profile})
     },
+    uploadPhoto(newFile: File) {
+        const formData = new FormData()
+        formData.append('image', newFile);
+        return instance.put<ResponseType<{photos: PhotosType}>>('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
 }
 
 //types
@@ -89,10 +98,10 @@ export type ProfileType = {
         github: null | string
         mainLink: null | string
     },
-    lookingForAJob: boolean
+    lookingForAJob: boolean | null
     lookingForAJobDescription: null | string
-    fullName: string
-    userId: number
+    fullName: string | null
+    userId: number | null
     photos: {
         small: null | string
         large: null | string
@@ -130,4 +139,8 @@ export type ProfileUpdateType = {
         mainLink: null | string
     }
     aboutMe: string
+}
+export type PhotosType = {
+    small: string,
+    large: string
 }
