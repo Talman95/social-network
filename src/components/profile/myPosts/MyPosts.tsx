@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import cl from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {WriteField} from "./WriteField/WriteField";
 import {PostType} from "../../../redux/profileReducer";

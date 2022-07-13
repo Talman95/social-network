@@ -11,7 +11,7 @@ let startState: ProfileStateType = {
     profile: null,
     posts: [] as PostType[],
     postMessage: '',
-    profileStatus: '',
+    status: '',
     isFriend: false,
 }
 
@@ -25,7 +25,7 @@ beforeEach(() => {
             {id: 1, message: 'It\'s my first post! Hello everyone!', picture: '1'},
         ],
         postMessage: '',
-        profileStatus: '',
+        status: '',
         isFriend: false,
     }
 })
@@ -89,7 +89,7 @@ test("correct profile should be setted", () => {
 test("status should be set", () => {
     let endState = profileReducer(startState, setProfileStatus('React Redux'))
 
-    expect(endState.profileStatus).toBe('React Redux')
+    expect(endState.status).toBe('React Redux')
 })
 
 test("current user should become friend", () => {

@@ -6,9 +6,9 @@ import {useSelector} from "react-redux";
 import {useAppDispatch} from "../../../features/hooks/hooks";
 
 export const MyPostsContainer: FC = () => {
-    const dispatch = useAppDispatch()
-
     const {posts, postMessage, profile} = useSelector<AppStateType, ProfileStateType>(state => state.profile)
+
+    const dispatch = useAppDispatch()
 
     const deletePostHandler = (postId: number) => {
         dispatch(deletePost(postId))

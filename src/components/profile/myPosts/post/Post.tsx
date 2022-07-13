@@ -41,7 +41,11 @@ export const Post: FC<PropsType> = (
         <Card sx={{margin: 1}}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{bgcolor: blue[500]}} alt={profile.fullName || ''}/>
+                    <Avatar
+                        src={profile.photos.large || ''}
+                        sx={{bgcolor: blue[500]}}
+                        alt={profile.fullName || ''}
+                    />
                 }
                 action={
                     <IconButton aria-label={"settings"}>

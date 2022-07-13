@@ -53,7 +53,7 @@ const initialState: ProfileStateType = {
         }
     ],
     postMessage: '',
-    profileStatus: '',
+    status: '',
     isFriend: false,
 }
 
@@ -104,8 +104,8 @@ export const deletePost = (postId: number) => (
 export const setUserProfile = (profile: ProfileType) => (
     {type: ActionsType.SET_USER_PROFILE, payload: {profile}} as const
 )
-export const setProfileStatus = (profileStatus: string) => (
-    {type: ActionsType.SET_PROFILE_STATUS, payload: {profileStatus}} as const
+export const setProfileStatus = (status: string) => (
+    {type: ActionsType.SET_PROFILE_STATUS, payload: {status}} as const
 )
 export const setFriendship = (isFriend: boolean) => ({type: ActionsType.SET_FRIENDSHIP, payload: {isFriend}} as const)
 export const uploadUserPhotoSuccess = (photos: PhotosType) => ({
@@ -179,7 +179,7 @@ export type ProfileStateType = {
     profile: ProfileType | null
     posts: PostType[]
     postMessage: string
-    profileStatus: string
+    status: string
     isFriend: boolean
 }
 export type UploadUserPhotoSuccessType = ReturnType<typeof uploadUserPhotoSuccess>
