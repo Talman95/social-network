@@ -110,7 +110,7 @@ export const Header: FC<HeaderPropsType> = memo(({
                                 aria-expanded={open ? 'true' : undefined}
                             >
                                 <Avatar
-                                    alt={profile?.fullName || ''}
+                                    alt={profile?.fullName}
                                     src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
                                     sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 />
@@ -131,7 +131,7 @@ export const Header: FC<HeaderPropsType> = memo(({
                                 aria-expanded={open ? 'true' : undefined}
                             >
                                 <Avatar
-                                    alt={profile?.fullName || ''}
+                                    alt={profile?.fullName}
                                     src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
                                     sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 />

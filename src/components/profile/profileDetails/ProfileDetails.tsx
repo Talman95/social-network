@@ -2,13 +2,14 @@ import React, {ChangeEvent, FC} from 'react';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {ProfileType} from "../../../api/api";
-import {Avatar, Box, Button, Card, CardContent, Typography} from "@mui/material";
+import {Avatar, Box, Button, Card, CardContent, Divider, Typography} from "@mui/material";
 import {blue} from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import {styled} from "@mui/material/styles";
 import {PhotoCamera} from "@mui/icons-material";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
@@ -88,7 +89,7 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
 
             <Box sx={{display: 'flex', margin: 1}}>
                 <CardContent sx={{flex: '1 0 auto'}}>
-                    <Typography component="div" variant="h6" sx={{wordWrap: "break-word"}}>
+                    <Typography component="div" variant="h5" sx={{wordWrap: "break-word"}}>
                         {profile.fullName}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
@@ -97,6 +98,8 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
                             : status
                         }
                     </Typography>
+                    <Divider sx={{marginTop: '15px', marginBottom: '15px'}}/>
+                    <ProfileInfo profile={profile}/>
                 </CardContent>
             </Box>
         </Card>

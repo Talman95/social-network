@@ -12,28 +12,8 @@ export enum ActionsType {
     UPLOAD_USER_PHOTO_SUCCESS = 'profile/UPLOAD_USER_PHOTO_SUCCESS',
 }
 
-const initialState: ProfileStateType = {
-    profile: {
-        aboutMe: null,
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null,
-        },
-        lookingForAJob: null,
-        lookingForAJobDescription: null,
-        fullName: null,
-        userId: null,
-        photos: {
-            small: null,
-            large: null,
-        }
-    },
+const initialState = {
+    profile: null as ProfileType | null,
     posts: [
         {id: 4, message: 'Hi, how are you guys?', picture: ''},
         {
@@ -51,7 +31,7 @@ const initialState: ProfileStateType = {
             message: 'It\'s my first post! Hello everyone! Glad to see you here. Don\'t forget about the likes) Good luck!',
             picture: 'https://www.4vsar.ru/i/news/xxl/283806.jpg'
         }
-    ],
+    ] as PostType[],
     postMessage: '',
     status: '',
     isFriend: false,
@@ -175,13 +155,7 @@ export type PostType = {
     message: string
     picture: string
 }
-export type ProfileStateType = {
-    profile: ProfileType | null
-    posts: PostType[]
-    postMessage: string
-    status: string
-    isFriend: boolean
-}
+export type ProfileStateType = typeof initialState
 export type UploadUserPhotoSuccessType = ReturnType<typeof uploadUserPhotoSuccess>
 
 export type ProfileActionsType =

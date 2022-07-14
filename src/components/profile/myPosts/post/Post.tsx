@@ -44,7 +44,7 @@ export const Post: FC<PropsType> = (
                     <Avatar
                         src={profile.photos.large || ''}
                         sx={{bgcolor: blue[500]}}
-                        alt={profile.fullName || ''}
+                        alt={profile.fullName}
                     />
                 }
                 action={
@@ -52,7 +52,7 @@ export const Post: FC<PropsType> = (
                         <MoreVertIcon/>
                     </IconButton>
                 }
-                title={profile.fullName || ''}
+                title={profile.fullName}
                 subheader={"May 8, 2022"}
             />
             {picture &&

@@ -87,25 +87,27 @@ export type UserType = {
     followed: boolean
 }
 export type ProfileType = {
-    aboutMe: null | string
-    contacts: {
-        facebook: null | string
-        website: null | string
-        vk: null | string
-        twitter: null | string
-        instagram: null | string
-        youtube: null | string
-        github: null | string
-        mainLink: null | string
-    },
-    lookingForAJob: boolean | null
-    lookingForAJobDescription: null | string
-    fullName: string | null
-    userId: number | null
-    photos: {
-        small: null | string
-        large: null | string
-    }
+    aboutMe: string
+    contacts: ContactsType,
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosType
+}
+export type PhotosType = {
+    small: string,
+    large: string
+}
+export type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
 }
 export type GetUsersResponseType = {
     items: Array<UserType>
@@ -139,8 +141,4 @@ export type ProfileUpdateType = {
         mainLink: null | string
     }
     aboutMe: string
-}
-export type PhotosType = {
-    small: string,
-    large: string
 }
