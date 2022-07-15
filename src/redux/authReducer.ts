@@ -1,18 +1,18 @@
-import {authAPI, profileAPI, ProfileType} from "../api/api";
+import {authAPI, PhotosType, profileAPI, ProfileType} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
-import {AppStateType, AppThunk} from "./store";
+import {AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
-import {ActionsType, UploadUserPhotoSuccessType} from "./profileReducer";
+import {ActionsType, UpdateProfileSuccessType, UploadUserPhotoSuccessType} from "./profileReducer";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
-const SET_PROFILE = 'auth/SET_PROFILE'
+const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
 
 const initialState: AuthStateType = {
     id: null,
     email: null,
     login: null,
     isAuth: false,
-    profile: null,
+    currentUser: null,
 }
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthStateType => {
@@ -22,14 +22,19 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
                 ...state,
                 ...action.payload,
             }
-        case SET_PROFILE:
+        case SET_CURRENT_USER:
             return {
                 ...state,
-                profile: action.profile,
+                currentUser: action.currentUser,
             }
         case ActionsType.UPLOAD_USER_PHOTO_SUCCESS:
             return {
-                ...state, profile: {...state.profile, photos: action.photos} as ProfileType
+                ...state, currentUser: {...state.currentUser, photos: action.photos} as ProfileType
+            }
+        case ActionsType.UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                currentUser: {...state.currentUser, fullName: action.payload.updatedProfile.fullName} as ProfileType
             }
         default:
             return state
@@ -40,7 +45,7 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
-export const setProfile = (profile: ProfileType | null) => ({type: SET_PROFILE, profile} as const)
+export const setCurrentUser = (currentUser: CurrentUserType | null) => ({type: SET_CURRENT_USER, currentUser} as const)
 
 //thunks
 export const getAuthUserData = (): AppThunk => {
@@ -51,7 +56,7 @@ export const getAuthUserData = (): AppThunk => {
                 let {id, email, login} = response.data
                 dispatch(setUserData(id, email, login, true))
                 const res = await profileAPI.getProfile(id)
-                dispatch(setProfile(res.data))
+                dispatch(setCurrentUser(res.data))
             }
         } catch (error: any) {
             dispatch(setAppErrorMessage(error.message))
@@ -82,31 +87,10 @@ export const logout = (): AppThunk => {
             const response = await authAPI.logout()
             if (response.resultCode === 0) {
                 dispatch(setUserData(null, null, null, false))
-                dispatch(setProfile(null))
+                dispatch(setCurrentUser(null))
             }
         } catch (error: any) {
 
-        }
-    }
-}
-export const updateProfile = (values: ValuesForUpdateProfile): AppThunk => {
-    return async (dispatch, getState: () => AppStateType) => {
-        const userId = getState().auth.id
-        try {
-            const updatedProfile = {...values, userId}
-            const res = await profileAPI.updateProfile(updatedProfile)
-            if (res.data.resultCode === 0 && userId) {
-                const res = await profileAPI.getProfile(userId)
-                dispatch(setProfile(res.data))
-            } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorMessage(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorMessage('Some error occurred'))
-                }
-            }
-        } catch (error: any) {
-            dispatch(setAppErrorMessage(error.message))
         }
     }
 }
@@ -117,26 +101,15 @@ export type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    profile: ProfileType | null
+    currentUser: CurrentUserType | null
 }
-export type ValuesForUpdateProfile = {
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
+export type CurrentUserType = {
     fullName: string
-    contacts: {
-        facebook: null | string
-        website: null | string
-        vk: null | string
-        twitter: null | string
-        instagram: null | string
-        youtube: null | string
-        github: null | string
-        mainLink: null | string
-    }
-    aboutMe: string
+    photos: PhotosType
 }
 
 export type AuthActionsType =
     | ReturnType<typeof setUserData>
-    | ReturnType<typeof setProfile>
+    | ReturnType<typeof setCurrentUser>
     | UploadUserPhotoSuccessType
+    | UpdateProfileSuccessType

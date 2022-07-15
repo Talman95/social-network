@@ -1,7 +1,6 @@
 import React, {FC, memo, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import {blue} from '@mui/material/colors';
-import {ProfileType} from "../../api/api";
 import {
     AppBar,
     Avatar,
@@ -17,11 +16,12 @@ import {
 } from "@mui/material";
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import {CurrentUserType} from "../../redux/authReducer";
 
 type HeaderPropsType = {
     isAuth: boolean
     logout: () => void
-    profile: ProfileType | null
+    currentUser: CurrentUserType | null
     navigateToProfile: () => void
     navigateToUsers: () => void
     navigateToMessages: () => void
@@ -57,7 +57,7 @@ const UserContainer = styled(Box)(({theme}) => ({
 export const Header: FC<HeaderPropsType> = memo(({
                                                      isAuth,
                                                      logout,
-                                                     profile,
+                                                     currentUser,
                                                      navigateToProfile,
                                                      navigateToUsers,
                                                      navigateToMessages
@@ -110,13 +110,13 @@ export const Header: FC<HeaderPropsType> = memo(({
                                 aria-expanded={open ? 'true' : undefined}
                             >
                                 <Avatar
-                                    alt={profile?.fullName}
-                                    src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
+                                    alt={currentUser?.fullName}
+                                    src={currentUser?.photos.small ? currentUser?.photos.small : "/broken-image.jpg"}
                                     sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 />
                             </IconButton>
                             <Typography variant={'body1'} component={'span'} sx={{margin: "-15px"}}>
-                                {profile?.fullName}
+                                {currentUser?.fullName}
                             </Typography>
                         </IconsContainer>
                         <UserContainer>
@@ -131,8 +131,8 @@ export const Header: FC<HeaderPropsType> = memo(({
                                 aria-expanded={open ? 'true' : undefined}
                             >
                                 <Avatar
-                                    alt={profile?.fullName}
-                                    src={profile?.photos.small ? profile?.photos.small : "/broken-image.jpg"}
+                                    alt={currentUser?.fullName}
+                                    src={currentUser?.photos.small ? currentUser?.photos.small : "/broken-image.jpg"}
                                     sx={{bgcolor: blue[500], width: 50, height: 50}}
                                 />
                             </IconButton>

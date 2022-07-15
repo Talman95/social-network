@@ -23,8 +23,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkIcon from '@mui/icons-material/Link';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import {updateProfile} from "../../redux/authReducer";
 import {useAppDispatch} from "../../features/hooks/hooks";
+import {updateProfile} from "../../redux/profileReducer";
 
 export type formValuesModel = {
     aboutMe: string
@@ -44,7 +44,7 @@ export type formValuesModel = {
 }
 
 export const Settings = () => {
-    const profile = useSelector<AppStateType, ProfileType | null>(state => state.auth.profile)
+    const profile = useSelector<AppStateType, ProfileType | null>(state => state.profile.profile)
     const dispatch = useAppDispatch()
 
     const validationSchema = Yup.object({
@@ -125,7 +125,7 @@ export const Settings = () => {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControlLabel
-                                        control={<Checkbox />}
+                                        control={<Checkbox/>}
                                         label={"Looking for a job?"}
                                         name={"Looking for a job?"}
                                     />

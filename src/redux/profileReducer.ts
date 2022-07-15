@@ -1,5 +1,5 @@
-import {PhotosType, profileAPI, ProfileType, usersAPI} from "../api/api";
-import {AppThunk} from "./store";
+import {PhotosType, profileAPI, ProfileType, ProfileUpdateType, usersAPI} from "../api/api";
+import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
 
 export enum ActionsType {
@@ -10,6 +10,7 @@ export enum ActionsType {
     SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS',
     SET_FRIENDSHIP = 'profile/SET_FRIENDSHIP',
     UPLOAD_USER_PHOTO_SUCCESS = 'profile/UPLOAD_USER_PHOTO_SUCCESS',
+    UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS',
 }
 
 const initialState = {
@@ -68,6 +69,10 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
             return {
                 ...state, profile: {...state.profile, photos: action.photos} as ProfileType
             }
+        case ActionsType.UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state, profile: {...state.profile, ...action.payload.updatedProfile} as ProfileType
+            }
         default:
             return state;
     }
@@ -91,6 +96,10 @@ export const setFriendship = (isFriend: boolean) => ({type: ActionsType.SET_FRIE
 export const uploadUserPhotoSuccess = (photos: PhotosType) => ({
     type: ActionsType.UPLOAD_USER_PHOTO_SUCCESS,
     photos,
+} as const)
+export const updateProfileSuccess = (updatedProfile: ProfileUpdateType) => ({
+    type: ActionsType.UPDATE_PROFILE_SUCCESS,
+    payload: {updatedProfile}
 } as const)
 
 //thunks
@@ -148,6 +157,28 @@ export const uploadUserPhoto = (userPhoto: File): AppThunk => {
         }
     }
 }
+export const updateProfile = (values: UpdateProfileModal): AppThunk => {
+    return async (dispatch, getState: () => AppStateType) => {
+        try {
+            const ownerId = getState().auth.id
+            if (ownerId) {
+                const updatedProfile = {...values, userId: ownerId}
+                const res = await profileAPI.updateProfile(updatedProfile)
+                if (res.data.resultCode === 0) {
+                    dispatch(updateProfileSuccess(updatedProfile))
+                } else {
+                    if (res.data.messages.length) {
+                        dispatch(setAppErrorMessage(res.data.messages[0]))
+                    } else {
+                        dispatch(setAppErrorMessage('Some error occurred'))
+                    }
+                }
+            }
+        } catch (error: any) {
+            dispatch(setAppErrorMessage(error.message))
+        }
+    }
+}
 
 //types
 export type PostType = {
@@ -157,6 +188,23 @@ export type PostType = {
 }
 export type ProfileStateType = typeof initialState
 export type UploadUserPhotoSuccessType = ReturnType<typeof uploadUserPhotoSuccess>
+export type UpdateProfileSuccessType = ReturnType<typeof updateProfileSuccess>
+export type UpdateProfileModal = {
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    }
+    aboutMe: string
+}
 
 export type ProfileActionsType =
     | ReturnType<typeof addPost>
@@ -166,3 +214,4 @@ export type ProfileActionsType =
     | ReturnType<typeof setProfileStatus>
     | ReturnType<typeof setFriendship>
     | UploadUserPhotoSuccessType
+    | UpdateProfileSuccessType

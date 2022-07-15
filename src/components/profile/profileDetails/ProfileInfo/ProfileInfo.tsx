@@ -1,29 +1,43 @@
 import React, {FC} from 'react';
 import {styled} from "@mui/material/styles";
 import {ContactsType, ProfileType} from "../../../../api/api";
-import {Box, Divider, Typography} from '@mui/material';
+import {Box, Button, Divider, Typography} from '@mui/material';
 
 type ProfileInfoType = {
     profile: ProfileType
+    onEditMode: () => void
+    userId: string | undefined
 }
 
 const TitleContainer = styled('span')(({theme}) => ({
-    ...theme.typography.body1,
+    ...theme.typography.subtitle2,
     fontWeight: '400',
-    width: '140px',
+    width: '110px',
+    [theme.breakpoints.up("sm")]: {
+        ...theme.typography.body1,
+        width: '140px',
+        fontWeight: '500',
+    }
 }));
 const ValueContainer = styled('span')(({theme}) => ({
-    ...theme.typography.body1,
+    ...theme.typography.subtitle2,
     wordWrap: "break-word",
+    [theme.breakpoints.up("sm")]: {
+        ...theme.typography.body1,
+        fontWeight: '400',
+    }
 }));
 const ContactContainer = styled(Box)(({theme}) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flexStart',
+    display: 'grid',
     wordWrap: "break-word",
+    [theme.breakpoints.up("sm")]: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flexStart',
+    }
 }))
 
-export const ProfileInfo: FC<ProfileInfoType> = ({profile}) => {
+export const ProfileInfo: FC<ProfileInfoType> = ({profile, onEditMode, userId}) => {
     return (
         <>
             {profile.lookingForAJob && <ContactContainer>
@@ -44,6 +58,11 @@ export const ProfileInfo: FC<ProfileInfoType> = ({profile}) => {
                 .map(key => <Contact key={key} contactTitle={key}
                                      contactValue={profile.contacts[key as keyof ContactsType]}/>)
             }
+            <div>
+                {!userId && <Button variant="contained" onClick={onEditMode} sx={{width: '80px'}}>
+                    EDIT
+                </Button>}
+            </div>
         </>
     )
 }

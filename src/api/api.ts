@@ -66,7 +66,7 @@ export const profileAPI = {
     uploadPhoto(newFile: File) {
         const formData = new FormData()
         formData.append('image', newFile);
-        return instance.put<ResponseType<{photos: PhotosType}>>('profile/photo', formData, {
+        return instance.put<ResponseType<{ photos: PhotosType }>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -126,19 +126,19 @@ export type AuthMeDataType = {
     email: string
 }
 export type ProfileUpdateType = {
-    userId: number | null
+    userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: {
-        facebook: null | string
-        website: null | string
-        vk: null | string
-        twitter: null | string
-        instagram: null | string
-        youtube: null | string
-        github: null | string
-        mainLink: null | string
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     }
     aboutMe: string
 }

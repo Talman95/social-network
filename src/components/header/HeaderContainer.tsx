@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {useNavigate} from "react-router-dom";
 
 export const HeaderContainer = () => {
-    const profile = useAppSelector(state => state.auth.profile)
+    const currentUser = useAppSelector(state => state.auth.currentUser)
     const isAuth = useAppSelector(state => state.auth.isAuth)
     const dispatch = useAppDispatch()
     let navigate = useNavigate()
@@ -19,7 +19,7 @@ export const HeaderContainer = () => {
     return (
         <Header
             isAuth={isAuth}
-            profile={profile}
+            currentUser={currentUser}
             logout={logoutHandler}
             navigateToProfile={navigateToProfile}
             navigateToUsers={navigateToUsers}

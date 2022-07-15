@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {ProfileType} from "../../../api/api";
@@ -10,6 +10,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import {styled} from "@mui/material/styles";
 import {PhotoCamera} from "@mui/icons-material";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
@@ -34,6 +35,13 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
                                                                 unfollow,
                                                                 photoSelected,
                                                             }) => {
+    const [editMode, setEditMode] = useState(false)
+    const onEditMode = () => {
+        setEditMode(true)
+    }
+    const offEditMode = () => {
+        setEditMode(false)
+    }
 
     if (!profile) {
         return <Preloader/>
@@ -99,7 +107,10 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
                         }
                     </Typography>
                     <Divider sx={{marginTop: '15px', marginBottom: '15px'}}/>
-                    <ProfileInfo profile={profile}/>
+                    {editMode
+                        ? <ProfileDataForm profile={profile} offEditMode={offEditMode}/>
+                        : <ProfileInfo profile={profile} onEditMode={onEditMode} userId={userId}/>
+                    }
                 </CardContent>
             </Box>
         </Card>

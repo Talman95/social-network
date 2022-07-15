@@ -1,6 +1,5 @@
 import React from 'react';
 import {FormikHelpers, useFormik} from 'formik';
-import s from './Login.module.css';
 import * as Yup from 'yup';
 import {Preloader} from "../common/Preloader/Preloader";
 import {login} from "../../redux/authReducer";
@@ -44,7 +43,7 @@ export const Login = () => {
     });
 
     if (formik.isSubmitting) {
-        return <div className={s.login}>
+        return <div>
             <Preloader/>
         </div>
     }
