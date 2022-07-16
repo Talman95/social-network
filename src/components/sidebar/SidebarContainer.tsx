@@ -15,7 +15,7 @@ export const SidebarContainer = () => {
 
     useEffect(() => {
         dispatch(getFriends())
-    }, [])
+    }, [isAuth])
 
     return (
         <Sidebar

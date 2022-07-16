@@ -32,10 +32,12 @@ const setFriendsCount = (friendsCount: number) => (
 
 //thunks
 export const getFriends = (): AppThunk => {
-    return async (dispatch) => {
-        const response = await usersAPI.getFriends()
-        dispatch(setFriends(response.items))
-        dispatch(setFriendsCount(response.totalCount))
+    return async (dispatch, getState) => {
+        if (getState().auth.isAuth) {
+            const response = await usersAPI.getFriends()
+            dispatch(setFriends(response.items))
+            dispatch(setFriendsCount(response.totalCount))
+        }
     }
 }
 

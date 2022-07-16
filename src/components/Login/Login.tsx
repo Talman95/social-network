@@ -4,17 +4,19 @@ import * as Yup from 'yup';
 import {Preloader} from "../common/Preloader/Preloader";
 import {login} from "../../redux/authReducer";
 import Grid from '@mui/material/Grid';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
-import {useAppDispatch} from "../../features/hooks/hooks";
+import {Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 
 
 export type formValuesModel = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
 export const Login = () => {
+    const captchaUrl = useAppSelector(state => state.auth.captchaUrl)
     const dispatch = useAppDispatch()
 
     const validationSchema = Yup.object({
@@ -36,7 +38,8 @@ export const Login = () => {
         initialValues: {
             email: '',
             password: '',
-            rememberMe: true
+            rememberMe: true,
+            captcha: '',
         },
         validationSchema: validationSchema,
         onSubmit: submit,
@@ -76,6 +79,14 @@ export const Login = () => {
                                 label={"Remember me?"}
                                 control={<Checkbox {...formik.getFieldProps("rememberMe")}/>}
                             />
+                            {captchaUrl && <Box sx={{display: "flex", flexDirection: "column"}}>
+                                <img alt={"captcha"} src={captchaUrl}/>
+                                <TextField id={"captcha"}
+                                           type={"captcha"}
+                                           margin={"normal"}
+                                           {...formik.getFieldProps('captcha')}
+                                />
+                            </Box>}
                             <Button color={"primary"} variant={"contained"} type={"submit"}>
                                 Sign In
                             </Button>

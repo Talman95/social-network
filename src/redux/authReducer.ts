@@ -1,4 +1,4 @@
-import {authAPI, PhotosType, profileAPI, ProfileType} from "../api/api";
+import {authAPI, PhotosType, profileAPI, ProfileType, securityAPI} from "../api/api";
 import {formValuesModel} from "../components/Login/Login";
 import {AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
@@ -6,6 +6,7 @@ import {ActionsType, UpdateProfileSuccessType, UploadUserPhotoSuccessType} from 
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
 const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
+const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
 
 const initialState: AuthStateType = {
     id: null,
@@ -13,6 +14,7 @@ const initialState: AuthStateType = {
     login: null,
     isAuth: false,
     currentUser: null,
+    captchaUrl: null,
 }
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthStateType => {
@@ -36,6 +38,8 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
                 ...state,
                 currentUser: {...state.currentUser, fullName: action.payload.updatedProfile.fullName} as ProfileType
             }
+        case GET_CAPTCHA_URL_SUCCESS:
+            return {...state, captchaUrl: action.url}
         default:
             return state
     }
@@ -46,6 +50,7 @@ export const setUserData = (id: number | null, email: string | null, login: stri
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
 export const setCurrentUser = (currentUser: CurrentUserType | null) => ({type: SET_CURRENT_USER, currentUser} as const)
+export const getCaptchaUrlSuccess = (url: string | null) => ({type: GET_CAPTCHA_URL_SUCCESS, url} as const)
 
 //thunks
 export const getAuthUserData = (): AppThunk => {
@@ -63,12 +68,14 @@ export const getAuthUserData = (): AppThunk => {
         }
     }
 }
-export const login = ({email, password, rememberMe}: formValuesModel): AppThunk => {
+export const login = ({email, password, rememberMe, captcha}: formValuesModel): AppThunk => {
     return async (dispatch) => {
         try {
-            const response = await authAPI.login(email, password, rememberMe)
+            const response = await authAPI.login(email, password, rememberMe, captcha)
             if (response.resultCode === 0) {
                 dispatch(getAuthUserData())
+            } else if (response.resultCode === 10) {
+                dispatch(getCaptchaUrl())
             } else {
                 if (response.messages.length) {
                     dispatch(setAppErrorMessage(response.messages[0]))
@@ -81,6 +88,12 @@ export const login = ({email, password, rememberMe}: formValuesModel): AppThunk 
         }
     }
 }
+export const getCaptchaUrl = (): AppThunk => {
+    return async (dispatch) => {
+        const res = await securityAPI.getCaptcha()
+        dispatch(getCaptchaUrlSuccess(res.data.url))
+    }
+}
 export const logout = (): AppThunk => {
     return async (dispatch) => {
         try {
@@ -88,6 +101,7 @@ export const logout = (): AppThunk => {
             if (response.resultCode === 0) {
                 dispatch(setUserData(null, null, null, false))
                 dispatch(setCurrentUser(null))
+                dispatch(getCaptchaUrlSuccess(null))
             }
         } catch (error: any) {
 
@@ -102,6 +116,7 @@ export type AuthStateType = {
     login: string | null
     isAuth: boolean
     currentUser: CurrentUserType | null
+    captchaUrl: string | null
 }
 export type CurrentUserType = {
     fullName: string
@@ -111,5 +126,6 @@ export type CurrentUserType = {
 export type AuthActionsType =
     | ReturnType<typeof setUserData>
     | ReturnType<typeof setCurrentUser>
+    | ReturnType<typeof getCaptchaUrlSuccess>
     | UploadUserPhotoSuccessType
     | UpdateProfileSuccessType
