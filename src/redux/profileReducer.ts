@@ -97,7 +97,7 @@ export const uploadUserPhotoSuccess = (photos: PhotosType) => ({
     type: ActionsType.UPLOAD_USER_PHOTO_SUCCESS,
     photos,
 } as const)
-export const updateProfileSuccess = (updatedProfile: ProfileUpdateType) => ({
+export const updateProfileSuccess = (updatedProfile: UpdateProfileModal) => ({
     type: ActionsType.UPDATE_PROFILE_SUCCESS,
     payload: {updatedProfile}
 } as const)
@@ -157,15 +157,15 @@ export const uploadUserPhoto = (userPhoto: File): AppThunk => {
         }
     }
 }
-export const updateProfile = (values: UpdateProfileModal): AppThunk => {
+export const updateProfile = (profileData: UpdateProfileModal): AppThunk => {
     return async (dispatch, getState: () => AppStateType) => {
         try {
             const ownerId = getState().auth.id
             if (ownerId) {
-                const updatedProfile = {...values, userId: ownerId}
+                const updatedProfile = {...profileData, userId: ownerId}
                 const res = await profileAPI.updateProfile(updatedProfile)
                 if (res.data.resultCode === 0) {
-                    dispatch(updateProfileSuccess(updatedProfile))
+                    dispatch(updateProfileSuccess(profileData))
                 } else {
                     if (res.data.messages.length) {
                         dispatch(setAppErrorMessage(res.data.messages[0]))

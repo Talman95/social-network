@@ -22,7 +22,7 @@ const initialState = {
     pressingInProgress: [] as Array<number>,
 }
 
-export const usersReducer = (state = initialState, action: UsersActionsType): ProfileStateType => {
+export const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
         case ACTIONS_TYPE.FOLLOW_SUCCESS:
             state = {
@@ -133,7 +133,7 @@ export const unfollow = (userId: number): AppThunk => {
 }
 
 //types
-export type ProfileStateType = typeof initialState
+export type UsersStateType = typeof initialState
 
 export type UsersActionsType =
     ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>

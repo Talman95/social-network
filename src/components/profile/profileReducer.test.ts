@@ -3,8 +3,13 @@ import {
     deletePost,
     PostType,
     profileReducer,
-    ProfileStateType, setFriendship, setProfileStatus, setUserProfile,
-    updateMessage
+    ProfileStateType,
+    setFriendship,
+    setProfileStatus,
+    setUserProfile,
+    updateMessage,
+    updateProfileSuccess,
+    uploadUserPhotoSuccess
 } from "../../redux/profileReducer";
 
 let startState: ProfileStateType = {
@@ -17,7 +22,27 @@ let startState: ProfileStateType = {
 
 beforeEach(() => {
     startState = {
-        profile: null,
+        profile: {
+            aboutMe: 'Super dev',
+            contacts: {
+                facebook: '',
+                website: '',
+                vk: '',
+                twitter: '',
+                instagram: '',
+                youtube: '',
+                github: '',
+                mainLink: '',
+            },
+            lookingForAJob: false,
+            lookingForAJobDescription: 'React, Redux',
+            fullName: 'Roman',
+            userId: 7777,
+            photos: {
+                small: 'photo/small/1',
+                large: 'photo/large/1',
+            },
+        },
         posts: [
             {id: 4, message: 'Hi, how are you guys?', picture: '4'},
             {id: 3, message: 'Yo yo yo!!!', picture: '3'},
@@ -96,4 +121,57 @@ test("current user should become friend", () => {
     let endState = profileReducer(startState, setFriendship(true))
 
     expect(endState.isFriend).toBe(true)
+})
+
+test('photo should be updated', () => {
+    const photos = {
+        small: 'photo/small/2',
+        large: 'photo/large/2',
+    }
+    let endState = profileReducer(startState, uploadUserPhotoSuccess(photos))
+
+    expect(endState.profile?.photos).toBe(photos)
+})
+
+test('profile should be updated', () => {
+    const updatedProfile = {
+        lookingForAJob: true,
+        lookingForAJobDescription: 'Не ищу а дурачусь',
+        fullName: 'Roman Romanovich',
+        contacts: {
+            facebook: '',
+            website: 'website/123',
+            vk: 'vk/123',
+            twitter: '',
+            instagram: '',
+            youtube: 'youtube/123',
+            github: 'github/123',
+            mainLink: '',
+        },
+        aboutMe: 'man'
+    }
+
+    let endState = profileReducer(startState, updateProfileSuccess(updatedProfile))
+
+    expect(endState.profile).toEqual({
+        lookingForAJob: true,
+        lookingForAJobDescription: 'Не ищу а дурачусь',
+        fullName: 'Roman Romanovich',
+        contacts: {
+            facebook: '',
+            website: 'website/123',
+            vk: 'vk/123',
+            twitter: '',
+            instagram: '',
+            youtube: 'youtube/123',
+            github: 'github/123',
+            mainLink: '',
+        },
+        aboutMe: 'man',
+        userId: 7777,
+        photos: {
+            small: 'photo/small/1',
+            large: 'photo/large/1',
+        },
+    })
 })
