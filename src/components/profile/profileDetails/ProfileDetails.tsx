@@ -11,6 +11,7 @@ import {styled} from "@mui/material/styles";
 import {PhotoCamera} from "@mui/icons-material";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
+import {useOutside} from "../../../features/hooks/useOutside";
 
 type ProfileDetailsPropsType = {
     profile: ProfileType | null
@@ -35,12 +36,12 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
                                                                 unfollow,
                                                                 photoSelected,
                                                             }) => {
-    const [editMode, setEditMode] = useState(false)
+    const {ref, isShow, setIsShow} = useOutside(false)
     const onEditMode = () => {
-        setEditMode(true)
+        setIsShow(true)
     }
     const offEditMode = () => {
-        setEditMode(false)
+        setIsShow(false)
     }
 
     if (!profile) {
@@ -54,7 +55,7 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
             padding: {sm: 2},
             flexDirection: {xs: "column", sm: "inherit"},
             alignItems: {xs: "center", sm: "inherit"}
-        }}>
+        }} ref={ref}>
             <Box sx={{display: "flex", flexDirection: "column"}}>
                 <Avatar
                     alt={profile.fullName || 'user'}
@@ -107,7 +108,7 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
                         }
                     </Typography>
                     <Divider sx={{marginTop: '15px', marginBottom: '15px'}}/>
-                    {editMode
+                    {isShow
                         ? <ProfileDataForm profile={profile} offEditMode={offEditMode}/>
                         : <ProfileInfo profile={profile} onEditMode={onEditMode} userId={userId}/>
                     }
