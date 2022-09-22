@@ -1,9 +1,10 @@
 import React, {ChangeEvent, FC, MouseEvent} from 'react';
 import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
-import {UserType} from "../../api/api";
+import {UserType} from "../../api/usersAPI";
 import {Box, Pagination} from "@mui/material";
 import Stack from '@mui/material/Stack';
+import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -36,6 +37,11 @@ export const Users: FC<UsersPropsType> = (props) => {
 
     return (
         <Box>
+            <UsersSearchBox/>
+            {props.isFetching
+                ? <Preloader/>
+                : mappedUsers
+            }
             <Stack spacing={2} sx={{display: "flex", alignItems: "center"}}>
                 <Pagination
                     sx={{display: {xs: "none", sm: "block"}}}
@@ -52,10 +58,6 @@ export const Users: FC<UsersPropsType> = (props) => {
                     size={"small"}
                 />
             </Stack>
-            {props.isFetching
-                ? <Preloader/>
-                : mappedUsers
-            }
         </Box>
     );
 }

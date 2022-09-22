@@ -1,4 +1,4 @@
-import {usersAPI, UserType} from "../api/api";
+import {usersAPI, UserType} from "../api/usersAPI";
 import {AppThunk} from "./store";
 
 const SET_FRIENDS = "SET_FRIENDS"

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Sidebar} from './Sidebar';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {UserType} from "../../api/api";
+import {UserType} from "../../api/usersAPI";
 import {getFriends} from "../../redux/friendsReducer";
 import {useAppDispatch} from "../../features/hooks/hooks";
 

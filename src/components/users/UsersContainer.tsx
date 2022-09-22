@@ -1,35 +1,26 @@
 import {Users} from "./Users";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
 import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
 import React, {ChangeEvent, MouseEvent, useEffect} from "react";
-import {UserType} from "../../api/api";
-import {useAppDispatch} from "../../features/hooks/hooks";
-
-type UsersPropsType = {
-    users: Array<UserType>
-    currentPage: number
-    pageSize: number
-    totalCount: number
-    isFetching: boolean
-    pressingInProgress: Array<number>
-}
+import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 
 export const UsersContainer = () => {
-    const {
-        users, currentPage, pageSize,
-        totalCount, isFetching, pressingInProgress
-    } = useSelector<AppStateType, UsersPropsType>(state => state.users)
+    const users = useAppSelector(state => state.users.users)
+    const currentPage = useAppSelector(state => state.users.currentPage)
+    const pageSize = useAppSelector(state => state.users.pageSize)
+    const totalCount = useAppSelector(state => state.users.totalCount)
+    const isFetching = useAppSelector(state => state.users.isFetching)
+    const pressingInProgress = useAppSelector(state => state.users.pressingInProgress)
+    const searchName = useAppSelector(state => state.users.searchName)
+    const userFriends = useAppSelector(state => state.users.userFriends)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize))
-    }, [])
+        dispatch(getUsers())
+    }, [currentPage, pageSize, searchName, userFriends])
 
     const changePage = (event: ChangeEvent<unknown>, pageNumber: number) => {
         dispatch(setCurrentPage(pageNumber))
-        dispatch(getUsers(pageNumber, pageSize))
     }
     const followHandler = (e: MouseEvent<HTMLButtonElement>, userID: number) => {
         e.preventDefault()

@@ -1,4 +1,4 @@
-import {usersAPI, UserType} from "../api/api";
+import {usersAPI, UserType} from "../api/usersAPI";
 import {AppThunk} from "./store";
 import {getFriends} from "./friendsReducer";
 import {setAppErrorMessage} from "./appReducer";
@@ -11,6 +11,7 @@ export enum ACTIONS_TYPE {
     SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
     TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
     TOGGLE_PRESSING_IN_PROGRESS = 'Users/TOGGLE_PRESSING_IN_PROGRESS',
+    SET_SEARCH_NAME = 'Users/SET_SEARCH_NAME',
 }
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
     totalCount: 0,
     isFetching: false,
     pressingInProgress: [] as Array<number>,
+    searchName: '',
+    userFriends: null as boolean | null,
 }
 
 export const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
@@ -46,6 +49,7 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
         case ACTIONS_TYPE.SET_CURRENT_PAGE:
         case ACTIONS_TYPE.SET_TOTAL_MEMBERS:
         case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
+        case ACTIONS_TYPE.SET_SEARCH_NAME:
             return {
                 ...state,
                 ...action.payload,
@@ -78,15 +82,24 @@ export const toggleIsFetching = (isFetching: boolean) => (
 export const togglePressingInProgress = (isPressed: boolean, userId: number) => (
     {type: ACTIONS_TYPE.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId} as const
 )
+export const setSearchName = (searchName: string) => (
+    {type: ACTIONS_TYPE.SET_SEARCH_NAME, payload: {searchName, currentPage: 1}} as const
+)
 
 //thunks
-export const getUsers = (currentPage: number, pageSize: number): AppThunk => {
-    return async (dispatch) => {
+export const getUsers = (): AppThunk => {
+    return async (dispatch, getState) => {
         dispatch(toggleIsFetching(true))
-        const response = await usersAPI.getUsers(currentPage, pageSize)
+        const {currentPage, pageSize, searchName, userFriends} = getState().users
+        const res = await usersAPI.getUsers({
+            currentPage,
+            pageSize,
+            searchName,
+            userFriends,
+        })
+        dispatch(setUsers(res.items))
+        dispatch(setTotalMembers(res.totalCount))
         dispatch(toggleIsFetching(false))
-        dispatch(setUsers(response.items))
-        dispatch(setTotalMembers(response.totalCount))
     }
 }
 export const follow = (userId: number): AppThunk => {
@@ -136,7 +149,11 @@ export const unfollow = (userId: number): AppThunk => {
 export type UsersStateType = typeof initialState
 
 export type UsersActionsType =
-    ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess>
-    | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalMembers> | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalMembers>
+    | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof togglePressingInProgress>
+    | ReturnType<typeof setSearchName>

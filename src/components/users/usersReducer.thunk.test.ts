@@ -1,12 +1,16 @@
 import {
     follow,
     followSuccess,
-    getUsers, setTotalMembers, setUsers, toggleIsFetching,
+    getUsers,
+    setTotalMembers,
+    setUsers,
+    toggleIsFetching,
     togglePressingInProgress,
     unfollow,
     unfollowSuccess
 } from "../../redux/usersReducer";
-import {GetUsersResponseType, ResponseType, usersAPI} from "../../api/api";
+import {ResponseType,} from "../../api/api";
+import {GetUsersResponseType, usersAPI} from "../../api/usersAPI";
 
 jest.mock('../../api/api')
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
@@ -36,7 +40,7 @@ const result: ResponseType<{}> = {
 
 test('success get users thunk', async () => {
     usersAPIMock.getUsers.mockReturnValue(Promise.resolve(usersResult))
-    const thunk = await getUsers(1, 10)
+    const thunk = await getUsers()
 
     await thunk(dispatchMock, getStateMock, {})
 

@@ -1,6 +1,7 @@
-import {PhotosType, profileAPI, ProfileType, ProfileUpdateType, usersAPI} from "../api/api";
+import {PhotosType, profileAPI, ProfileType} from "../api/api";
 import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
+import {usersAPI} from "../api/usersAPI";
 
 export enum ActionsType {
     UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',

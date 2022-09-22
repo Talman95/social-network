@@ -1,6 +1,6 @@
 import React, {FC, MouseEvent} from 'react';
 import {NavLink} from "react-router-dom";
-import {UserType} from "../../../api/api";
+import {UserType} from "../../../api/usersAPI";
 import {Avatar, Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {blue} from "@mui/material/colors";
 import Button from "@mui/material/Button";

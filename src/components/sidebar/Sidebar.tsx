@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import Box from '@mui/material/Box';
 import {Avatar, AvatarGroup, Typography} from "@mui/material";
-import {UserType} from "../../api/api";
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../api/usersAPI";
 
 type SidebarPropsType = {
     friends: UserType[]
