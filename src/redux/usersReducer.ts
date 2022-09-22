@@ -12,6 +12,7 @@ export enum ACTIONS_TYPE {
     TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
     TOGGLE_PRESSING_IN_PROGRESS = 'Users/TOGGLE_PRESSING_IN_PROGRESS',
     SET_SEARCH_NAME = 'Users/SET_SEARCH_NAME',
+    SET_FRIENDS_SHOWING = 'Users/SET_FRIENDS_SHOWING',
 }
 
 const initialState = {
@@ -50,6 +51,7 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
         case ACTIONS_TYPE.SET_TOTAL_MEMBERS:
         case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
         case ACTIONS_TYPE.SET_SEARCH_NAME:
+        case ACTIONS_TYPE.SET_FRIENDS_SHOWING:
             return {
                 ...state,
                 ...action.payload,
@@ -84,6 +86,9 @@ export const togglePressingInProgress = (isPressed: boolean, userId: number) => 
 )
 export const setSearchName = (searchName: string) => (
     {type: ACTIONS_TYPE.SET_SEARCH_NAME, payload: {searchName, currentPage: 1}} as const
+)
+export const setFriendsShowing = (isShow: boolean | null) => (
+    {type: ACTIONS_TYPE.SET_FRIENDS_SHOWING, payload: {userFriends: isShow}} as const
 )
 
 //thunks
@@ -157,3 +162,4 @@ export type UsersActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof togglePressingInProgress>
     | ReturnType<typeof setSearchName>
+    | ReturnType<typeof setFriendsShowing>
