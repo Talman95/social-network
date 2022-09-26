@@ -1,30 +1,29 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
-import {Box, Button, Stack, Switch, TextField, Typography} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../../features/hooks/hooks";
-import {setFriendsShowing, setSearchName} from "../../../redux/usersReducer";
+import React, {ChangeEvent, FC, useState} from 'react';
+import {Button, MenuItem, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
+import {useAppDispatch} from "../../../features/hooks/hooks";
+import {FriendUiType, setUsersFilter} from "../../../redux/usersReducer";
 
-export const UsersSearchBox: FC = () => {
+type PropsType = {
+    searchName: string,
+    userFriends: FriendUiType
+}
+
+export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
     const dispatch = useAppDispatch()
 
-    const searchName = useAppSelector(state => state.users.searchName)
-    const userFriends = useAppSelector(state => state.users.userFriends)
-
     const [searchTerm, setSearchTerm] = useState(searchName)
-    const [checked, setChecked] = useState(!!userFriends)
-
-    useEffect(() => {
-
-    }, [])
+    const [friends, setFriends] = useState(userFriends)
 
     const handleSetSearchTerm = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setSearchTerm(e.currentTarget.value)
     }
     const handleSearchClick = () => {
-        dispatch(setSearchName(searchTerm))
+        dispatch(setUsersFilter({searchName: searchTerm, userFriends: friends}))
     }
-    const handleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
-        setChecked(e.currentTarget.checked)
-        dispatch(setFriendsShowing(e.currentTarget.checked ? true : null))
+    const handleSelectFilter = (e: SelectChangeEvent) => {
+        const resultFriend = e.target.value as FriendUiType
+        setFriends(resultFriend)
+        dispatch(setUsersFilter({searchName: searchTerm, userFriends: resultFriend}))
     }
 
     return (
@@ -41,15 +40,18 @@ export const UsersSearchBox: FC = () => {
                 value={searchTerm}
                 onChange={handleSetSearchTerm}
             />
-            <Box style={{display: 'flex', alignItems: 'center'}}>
-                <Typography>All</Typography>
-                <Switch
-                    checked={checked}
-                    onChange={handleSwitch}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                />
-                <Typography>My</Typography>
-            </Box>
+            <Select
+                labelId={'select-label'}
+                id={'simple-select'}
+                onChange={handleSelectFilter}
+                style={{width: 163}}
+                value={friends}
+                // defaultValue={friends}
+            >
+                <MenuItem value={'all'}>All</MenuItem>
+                <MenuItem value={'follow'}>Only followed</MenuItem>
+                <MenuItem value={'unfollow'}>Only unfollowed</MenuItem>
+            </Select>
             <Button
                 variant={'contained'}
                 onClick={handleSearchClick}

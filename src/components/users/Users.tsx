@@ -1,10 +1,12 @@
-import React, {ChangeEvent, FC, MouseEvent} from 'react';
+import React, {ChangeEvent, FC, MouseEvent, useEffect} from 'react';
 import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
 import {UserType} from "../../api/usersAPI";
 import {Box, Pagination} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
+import {useSearchParams} from 'react-router-dom';
+import {useAppSelector} from "../../features/hooks/hooks";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -29,6 +31,23 @@ export const Users: FC<UsersPropsType> = (props) => {
         />
     )
 
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const searchName = useAppSelector(state => state.users.filter.searchName)
+    const userFriends = useAppSelector(state => state.users.filter.userFriends)
+
+    useEffect(() => {
+        let params: any = {}
+
+        if (props.currentPage > 1) params.page = String(props.currentPage)
+        if (searchName) params.term = searchName
+        if (userFriends === 'follow') params.friend = true
+        if (userFriends === 'unfollow') params.friend = false
+
+        setSearchParams(params)
+
+    }, [props.currentPage, searchName, userFriends])
+
     const pages: number[] = []
     const countPages = Math.ceil(props.totalCount / props.pageSize)
     for (let i = 1; i <= 20; i++) {
@@ -37,7 +56,7 @@ export const Users: FC<UsersPropsType> = (props) => {
 
     return (
         <Box>
-            <UsersSearchBox/>
+            <UsersSearchBox searchName={searchName} userFriends={userFriends}/>
             {props.isFetching
                 ? <Preloader/>
                 : mappedUsers

@@ -14,8 +14,10 @@ let startState: UsersStateType = {
     totalCount: 0,
     isFetching: false,
     pressingInProgress: [],
-    searchName: '',
-    userFriends: null,
+    filter: {
+        searchName: '',
+        userFriends: 'all',
+    },
 }
 
 beforeEach(() => {
@@ -49,8 +51,10 @@ beforeEach(() => {
         totalCount: 0,
         isFetching: false,
         pressingInProgress: [],
-        searchName: '',
-        userFriends: null,
+        filter: {
+            searchName: '',
+            userFriends: 'all',
+        },
     }
 })
 

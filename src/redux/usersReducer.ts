@@ -11,8 +11,7 @@ export enum ACTIONS_TYPE {
     SET_TOTAL_MEMBERS = 'Users/SET_TOTAL_MEMBERS',
     TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
     TOGGLE_PRESSING_IN_PROGRESS = 'Users/TOGGLE_PRESSING_IN_PROGRESS',
-    SET_SEARCH_NAME = 'Users/SET_SEARCH_NAME',
-    SET_FRIENDS_SHOWING = 'Users/SET_FRIENDS_SHOWING',
+    SET_USERS_FILTER = 'Users/SET_USERS_FILTER',
 }
 
 const initialState = {
@@ -22,8 +21,10 @@ const initialState = {
     totalCount: 0,
     isFetching: false,
     pressingInProgress: [] as Array<number>,
-    searchName: '',
-    userFriends: null as boolean | null,
+    filter: {
+        searchName: '',
+        userFriends: 'all',
+    } as UsersFilterType
 }
 
 export const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
@@ -50,8 +51,7 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
         case ACTIONS_TYPE.SET_CURRENT_PAGE:
         case ACTIONS_TYPE.SET_TOTAL_MEMBERS:
         case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
-        case ACTIONS_TYPE.SET_SEARCH_NAME:
-        case ACTIONS_TYPE.SET_FRIENDS_SHOWING:
+        case ACTIONS_TYPE.SET_USERS_FILTER:
             return {
                 ...state,
                 ...action.payload,
@@ -84,23 +84,40 @@ export const toggleIsFetching = (isFetching: boolean) => (
 export const togglePressingInProgress = (isPressed: boolean, userId: number) => (
     {type: ACTIONS_TYPE.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId} as const
 )
-export const setSearchName = (searchName: string) => (
-    {type: ACTIONS_TYPE.SET_SEARCH_NAME, payload: {searchName, currentPage: 1}} as const
-)
-export const setFriendsShowing = (isShow: boolean | null) => (
-    {type: ACTIONS_TYPE.SET_FRIENDS_SHOWING, payload: {userFriends: isShow}} as const
+export const setUsersFilter = (filter: UsersFilterType) => (
+    {
+        type: ACTIONS_TYPE.SET_USERS_FILTER, payload: {
+            filter:
+                {searchName: filter.searchName, userFriends: filter.userFriends},
+            currentPage: 1,
+        }
+    } as const
 )
 
 //thunks
 export const getUsers = (): AppThunk => {
     return async (dispatch, getState) => {
         dispatch(toggleIsFetching(true))
-        const {currentPage, pageSize, searchName, userFriends} = getState().users
+        const {currentPage, pageSize, filter} = getState().users
+
+        let friend;
+        switch (filter.userFriends) {
+            case 'follow':
+                friend = true
+                break
+            case 'unfollow':
+                friend = false
+                break
+            default:
+                friend = null
+                break
+        }
+
         const res = await usersAPI.getUsers({
             currentPage,
             pageSize,
-            searchName,
-            userFriends,
+            searchName: filter.searchName,
+            userFriends: friend,
         })
         dispatch(setUsers(res.items))
         dispatch(setTotalMembers(res.totalCount))
@@ -152,6 +169,11 @@ export const unfollow = (userId: number): AppThunk => {
 
 //types
 export type UsersStateType = typeof initialState
+export type UsersFilterType = {
+    searchName: string
+    userFriends: FriendUiType
+}
+export type FriendUiType = 'all' | 'follow' | 'unfollow'
 
 export type UsersActionsType =
     | ReturnType<typeof followSuccess>
@@ -161,5 +183,4 @@ export type UsersActionsType =
     | ReturnType<typeof setTotalMembers>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof togglePressingInProgress>
-    | ReturnType<typeof setSearchName>
-    | ReturnType<typeof setFriendsShowing>
+    | ReturnType<typeof setUsersFilter>

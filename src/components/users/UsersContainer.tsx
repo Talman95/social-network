@@ -10,8 +10,8 @@ export const UsersContainer = () => {
     const totalCount = useAppSelector(state => state.users.totalCount)
     const isFetching = useAppSelector(state => state.users.isFetching)
     const pressingInProgress = useAppSelector(state => state.users.pressingInProgress)
-    const searchName = useAppSelector(state => state.users.searchName)
-    const userFriends = useAppSelector(state => state.users.userFriends)
+    const searchName = useAppSelector(state => state.users.filter.searchName)
+    const userFriends = useAppSelector(state => state.users.filter.userFriends)
 
     const dispatch = useAppDispatch()
 
