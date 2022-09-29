@@ -12,6 +12,7 @@ export enum ActionsType {
     SET_FRIENDSHIP = 'profile/SET_FRIENDSHIP',
     UPLOAD_USER_PHOTO_SUCCESS = 'profile/UPLOAD_USER_PHOTO_SUCCESS',
     UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS',
+    SET_PROFILE_LOAD = 'profile/SET_PROFILE_LOAD',
 }
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
     postMessage: '',
     status: '',
     isFriend: false,
+    isLoad: true,
 }
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
@@ -62,6 +64,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         case ActionsType.SET_USER_PROFILE:
         case ActionsType.SET_PROFILE_STATUS:
         case ActionsType.SET_FRIENDSHIP:
+        case ActionsType.SET_PROFILE_LOAD:
             return {
                 ...state,
                 ...action.payload,
@@ -87,7 +90,7 @@ export const updateMessage = (newMessage: string) => (
 export const deletePost = (postId: number) => (
     {type: ActionsType.DELETE_POST, postId} as const
 )
-export const setUserProfile = (profile: ProfileType) => (
+export const setUserProfile = (profile: ProfileType | null) => (
     {type: ActionsType.SET_USER_PROFILE, payload: {profile}} as const
 )
 export const setProfileStatus = (status: string) => (
@@ -102,8 +105,20 @@ export const updateProfileSuccess = (updatedProfile: UpdateProfileModal) => ({
     type: ActionsType.UPDATE_PROFILE_SUCCESS,
     payload: {updatedProfile}
 } as const)
+export const setProfileLoad = (isLoad: boolean) => ({type: ActionsType.SET_PROFILE_LOAD, payload: {isLoad}} as const)
 
 //thunks
+export const loadProfilePage = (userId: number): AppThunk => {
+    return async (dispatch) => {
+        dispatch(setProfileLoad(true))
+        await Promise.allSettled([
+            dispatch(getUserProfile(userId)),
+            dispatch(getProfileStatus(userId)),
+            dispatch(isFollow(userId)),
+        ])
+        dispatch(setProfileLoad(false))
+    }
+}
 export const getUserProfile = (userId: number): AppThunk => {
     return async (dispatch) => {
         const response = await profileAPI.getProfile(userId)
@@ -214,5 +229,6 @@ export type ProfileActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setProfileStatus>
     | ReturnType<typeof setFriendship>
+    | ReturnType<typeof setProfileLoad>
     | UploadUserPhotoSuccessType
     | UpdateProfileSuccessType

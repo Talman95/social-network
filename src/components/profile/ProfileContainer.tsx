@@ -1,11 +1,13 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
-import {getProfileStatus, getUserProfile, isFollow} from "../../redux/profileReducer";
+import {loadProfilePage, setUserProfile} from "../../redux/profileReducer";
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
+import {Preloader} from "../common/Preloader/Preloader";
 
 export const ProfileContainer: FC = () => {
     const authId = useAppSelector(state => state.auth.id)
+    const isLoad = useAppSelector(state => state.profile.isLoad)
 
     const dispatch = useAppDispatch()
 
@@ -15,10 +17,18 @@ export const ProfileContainer: FC = () => {
         if (!userId) {
             userId = String(authId)
         }
-        dispatch(getUserProfile(+userId))
-        dispatch(getProfileStatus(+userId))
-        dispatch(isFollow(+userId))
+        dispatch(loadProfilePage(+userId))
     }, [userId])
+
+    useEffect(() => {
+        return () => {
+            dispatch(setUserProfile(null))
+        }
+    }, [])
+
+    if (isLoad) {
+        return <Preloader/>
+    }
 
     return (
         <Profile userId={userId}/>

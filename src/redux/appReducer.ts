@@ -27,8 +27,8 @@ export const setAppErrorMessage = (errorMessage: null | string) => ({type: SET_E
 //thunks
 export const initializeApp = (): AppThunk => {
     return async (dispatch) => {
-        dispatch(getAuthUserData())
-        dispatch(initializedSuccess())
+        await dispatch(getAuthUserData())
+        await dispatch(initializedSuccess())
     }
 }
 

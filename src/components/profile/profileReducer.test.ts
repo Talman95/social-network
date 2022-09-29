@@ -18,6 +18,7 @@ let startState: ProfileStateType = {
     postMessage: '',
     status: '',
     isFriend: false,
+    isLoad: true,
 }
 
 beforeEach(() => {
@@ -52,6 +53,7 @@ beforeEach(() => {
         postMessage: '',
         status: '',
         isFriend: false,
+        isLoad: true,
     }
 })
 
