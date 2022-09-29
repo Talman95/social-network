@@ -2,6 +2,7 @@ import {usersAPI, UserType} from "../api/usersAPI";
 import {AppThunk} from "./store";
 import {getFriends} from "./friendsReducer";
 import {setAppErrorMessage} from "./appReducer";
+import {FriendTypeConverter} from "../utils/utils";
 
 export enum ACTIONS_TYPE {
     FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',
@@ -100,18 +101,7 @@ export const getUsers = (): AppThunk => {
         dispatch(toggleIsFetching(true))
         const {currentPage, pageSize, filter} = getState().users
 
-        let friend;
-        switch (filter.userFriends) {
-            case 'follow':
-                friend = true
-                break
-            case 'unfollow':
-                friend = false
-                break
-            default:
-                friend = null
-                break
-        }
+        const friend = FriendTypeConverter.toBoolean(filter.userFriends)
 
         const res = await usersAPI.getUsers({
             currentPage,

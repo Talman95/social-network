@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {Button, MenuItem, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
 import {useAppDispatch} from "../../../features/hooks/hooks";
 import {FriendUiType, setUsersFilter} from "../../../redux/usersReducer";
@@ -13,6 +13,11 @@ export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
 
     const [searchTerm, setSearchTerm] = useState(searchName)
     const [friends, setFriends] = useState(userFriends)
+
+    useEffect(() => {
+        setSearchTerm(searchName)
+        setFriends(userFriends)
+    }, [searchName, userFriends])
 
     const handleSetSearchTerm = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setSearchTerm(e.currentTarget.value)
@@ -46,7 +51,6 @@ export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
                 onChange={handleSelectFilter}
                 style={{width: 163}}
                 value={friends}
-                // defaultValue={friends}
             >
                 <MenuItem value={'all'}>All</MenuItem>
                 <MenuItem value={'follow'}>Only followed</MenuItem>

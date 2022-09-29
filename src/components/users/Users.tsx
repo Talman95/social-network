@@ -6,7 +6,9 @@ import {Box, Pagination} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
 import {useSearchParams} from 'react-router-dom';
-import {useAppSelector} from "../../features/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
+import {FriendTypeConverter, getCountPages} from "../../utils/utils";
+import {setCurrentPage, setUsersFilter} from "../../redux/usersReducer";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -31,10 +33,26 @@ export const Users: FC<UsersPropsType> = (props) => {
         />
     )
 
+    const dispatch = useAppDispatch()
+
     const [searchParams, setSearchParams] = useSearchParams()
 
     const searchName = useAppSelector(state => state.users.filter.searchName)
     const userFriends = useAppSelector(state => state.users.filter.userFriends)
+    const countPages = getCountPages(props.totalCount, props.pageSize)
+
+    useEffect(() => {
+        const term = searchParams.get('term') || searchName
+
+        const friendQuery = searchParams.get('friend') || userFriends
+
+        const friend = FriendTypeConverter.toFriendType(friendQuery)
+
+        const page = searchParams.get('page') || props.currentPage
+
+        dispatch(setUsersFilter({searchName: term, userFriends: friend}))
+        dispatch(setCurrentPage(+page))
+    }, [])
 
     useEffect(() => {
         let params: any = {}
@@ -47,12 +65,6 @@ export const Users: FC<UsersPropsType> = (props) => {
         setSearchParams(params)
 
     }, [props.currentPage, searchName, userFriends])
-
-    const pages: number[] = []
-    const countPages = Math.ceil(props.totalCount / props.pageSize)
-    for (let i = 1; i <= 20; i++) {
-        pages.push(i)
-    }
 
     return (
         <Box>

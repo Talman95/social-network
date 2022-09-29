@@ -22,8 +22,6 @@ export type UserType = {
     status: string | null
     followed: boolean
 }
-export type FriendUiType = 'all' | 'follow' | 'unfollow'
-
 
 export const usersAPI = {
     async getUsers(params: GetUsersParamsType) {
