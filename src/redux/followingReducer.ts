@@ -1,18 +1,18 @@
 import {usersAPI, UserType} from "../api/usersAPI";
 import {AppThunk} from "./store";
 
-const SET_FRIENDS = "SET_FRIENDS"
-const SET_FRIENDS_COUNT = "SET_FRIENDS_COUNT"
+const SET_FOLLOWINGS = "followings/SET_FOLLOWINGS"
+const SET_FOLLOWINGS_COUNT = "followings/SET_FOLLOWINGS_COUNT"
 
 const initialState = {
-    friends: [] as UserType[],
-    friendsCount: 0,
+    followings: [] as UserType[],
+    followingsCount: 0,
 }
 
-export const friendsReducer = (state = initialState, action: FriendsActionsType): FriendsStateType => {
+export const followingReducer = (state = initialState, action: FriendsActionsType): FriendsStateType => {
     switch (action.type) {
-        case SET_FRIENDS:
-        case SET_FRIENDS_COUNT:
+        case SET_FOLLOWINGS:
+        case SET_FOLLOWINGS_COUNT:
             return {
                 ...state,
                 ...action.payload
@@ -23,18 +23,18 @@ export const friendsReducer = (state = initialState, action: FriendsActionsType)
 }
 
 //actions
-const setFriends = (friends: Array<UserType>) => (
-    {type: SET_FRIENDS, payload: {friends}} as const
+const setFriends = (followings: Array<UserType>) => (
+    {type: SET_FOLLOWINGS, payload: {followings}} as const
 )
-const setFriendsCount = (friendsCount: number) => (
-    {type: SET_FRIENDS_COUNT, payload: {friendsCount}} as const
+const setFriendsCount = (followingsCount: number) => (
+    {type: SET_FOLLOWINGS_COUNT, payload: {followingsCount}} as const
 )
 
 //thunks
 export const getFriends = (): AppThunk => {
     return async (dispatch, getState) => {
         if (getState().auth.isAuth) {
-            const response = await usersAPI.getFriends()
+            const response = await usersAPI.getUsers({userFriends: true})
             dispatch(setFriends(response.items))
             dispatch(setFriendsCount(response.totalCount))
         }

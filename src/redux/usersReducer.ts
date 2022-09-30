@@ -1,6 +1,6 @@
 import {usersAPI, UserType} from "../api/usersAPI";
 import {AppThunk} from "./store";
-import {getFriends} from "./friendsReducer";
+import {getFriends} from "./followingReducer";
 import {setAppErrorMessage} from "./appReducer";
 import {FriendTypeConverter} from "../utils/utils";
 

@@ -5,7 +5,7 @@ import {UsersActionsType, usersReducer} from "./usersReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer, InitActionsType} from "./appReducer";
-import {FriendsActionsType, friendsReducer} from "./friendsReducer";
+import {FriendsActionsType, followingReducer} from "./followingReducer";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     users: usersReducer,
     auth: authReducer,
     app: appReducer,
-    friends: friendsReducer,
+    following: followingReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>;

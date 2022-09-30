@@ -3,12 +3,12 @@ import {Sidebar} from './Sidebar';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {UserType} from "../../api/usersAPI";
-import {getFriends} from "../../redux/friendsReducer";
+import {getFriends} from "../../redux/followingReducer";
 import {useAppDispatch} from "../../features/hooks/hooks";
 
 export const SidebarContainer = () => {
-    const friends = useSelector<AppStateType, UserType[]>(state => state.friends.friends)
-    const friendsCount = useSelector<AppStateType, number>(state => state.friends.friendsCount)
+    const followings = useSelector<AppStateType, UserType[]>(state => state.following.followings)
+    const followingsCount = useSelector<AppStateType, number>(state => state.following.followingsCount)
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const dispatch = useAppDispatch()
@@ -19,8 +19,8 @@ export const SidebarContainer = () => {
 
     return (
         <Sidebar
-            friends={friends}
-            friendsCount={friendsCount}
+            followings={followings}
+            followingsCount={followingsCount}
             isAuth={isAuth}
         />
     );

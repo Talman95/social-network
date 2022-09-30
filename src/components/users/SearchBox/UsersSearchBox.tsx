@@ -6,9 +6,14 @@ import {FriendUiType, setUsersFilter} from "../../../redux/usersReducer";
 type PropsType = {
     searchName: string,
     userFriends: FriendUiType
+    isFetching: boolean
 }
 
-export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
+export const UsersSearchBox: FC<PropsType> = (
+    {
+        searchName, userFriends, isFetching
+    }) => {
+
     const dispatch = useAppDispatch()
 
     const [searchTerm, setSearchTerm] = useState(searchName)
@@ -44,6 +49,7 @@ export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
                 variant={'outlined'}
                 value={searchTerm}
                 onChange={handleSetSearchTerm}
+                disabled={isFetching}
             />
             <Select
                 labelId={'select-label'}
@@ -51,6 +57,7 @@ export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
                 onChange={handleSelectFilter}
                 style={{width: 163}}
                 value={friends}
+                disabled={isFetching}
             >
                 <MenuItem value={'all'}>All</MenuItem>
                 <MenuItem value={'follow'}>Only followed</MenuItem>
@@ -59,6 +66,7 @@ export const UsersSearchBox: FC<PropsType> = ({searchName, userFriends}) => {
             <Button
                 variant={'contained'}
                 onClick={handleSearchClick}
+                disabled={isFetching}
             >
                 Search
             </Button>

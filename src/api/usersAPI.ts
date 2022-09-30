@@ -43,10 +43,6 @@ export const usersAPI = {
         const response = await instance.delete<ResponseType<{}>>(`follow/${userId}`)
         return response.data
     },
-    async getFriends() {
-        const response = await instance.get<GetUsersResponseType>('users?friend=true')
-        return response.data
-    },
     async isFollow(userId: number) {
         const response = await instance.get<boolean>(`follow/${userId}`)
         return response.data
