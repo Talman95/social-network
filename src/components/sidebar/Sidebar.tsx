@@ -1,8 +1,10 @@
 import React, {FC} from 'react';
 import Box from '@mui/material/Box';
 import {Avatar, AvatarGroup, Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useMatch, useNavigate} from "react-router-dom";
 import {UserType} from "../../api/usersAPI";
+import {useAppDispatch} from "../../features/hooks/hooks";
+import {setUsersFilter} from "../../redux/usersReducer";
 
 type SidebarPropsType = {
     followings: UserType[]
@@ -11,10 +13,16 @@ type SidebarPropsType = {
 }
 
 export const Sidebar: FC<SidebarPropsType> = ({followings, followingsCount, isAuth}) => {
+    const match = useMatch('/users')
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
-    const navigateToFollowing = () => {
-        navigate('/users?friend=true')
+    const handleClick = async () => {
+        if (match) {
+            dispatch(setUsersFilter({searchName: '', userFriends: 'follow'}))
+        } else {
+            navigate('users?friend=true')
+        }
     }
 
     return (
@@ -22,7 +30,7 @@ export const Sidebar: FC<SidebarPropsType> = ({followings, followingsCount, isAu
             <Box position={"fixed"}>
                 <Card sx={{margin: 1}}>
                     <CardContent>
-                        <CardActionArea style={{marginBottom: 5, padding: 5}} onClick={navigateToFollowing}>
+                        <CardActionArea style={{marginBottom: 5, padding: 5}} onClick={handleClick}>
                             <Typography variant={"h6"} fontWeight={100}>Following</Typography>
                         </CardActionArea>
                         {followingsCount === 0 || !isAuth
