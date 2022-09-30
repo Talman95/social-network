@@ -68,7 +68,11 @@ export const Users: FC<UsersPropsType> = (props) => {
 
     return (
         <Box>
-            <UsersSearchBox searchName={searchName} userFriends={userFriends}/>
+            <UsersSearchBox
+                searchName={searchName}
+                userFriends={userFriends}
+                isFetching={props.isFetching}
+            />
             {props.isFetching
                 ? <Preloader/>
                 : mappedUsers
