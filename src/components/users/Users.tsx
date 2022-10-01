@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, MouseEvent, useEffect} from 'react';
 import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
 import {UserType} from "../../api/usersAPI";
-import {Box, Pagination} from "@mui/material";
+import {Box, Card, CardContent, Pagination, Typography} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
 import {useSearchParams} from 'react-router-dom';
@@ -23,15 +23,23 @@ type UsersPropsType = {
 }
 
 export const Users: FC<UsersPropsType> = (props) => {
-    const mappedUsers = props.users.map((u) =>
-        <User
-            key={u.id}
-            user={u}
-            follow={props.follow}
-            unfollow={props.unfollow}
-            pressingInProgress={props.pressingInProgress}
-        />
-    )
+    const mappedUsers = props.users.length === 0
+        ? <Card sx={{margin: 1}}>
+            <CardContent sx={{display: 'flex', justifyContent: 'center'}}>
+                <Typography>
+                    Users not found
+                </Typography>
+            </CardContent>
+        </Card>
+        : props.users.map((u) =>
+            <User
+                key={u.id}
+                user={u}
+                follow={props.follow}
+                unfollow={props.unfollow}
+                pressingInProgress={props.pressingInProgress}
+            />
+        )
 
     const dispatch = useAppDispatch()
 
@@ -52,6 +60,10 @@ export const Users: FC<UsersPropsType> = (props) => {
 
         dispatch(setUsersFilter({searchName: term, userFriends: friend}))
         dispatch(setCurrentPage(+page))
+
+        return () => {
+            dispatch(setUsersFilter({searchName: '', userFriends: 'all'}))
+        }
     }, [])
 
     useEffect(() => {
