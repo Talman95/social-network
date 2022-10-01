@@ -8,6 +8,7 @@ import {Error404} from "./Error404";
 import Box from "@mui/material/Box";
 import {SettingsContainer} from "../components/Settings/SettingsContainer";
 import {useAppSelector} from "../features/hooks/hooks";
+import {ChatPage} from "../components/Chat/ChatPage";
 
 export const AppRouter = () => {
     const isAuth = useAppSelector(state => state.auth.isAuth)
@@ -24,6 +25,7 @@ export const AppRouter = () => {
                     <Route path={'/profile'} element={<ProfileContainer/>}/>
                     <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
                     <Route path={'/messages/*'} element={<Messages/>}/>
+                    <Route path={'/chat'} element={<ChatPage/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                     <Route path={'*'} element={<Error404/>}/>
                     <Route path={'/settings'} element={<SettingsContainer/>}/>

@@ -20,7 +20,7 @@ type LinkType = {
 
 const navigationList: LinkType[] = [
     {to: '/profile', title: 'Profile', icon: <AccountBoxIcon/>},
-    {to: '/messages', title: 'Messages', icon: <MessageIcon/>},
+    {to: '/chat', title: 'Chat', icon: <MessageIcon/>},
     {to: '/users', title: 'Developers', icon: <PeopleIcon/>},
     {to: '/settings', title: 'Settings', icon: <SettingsIcon/>},
 ]
