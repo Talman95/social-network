@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {Post} from "./Post1/Post";
-import {WriteField} from "./WriteField1/WriteField";
+import {Post} from "./Post/Post";
+import {WriteField} from "./WriteField/WriteField";
 import {PostType} from "../../../redux/profileReducer";
 import {ProfileType} from "../../../api/api";
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, MouseEvent, useEffect} from 'react';
-import {User} from "./User1/User";
+import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
 import {UserType} from "../../api/usersAPI";
 import {Box, Card, CardContent, Pagination, Typography} from "@mui/material";

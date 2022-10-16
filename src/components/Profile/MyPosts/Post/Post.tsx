@@ -60,7 +60,7 @@ export const Post: FC<PropsType> = (
                     component={"img"}
                     height={"20%"}
                     image={picture}
-                    alt={"Post1 media"}
+                    alt={"Post media"}
                 />
             }
             <CardContent>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {ProfileContainer} from "../components/Profile1/ProfileContainer";
-import Messages from "../components/Messages1/Messages";
-import {UsersContainer} from "../components/Users1/UsersContainer";
+import {ProfileContainer} from "../components/Profile/ProfileContainer";
+import Messages from "../components/Messages/Messages";
+import {UsersContainer} from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
 import Box from "@mui/material/Box";
