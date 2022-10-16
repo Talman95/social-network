@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {ProfileDetailsContainer} from "./ProfileDetails/ProfileDetailsContainer";
+import {MyPostsContainer} from "./MyPosts1/MyPostsContainer";
+import {ProfileDetailsContainer} from "./ProfileDetails1/ProfileDetailsContainer";
 
 type ProfilePropsType = {
     userId: string | undefined

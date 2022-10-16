@@ -40,7 +40,6 @@
 }
 .chatForm textarea {
     outline: none;
-    border: none;
     background: #fbfbfb;
     width: 100%;
     height: 100px;

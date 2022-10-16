@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
     Avatar,
     Box,
@@ -12,6 +12,8 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+
+// const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export const ChatPage = () => {
     return (
@@ -52,6 +54,28 @@ export const ChatHeader: FC = () => {
 
 export const Messages = () => {
     const [messages, setMessages] = useState<MessageType[]>([])
+
+    useEffect(() => {
+        const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+
+        ws.onmessage = function (event) {
+            const newMessages = JSON.parse(event.data)
+            try {
+                setMessages((prevMessages) => [...prevMessages, ...newMessages])
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        return () => ws.close();
+    }, [])
+
+    // useEffect(() => {
+    //     socket.addEventListener('message', (e: MessageEvent) => {
+    //         let newMessages = JSON.parse(e.data)
+    //         setMessages((prevState) => [...prevState, ...newMessages])
+    //     })
+    // }, [])
 
     return (
         <List sx={{width: '100%', bgcolor: 'background.paper', height: '400px', overflowY: 'auto'}}>

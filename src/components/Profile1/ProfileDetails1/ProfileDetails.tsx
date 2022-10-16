@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {ProfileType} from "../../../api/api";
