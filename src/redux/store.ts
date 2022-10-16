@@ -1,11 +1,11 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore} from "redux";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {MessagesActionsType, messagesReducer} from "./messagesReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer, InitActionsType} from "./appReducer";
-import {FriendsActionsType, followingReducer} from "./followingReducer";
+import {followingReducer, FriendsActionsType} from "./followingReducer";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -25,7 +25,7 @@ declare global {
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(
+export const store = legacy_createStore(
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))
 );
