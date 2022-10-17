@@ -8,7 +8,7 @@ import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {FriendTypeConverter, getCountPages} from "../../utils/utils";
-import {setCurrentPage, setUsersFilter} from "../../redux/usersReducer";
+import {setCurrentPage, setUsersFilter} from "../../redux/users/usersReducer";
 
 type UsersPropsType = {
     users: Array<UserType>

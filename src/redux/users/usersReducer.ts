@@ -1,8 +1,4 @@
-import {usersAPI, UserType} from "../api/usersAPI";
-import {AppThunk} from "./store";
-import {getFriends} from "./followingReducer";
-import {setAppErrorMessage} from "./appReducer";
-import {FriendTypeConverter} from "../utils/utils";
+import {UserType} from "../../api/usersAPI";
 
 export enum ACTIONS_TYPE {
     FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',
@@ -13,6 +9,8 @@ export enum ACTIONS_TYPE {
     TOGGLE_IS_FETCHING = 'Users/TOGGLE_IS_FETCHING',
     TOGGLE_PRESSING_IN_PROGRESS = 'Users/TOGGLE_PRESSING_IN_PROGRESS',
     SET_USERS_FILTER = 'Users/SET_USERS_FILTER',
+    SET_FOLLOWINGS = "Users/SET_FOLLOWINGS",
+    SET_FOLLOWINGS_COUNT = "Users/SET_FOLLOWINGS_COUNT",
 }
 
 const initialState = {
@@ -25,7 +23,9 @@ const initialState = {
     filter: {
         searchName: '',
         userFriends: 'all',
-    } as UsersFilterType
+    } as UsersFilterType,
+    followings: [] as UserType[],
+    followingsCount: 0,
 }
 
 export const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
@@ -53,6 +53,8 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
         case ACTIONS_TYPE.SET_TOTAL_MEMBERS:
         case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
         case ACTIONS_TYPE.SET_USERS_FILTER:
+        case ACTIONS_TYPE.SET_FOLLOWINGS:
+        case ACTIONS_TYPE.SET_FOLLOWINGS_COUNT:
             return {
                 ...state,
                 ...action.payload,
@@ -94,68 +96,12 @@ export const setUsersFilter = (filter: UsersFilterType) => (
         }
     } as const
 )
-
-//thunks
-export const getUsers = (): AppThunk => {
-    return async (dispatch, getState) => {
-        dispatch(toggleIsFetching(true))
-        const {currentPage, pageSize, filter} = getState().users
-
-        const friend = FriendTypeConverter.toBoolean(filter.userFriends)
-
-        const res = await usersAPI.getUsers({
-            currentPage,
-            pageSize,
-            searchName: filter.searchName,
-            userFriends: friend,
-        })
-        dispatch(setUsers(res.items))
-        dispatch(setTotalMembers(res.totalCount))
-        dispatch(toggleIsFetching(false))
-    }
-}
-export const follow = (userId: number): AppThunk => {
-    return async (dispatch) => {
-        dispatch(togglePressingInProgress(true, userId))
-        try {
-            const response = await usersAPI.follow(userId)
-            if (response.resultCode === 0) {
-                dispatch(followSuccess(userId))
-                dispatch(getFriends())
-            } else {
-                if (response.messages.length) {
-                    dispatch(setAppErrorMessage(response.messages[0]))
-                } else {
-                    dispatch(setAppErrorMessage('Some error occurred'))
-                }
-            }
-        } catch (error: any) {
-            dispatch(setAppErrorMessage(error.message))
-        }
-        dispatch(togglePressingInProgress(false, userId))
-    }
-}
-export const unfollow = (userId: number): AppThunk => {
-    return async (dispatch) => {
-        dispatch(togglePressingInProgress(true, userId))
-        try {
-            const response = await usersAPI.unfollow(userId)
-            if (response.resultCode === 0) {
-                dispatch(unfollowSuccess(userId))
-                dispatch(getFriends())
-            } else {
-                if (response.messages.length) {
-                    dispatch(setAppErrorMessage(response.messages[0]))
-                } else {
-                    dispatch(setAppErrorMessage('Some error occurred'))
-                }
-            }
-        } catch (error: any) {
-            dispatch(setAppErrorMessage(error.message))
-        }
-        dispatch(togglePressingInProgress(false, userId))
-    }
-}
+export const setFriends = (followings: Array<UserType>) => (
+    {type: ACTIONS_TYPE.SET_FOLLOWINGS, payload: {followings}} as const
+)
+export const setFriendsCount = (followingsCount: number) => (
+    {type: ACTIONS_TYPE.SET_FOLLOWINGS_COUNT, payload: {followingsCount}} as const
+)
 
 //types
 export type UsersStateType = typeof initialState
@@ -174,3 +120,5 @@ export type UsersActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof togglePressingInProgress>
     | ReturnType<typeof setUsersFilter>
+    | ReturnType<typeof setFriends>
+    | ReturnType<typeof setFriendsCount>

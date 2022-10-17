@@ -1,16 +1,14 @@
 import {
-    follow,
     followSuccess,
-    getUsers,
     setTotalMembers,
     setUsers,
     toggleIsFetching,
     togglePressingInProgress,
-    unfollow,
     unfollowSuccess
-} from "../../redux/usersReducer";
+} from "./usersReducer";
 import {ResponseType,} from "../../api/api";
 import {GetUsersResponseType, usersAPI} from "../../api/usersAPI";
+import {follow, getUsers, unfollow} from "./thunks";
 
 jest.mock('../../api/api')
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>

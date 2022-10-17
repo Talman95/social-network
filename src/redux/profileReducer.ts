@@ -2,6 +2,7 @@ import {PhotosType, profileAPI, ProfileType} from "../api/api";
 import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./appReducer";
 import {usersAPI} from "../api/usersAPI";
+import {getFriends} from "./users/thunks";
 
 export enum ActionsType {
     UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',
@@ -149,6 +150,30 @@ export const isFollow = (id: number): AppThunk => {
             }
         } catch (e: any) {
 
+        }
+    }
+}
+export const followFromFrofile = (id: number): AppThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await usersAPI.follow(id)
+            if (response.resultCode === 0) {
+                dispatch(setFriendship(true))
+                dispatch(getFriends())
+            }
+        } catch (e) {
+        }
+    }
+}
+export const unfollowFromFrofile = (id: number): AppThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await usersAPI.unfollow(id)
+            if (response.resultCode === 0) {
+                dispatch(setFriendship(false))
+                dispatch(getFriends())
+            }
+        } catch (e) {
         }
     }
 }

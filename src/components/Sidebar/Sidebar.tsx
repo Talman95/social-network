@@ -4,7 +4,7 @@ import {Avatar, AvatarGroup, Card, CardActionArea, CardContent, Typography} from
 import {NavLink, useMatch, useNavigate} from "react-router-dom";
 import {UserType} from "../../api/usersAPI";
 import {useAppDispatch} from "../../features/hooks/hooks";
-import {setUsersFilter} from "../../redux/usersReducer";
+import {setUsersFilter} from "../../redux/users/usersReducer";
 
 type SidebarPropsType = {
     followings: UserType[]

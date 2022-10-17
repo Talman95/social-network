@@ -1,8 +1,7 @@
 import React, {ChangeEvent, FC} from 'react';
 import {ProfileDetails} from "./ProfileDetails";
 import {useAppDispatch, useAppSelector} from "../../../features/hooks/hooks";
-import {follow, unfollow} from "../../../redux/usersReducer";
-import {isFollow, uploadUserPhoto} from "../../../redux/profileReducer";
+import {followFromFrofile, unfollowFromFrofile, uploadUserPhoto} from "../../../redux/profileReducer";
 
 type ProfileDetailsContainerType = {
     userId: string | undefined
@@ -15,16 +14,15 @@ export const ProfileDetailsContainer: FC<ProfileDetailsContainerType> = (props) 
 
     const dispatch = useAppDispatch()
 
-    const followHandler = async () => {
+    const followHandler = () => {
         if (userId) {
-            await dispatch(follow(+userId))
-            dispatch(isFollow(+userId))
+            dispatch(followFromFrofile(+userId))
         }
     }
-    const unfollowHandler = async () => {
+
+    const unfollowHandler = () => {
         if (userId) {
-            await dispatch(unfollow(+userId))
-            dispatch(isFollow(+userId))
+            dispatch(unfollowFromFrofile(+userId))
         }
     }
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {

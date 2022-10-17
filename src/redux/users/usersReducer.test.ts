@@ -1,11 +1,14 @@
 import {
     followSuccess,
-    setCurrentPage, setTotalMembers,
-    setUsers, toggleIsFetching, togglePressingInProgress,
+    setCurrentPage,
+    setTotalMembers,
+    setUsers,
+    toggleIsFetching,
+    togglePressingInProgress,
     unfollowSuccess,
     usersReducer,
     UsersStateType
-} from "../../redux/usersReducer";
+} from "./usersReducer";
 
 let startState: UsersStateType = {
     users: [],
@@ -18,6 +21,8 @@ let startState: UsersStateType = {
         searchName: '',
         userFriends: 'all',
     },
+    followings: [],
+    followingsCount: 0,
 }
 
 beforeEach(() => {
@@ -55,6 +60,8 @@ beforeEach(() => {
             searchName: '',
             userFriends: 'all',
         },
+        followings: [],
+        followingsCount: 0,
     }
 })
 

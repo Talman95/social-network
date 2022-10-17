@@ -1,11 +1,13 @@
 import {applyMiddleware, combineReducers, compose, legacy_createStore} from "redux";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {MessagesActionsType, messagesReducer} from "./messagesReducer";
-import {UsersActionsType, usersReducer} from "./usersReducer";
+import {UsersActionsType, usersReducer} from "./users/usersReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer, InitActionsType} from "./appReducer";
-import {followingReducer, FriendsActionsType} from "./followingReducer";
+import createSagaMiddleware from 'redux-saga';
+import {spawn} from 'redux-saga/effects';
+import {UsersSagasType, usersWatcher} from "./users/sagas";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -13,28 +15,35 @@ const rootReducer = combineReducers({
     users: usersReducer,
     auth: authReducer,
     app: appReducer,
-    following: followingReducer,
 })
-
-export type AppStateType = ReturnType<typeof rootReducer>;
 
 declare global {
     interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
     }
 }
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const sagaMiddleware = createSagaMiddleware()
 
 export const store = legacy_createStore(
     rootReducer,
-    composeEnhancers(applyMiddleware(thunk))
-);
+    composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+)
+
+sagaMiddleware.run(RootSaga)
+
+function* RootSaga() {
+    yield spawn(usersWatcher) // users
+}
 
 export type AppActionsType =
     ProfileActionsType | MessagesActionsType
     | UsersActionsType | AuthActionsType
-    | InitActionsType | FriendsActionsType
+    | InitActionsType
+    | UsersSagasType
 
+export type AppStateType = ReturnType<typeof rootReducer>;
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppStateType, unknown, AppActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionsType>
