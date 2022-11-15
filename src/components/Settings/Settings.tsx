@@ -11,7 +11,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {FormikHelpers, useFormik} from "formik";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
@@ -43,38 +43,52 @@ export type formValuesModel = {
     fullName: string
 }
 
+const contacts = [
+    {title: 'GitHub', icon: <GitHubIcon/>, propsTitle: 'contacts.github'},
+    {title: 'VK', icon: null, propsTitle: 'contacts.vk'},
+    {title: 'Facebook', icon: <FacebookIcon/>, propsTitle: 'contacts.facebook'},
+    {title: 'Instagram', icon: <InstagramIcon/>, propsTitle: 'contacts.instagram'},
+    {title: 'Twitter', icon: <TwitterIcon/>, propsTitle: 'contacts.twitter'},
+    {title: 'Website', icon: <LaptopIcon/>, propsTitle: 'contacts.website'},
+    {title: 'YouTube', icon: <YouTubeIcon/>, propsTitle: 'contacts.youtube'},
+    {title: 'MainLink', icon: <LinkIcon/>, propsTitle: 'contacts.mainLink'},
+
+]
+
 export const Settings = () => {
-    const profile = useSelector<AppStateType, ProfileType | null>(state => state.profile.profile)
     const dispatch = useAppDispatch()
+
+    const profile = useSelector<AppStateType, ProfileType | null>(state => state.auth.currentUser)
 
     const validationSchema = Yup.object({
         fullName: Yup.string()
             .required('Name is required'),
     })
 
-    const submit = (values: formValuesModel, {resetForm}: FormikHelpers<formValuesModel>) => {
+    const submit = (values: formValuesModel) => {
         dispatch(updateProfile(values))
     }
+
     const formik = useFormik({
         initialValues: {
-            aboutMe: profile?.aboutMe ? profile.aboutMe : '',
+            aboutMe: profile?.aboutMe || '',
             contacts: {
-                facebook: profile?.contacts.facebook ? profile.contacts.facebook : '',
-                website: profile?.contacts.website ? profile.contacts.website : '',
-                vk: profile?.contacts.vk ? profile.contacts.vk : '',
-                twitter: profile?.contacts.twitter ? profile.contacts.twitter : '',
-                instagram: profile?.contacts.instagram ? profile.contacts.instagram : '',
-                youtube: profile?.contacts.youtube ? profile.contacts.youtube : '',
-                github: profile?.contacts.github ? profile.contacts.github : '',
-                mainLink: profile?.contacts.mainLink ? profile.contacts.mainLink : '',
+                facebook: profile?.contacts.facebook || '',
+                website: profile?.contacts.website || '',
+                vk: profile?.contacts.vk || '',
+                twitter: profile?.contacts.twitter || '',
+                instagram: profile?.contacts.instagram || '',
+                youtube: profile?.contacts.youtube || '',
+                github: profile?.contacts.github || '',
+                mainLink: profile?.contacts.mainLink || '',
             },
-            lookingForAJob: profile?.lookingForAJob ? profile.lookingForAJob : false,
-            lookingForAJobDescription: profile?.lookingForAJobDescription ? profile.lookingForAJobDescription : '',
-            fullName: profile?.fullName ? profile.fullName : '',
+            lookingForAJob: profile?.lookingForAJob || false,
+            lookingForAJobDescription: profile?.lookingForAJobDescription || '',
+            fullName: profile?.fullName || '',
         },
         validationSchema: validationSchema,
         onSubmit: submit,
-    });
+    })
 
 
     return (
@@ -125,9 +139,8 @@ export const Settings = () => {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControlLabel
-                                        control={<Checkbox/>}
+                                        control={<Checkbox {...formik.getFieldProps('lookingForAJob')}/>}
                                         label={"Looking for a job?"}
-                                        name={"Looking for a job?"}
                                     />
                                 </Grid>
 
@@ -152,124 +165,25 @@ export const Settings = () => {
                             </Typography>
 
                             <Grid container spacing={2}>
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <GitHubIcon/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Github
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.github')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        VK
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.vk')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <FacebookIcon sx={{color: 'blue'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Facebook
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.facebook')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <InstagramIcon sx={{color: 'pink'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Instagram
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.instagram')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <TwitterIcon sx={{color: 'blue'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Twitter
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.twitter')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <LaptopIcon sx={{color: 'blue'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        WebSite
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.website')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <YouTubeIcon sx={{color: 'red'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Youtube
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.youtube')}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-                                    <LinkIcon sx={{color: 'blue'}}/>
-                                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        MainLink
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        id="standard-basic"
-                                        variant="standard"
-                                        fullWidth
-                                        {...formik.getFieldProps('contacts.mainLink')}
-                                    />
-                                </Grid>
+                                {contacts.map(({title, propsTitle, icon}) => (
+                                    <>
+                                        <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
+                                            {icon}
+                                            <Typography variant={'subtitle1'} color={'text.secondary'}
+                                                        component={'div'}>
+                                                {title}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                id={'standard-basic'}
+                                                variant={'standard'}
+                                                fullWidth
+                                                {...formik.getFieldProps(`${propsTitle}`)}
+                                            />
+                                        </Grid>
+                                    </>
+                                ))}
                             </Grid>
 
                             <Grid item xs={12}>
@@ -282,5 +196,5 @@ export const Settings = () => {
                 </FormControl>
             </Box>
         </Card>
-    );
-};
+    )
+}

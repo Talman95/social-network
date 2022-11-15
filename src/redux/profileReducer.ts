@@ -76,7 +76,8 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
             }
         case ActionsType.UPDATE_PROFILE_SUCCESS:
             return {
-                ...state, profile: {...state.profile, ...action.payload.updatedProfile} as ProfileType
+                ...state,
+                profile: state.profile ? {...state.profile, ...action.payload.updatedProfile} as ProfileType : state.profile
             }
         default:
             return state;

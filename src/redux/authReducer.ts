@@ -36,7 +36,7 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
         case ActionsType.UPDATE_PROFILE_SUCCESS:
             return {
                 ...state,
-                currentUser: {...state.currentUser, fullName: action.payload.updatedProfile.fullName} as ProfileType
+                currentUser: {...state.currentUser, ...action.payload.updatedProfile} as ProfileType
             }
         case GET_CAPTCHA_URL_SUCCESS:
             return {...state, captchaUrl: action.url}
@@ -49,7 +49,7 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: SET_USER_DATA, payload: {id, email, login, isAuth}} as const
 )
-export const setCurrentUser = (currentUser: CurrentUserType | null) => ({type: SET_CURRENT_USER, currentUser} as const)
+export const setCurrentUser = (currentUser: ProfileType | null) => ({type: SET_CURRENT_USER, currentUser} as const)
 export const getCaptchaUrlSuccess = (url: string | null) => ({type: GET_CAPTCHA_URL_SUCCESS, url} as const)
 
 //thunks
@@ -115,7 +115,7 @@ export type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    currentUser: CurrentUserType | null
+    currentUser: ProfileType | null
     captchaUrl: string | null
 }
 export type CurrentUserType = {

@@ -6,7 +6,7 @@ import {UsersContainer} from "../components/Users/UsersContainer";
 import {Login} from "../components/Login/Login";
 import {Error404} from "./Error404";
 import Box from "@mui/material/Box";
-import {SettingsContainer} from "../components/Settings/SettingsContainer";
+import {Settings} from "../components/Settings/Settings";
 import {useAppSelector} from "../features/hooks/hooks";
 import {ChatPage} from "../components/Chat/ChatPage";
 
@@ -28,7 +28,7 @@ export const AppRouter = () => {
                     <Route path={'/chat'} element={<ChatPage/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                     <Route path={'*'} element={<Error404/>}/>
-                    <Route path={'/settings'} element={<SettingsContainer/>}/>
+                    <Route path={'/settings'} element={<Settings/>}/>
                 </Routes>
                 :
                 <Routes>
