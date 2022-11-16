@@ -1,8 +1,8 @@
 import React, {useCallback} from "react";
 import {Header} from "./Header";
-import {logout} from "../../redux/authReducer";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {useNavigate} from "react-router-dom";
+import {logout} from "../../redux/auth/sagas";
 
 export const HeaderContainer = () => {
     const currentUser = useAppSelector(state => state.auth.currentUser)

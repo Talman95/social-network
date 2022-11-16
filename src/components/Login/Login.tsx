@@ -2,11 +2,10 @@ import React from 'react';
 import {FormikHelpers, useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Preloader} from "../common/Preloader/Preloader";
-import {login} from "../../redux/authReducer";
 import Grid from '@mui/material/Grid';
 import {Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
-
+import {login} from "../../redux/auth/sagas";
 
 export type formValuesModel = {
     email: string
@@ -28,7 +27,7 @@ export const Login = () => {
     })
 
     const submit = async (values: formValuesModel, {
-        resetForm, setStatus,
+        resetForm,
     }: FormikHelpers<formValuesModel>) => {
         await dispatch(login(values))
         resetForm({})
@@ -43,7 +42,7 @@ export const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: submit,
-    });
+    })
 
     if (formik.isSubmitting) {
         return <div>
@@ -95,5 +94,5 @@ export const Login = () => {
                 </FormControl>
             </Grid>
         </Grid>
-    );
-};
+    )
+}

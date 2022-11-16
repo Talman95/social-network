@@ -1,5 +1,5 @@
-import {getAuthUserData} from "./authReducer";
-import {AppThunk} from "./store";
+import {AppThunk} from "../store";
+import {getAuthUserData} from "../auth/thunks";
 
 const SET_INITIALIZED = 'app/SET_INITIALIZED'
 const SET_ERROR_MESSAGE = 'app/SET_ERROR_MESSAGE'
@@ -28,7 +28,7 @@ export const setAppErrorMessage = (errorMessage: null | string) => ({type: SET_E
 export const initializeApp = (): AppThunk => {
     return async (dispatch) => {
         await dispatch(getAuthUserData())
-        await dispatch(initializedSuccess())
+        dispatch(initializedSuccess())
     }
 }
 

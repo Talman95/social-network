@@ -1,7 +1,7 @@
 import {AppThunk} from "../store";
 import {FriendTypeConverter} from "../../utils/utils";
 import {usersAPI} from "../../api/usersAPI";
-import {setAppErrorMessage} from "../appReducer";
+import {setAppErrorMessage} from "../app/appReducer";
 import {
     followSuccess, setFriends, setFriendsCount,
     setTotalMembers,

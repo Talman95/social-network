@@ -1,6 +1,6 @@
 import {PhotosType, profileAPI, ProfileType} from "../api/api";
 import {AppStateType, AppThunk} from "./store";
-import {setAppErrorMessage} from "./appReducer";
+import {setAppErrorMessage} from "./app/appReducer";
 import {usersAPI} from "../api/usersAPI";
 import {getFriends} from "./users/thunks";
 

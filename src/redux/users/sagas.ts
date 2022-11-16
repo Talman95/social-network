@@ -11,7 +11,7 @@ import {
     togglePressingInProgress,
     unfollowSuccess
 } from "./usersReducer";
-import {setAppErrorMessage} from "../appReducer";
+import {setAppErrorMessage} from "../app/appReducer";
 import {ResponseType} from "../../api/api";
 import {RootState} from "../store";
 

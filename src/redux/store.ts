@@ -2,12 +2,13 @@ import {applyMiddleware, combineReducers, compose, legacy_createStore} from "red
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {MessagesActionsType, messagesReducer} from "./messagesReducer";
 import {UsersActionsType, usersReducer} from "./users/usersReducer";
-import {AuthActionsType, authReducer} from "./authReducer";
+import {AuthActionsType, authReducer} from "./auth/authReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {appReducer, InitActionsType} from "./appReducer";
+import {appReducer, InitActionsType} from "./app/appReducer";
 import createSagaMiddleware from 'redux-saga';
 import {spawn} from 'redux-saga/effects';
 import {UsersSagasType, usersWatcher} from "./users/sagas";
+import {authWatcher} from "./auth/sagas";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -34,6 +35,7 @@ export const store = legacy_createStore(
 sagaMiddleware.run(RootSaga)
 
 function* RootSaga() {
+    yield spawn(authWatcher) // auth
     yield spawn(usersWatcher) // users
 }
 
