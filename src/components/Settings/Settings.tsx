@@ -15,7 +15,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {ProfileType} from "../../api/api";
+import {ProfileType} from "../../api/types";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';

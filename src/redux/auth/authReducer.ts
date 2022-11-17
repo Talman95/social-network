@@ -1,4 +1,4 @@
-import {PhotosType, ProfileType} from "../../api/api";
+import {PhotosType, ProfileType} from "../../api/types";
 import {ActionsType, UpdateProfileSuccessType, UploadUserPhotoSuccessType} from "../profileReducer";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'

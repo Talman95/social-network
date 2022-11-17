@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Post} from "./Post/Post";
 import {WriteField} from "./WriteField/WriteField";
 import {PostType} from "../../../redux/profileReducer";
-import {ProfileType} from "../../../api/api";
+import {ProfileType} from "../../../api/types";
 
 type MyPostsPropsType = {
     posts: PostType[]

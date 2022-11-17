@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC} from 'react';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
-import {ProfileType} from "../../../api/api";
+import {ProfileType} from "../../../api/types";
 import {Avatar, Box, Button, Card, CardContent, Divider, Typography} from "@mui/material";
 import {blue} from '@mui/material/colors';
 import Stack from '@mui/material/Stack';

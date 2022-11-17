@@ -1,8 +1,10 @@
 import {AppThunk} from "../store";
-import {authAPI, profileAPI, securityAPI} from "../../api/api";
 import {setAppErrorMessage} from "../app/appReducer";
 import {formValuesModel} from "../../components/Login/Login";
 import {getCaptchaUrlSuccess, setCurrentUser, setUserData} from "./authReducer";
+import {authAPI} from "../../api/authAPI";
+import {profileAPI} from "../../api/profileAPI";
+import {securityAPI} from "../../api/securityAPI";
 
 export const getAuthUserData = (): AppThunk => {
     return async (dispatch) => {

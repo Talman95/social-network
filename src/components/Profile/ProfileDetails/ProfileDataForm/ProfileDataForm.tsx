@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Box, Button, Checkbox, Divider, FormControl, FormControlLabel, TextField, Typography} from "@mui/material";
-import {ContactsType, ProfileType} from "../../../../api/api";
+import {ContactsType, ProfileType} from "../../../../api/types";
 import {styled} from "@mui/material/styles";
 import {useAppDispatch} from "../../../../features/hooks/hooks";
 import * as Yup from "yup";

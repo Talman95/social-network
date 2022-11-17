@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import {Preloader} from "../../../common/Preloader/Preloader";
-import {ProfileType} from "../../../../api/api";
+import {ProfileType} from "../../../../api/types";
 import {Avatar, Card, CardActions, CardContent, CardHeader, TextField} from "@mui/material";
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';

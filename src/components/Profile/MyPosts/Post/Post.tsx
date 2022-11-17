@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Preloader} from "../../../common/Preloader/Preloader";
-import {ProfileType} from "../../../../api/api";
+import {ProfileType} from "../../../../api/types";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';

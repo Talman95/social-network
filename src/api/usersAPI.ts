@@ -1,27 +1,5 @@
-import {instance, ResponseType} from "./api";
-
-export type GetUsersParamsType = {
-    currentPage?: number
-    pageSize?: number
-    searchName?: string
-    userFriends?: boolean | null
-}
-export type GetUsersResponseType = {
-    items: Array<UserType>
-    totalCount: number
-    error: string | null
-}
-export type UserType = {
-    name: string
-    id: number
-    uniqueUrlName: string | null
-    photos: {
-        small: string | null
-        large: string | null
-    }
-    status: string | null
-    followed: boolean
-}
+import {instance} from "./api";
+import {GetUsersParamsType, GetUsersResponseType, ResponseType} from "./types";
 
 export const usersAPI = {
     async getUsers(params: GetUsersParamsType) {

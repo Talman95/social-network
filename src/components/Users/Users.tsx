@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, MouseEvent, useEffect} from 'react';
 import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
-import {UserType} from "../../api/usersAPI";
+import {UserType} from "../../api/types";
 import {Box, Card, CardContent, Pagination, Typography} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {UsersSearchBox} from "./SearchBox/UsersSearchBox";

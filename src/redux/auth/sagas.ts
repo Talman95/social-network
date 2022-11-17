@@ -1,9 +1,12 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {authAPI, AuthMeDataType, profileAPI, ProfileType, ResponseType, securityAPI} from "../../api/api";
 import {getCaptchaUrlSuccess, setCurrentUser, setUserData} from "./authReducer";
 import {AxiosResponse} from "axios";
 import {initializedSuccess, setAppErrorMessage} from "../app/appReducer";
 import {formValuesModel} from "../../components/Login/Login";
+import {AuthMeDataType, ProfileType, ResponseType} from "../../api/types";
+import {authAPI} from "../../api/authAPI";
+import {profileAPI} from "../../api/profileAPI";
+import {securityAPI} from "../../api/securityAPI";
 
 const GET_AUTH_USER_DATA = 'auth/GET_AUTH_USER_DATA'
 const LOGIN = 'auth/LOGIN'
