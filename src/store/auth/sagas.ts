@@ -3,15 +3,16 @@ import {getCaptchaUrlSuccess, setCurrentUser, setUserData} from "./authReducer";
 import {AxiosResponse} from "axios";
 import {initializedSuccess, setAppErrorMessage} from "../app/appReducer";
 import {formValuesModel} from "../../components/Login/Login";
-import {AuthMeDataType, ProfileType, ResponseType} from "../../api/types";
-import {authAPI} from "../../api/authAPI";
-import {profileAPI} from "../../api/profileAPI";
-import {securityAPI} from "../../api/securityAPI";
+import {authAPI} from "../../api/auth";
+import {profileAPI} from "../../api/profile";
+import {ProfileType} from "../../types/ProfileType";
+import {ResponseType} from "../../types/ResponseType";
+import {AuthMeDataType} from "../../api/auth/types";
 
-const GET_AUTH_USER_DATA = 'auth/GET_AUTH_USER_DATA'
-const LOGIN = 'auth/LOGIN'
-const LOGOUT = 'auth/LOGOUT'
-const GET_CAPTCHA_URL = 'auth/GET_CAPTCHA_URL'
+const GET_AUTH_USER_DATA = 'index/GET_AUTH_USER_DATA'
+const LOGIN = 'index/LOGIN'
+const LOGOUT = 'index/LOGOUT'
+const GET_CAPTCHA_URL = 'index/GET_CAPTCHA_URL'
 
 export function* authWatcher() {
     yield takeEvery(GET_AUTH_USER_DATA, authorizeWorker)
@@ -73,7 +74,7 @@ function* logoutWorker() {
 }
 
 function* getCaptchaUrlWorker() {
-    const res: AxiosResponse<{ url: string }> = yield call(securityAPI.getCaptcha)
+    const res: AxiosResponse<{ url: string }> = yield call(authAPI.getCaptcha)
     yield put(getCaptchaUrlSuccess(res.data.url))
 }
 

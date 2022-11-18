@@ -1,7 +1,7 @@
 import React from 'react';
-import {AppStateType} from "../../../redux/store";
+import {AppStateType} from "../../../store/store";
 import {Dialogs} from "./Dialogs";
-import {DialogType} from "../../../redux/messagesReducer";
+import {DialogType} from "../../../store/messagesReducer";
 import {connect} from "react-redux";
 
 type MapStatePropsType = {

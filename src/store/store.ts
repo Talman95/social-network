@@ -35,7 +35,7 @@ export const store = legacy_createStore(
 sagaMiddleware.run(RootSaga)
 
 function* RootSaga() {
-    yield spawn(authWatcher) // auth
+    yield spawn(authWatcher) // index
     yield spawn(usersWatcher) // users
 }
 

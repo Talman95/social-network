@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {Header} from "./Header";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {useNavigate} from "react-router-dom";
-import {logout} from "../../redux/auth/sagas";
+import {logout} from "../../store/auth/sagas";
 
 export const HeaderContainer = () => {
     const currentUser = useAppSelector(state => state.auth.currentUser)

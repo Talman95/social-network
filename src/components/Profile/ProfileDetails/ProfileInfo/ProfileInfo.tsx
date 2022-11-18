@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {styled} from "@mui/material/styles";
-import {ContactsType, ProfileType} from "../../../../api/types";
 import {Box, Button, Divider, Typography} from '@mui/material';
+import {ContactsType, ProfileType} from "../../../../types/ProfileType";
 
 type ProfileInfoType = {
     profile: ProfileType

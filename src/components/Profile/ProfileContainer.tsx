@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
-import {loadProfilePage, setUserProfile} from "../../redux/profileReducer";
+import {loadProfilePage, setUserProfile} from "../../store/profileReducer";
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {Preloader} from "../common/Preloader/Preloader";

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC} from 'react';
 import {ProfileDetails} from "./ProfileDetails";
 import {useAppDispatch, useAppSelector} from "../../../features/hooks/hooks";
-import {followFromFrofile, unfollowFromFrofile, uploadUserPhoto} from "../../../redux/profileReducer";
+import {followFromFrofile, unfollowFromFrofile, uploadUserPhoto} from "../../../store/profileReducer";
 
 type ProfileDetailsContainerType = {
     userId: string | undefined

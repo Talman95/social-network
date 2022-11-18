@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import Box from '@mui/material/Box';
 import {Avatar, AvatarGroup, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {NavLink, useMatch, useNavigate} from "react-router-dom";
-import {UserType} from "../../api/types";
 import {useAppDispatch} from "../../features/hooks/hooks";
-import {setUsersFilter} from "../../redux/users/usersReducer";
+import {setUsersFilter} from "../../store/users/usersReducer";
+import {UserType} from "../../types/UserType";
 
 type SidebarPropsType = {
     followings: UserType[]

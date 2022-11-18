@@ -1,4 +1,4 @@
-import {FriendUiType} from "../redux/users/usersReducer";
+import {FriendUiType} from "../store/users/usersReducer";
 
 export const getCountPages = (totalCount: number, pageSize: number) => {
     return Math.ceil(totalCount / pageSize)

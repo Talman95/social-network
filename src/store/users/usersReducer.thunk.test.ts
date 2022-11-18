@@ -6,9 +6,10 @@ import {
     togglePressingInProgress,
     unfollowSuccess
 } from "./usersReducer";
-import {GetUsersResponseType, ResponseType} from "../../api/types";
-import {usersAPI} from "../../api/usersAPI";
+import {usersAPI} from "../../api/users";
 import {follow, getUsers, unfollow} from "./thunks";
+import {GetUsersResponseType} from "../../api/users/types";
+import {ResponseType} from "../../types/ResponseType";
 
 jest.mock('../../api/api')
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>

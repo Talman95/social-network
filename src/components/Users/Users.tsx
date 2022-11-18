@@ -1,14 +1,14 @@
 import React, {ChangeEvent, FC, MouseEvent, useEffect} from 'react';
 import {User} from "./User/User";
 import {Preloader} from "../common/Preloader/Preloader";
-import {UserType} from "../../api/types";
 import {Box, Card, CardContent, Pagination, Typography} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {UsersSearchBox} from "./SearchBox/UsersSearchBox";
 import {useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
 import {FriendTypeConverter, getCountPages} from "../../utils/utils";
-import {setCurrentPage, setUsersFilter} from "../../redux/users/usersReducer";
+import {setCurrentPage, setUsersFilter} from "../../store/users/usersReducer";
+import {UserType} from "../../types/UserType";
 
 type UsersPropsType = {
     users: Array<UserType>

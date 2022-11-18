@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {Button, MenuItem, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
 import {useAppDispatch} from "../../../features/hooks/hooks";
-import {FriendUiType, setUsersFilter} from "../../../redux/users/usersReducer";
+import {FriendUiType, setUsersFilter} from "../../../store/users/usersReducer";
 
 type PropsType = {
     searchName: string,

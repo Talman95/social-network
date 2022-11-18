@@ -9,7 +9,7 @@ import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
 import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar";
 import {useAppDispatch, useAppSelector} from "./features/hooks/hooks";
 import {Preloader} from "./components/common/Preloader/Preloader";
-import {authorize} from "./redux/auth/sagas";
+import {authorize} from "./store/auth/sagas";
 
 export const App = () => {
     const dispatch = useAppDispatch()

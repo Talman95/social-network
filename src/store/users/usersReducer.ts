@@ -1,4 +1,4 @@
-import {UserType} from "../../api/types";
+import {UserType} from "../../types/UserType";
 
 export enum ACTIONS_TYPE {
     FOLLOW_SUCCESS = 'Users/FOLLOW_SUCCESS',

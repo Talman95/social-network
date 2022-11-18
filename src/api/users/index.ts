@@ -1,9 +1,10 @@
-import {instance} from "./api";
-import {GetUsersParamsType, GetUsersResponseType, ResponseType} from "./types";
+import {instance} from "../config";
+import {ResponseType} from "../../types/ResponseType"
+import {GetUsersParamsType, GetUsersResponseType} from "./types";
 
 export const usersAPI = {
     async getUsers(params: GetUsersParamsType) {
-        const response = await instance.get<GetUsersResponseType>(`users`, {
+        const response = await instance.get<GetUsersResponseType>(`/users`, {
             params: {
                 count: params.pageSize,
                 page: params.currentPage,
@@ -14,15 +15,15 @@ export const usersAPI = {
         return response.data
     },
     async follow(userId: number) {
-        const response = await instance.post<ResponseType<{}>>(`follow/${userId}`)
+        const response = await instance.post<ResponseType<{}>>(`/follow/${userId}`)
         return response.data
     },
     async unfollow(userId: number) {
-        const response = await instance.delete<ResponseType<{}>>(`follow/${userId}`)
+        const response = await instance.delete<ResponseType<{}>>(`/follow/${userId}`)
         return response.data
     },
     async isFollow(userId: number) {
-        const response = await instance.get<boolean>(`follow/${userId}`)
+        const response = await instance.get<boolean>(`/follow/${userId}`)
         return response.data
     },
 }

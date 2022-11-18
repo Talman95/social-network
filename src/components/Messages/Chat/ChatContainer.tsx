@@ -1,7 +1,7 @@
 import React from 'react';
-import {AppStateType} from "../../../redux/store";
+import {AppStateType} from "../../../store/store";
 import {Chat} from "./Chat";
-import {MessageType, sendMessageAC, updateMessageBodyAC} from "../../../redux/messagesReducer";
+import {MessageType, sendMessageAC, updateMessageBodyAC} from "../../../store/messagesReducer";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 

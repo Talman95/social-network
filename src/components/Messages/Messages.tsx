@@ -2,7 +2,7 @@ import React, {FC, useEffect} from 'react';
 import cl from './Messages.module.css';
 import {ChatContainer} from "./Chat/ChatContainer";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
-import {dialogsAPI} from "../../api/dialogsAPI";
+import {dialogsAPI} from "../../api/dialogs";
 
 const Messages: FC = () => {
 

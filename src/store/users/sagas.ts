@@ -1,6 +1,6 @@
 import {call, put, select, takeEvery} from "redux-saga/effects";
 import {FriendTypeConverter} from "../../utils/utils";
-import {usersAPI} from "../../api/usersAPI";
+import {usersAPI} from "../../api/users";
 import {
     followSuccess,
     setFriends,
@@ -13,7 +13,8 @@ import {
 } from "./usersReducer";
 import {setAppErrorMessage} from "../app/appReducer";
 import {RootState} from "../store";
-import {GetUsersResponseType, ResponseType} from "../../api/types";
+import {GetUsersResponseType} from "../../api/users/types";
+import {ResponseType} from "../../types/ResponseType";
 
 const GET_USERS = 'USERS/GET_USERS'
 const FOLLOW = 'USERS/FOLLOW'

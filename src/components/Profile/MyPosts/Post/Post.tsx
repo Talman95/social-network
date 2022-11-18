@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {Preloader} from "../../../common/Preloader/Preloader";
-import {ProfileType} from "../../../../api/types";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -14,6 +13,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import {blue} from '@mui/material/colors';
+import {ProfileType} from "../../../../types/ProfileType";
 
 type PropsType = {
     id: number

@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {CurrentUserType} from "../../redux/auth/authReducer";
+import {CurrentUserType} from "../../store/auth/authReducer";
 
 type HeaderPropsType = {
     isAuth: boolean

@@ -1,9 +1,10 @@
 import {AppStateType, AppThunk} from "./store";
 import {setAppErrorMessage} from "./app/appReducer";
-import {usersAPI} from "../api/usersAPI";
+import {usersAPI} from "../api/users";
 import {getFriends} from "./users/thunks";
-import {PhotosType, ProfileType} from "../api/types";
-import {profileAPI} from "../api/profileAPI";
+import {profileAPI} from "../api/profile";
+import {ProfileType} from "../types/ProfileType";
+import {PhotosType} from "../types/PhotosType";
 
 export enum ActionsType {
     UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',

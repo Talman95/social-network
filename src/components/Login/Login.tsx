@@ -5,7 +5,7 @@ import {Preloader} from "../common/Preloader/Preloader";
 import Grid from '@mui/material/Grid';
 import {Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
-import {login} from "../../redux/auth/sagas";
+import {login} from "../../store/auth/sagas";
 
 export type formValuesModel = {
     email: string

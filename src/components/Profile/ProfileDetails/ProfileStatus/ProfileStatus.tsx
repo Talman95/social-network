@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
-import {updateProfileStatus} from "../../../../redux/profileReducer";
+import {updateProfileStatus} from "../../../../store/profileReducer";
 import {useAppDispatch} from "../../../../features/hooks/hooks";
 
 type StatusPropsType = {

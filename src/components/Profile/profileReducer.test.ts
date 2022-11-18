@@ -10,7 +10,7 @@ import {
     updateMessage,
     updateProfileSuccess,
     uploadUserPhotoSuccess
-} from "../../redux/profileReducer";
+} from "../../store/profileReducer";
 
 let startState: ProfileStateType = {
     profile: null,

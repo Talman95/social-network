@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {Sidebar} from './Sidebar';
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {UserType} from "../../api/types";
+import {AppStateType} from "../../store/store";
 import {useAppDispatch} from "../../features/hooks/hooks";
-import {getFriends} from "../../redux/users/sagas";
+import {getFriends} from "../../store/users/sagas";
+import {UserType} from "../../types/UserType";
 
 export const SidebarContainer = () => {
     const followings = useSelector<AppStateType, UserType[]>(state => state.users.followings)

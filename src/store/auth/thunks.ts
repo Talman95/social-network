@@ -2,9 +2,8 @@ import {AppThunk} from "../store";
 import {setAppErrorMessage} from "../app/appReducer";
 import {formValuesModel} from "../../components/Login/Login";
 import {getCaptchaUrlSuccess, setCurrentUser, setUserData} from "./authReducer";
-import {authAPI} from "../../api/authAPI";
-import {profileAPI} from "../../api/profileAPI";
-import {securityAPI} from "../../api/securityAPI";
+import {authAPI} from "../../api/auth";
+import {profileAPI} from "../../api/profile";
 
 export const getAuthUserData = (): AppThunk => {
     return async (dispatch) => {
@@ -43,7 +42,7 @@ export const login = ({email, password, rememberMe, captcha}: formValuesModel): 
 }
 export const getCaptchaUrl = (): AppThunk => {
     return async (dispatch) => {
-        const res = await securityAPI.getCaptcha()
+        const res = await authAPI.getCaptcha()
         dispatch(getCaptchaUrlSuccess(res.data.url))
     }
 }

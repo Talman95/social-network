@@ -14,8 +14,7 @@ import {
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {ProfileType} from "../../api/types";
+import {AppStateType} from "../../store/store";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -24,7 +23,8 @@ import LinkIcon from '@mui/icons-material/Link';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import {useAppDispatch} from "../../features/hooks/hooks";
-import {updateProfile} from "../../redux/profileReducer";
+import {updateProfile} from "../../store/profileReducer";
+import {ProfileType} from "../../types/ProfileType";
 
 export type formValuesModel = {
     aboutMe: string

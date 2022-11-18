@@ -1,6 +1,5 @@
 import React, {FC, MouseEvent} from 'react';
 import {NavLink} from "react-router-dom";
-import {UserType} from "../../../api/types";
 import {Avatar, Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {blue} from "@mui/material/colors";
 import Button from "@mui/material/Button";
@@ -8,6 +7,7 @@ import {styled} from '@mui/material/styles';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import IconButton from '@mui/material/IconButton';
+import {UserType} from "../../../types/UserType";
 
 type UserPropsType = {
     user: UserType

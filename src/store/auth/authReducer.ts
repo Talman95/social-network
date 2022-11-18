@@ -1,9 +1,10 @@
-import {PhotosType, ProfileType} from "../../api/types";
 import {ActionsType, UpdateProfileSuccessType, UploadUserPhotoSuccessType} from "../profileReducer";
+import {ProfileType} from "../../types/ProfileType";
+import {PhotosType} from "../../types/PhotosType";
 
-const SET_USER_DATA = 'auth/SET_USER_DATA'
-const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
-const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
+const SET_USER_DATA = 'index/SET_USER_DATA'
+const SET_CURRENT_USER = 'index/SET_CURRENT_USER'
+const GET_CAPTCHA_URL_SUCCESS = 'index/GET_CAPTCHA_URL_SUCCESS'
 
 const initialState: AuthStateType = {
     id: null,

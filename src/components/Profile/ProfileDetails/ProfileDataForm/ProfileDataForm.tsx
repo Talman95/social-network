@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import {Box, Button, Checkbox, Divider, FormControl, FormControlLabel, TextField, Typography} from "@mui/material";
-import {ContactsType, ProfileType} from "../../../../api/types";
 import {styled} from "@mui/material/styles";
 import {useAppDispatch} from "../../../../features/hooks/hooks";
 import * as Yup from "yup";
 import {useFormik} from "formik";
-import {updateProfile, UpdateProfileModal} from "../../../../redux/profileReducer";
+import {updateProfile, UpdateProfileModal} from "../../../../store/profileReducer";
+import {ContactsType, ProfileType} from "../../../../types/ProfileType";
 
 const TitleContainer = styled('span')(({theme}) => ({
     ...theme.typography.subtitle2,

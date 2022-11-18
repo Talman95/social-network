@@ -1,8 +1,8 @@
 import {Users} from "./Users";
-import {setCurrentPage} from "../../redux/users/usersReducer";
+import {setCurrentPage} from "../../store/users/usersReducer";
 import React, {ChangeEvent, MouseEvent, useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../features/hooks/hooks";
-import {follow, getUsers, unfollow} from "../../redux/users/sagas";
+import {follow, getUsers, unfollow} from "../../store/users/sagas";
 
 export const UsersContainer = () => {
     const users = useAppSelector(state => state.users.users)

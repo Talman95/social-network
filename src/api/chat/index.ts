@@ -1,3 +1,4 @@
+import {SubscriberType} from "./types";
 
 let subscribers = [] as SubscriberType[]
 
@@ -33,10 +34,3 @@ export const chatAPI = {
     }
 }
 
-type SubscriberType = (messages: ChatMessageType[]) => void
-type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import {addPost, deletePost, ProfileStateType, updateMessage} from "../../../redux/profileReducer";
+import {addPost, deletePost, ProfileStateType, updateMessage} from "../../../store/profileReducer";
 import {MyPosts} from "./MyPosts";
-import {AppStateType} from "../../../redux/store";
+import {AppStateType} from "../../../store/store";
 import {useSelector} from "react-redux";
 import {useAppDispatch} from "../../../features/hooks/hooks";
 
