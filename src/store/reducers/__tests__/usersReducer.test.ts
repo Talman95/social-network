@@ -8,7 +8,7 @@ import {
   unfollowSuccess,
   usersReducer,
   UsersStateType,
-} from './usersReducer';
+} from '../usersReducer';
 
 let startState: UsersStateType = {
   users: [],

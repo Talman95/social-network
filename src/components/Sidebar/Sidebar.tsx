@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import { NavLink, useMatch, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setUsersFilter } from '../../store/users/usersReducer';
+import { setUsersFilter } from '../../store/actions/usersActions';
 import { UserType } from '../../types/UserType';
 
 type SidebarPropsType = {

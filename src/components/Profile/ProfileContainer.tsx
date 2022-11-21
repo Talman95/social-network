@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { loadProfilePage, setUserProfile } from '../../store/profileReducer';
+import { setUserProfile } from '../../store/actions/profileActions';
+import { loadProfilePage } from '../../store/middlewares/profile/thunks';
 import { Preloader } from '../common/Preloader/Preloader';
 
 import { Profile } from './Profile';

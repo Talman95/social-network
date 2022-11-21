@@ -16,6 +16,7 @@ import { blue } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 
+import { COLOR_BLUE } from '../../../constants/colors';
 import { useOutside } from '../../../hooks/useOutside';
 import { ProfileType } from '../../../types/ProfileType';
 import { Preloader } from '../../common/Preloader/Preloader';
@@ -23,8 +24,6 @@ import { Preloader } from '../../common/Preloader/Preloader';
 import { ProfileDataForm } from './ProfileDataForm/ProfileDataForm';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 import { ProfileStatus } from './ProfileStatus/ProfileStatus';
-
-const color = 500;
 
 type ProfileDetailsPropsType = {
   profile: ProfileType | null;
@@ -77,7 +76,7 @@ export const ProfileDetails: FC<ProfileDetailsPropsType> = ({
         <Avatar
           alt={profile.fullName || 'user'}
           src={profile.photos.large || ''}
-          sx={{ width: 151, height: 151, bgcolor: blue[color], margin: 1 }}
+          sx={{ width: 151, height: 151, bgcolor: blue[COLOR_BLUE], margin: 1 }}
         />
         {userId && (
           <Stack spacing={2} direction="column">

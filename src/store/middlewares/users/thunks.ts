@@ -1,9 +1,7 @@
-import { usersAPI } from '../../api/users';
-import { resultCode } from '../../enums/resultCode';
-import { FriendTypeConverter } from '../../utils/utils';
-import { setAppErrorMessage } from '../app/appReducer';
-import { AppThunk } from '../store';
-
+import { usersAPI } from '../../../api/users';
+import { resultCode } from '../../../enums/resultCode';
+import { FriendTypeConverter } from '../../../utils/utils';
+import { setAppErrorMessage } from '../../actions/appActions';
 import {
   followSuccess,
   setFriends,
@@ -13,7 +11,8 @@ import {
   toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
-} from './usersReducer';
+} from '../../actions/usersActions';
+import { AppThunk } from '../../store';
 
 const firstElement = 0;
 

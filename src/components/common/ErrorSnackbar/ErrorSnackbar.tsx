@@ -4,7 +4,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setAppErrorMessage } from '../../../store/app/appReducer';
+import { setAppErrorMessage } from '../../../store/actions/appActions';
 import { AppStateType } from '../../../store/store';
 import { ReturnComponentType } from '../../../types/ReturnComponentType';
 

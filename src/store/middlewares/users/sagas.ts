@@ -1,13 +1,11 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 
-import { usersAPI } from '../../api/users';
-import { GetUsersResponseType } from '../../api/users/types';
-import { resultCode } from '../../enums/resultCode';
-import { ResponseType } from '../../types/ResponseType';
-import { FriendTypeConverter } from '../../utils/utils';
-import { setAppErrorMessage } from '../app/appReducer';
-import { RootState } from '../store';
-
+import { usersAPI } from '../../../api/users';
+import { GetUsersResponseType } from '../../../api/users/types';
+import { resultCode } from '../../../enums/resultCode';
+import { ResponseType } from '../../../types/ResponseType';
+import { FriendTypeConverter } from '../../../utils/utils';
+import { setAppErrorMessage } from '../../actions/appActions';
 import {
   followSuccess,
   setFriends,
@@ -17,7 +15,8 @@ import {
   toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
-} from './usersReducer';
+} from '../../actions/usersActions';
+import { RootState } from '../../store';
 
 const GET_USERS = 'USERS/GET_USERS';
 const FOLLOW = 'USERS/FOLLOW';

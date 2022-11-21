@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { updateProfileStatus } from '../../../../store/profileReducer';
+import { updateProfileStatus } from '../../../../store/middlewares/profile/thunks';
 
 type StatusPropsType = {
   status: string;

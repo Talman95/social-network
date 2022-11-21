@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { getFriends } from '../../store/middlewares/users/sagas';
 import { AppStateType } from '../../store/store';
-import { getFriends } from '../../store/users/sagas';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 import { UserType } from '../../types/UserType';
 

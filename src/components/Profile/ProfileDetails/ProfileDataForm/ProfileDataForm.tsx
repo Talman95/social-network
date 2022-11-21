@@ -15,7 +15,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { updateProfile, UpdateProfileModal } from '../../../../store/profileReducer';
+import { updateProfile } from '../../../../store/middlewares/profile/thunks';
+import { UpdateProfileModal } from '../../../../store/reducers/profileReducer';
 import { ContactsType, ProfileType } from '../../../../types/ProfileType';
 
 const TitleContainer = styled('span')(({ theme }) => ({

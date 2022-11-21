@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { PostType } from '../../../store/profileReducer';
+import { PostType } from '../../../store/reducers/profileReducer';
 import { ProfileType } from '../../../types/ProfileType';
 
 import { Post } from './Post/Post';

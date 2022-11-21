@@ -1,4 +1,4 @@
-import { FriendUiType } from '../store/users/usersReducer';
+import { FriendUiType } from '../store/reducers/usersReducer';
 
 export const getCountPages = (totalCount: number, pageSize: number) =>
   Math.ceil(totalCount / pageSize);

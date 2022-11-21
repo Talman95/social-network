@@ -1,8 +1,6 @@
-import { usersAPI } from '../../api/users';
-import { GetUsersResponseType } from '../../api/users/types';
-import { ResponseType } from '../../types/ResponseType';
-
-import { follow, getUsers, unfollow } from './thunks';
+import { usersAPI } from '../../../api/users';
+import { GetUsersResponseType } from '../../../api/users/types';
+import { ResponseType } from '../../../types/ResponseType';
 import {
   followSuccess,
   setTotalMembers,
@@ -10,7 +8,8 @@ import {
   toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
-} from './usersReducer';
+} from '../../reducers/usersReducer';
+import { follow, getUsers, unfollow } from '../users/thunks';
 
 /* eslint-disable */
 

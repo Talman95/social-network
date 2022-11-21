@@ -12,7 +12,7 @@ import { SidebarContainer } from './components/Sidebar/SidebarContainer';
 import { useAppDispatch } from './hooks/useAppDispatch';
 import { useAppSelector } from './hooks/useAppSelector';
 import { AppRouter } from './router/AppRouter';
-import { authorize } from './store/auth/sagas';
+import { authorize } from './store/middlewares/auth/sagas';
 import { ReturnComponentType } from './types/ReturnComponentType';
 
 export const App = (): ReturnComponentType => {

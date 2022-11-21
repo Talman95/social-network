@@ -4,13 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 import { spawn } from 'redux-saga/effects';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { appReducer, InitActionsType } from './app/appReducer';
-import { AuthActionsType, authReducer } from './auth/authReducer';
-import { authWatcher } from './auth/sagas';
 import { MessagesActionsType, messagesReducer } from './messagesReducer';
-import { ProfileActionsType, profileReducer } from './profileReducer';
-import { UsersSagasType, usersWatcher } from './users/sagas';
-import { UsersActionsType, usersReducer } from './users/usersReducer';
+import { authWatcher } from './middlewares/auth/sagas';
+import { UsersSagasType, usersWatcher } from './middlewares/users/sagas';
+import { appReducer, InitActionsType } from './reducers/appReducer';
+import { AuthActionsType, authReducer } from './reducers/authReducer';
+import { ProfileActionsType, profileReducer } from './reducers/profileReducer';
+import { UsersActionsType, usersReducer } from './reducers/usersReducer';
 
 const rootReducer = combineReducers({
   profile: profileReducer,

@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { setCurrentPage, setUsersFilter } from '../../store/users/usersReducer';
+import { setCurrentPage, setUsersFilter } from '../../store/actions/usersActions';
 import { UserType } from '../../types/UserType';
 import { FriendTypeConverter, getCountPages } from '../../utils/utils';
 import { Preloader } from '../common/Preloader/Preloader';

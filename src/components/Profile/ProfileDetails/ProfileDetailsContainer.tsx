@@ -6,7 +6,7 @@ import {
   followFromProfile,
   unfollowFromProfile,
   uploadUserPhoto,
-} from '../../../store/profileReducer';
+} from '../../../store/middlewares/profile/thunks';
 
 import { ProfileDetails } from './ProfileDetails';
 

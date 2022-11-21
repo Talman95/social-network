@@ -1,16 +1,19 @@
 import { AxiosResponse } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { authAPI } from '../../api/auth';
-import { AuthMeDataType } from '../../api/auth/types';
-import { profileAPI } from '../../api/profile';
-import { formValuesModel } from '../../components/Login/Login';
-import { resultCode } from '../../enums/resultCode';
-import { ProfileType } from '../../types/ProfileType';
-import { ResponseType } from '../../types/ResponseType';
-import { initializedSuccess, setAppErrorMessage } from '../app/appReducer';
-
-import { getCaptchaUrlSuccess, setCurrentUser, setUserData } from './authReducer';
+import { authAPI } from '../../../api/auth';
+import { AuthMeDataType } from '../../../api/auth/types';
+import { profileAPI } from '../../../api/profile';
+import { formValuesModel } from '../../../components/Login/Login';
+import { resultCode } from '../../../enums/resultCode';
+import { ProfileType } from '../../../types/ProfileType';
+import { ResponseType } from '../../../types/ResponseType';
+import { initializedSuccess, setAppErrorMessage } from '../../actions/appActions';
+import {
+  getCaptchaUrlSuccess,
+  setCurrentUser,
+  setUserData,
+} from '../../actions/authActions';
 
 const GET_AUTH_USER_DATA = 'index/GET_AUTH_USER_DATA';
 const LOGIN = 'index/LOGIN';

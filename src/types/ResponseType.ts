@@ -1,6 +1,6 @@
 export type ResponseType<D> = {
   data: D;
-  messages: Array<string>;
+  messages: string[];
   fieldsErrors: [];
   resultCode: number;
 };

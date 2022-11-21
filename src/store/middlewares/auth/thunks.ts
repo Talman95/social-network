@@ -1,11 +1,14 @@
-import { authAPI } from '../../api/auth';
-import { profileAPI } from '../../api/profile';
-import { formValuesModel } from '../../components/Login/Login';
-import { resultCode } from '../../enums/resultCode';
-import { setAppErrorMessage } from '../app/appReducer';
-import { AppThunk } from '../store';
-
-import { getCaptchaUrlSuccess, setCurrentUser, setUserData } from './authReducer';
+import { authAPI } from '../../../api/auth';
+import { profileAPI } from '../../../api/profile';
+import { formValuesModel } from '../../../components/Login/Login';
+import { resultCode } from '../../../enums/resultCode';
+import { setAppErrorMessage } from '../../actions/appActions';
+import {
+  getCaptchaUrlSuccess,
+  setCurrentUser,
+  setUserData,
+} from '../../actions/authActions';
+import { AppThunk } from '../../store';
 
 const firstElement = 0;
 

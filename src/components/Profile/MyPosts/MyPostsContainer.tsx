@@ -6,9 +6,9 @@ import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import {
   addPost,
   deletePost,
-  ProfileStateType,
   updateMessage,
-} from '../../../store/profileReducer';
+} from '../../../store/actions/profileActions';
+import { ProfileStateType } from '../../../store/reducers/profileReducer';
 import { AppStateType } from '../../../store/store';
 
 import { MyPosts } from './MyPosts';

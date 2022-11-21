@@ -24,7 +24,7 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { updateProfile } from '../../store/profileReducer';
+import { updateProfile } from '../../store/middlewares/profile/thunks';
 import { AppStateType } from '../../store/store';
 import { ProfileType } from '../../types/ProfileType';
 

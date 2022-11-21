@@ -10,7 +10,8 @@ import {
 } from '@mui/material';
 
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
-import { FriendUiType, setUsersFilter } from '../../../store/users/usersReducer';
+import { setUsersFilter } from '../../../store/actions/usersActions';
+import { FriendUiType } from '../../../store/reducers/usersReducer';
 
 type PropsType = {
   searchName: string;

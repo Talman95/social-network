@@ -19,15 +19,13 @@ import { blue } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 
 import { COLOR_BLUE } from '../../constants/colors';
-import { CurrentUserType } from '../../store/auth/authReducer';
+import { ProfileType } from '../../types/ProfileType';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
-
-const COLOR = 500;
 
 type HeaderPropsType = {
   isAuth: boolean;
   logout: () => void;
-  currentUser: CurrentUserType | null;
+  currentUser: ProfileType | null;
   navigateToProfile: () => void;
   navigateToUsers: () => void;
   navigateToMessages: () => void;
@@ -125,7 +123,7 @@ export const Header: FC<HeaderPropsType> = ({
                       ? currentUser?.photos.small
                       : '/broken-image.jpg'
                   }
-                  sx={{ bgcolor: blue[COLOR], width: 50, height: 50 }}
+                  sx={{ bgcolor: blue[COLOR_BLUE], width: 50, height: 50 }}
                 />
               </IconButton>
               <Typography variant="body1" component="span" sx={{ margin: '-15px' }}>

@@ -1,16 +1,14 @@
 import {
   addPost,
   deletePost,
-  PostType,
-  profileReducer,
-  ProfileStateType,
   setFriendship,
   setProfileStatus,
   setUserProfile,
   updateMessage,
   updateProfileSuccess,
   uploadUserPhotoSuccess,
-} from '../../store/profileReducer';
+} from '../../actions/profileActions';
+import { PostType, profileReducer, ProfileStateType } from '../profileReducer';
 
 let startState: ProfileStateType = {
   profile: null,

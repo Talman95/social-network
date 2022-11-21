@@ -2,8 +2,8 @@ import React, { ChangeEvent, MouseEvent, useEffect } from 'react';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { follow, getUsers, unfollow } from '../../store/users/sagas';
-import { setCurrentPage } from '../../store/users/usersReducer';
+import { setCurrentPage } from '../../store/actions/usersActions';
+import { follow, getUsers, unfollow } from '../../store/middlewares/users/sagas';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 
 import { Users } from './Users';
