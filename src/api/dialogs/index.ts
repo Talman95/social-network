@@ -1,6 +1,5 @@
+import { DialogsType } from '../../types/DialogType';
 import { instance } from '../config';
-
-import { DialogsType } from './types';
 
 export const dialogsAPI = {
   getAllDialogs() {

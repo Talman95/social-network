@@ -5,6 +5,7 @@ export enum path {
   ANOTHER_PROFILE = '/profile/:userId',
   SETTINGS = '/settings',
   MESSAGES = '/messages/*',
+  DIALOGS = '/dialogs',
   CHAT = '/chat',
   PAGE_NOT_FOUND = '*',
 }

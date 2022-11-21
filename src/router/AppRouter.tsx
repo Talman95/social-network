@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ChatPage } from '../components/Chat/ChatPage';
+import { Dialogs } from '../components/Dialogs/Dialogs';
 import { Login } from '../components/Login/Login';
 import Messages from '../components/Messages/Messages';
 import { ProfileContainer } from '../components/Profile/ProfileContainer';
@@ -24,7 +25,8 @@ export const AppRouter = (): ReturnComponentType => {
           <Route path="/" element={<Navigate to="/profile" />} />
           <Route path="/profile" element={<ProfileContainer />} />
           <Route path="/profile/:userId" element={<ProfileContainer />} />
-          <Route path={'/messages/*'} element={<Messages />} />
+          <Route path="/messages/*" element={<Messages />} />
+          <Route path="/dialogs" element={<Dialogs />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/users" element={<UsersContainer />} />
           <Route path="*" element={<Error404 />} />

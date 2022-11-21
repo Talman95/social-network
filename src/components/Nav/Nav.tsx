@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import EmailIcon from '@mui/icons-material/Email';
 import MessageIcon from '@mui/icons-material/Message';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import PeopleIcon from '@mui/icons-material/People';
@@ -24,7 +25,8 @@ type LinkType = {
 
 const navigationList: LinkType[] = [
   { to: '/profile', title: 'Profile', icon: <AccountBoxIcon /> },
-  { to: '/chat', title: 'Chat', icon: <MessageIcon /> },
+  { to: '/dialogs', title: 'Dialogs', icon: <MessageIcon /> },
+  { to: '/chat', title: 'Chat', icon: <EmailIcon /> },
   { to: '/users', title: 'Developers', icon: <PeopleIcon /> },
   { to: '/settings', title: 'Settings', icon: <SettingsIcon /> },
 ];
