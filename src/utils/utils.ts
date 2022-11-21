@@ -1,40 +1,38 @@
-import {FriendUiType} from "../store/users/usersReducer";
+import { FriendUiType } from '../store/users/usersReducer';
 
-export const getCountPages = (totalCount: number, pageSize: number) => {
-    return Math.ceil(totalCount / pageSize)
-}
+export const getCountPages = (totalCount: number, pageSize: number) =>
+  Math.ceil(totalCount / pageSize);
 
 export class FriendTypeConverter {
+  static toFriendType(friend: string) {
+    let result: FriendUiType;
 
-    static toFriendType(friend: string) {
-        let result: FriendUiType
-
-        if (friend === 'true') {
-            result = 'follow'
-        } else if (friend === 'false') {
-            result = 'unfollow'
-        } else {
-            result = 'all'
-        }
-
-        return result
+    if (friend === 'true') {
+      result = 'follow';
+    } else if (friend === 'false') {
+      result = 'unfollow';
+    } else {
+      result = 'all';
     }
 
-    static toBoolean(friend: string) {
-        let result: boolean | null
+    return result;
+  }
 
-        switch (friend) {
-            case 'follow':
-                result = true
-                break
-            case 'unfollow':
-                result = false
-                break
-            default:
-                result = null
-                break
-        }
+  static toBoolean(friend: string) {
+    let result: boolean | null;
 
-        return result
+    switch (friend) {
+      case 'follow':
+        result = true;
+        break;
+      case 'unfollow':
+        result = false;
+        break;
+      default:
+        result = null;
+        break;
     }
+
+    return result;
+  }
 }

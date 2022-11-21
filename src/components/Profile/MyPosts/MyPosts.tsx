@@ -1,37 +1,48 @@
-import React, {FC} from 'react';
-import {Post} from "./Post/Post";
-import {WriteField} from "./WriteField/WriteField";
-import {PostType} from "../../../store/profileReducer";
-import {ProfileType} from "../../../types/ProfileType";
+import React, { FC } from 'react';
+
+import { PostType } from '../../../store/profileReducer';
+import { ProfileType } from '../../../types/ProfileType';
+
+import { Post } from './Post/Post';
+import { WriteField } from './WriteField/WriteField';
 
 type MyPostsPropsType = {
-    posts: PostType[]
-    addPost: () => void
-    deletePost: (postId: number) => void
-    postMessage: string
-    updateMessage: (newMessage: string) => void
-    profile: ProfileType | null
-}
+  posts: PostType[];
+  addPost: () => void;
+  deletePost: (postId: number) => void;
+  postMessage: string;
+  updateMessage: (newMessage: string) => void;
+  profile: ProfileType | null;
+};
 
-export const MyPosts: FC<MyPostsPropsType> = (props) => {
+export const MyPosts: FC<MyPostsPropsType> = ({
+  posts,
+  addPost,
+  deletePost,
+  postMessage,
+  updateMessage,
+  profile,
+}) => {
+  const postsComponents = posts.map(({ id, message, picture }) => (
+    <Post
+      key={id}
+      id={id}
+      message={message}
+      picture={picture}
+      deletePost={deletePost}
+      profile={profile}
+    />
+  ));
 
-    const postsComponents = props.posts.map(p => <Post key={p.id}
-                                                       id={p.id}
-                                                       message={p.message}
-                                                       picture={p.picture}
-                                                       deletePost={props.deletePost}
-                                                       profile={props.profile}
-    />)
-
-    return (
-        <>
-            <WriteField
-                postMessage={props.postMessage}
-                updateMessage={props.updateMessage}
-                addPost={props.addPost}
-                profile={props.profile}
-            />
-            {postsComponents}
-        </>
-    );
+  return (
+    <>
+      <WriteField
+        postMessage={postMessage}
+        updateMessage={updateMessage}
+        addPost={addPost}
+        profile={profile}
+      />
+      {postsComponents}
+    </>
+  );
 };

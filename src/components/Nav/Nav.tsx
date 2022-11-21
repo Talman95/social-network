@@ -1,55 +1,53 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import MessageIcon from '@mui/icons-material/Message';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import PeopleIcon from '@mui/icons-material/People';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import PeopleIcon from '@mui/icons-material/People';
-import MessageIcon from '@mui/icons-material/Message';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
 import Switch from '@mui/material/Switch';
-import {CustomNavLink} from "./CustomNavLink/CustomNavLink";
+
+import { ReturnComponentType } from '../../types/ReturnComponentType';
+
+import { CustomNavLink } from './CustomNavLink/CustomNavLink';
 
 type LinkType = {
-    to: string
-    title: string
-    icon: JSX.Element
-}
+  to: string;
+  title: string;
+  icon: ReactElement;
+};
 
 const navigationList: LinkType[] = [
-    {to: '/profile', title: 'Profile', icon: <AccountBoxIcon/>},
-    {to: '/chat', title: 'Chat', icon: <MessageIcon/>},
-    {to: '/users', title: 'Developers', icon: <PeopleIcon/>},
-    {to: '/settings', title: 'Settings', icon: <SettingsIcon/>},
-]
+  { to: '/profile', title: 'Profile', icon: <AccountBoxIcon /> },
+  { to: '/chat', title: 'Chat', icon: <MessageIcon /> },
+  { to: '/users', title: 'Developers', icon: <PeopleIcon /> },
+  { to: '/settings', title: 'Settings', icon: <SettingsIcon /> },
+];
 
-export const Nav = () => {
-    return (
-        <Box flex={1} p={2} sx={{display: {xs: 'none', sm: 'block'}}}>
-            <Box position={"fixed"}>
-                <List>
+export const Nav = (): ReturnComponentType => (
+  <Box flex={1} p={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
+    <Box position="fixed">
+      <List>
+        {navigationList.map(({ to, title, icon }) => (
+          <CustomNavLink key={title} to={to} title={title}>
+            {icon}
+          </CustomNavLink>
+        ))}
 
-                    {navigationList.map(nl => {
-                        return (
-                            <CustomNavLink key={nl.title} to={nl.to} title={nl.title}>
-                                {nl.icon}
-                            </CustomNavLink>
-                        )
-                    })}
-
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <ModeNightIcon/>
-                            </ListItemIcon>
-                            <Switch/>
-                        </ListItemButton>
-                    </ListItem>
-
-                </List>
-            </Box>
-        </Box>
-    )
-}
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <ModeNightIcon />
+            </ListItemIcon>
+            <Switch />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  </Box>
+);

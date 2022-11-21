@@ -1,38 +1,42 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+
 import './App.css';
-import {Nav} from "./components/Nav/Nav";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
-import {AppRouter} from "./router/AppRouter";
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import {SidebarContainer} from "./components/Sidebar/SidebarContainer";
-import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar";
-import {useAppDispatch, useAppSelector} from "./features/hooks/hooks";
-import {Preloader} from "./components/common/Preloader/Preloader";
-import {authorize} from "./store/auth/sagas";
 
-export const App = () => {
-    const dispatch = useAppDispatch()
+import { ErrorSnackbar } from './components/common/ErrorSnackbar/ErrorSnackbar';
+import { Preloader } from './components/common/Preloader/Preloader';
+import { HeaderContainer } from './components/Header/HeaderContainer';
+import { Nav } from './components/Nav/Nav';
+import { SidebarContainer } from './components/Sidebar/SidebarContainer';
+import { useAppDispatch } from './hooks/useAppDispatch';
+import { useAppSelector } from './hooks/useAppSelector';
+import { AppRouter } from './router/AppRouter';
+import { authorize } from './store/auth/sagas';
+import { ReturnComponentType } from './types/ReturnComponentType';
 
-    const isInitialized = useAppSelector(state => state.app.isInitialized)
+export const App = (): ReturnComponentType => {
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(authorize())
-    }, [dispatch])
+  const isInitialized = useAppSelector(state => state.app.isInitialized);
 
-    if (!isInitialized) {
-        return <Preloader/>
-    }
+  useEffect(() => {
+    dispatch(authorize());
+  }, [dispatch]);
 
-    return (
-        <Box>
-            <ErrorSnackbar/>
-            <HeaderContainer/>
-            <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
-                <Nav/>
-                <AppRouter/>
-                <SidebarContainer/>
-            </Stack>
-        </Box>
-    )
-}
+  if (!isInitialized) {
+    return <Preloader />;
+  }
+
+  return (
+    <Box>
+      <ErrorSnackbar />
+      <HeaderContainer />
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <Nav />
+        <AppRouter />
+        <SidebarContainer />
+      </Stack>
+    </Box>
+  );
+};

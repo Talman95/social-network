@@ -1,15 +1,22 @@
-import React from 'react';
-import cl from "./MyInput.module.css";
-import search from "../../../assets/images/search.png";
+import React, { useState } from 'react';
+
+import cl from './MyInput.module.css';
 
 type PropsType = {
-    children?: React.ReactChild | React.ReactChild[];
+  text: string;
 };
 
-export const MyInput = ({children}: PropsType) => {
-    return (
-        <div className={cl.myInput}>
-            <input type="text" placeholder="Search">{children}</input>
-        </div>
-    );
+export const MyInput = ({ text }: PropsType) => {
+  const [value, setValue] = useState(text);
+
+  return (
+    <div className={cl.myInput}>
+      <input
+        type="text"
+        placeholder="Search"
+        value={value}
+        onChange={e => setValue(e.currentTarget.value)}
+      />
+    </div>
+  );
 };

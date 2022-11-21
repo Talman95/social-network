@@ -1,50 +1,49 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
-import {updateProfileStatus} from "../../../../store/profileReducer";
-import {useAppDispatch} from "../../../../features/hooks/hooks";
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { updateProfileStatus } from '../../../../store/profileReducer';
 
 type StatusPropsType = {
-    status: string
-}
+  status: string;
+};
 
-export const ProfileStatus: FC<StatusPropsType> = (props) => {
+export const ProfileStatus: FC<StatusPropsType> = ({ status }) => {
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [profileStatus, setProfileStatus] = useState<string>(status);
 
-    const [editMode, setEditMode] = useState<boolean>(false)
-    const [status, setStatus] = useState<string>(props.status)
+  useEffect(() => {
+    setProfileStatus(status);
+  }, [status]);
 
-    useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+  const dispatch = useAppDispatch();
 
-    const dispatch = useAppDispatch()
+  const activateEditMode = (): void => {
+    setEditMode(true);
+  };
+  const deactivateEditMode = (): void => {
+    setEditMode(false);
+    dispatch(updateProfileStatus(status));
+  };
+  const onChangeStatus = (e: ChangeEvent<HTMLInputElement>): void => {
+    setProfileStatus(e.currentTarget.value);
+  };
 
-    const activateEditMode = () => {
-        setEditMode(true)
-    }
-    const deactivateEditMode = () => {
-        setEditMode(false)
-        dispatch(updateProfileStatus(status))
-    }
-    const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.currentTarget.value)
-    }
-
-    return (
-        <>
-            {editMode
-                ?
-                <div>
-                    <input
-                        value={status}
-                        onBlur={deactivateEditMode}
-                        autoFocus={true}
-                        onChange={onChangeStatus}
-                    />
-                </div>
-                :
-                <div onClick={activateEditMode}>
-                    <p>{status}</p>
-                </div>
-            }
-        </>
-    );
+  return (
+    <div>
+      {editMode ? (
+        <div>
+          <input
+            type="text"
+            value={profileStatus}
+            onBlur={deactivateEditMode}
+            onChange={onChangeStatus}
+          />
+        </div>
+      ) : (
+        <div role="button" onClick={activateEditMode} onKeyPress={undefined} tabIndex={0}>
+          <p>{profileStatus}</p>
+        </div>
+      )}
+    </div>
+  );
 };

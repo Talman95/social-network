@@ -1,75 +1,78 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
-import {Button, MenuItem, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
-import {useAppDispatch} from "../../../features/hooks/hooks";
-import {FriendUiType, setUsersFilter} from "../../../store/users/usersReducer";
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+
+import {
+  Button,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+} from '@mui/material';
+
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { FriendUiType, setUsersFilter } from '../../../store/users/usersReducer';
 
 type PropsType = {
-    searchName: string,
-    userFriends: FriendUiType
-    isFetching: boolean
-}
+  searchName: string;
+  userFriends: FriendUiType;
+  isFetching: boolean;
+};
 
-export const UsersSearchBox: FC<PropsType> = (
-    {
-        searchName, userFriends, isFetching
-    }) => {
+export const UsersSearchBox: FC<PropsType> = ({
+  searchName,
+  userFriends,
+  isFetching,
+}) => {
+  const dispatch = useAppDispatch();
 
-    const dispatch = useAppDispatch()
+  const [searchTerm, setSearchTerm] = useState(searchName);
+  const [friends, setFriends] = useState(userFriends);
 
-    const [searchTerm, setSearchTerm] = useState(searchName)
-    const [friends, setFriends] = useState(userFriends)
+  useEffect(() => {
+    setSearchTerm(searchName);
+    setFriends(userFriends);
+  }, [searchName, userFriends]);
 
-    useEffect(() => {
-        setSearchTerm(searchName)
-        setFriends(userFriends)
-    }, [searchName, userFriends])
+  const handleSetSearchTerm = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    setSearchTerm(e.currentTarget.value);
+  };
+  const handleSearchClick = () => {
+    dispatch(setUsersFilter({ searchName: searchTerm, userFriends: friends }));
+  };
+  const handleSelectFilter = (e: SelectChangeEvent) => {
+    const resultFriend = e.target.value as FriendUiType;
 
-    const handleSetSearchTerm = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setSearchTerm(e.currentTarget.value)
-    }
-    const handleSearchClick = () => {
-        dispatch(setUsersFilter({searchName: searchTerm, userFriends: friends}))
-    }
-    const handleSelectFilter = (e: SelectChangeEvent) => {
-        const resultFriend = e.target.value as FriendUiType
-        setFriends(resultFriend)
-        dispatch(setUsersFilter({searchName: searchTerm, userFriends: resultFriend}))
-    }
+    setFriends(resultFriend);
+    dispatch(setUsersFilter({ searchName: searchTerm, userFriends: resultFriend }));
+  };
 
-    return (
-        <Stack
-            direction={'row'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            spacing={3}
-        >
-            <TextField
-                id={'users-search'}
-                label={'Search'}
-                variant={'outlined'}
-                value={searchTerm}
-                onChange={handleSetSearchTerm}
-                disabled={isFetching}
-            />
-            <Select
-                labelId={'select-label'}
-                id={'simple-select'}
-                onChange={handleSelectFilter}
-                style={{width: 163}}
-                value={friends}
-                disabled={isFetching}
-            >
-                <MenuItem value={'all'}>All</MenuItem>
-                <MenuItem value={'follow'}>Only followed</MenuItem>
-                <MenuItem value={'unfollow'}>Only unfollowed</MenuItem>
-            </Select>
-            <Button
-                variant={'contained'}
-                onClick={handleSearchClick}
-                disabled={isFetching}
-            >
-                Search
-            </Button>
-        </Stack>
-    )
-}
+  return (
+    <Stack direction="row" justifyContent="center" alignItems="center" spacing={3}>
+      <TextField
+        id="users-search"
+        label="Search"
+        variant="outlined"
+        value={searchTerm}
+        onChange={handleSetSearchTerm}
+        disabled={isFetching}
+      />
+      <Select
+        labelId="select-label"
+        id="simple-select"
+        onChange={handleSelectFilter}
+        style={{ width: 163 }}
+        value={friends}
+        disabled={isFetching}
+      >
+        <MenuItem value="all">All</MenuItem>
+        <MenuItem value="follow">Only followed</MenuItem>
+        <MenuItem value="unfollow">Only unfollowed</MenuItem>
+      </Select>
+      <Button variant="contained" onClick={handleSearchClick} disabled={isFetching}>
+        Search
+      </Button>
+    </Stack>
+  );
+};

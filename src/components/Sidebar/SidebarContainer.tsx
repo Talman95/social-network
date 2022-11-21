@@ -1,27 +1,31 @@
-import React, {useEffect} from 'react';
-import {Sidebar} from './Sidebar';
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../store/store";
-import {useAppDispatch} from "../../features/hooks/hooks";
-import {getFriends} from "../../store/users/sagas";
-import {UserType} from "../../types/UserType";
+import React, { useEffect } from 'react';
 
-export const SidebarContainer = () => {
-    const followings = useSelector<AppStateType, UserType[]>(state => state.users.followings)
-    const followingsCount = useSelector<AppStateType, number>(state => state.users.followingsCount)
-    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+import { useSelector } from 'react-redux';
 
-    const dispatch = useAppDispatch()
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { AppStateType } from '../../store/store';
+import { getFriends } from '../../store/users/sagas';
+import { ReturnComponentType } from '../../types/ReturnComponentType';
+import { UserType } from '../../types/UserType';
 
-    useEffect(() => {
-        dispatch(getFriends())
-    }, [isAuth])
+import { Sidebar } from './Sidebar';
 
-    return (
-        <Sidebar
-            followings={followings}
-            followingsCount={followingsCount}
-            isAuth={isAuth}
-        />
-    );
+export const SidebarContainer = (): ReturnComponentType => {
+  const dispatch = useAppDispatch();
+
+  const followings = useSelector<AppStateType, UserType[]>(
+    state => state.users.followings,
+  );
+  const followingsCount = useSelector<AppStateType, number>(
+    state => state.users.followingsCount,
+  );
+  const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth);
+
+  useEffect(() => {
+    dispatch(getFriends());
+  }, [isAuth]);
+
+  return (
+    <Sidebar followings={followings} followingsCount={followingsCount} isAuth={isAuth} />
+  );
 };

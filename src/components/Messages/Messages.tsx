@@ -1,25 +1,26 @@
-import React, {FC, useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
+
+import { dialogsAPI } from '../../api/dialogs';
+
+import { ChatContainer } from './Chat/ChatContainer';
+import { DialogsContainer } from './Dialogs/DialogsContainer';
 import cl from './Messages.module.css';
-import {ChatContainer} from "./Chat/ChatContainer";
-import {DialogsContainer} from "./Dialogs/DialogsContainer";
-import {dialogsAPI} from "../../api/dialogs";
 
 const Messages: FC = () => {
+  useEffect(() => {
+    async function getDialogs() {
+      await dialogsAPI.getAllDialogs();
+    }
 
-    useEffect(() => {
-        async function getDialogs() {
-            await dialogsAPI.getAllDialogs()
-        }
-        getDialogs()
+    getDialogs();
+  }, []);
 
-    }, [])
-
-    return (
-        <div className={cl.messages}>
-            <DialogsContainer/>
-            <ChatContainer/>
-        </div>
-    );
+  return (
+    <div className={cl.messages}>
+      <DialogsContainer />
+      <ChatContainer />
+    </div>
+  );
 };
 
 export default Messages;
