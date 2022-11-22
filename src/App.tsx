@@ -22,7 +22,7 @@ export const App = (): ReturnComponentType => {
 
   useEffect(() => {
     dispatch(authorize());
-  }, [dispatch]);
+  }, []);
 
   if (!isInitialized) {
     return <Preloader />;

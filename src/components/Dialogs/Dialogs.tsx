@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchDialogs } from '../../store/middlewares/dialogs/sagas';
 import { selectDialogs } from '../../store/selectors/dialogsSelectors';
 
+import { DialogItem } from './DialogItem/DialogItem';
+
+const NO_DIALOGS = 0;
+
 export const Dialogs = () => {
   const dispatch = useDispatch();
 
@@ -16,7 +20,12 @@ export const Dialogs = () => {
   }, []);
 
   return (
-    <Box flex={2} p={2} m={1} sx={{ bgcolor: 'background.paper' }}>
+    <Box
+      flex={2}
+      p={2}
+      m={1}
+      sx={{ bgcolor: 'background.paper', minHeight: 'calc(100vh - 150px)' }}
+    >
       <Typography
         variant="h5"
         component="div"
@@ -24,10 +33,32 @@ export const Dialogs = () => {
       >
         Dialogs
       </Typography>
-      <List>
-        {dialogs.map(({ id, userName }) => (
-          <div key={id}>{userName}</div>
-        ))}
+      <List component="nav" sx={{ maxWidth: 360, margin: 'auto' }}>
+        {dialogs.length === NO_DIALOGS ? (
+          <Typography sx={{ display: 'flex', justifyContent: 'center' }}>
+            No Dialogs
+          </Typography>
+        ) : (
+          dialogs.map(
+            ({
+              id,
+              userName,
+              photos,
+              hasNewMessages,
+              newMessagesCount,
+              lastDialogActivityDate,
+            }) => (
+              <DialogItem
+                key={id + lastDialogActivityDate}
+                userName={userName}
+                photo={photos.small}
+                hasNewMessages={hasNewMessages}
+                newMessagesCount={newMessagesCount}
+                lastDialogActivityDate={lastDialogActivityDate}
+              />
+            ),
+          )
+        )}
       </List>
     </Box>
   );
