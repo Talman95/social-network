@@ -3,10 +3,10 @@ import React, { ChangeEvent, FC } from 'react';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import {
-  followFromProfile,
-  unfollowFromProfile,
+  followUser,
+  unfollowUser,
   uploadUserPhoto,
-} from '../../../store/middlewares/profile/thunks';
+} from '../../../store/middlewares/profile/actions';
 
 import { ProfileDetails } from './ProfileDetails';
 
@@ -21,15 +21,16 @@ export const ProfileDetailsContainer: FC<ProfileDetailsContainerType> = ({ userI
 
   const followHandler = () => {
     if (userId) {
-      dispatch(followFromProfile(+userId));
+      dispatch(followUser(+userId, 'profile'));
     }
   };
 
   const unfollowHandler = () => {
     if (userId) {
-      dispatch(unfollowFromProfile(+userId));
+      dispatch(unfollowUser(+userId, 'profile'));
     }
   };
+
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     const firstElement = 0;
     const newFile = e.target.files && e.target.files[firstElement];

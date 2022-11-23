@@ -6,28 +6,32 @@ import { instance } from '../config';
 import { ProfileUpdateType } from './types';
 
 export const profileAPI = {
-  getProfile(userId: number) {
-    return instance.get<ProfileType>(`/profile/${userId}`);
+  getProfile: async (userId: number) => {
+    const res = await instance.get<ProfileType>(`/profile/${userId}`);
+    return res.data;
   },
 
-  getStatus(userId: number) {
-    return instance.get<string>(`/profile/status/${userId}`);
+  getStatus: async (userId: number) => {
+    const res = await instance.get<string>(`/profile/status/${userId}`);
+    return res.data;
   },
 
-  updateStatus(status: string) {
-    return instance.put<ResponseType<{}>>('/profile/status', { status });
+  updateStatus: async (status: string) => {
+    const res = await instance.put<ResponseType<{}>>('/profile/status', { status });
+    return res.data;
   },
 
-  updateProfile(profile: ProfileUpdateType) {
-    return instance.put<ResponseType<{}>>('/profile', { ...profile });
+  updateProfile: async (profile: ProfileUpdateType) => {
+    const res = await instance.put<ResponseType<{}>>('/profile', { ...profile });
+    return res.data;
   },
 
-  uploadPhoto(newFile: File) {
+  uploadPhoto: async (newFile: File) => {
     const formData = new FormData();
 
     formData.append('image', newFile);
 
-    return instance.put<ResponseType<{ photos: PhotosType }>>(
+    const res = await instance.put<ResponseType<{ photos: PhotosType }>>(
       '/profile/photo',
       formData,
       {
@@ -36,5 +40,7 @@ export const profileAPI = {
         },
       },
     );
+
+    return res.data;
   },
 };

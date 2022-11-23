@@ -19,17 +19,17 @@ const FIRST_ELEMENT = 0;
 export const getUserProfile =
   (userId: number): AppThunk =>
   async dispatch => {
-    const response = await profileAPI.getProfile(userId);
+    const res = await profileAPI.getProfile(userId);
 
-    dispatch(setUserProfile(response.data));
+    dispatch(setUserProfile(res));
   };
 
 export const getProfileStatus =
   (userId: number): AppThunk =>
   async dispatch => {
-    const response = await profileAPI.getStatus(userId);
+    const res = await profileAPI.getStatus(userId);
 
-    dispatch(setProfileStatus(response.data));
+    dispatch(setProfileStatus(res));
   };
 
 export const isFollow =
@@ -39,9 +39,9 @@ export const isFollow =
       const authId = getState().auth.id;
 
       if (authId !== id) {
-        const response = await usersAPI.isFollow(id);
+        const res = await usersAPI.isFollow(id);
 
-        dispatch(setFriendship(response));
+        dispatch(setFriendship(res));
       }
     } catch (e: any) {
       dispatch(setAppErrorMessage(e.message));
@@ -63,9 +63,9 @@ export const loadProfilePage =
 export const updateProfileStatus =
   (status: string): AppThunk =>
   async dispatch => {
-    const response = await profileAPI.updateStatus(status);
+    const res = await profileAPI.updateStatus(status);
 
-    if (response.data.resultCode === resultCode.SUCCESS) {
+    if (res.resultCode === resultCode.SUCCESS) {
       dispatch(setProfileStatus(status));
     }
   };
@@ -106,10 +106,10 @@ export const uploadUserPhoto =
     try {
       const res = await profileAPI.uploadPhoto(userPhoto);
 
-      if (res.data.resultCode === resultCode.SUCCESS) {
-        dispatch(uploadUserPhotoSuccess(res.data.data.photos));
-      } else if (res.data.messages.length) {
-        dispatch(setAppErrorMessage(res.data.messages[FIRST_ELEMENT]));
+      if (res.resultCode === resultCode.SUCCESS) {
+        dispatch(uploadUserPhotoSuccess(res.data.photos));
+      } else if (res.messages.length) {
+        dispatch(setAppErrorMessage(res.messages[FIRST_ELEMENT]));
       } else {
         dispatch(setAppErrorMessage('Some error occurred'));
       }
@@ -128,10 +128,10 @@ export const updateProfile =
         const updatedProfile = { ...profileData, userId: id };
         const res = await profileAPI.updateProfile(updatedProfile);
 
-        if (res.data.resultCode === resultCode.SUCCESS) {
+        if (res.resultCode === resultCode.SUCCESS) {
           dispatch(updateProfileSuccess(profileData));
-        } else if (res.data.messages.length) {
-          dispatch(setAppErrorMessage(res.data.messages[FIRST_ELEMENT]));
+        } else if (res.messages.length) {
+          dispatch(setAppErrorMessage(res.messages[FIRST_ELEMENT]));
         } else {
           dispatch(setAppErrorMessage('Some error occurred'));
         }

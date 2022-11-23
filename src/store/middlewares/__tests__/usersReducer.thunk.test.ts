@@ -8,7 +8,7 @@ import {
   toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
-} from '../../reducers/usersReducer';
+} from '../../actions/usersActions';
 import { follow, getUsers, unfollow } from '../users/thunks';
 
 /* eslint-disable */

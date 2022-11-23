@@ -7,6 +7,7 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { MessagesActionsType, messagesReducer } from './messagesReducer';
 import { authWatcher } from './middlewares/auth/sagas';
 import { dialogsWatcher } from './middlewares/dialogs/sagas';
+import { profileWatcher } from './middlewares/profile/sagas';
 import { UsersSagasType, usersWatcher } from './middlewares/users/sagas';
 import { appReducer, InitActionsType } from './reducers/appReducer';
 import { AuthActionsType, authReducer } from './reducers/authReducer';
@@ -39,6 +40,7 @@ export const store = legacy_createStore(
 
 function* RootSaga() {
   yield spawn(authWatcher);
+  yield spawn(profileWatcher);
   yield spawn(usersWatcher);
   yield spawn(dialogsWatcher);
 }

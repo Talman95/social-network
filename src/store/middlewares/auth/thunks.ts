@@ -22,7 +22,7 @@ export const getAuthUserData = (): AppThunk => async dispatch => {
       dispatch(setUserData(id, email, login, true));
       const res = await profileAPI.getProfile(id);
 
-      dispatch(setCurrentUser(res.data));
+      dispatch(setCurrentUser(res));
     }
   } catch (error: any) {
     dispatch(setAppErrorMessage(error.message));

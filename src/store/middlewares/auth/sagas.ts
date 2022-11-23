@@ -18,12 +18,11 @@ import {
 const GET_AUTH_USER_DATA = 'index/GET_AUTH_USER_DATA';
 const LOGIN = 'index/LOGIN';
 const LOGOUT = 'index/LOGOUT';
-// const GET_CAPTCHA_URL = 'index/GET_CAPTCHA_URL';
 
-export function* setProfile(id: number) {
-  const res: AxiosResponse<ProfileType> = yield call(profileAPI.getProfile, id);
+export function* getAuthUserWorker(id: number) {
+  const res: ProfileType = yield call(profileAPI.getProfile, id);
 
-  yield put(setCurrentUser(res.data));
+  yield put(setCurrentUser(res));
 }
 
 export function* authorizeWorker() {
@@ -35,7 +34,7 @@ export function* authorizeWorker() {
 
       yield put(setUserData(id, email, login, true));
 
-      yield call(setProfile, id);
+      yield call(getAuthUserWorker, id);
     }
     yield put(initializedSuccess());
   } catch (e: any) {
