@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { usersAPI } from '../../../api/users';
 import { GetUsersResponseType } from '../../../api/users/types';
@@ -6,6 +6,7 @@ import { resultCode } from '../../../enums/resultCode';
 import { ResponseType } from '../../../types/ResponseType';
 import { FriendTypeConverter } from '../../../utils/utils';
 import { setAppErrorMessage } from '../../actions/appActions';
+import { setFriendship } from '../../actions/profileActions';
 import {
   followSuccess,
   setFriends,
@@ -13,22 +14,12 @@ import {
   setTotalMembers,
   setUsers,
   toggleIsFetching,
-  togglePressingInProgress,
   unfollowSuccess,
 } from '../../actions/usersActions';
 import { RootState } from '../../store';
 
-const GET_USERS = 'USERS/GET_USERS';
-const FOLLOW = 'USERS/FOLLOW';
-const UNFOLLOW = 'USERS/UNFOLLOW';
-const GET_FRIENDS = 'USERS/GET_FRIENDS';
-
-const firstElement = 0;
-
-export const getUsers = () => ({ type: GET_USERS });
-export const follow = (userId: number) => ({ type: FOLLOW, userId });
-export const unfollow = (userId: number) => ({ type: UNFOLLOW, userId });
-export const getFriends = () => ({ type: GET_FRIENDS });
+import { followUser, getFriends, getUsers, unfollowUser } from './actions';
+import { sagaType } from './sagaType';
 
 export function* getUsersWorker() {
   yield put(toggleIsFetching(true));
@@ -49,44 +40,6 @@ export function* getUsersWorker() {
   yield put(toggleIsFetching(false));
 }
 
-export function* followWorker(action: FollowActionType) {
-  yield put(togglePressingInProgress(true, action.userId));
-  try {
-    const response: ResponseType<{}> = yield call(usersAPI.follow, action.userId);
-
-    if (response.resultCode === resultCode.SUCCESS) {
-      yield put(followSuccess(action.userId));
-      yield put(getFriends());
-    } else if (response.messages.length) {
-      yield put(setAppErrorMessage(response.messages[firstElement]));
-    } else {
-      yield put(setAppErrorMessage('Some error occurred'));
-    }
-  } catch (error: any) {
-    yield put(setAppErrorMessage(error.message));
-  }
-  yield put(togglePressingInProgress(false, action.userId));
-}
-
-export function* unfollowWorker(action: UnfollowActionType) {
-  yield put(togglePressingInProgress(true, action.userId));
-  try {
-    const response: ResponseType<{}> = yield call(usersAPI.unfollow, action.userId);
-
-    if (response.resultCode === resultCode.SUCCESS) {
-      yield put(unfollowSuccess(action.userId));
-      yield put(getFriends());
-    } else if (response.messages.length) {
-      yield put(setAppErrorMessage(response.messages[firstElement]));
-    } else {
-      yield put(setAppErrorMessage('Some error occurred'));
-    }
-  } catch (error: any) {
-    yield put(setAppErrorMessage(error.message));
-  }
-  yield put(togglePressingInProgress(false, action.userId));
-}
-
 export function* getFriendsWorker() {
   const isAuth: boolean = yield select((state: RootState) => state.auth.isAuth);
 
@@ -100,18 +53,61 @@ export function* getFriendsWorker() {
   }
 }
 
-export function* usersWatcher() {
-  yield takeEvery(GET_USERS, getUsersWorker);
-  yield takeEvery(FOLLOW, followWorker);
-  yield takeEvery(UNFOLLOW, unfollowWorker);
-  yield takeEvery(GET_FRIENDS, getFriendsWorker);
+function* followHelper(userId: number, page: string) {
+  if (page === 'profile') {
+    yield put(setFriendship(true));
+  } else {
+    yield put(followSuccess(userId));
+  }
+  yield put(getFriends());
 }
 
-type FollowActionType = ReturnType<typeof follow>;
-type UnfollowActionType = ReturnType<typeof unfollow>;
+function* followUserWorker(action: FollowUserActionType) {
+  const res: ResponseType<{}> = yield call(usersAPI.follow, action.payload.userId);
+
+  if (res.resultCode === resultCode.SUCCESS) {
+    yield call(followHelper, action.payload.userId, action.payload.page);
+  } else if (res.messages.length) {
+    const firstElement = 0;
+    yield put(setAppErrorMessage(res.messages[firstElement]));
+  } else {
+    yield put(setAppErrorMessage('Some error occurred'));
+  }
+}
+
+function* unfollowHelper(userId: number, page: string) {
+  if (page === 'profile') {
+    yield put(setFriendship(false));
+  } else {
+    yield put(unfollowSuccess(userId));
+  }
+  yield put(getFriends());
+}
+
+function* unfollowUserWorker(action: UnfollowUserActionType) {
+  try {
+    const res: ResponseType<{}> = yield call(usersAPI.unfollow, action.payload.userId);
+
+    if (res.resultCode === resultCode.SUCCESS) {
+      yield call(unfollowHelper, action.payload.userId, action.payload.page);
+    }
+  } catch (e: any) {
+    yield put(setAppErrorMessage(e.message));
+  }
+}
+
+export function* usersWatcher() {
+  yield takeEvery(sagaType.GET_USERS, getUsersWorker);
+  yield takeEvery(sagaType.GET_FRIENDS, getFriendsWorker);
+  yield takeLatest(sagaType.FOLLOW_USER, followUserWorker);
+  yield takeLatest(sagaType.UNFOLLOW_USER, unfollowUserWorker);
+}
+
+type FollowUserActionType = ReturnType<typeof followUser>;
+type UnfollowUserActionType = ReturnType<typeof unfollowUser>;
 
 export type UsersSagasType =
   | ReturnType<typeof getUsers>
   | ReturnType<typeof getFriends>
-  | FollowActionType
-  | UnfollowActionType;
+  | FollowUserActionType
+  | UnfollowUserActionType;

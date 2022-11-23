@@ -4,7 +4,6 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { authAPI } from '../../../api/auth';
 import { AuthMeDataType } from '../../../api/auth/types';
 import { profileAPI } from '../../../api/profile';
-import { formValuesModel } from '../../../components/Login/Login';
 import { resultCode } from '../../../enums/resultCode';
 import { ProfileType } from '../../../types/ProfileType';
 import { ResponseType } from '../../../types/ResponseType';
@@ -15,9 +14,8 @@ import {
   setUserData,
 } from '../../actions/authActions';
 
-const GET_AUTH_USER_DATA = 'index/GET_AUTH_USER_DATA';
-const LOGIN = 'index/LOGIN';
-const LOGOUT = 'index/LOGOUT';
+import { authorize, loginUser, logoutUser } from './actions';
+import { sagaType } from './sagaType';
 
 export function* getAuthUserWorker(id: number) {
   const res: ProfileType = yield call(profileAPI.getProfile, id);
@@ -88,19 +86,14 @@ function* logoutWorker() {
 }
 
 export function* authWatcher() {
-  yield takeEvery(GET_AUTH_USER_DATA, authorizeWorker);
-  yield takeEvery(LOGIN, loginWorker);
-  yield takeEvery(LOGOUT, logoutWorker);
+  yield takeEvery(sagaType.GET_AUTH_USER_DATA, authorizeWorker);
+  yield takeEvery(sagaType.LOGIN, loginWorker);
+  yield takeEvery(sagaType.LOGOUT, logoutWorker);
 }
 
-export const authorize = () => ({ type: GET_AUTH_USER_DATA });
-export const login = ({ email, password, rememberMe, captcha }: formValuesModel) => ({
-  type: LOGIN,
-  email,
-  password,
-  rememberMe,
-  captcha,
-});
-export const logout = () => ({ type: LOGOUT });
+export type AuthSagasType =
+  | LoginActionType
+  | ReturnType<typeof authorize>
+  | ReturnType<typeof logoutUser>;
 
-type LoginActionType = ReturnType<typeof login>;
+type LoginActionType = ReturnType<typeof loginUser>;

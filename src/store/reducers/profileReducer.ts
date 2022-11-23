@@ -10,7 +10,7 @@ import {
   updateProfileSuccess,
   uploadUserPhotoSuccess,
 } from '../actions/profileActions';
-import { ActionsType } from '../actions/types/profileTypes';
+import { profileActionType } from '../actions/types/profileTypes';
 
 const initialState = {
   profile: null as ProfileType | null,
@@ -81,7 +81,7 @@ export const profileReducer = (
   action: ProfileActionsType,
 ): ProfileStateType => {
   switch (action.type) {
-    case ActionsType.ADD_POST: {
+    case profileActionType.ADD_POST: {
       const newPost = {
         id: new Date().getTime(),
         message: state.postMessage,
@@ -90,26 +90,29 @@ export const profileReducer = (
 
       return { ...state, posts: [newPost, ...state.posts] };
     }
-    case ActionsType.UPDATE_POST_MESSAGE: {
-      return { ...state, postMessage: action.newMessage };
+    case profileActionType.UPDATE_POST_MESSAGE: {
+      return { ...state, postMessage: action.payload.newMessage };
     }
-    case ActionsType.DELETE_POST: {
-      return { ...state, posts: [...state.posts.filter(p => p.id !== action.postId)] };
+    case profileActionType.DELETE_POST: {
+      return {
+        ...state,
+        posts: [...state.posts.filter(p => p.id !== action.payload.postId)],
+      };
     }
-    case ActionsType.SET_USER_PROFILE:
-    case ActionsType.SET_PROFILE_STATUS:
-    case ActionsType.SET_FRIENDSHIP:
-    case ActionsType.SET_PROFILE_LOAD:
+    case profileActionType.SET_USER_PROFILE:
+    case profileActionType.SET_PROFILE_STATUS:
+    case profileActionType.SET_FRIENDSHIP:
+    case profileActionType.SET_PROFILE_LOAD:
       return {
         ...state,
         ...action.payload,
       };
-    case ActionsType.UPLOAD_USER_PHOTO_SUCCESS:
+    case profileActionType.UPLOAD_USER_PHOTO_SUCCESS:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos } as ProfileType,
+        profile: { ...state.profile, photos: action.payload.photos } as ProfileType,
       };
-    case ActionsType.UPDATE_PROFILE_SUCCESS:
+    case profileActionType.UPDATE_PROFILE_SUCCESS:
       return {
         ...state,
         profile: state.profile

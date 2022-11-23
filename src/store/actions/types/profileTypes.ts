@@ -1,4 +1,4 @@
-export enum ActionsType {
+export enum profileActionType {
   UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',
   ADD_POST = 'profile/ADD_POST',
   DELETE_POST = 'profile/DELETE_POST',

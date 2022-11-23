@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { login } from '../../store/middlewares/auth/sagas';
+import { loginUser } from '../../store/middlewares/auth/actions';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 import { Preloader } from '../common/Preloader/Preloader';
 
@@ -39,7 +39,7 @@ export const Login = (): ReturnComponentType => {
     values: formValuesModel,
     { resetForm }: FormikHelpers<formValuesModel>,
   ) => {
-    await dispatch(login(values));
+    await dispatch(loginUser(values));
     resetForm({});
   };
 

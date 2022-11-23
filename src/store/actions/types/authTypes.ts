@@ -1,3 +1,5 @@
-export const SET_USER_DATA = 'index/SET_USER_DATA';
-export const SET_CURRENT_USER = 'index/SET_CURRENT_USER';
-export const GET_CAPTCHA_URL_SUCCESS = 'index/GET_CAPTCHA_URL_SUCCESS';
+export enum authActionType {
+  SET_USER_DATA = 'auth/SET_USER_DATA',
+  SET_CURRENT_USER = 'auth/SET_CURRENT_USER',
+  GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS',
+}

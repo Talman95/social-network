@@ -1,19 +1,19 @@
-import { AxiosResponse } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { dialogsAPI } from '../../../api/dialogs';
 import { DialogsType } from '../../../types/DialogType';
 import { setDialogs } from '../../actions/dialogsActions';
 
-const GET_DIALOGS = 'GET_DIALOGS';
+import { fetchDialogs } from './actions';
+import { sagaType } from './sagaType';
 
 export function* fetchDialogsWorker() {
-  const res: AxiosResponse<DialogsType[]> = yield call(dialogsAPI.getAllDialogs);
-  yield put(setDialogs(res.data));
+  const res: DialogsType[] = yield call(dialogsAPI.getAllDialogs);
+  yield put(setDialogs(res));
 }
 
 export function* dialogsWatcher() {
-  yield takeEvery(GET_DIALOGS, fetchDialogsWorker);
+  yield takeEvery(sagaType.FETCH_DIALOGS, fetchDialogsWorker);
 }
 
-export const fetchDialogs = () => ({ type: GET_DIALOGS });
+export type DialogsSagasType = ReturnType<typeof fetchDialogs>;

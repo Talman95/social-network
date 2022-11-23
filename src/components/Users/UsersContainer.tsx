@@ -3,7 +3,11 @@ import React, { ChangeEvent, MouseEvent, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { setCurrentPage } from '../../store/actions/usersActions';
-import { follow, getUsers, unfollow } from '../../store/middlewares/users/sagas';
+import {
+  followUser,
+  getUsers,
+  unfollowUser,
+} from '../../store/middlewares/users/actions';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 
 import { Users } from './Users';
@@ -29,11 +33,11 @@ export const UsersContainer = (): ReturnComponentType => {
   };
   const followHandler = (e: MouseEvent<HTMLButtonElement>, userID: number): void => {
     e.preventDefault();
-    dispatch(follow(userID));
+    dispatch(followUser(userID, 'users'));
   };
   const unfollowHandler = (e: MouseEvent<HTMLButtonElement>, userID: number): void => {
     e.preventDefault();
-    dispatch(unfollow(userID));
+    dispatch(unfollowUser(userID, 'users'));
   };
 
   return (

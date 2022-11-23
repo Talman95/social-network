@@ -1,41 +1,44 @@
 import { UserType } from '../../types/UserType';
 import { UsersFilterType } from '../reducers/usersReducer';
 
-import { ACTIONS_TYPE } from './types/usersTypes';
+import { usersActionType } from './types/usersTypes';
 
-export const followSuccess = (userID: number) =>
+export const followSuccess = (userId: number) =>
   ({
-    type: ACTIONS_TYPE.FOLLOW_SUCCESS,
-    userID,
+    type: usersActionType.FOLLOW_SUCCESS,
+    payload: { userId },
   } as const);
 
-export const unfollowSuccess = (userID: number) =>
+export const unfollowSuccess = (userId: number) =>
   ({
-    type: ACTIONS_TYPE.UNFOLLOW_SUCCESS,
-    userID,
+    type: usersActionType.UNFOLLOW_SUCCESS,
+    payload: { userId },
   } as const);
 
 export const setUsers = (users: Array<UserType>) =>
   ({
-    type: ACTIONS_TYPE.SET_USERS,
+    type: usersActionType.SET_USERS,
     payload: { users },
   } as const);
 
 export const setCurrentPage = (currentPage: number) =>
-  ({ type: ACTIONS_TYPE.SET_CURRENT_PAGE, payload: { currentPage } } as const);
+  ({ type: usersActionType.SET_CURRENT_PAGE, payload: { currentPage } } as const);
 
 export const setTotalMembers = (totalCount: number) =>
-  ({ type: ACTIONS_TYPE.SET_TOTAL_MEMBERS, payload: { totalCount } } as const);
+  ({ type: usersActionType.SET_TOTAL_MEMBERS, payload: { totalCount } } as const);
 
 export const toggleIsFetching = (isFetching: boolean) =>
-  ({ type: ACTIONS_TYPE.TOGGLE_IS_FETCHING, payload: { isFetching } } as const);
+  ({ type: usersActionType.TOGGLE_IS_FETCHING, payload: { isFetching } } as const);
 
 export const togglePressingInProgress = (isPressed: boolean, userId: number) =>
-  ({ type: ACTIONS_TYPE.TOGGLE_PRESSING_IN_PROGRESS, isPressed, userId } as const);
+  ({
+    type: usersActionType.TOGGLE_PRESSING_IN_PROGRESS,
+    payload: { isPressed, userId },
+  } as const);
 
 export const setUsersFilter = (filter: UsersFilterType) =>
   ({
-    type: ACTIONS_TYPE.SET_USERS_FILTER,
+    type: usersActionType.SET_USERS_FILTER,
     payload: {
       filter: { searchName: filter.searchName, userFriends: filter.userFriends },
       currentPage: 1,
@@ -43,7 +46,7 @@ export const setUsersFilter = (filter: UsersFilterType) =>
   } as const);
 
 export const setFriends = (followings: Array<UserType>) =>
-  ({ type: ACTIONS_TYPE.SET_FOLLOWINGS, payload: { followings } } as const);
+  ({ type: usersActionType.SET_FOLLOWINGS, payload: { followings } } as const);
 
 export const setFriendsCount = (followingsCount: number) =>
-  ({ type: ACTIONS_TYPE.SET_FOLLOWINGS_COUNT, payload: { followingsCount } } as const);
+  ({ type: usersActionType.SET_FOLLOWINGS_COUNT, payload: { followingsCount } } as const);

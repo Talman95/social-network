@@ -1,7 +1,5 @@
 import { initializedSuccess, setAppErrorMessage } from '../actions/appActions';
-import { SET_ERROR_MESSAGE, SET_INITIALIZED } from '../actions/types/actionTypes';
-import { getAuthUserData } from '../middlewares/auth/thunks';
-import { AppThunk } from '../store';
+import { appActionType } from '../actions/types/actionTypes';
 
 const initialState = {
   isInitialized: false,
@@ -18,17 +16,11 @@ export const appReducer = (
   action: InitActionsType,
 ): InitStateType => {
   switch (action.type) {
-    case SET_INITIALIZED:
+    case appActionType.SET_INITIALIZED:
       return { ...state, isInitialized: true };
-    case SET_ERROR_MESSAGE:
-      return { ...state, errorMessage: action.errorMessage };
+    case appActionType.SET_ERROR_MESSAGE:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
-};
-
-// thunks
-export const initializeApp = (): AppThunk => async dispatch => {
-  await dispatch(getAuthUserData());
-  dispatch(initializedSuccess());
 };

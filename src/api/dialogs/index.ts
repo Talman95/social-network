@@ -2,8 +2,9 @@ import { DialogsType } from '../../types/DialogType';
 import { instance } from '../config';
 
 export const dialogsAPI = {
-  getAllDialogs() {
-    return instance.get<DialogsType[]>('/dialogs');
+  getAllDialogs: async () => {
+    const res = await instance.get<DialogsType[]>('/dialogs');
+    return res.data;
   },
 
   startDialogWithUser(userId: number) {

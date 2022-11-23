@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Box, List, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchDialogs } from '../../store/middlewares/dialogs/sagas';
+import { fetchDialogs } from '../../store/middlewares/dialogs/actions';
 import { selectDialogs } from '../../store/selectors/dialogsSelectors';
 
 import { DialogItem } from './DialogItem/DialogItem';

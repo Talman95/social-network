@@ -1,5 +1,5 @@
 import { UserType } from '../../types/UserType';
-import { ACTIONS_TYPE } from '../actions/types/usersTypes';
+import { usersActionType } from '../actions/types/usersTypes';
 import {
   followSuccess,
   setCurrentPage,
@@ -51,37 +51,37 @@ export const usersReducer = (
   action: UsersActionsType,
 ): UsersStateType => {
   switch (action.type) {
-    case ACTIONS_TYPE.FOLLOW_SUCCESS:
+    case usersActionType.FOLLOW_SUCCESS:
       return {
         ...state,
         users: state.users.map(u =>
-          u.id === action.userID ? { ...u, followed: true } : u,
+          u.id === action.payload.userId ? { ...u, followed: true } : u,
         ),
       };
-    case ACTIONS_TYPE.UNFOLLOW_SUCCESS:
+    case usersActionType.UNFOLLOW_SUCCESS:
       return {
         ...state,
         users: state.users.map(u =>
-          u.id === action.userID ? { ...u, followed: false } : u,
+          u.id === action.payload.userId ? { ...u, followed: false } : u,
         ),
       };
-    case ACTIONS_TYPE.SET_USERS:
-    case ACTIONS_TYPE.SET_CURRENT_PAGE:
-    case ACTIONS_TYPE.SET_TOTAL_MEMBERS:
-    case ACTIONS_TYPE.TOGGLE_IS_FETCHING:
-    case ACTIONS_TYPE.SET_USERS_FILTER:
-    case ACTIONS_TYPE.SET_FOLLOWINGS:
-    case ACTIONS_TYPE.SET_FOLLOWINGS_COUNT:
+    case usersActionType.SET_USERS:
+    case usersActionType.SET_CURRENT_PAGE:
+    case usersActionType.SET_TOTAL_MEMBERS:
+    case usersActionType.TOGGLE_IS_FETCHING:
+    case usersActionType.SET_USERS_FILTER:
+    case usersActionType.SET_FOLLOWINGS:
+    case usersActionType.SET_FOLLOWINGS_COUNT:
       return {
         ...state,
         ...action.payload,
       };
-    case ACTIONS_TYPE.TOGGLE_PRESSING_IN_PROGRESS:
+    case usersActionType.TOGGLE_PRESSING_IN_PROGRESS:
       return {
         ...state,
-        pressingInProgress: action.isPressed
-          ? [...state.pressingInProgress, action.userId]
-          : state.pressingInProgress.filter(id => id !== action.userId),
+        pressingInProgress: action.payload.isPressed
+          ? [...state.pressingInProgress, action.payload.userId]
+          : state.pressingInProgress.filter(id => id !== action.payload.userId),
       };
     default:
       return state;

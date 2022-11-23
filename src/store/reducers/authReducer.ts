@@ -4,12 +4,8 @@ import {
   setCurrentUser,
   setUserData,
 } from '../actions/authActions';
-import {
-  GET_CAPTCHA_URL_SUCCESS,
-  SET_CURRENT_USER,
-  SET_USER_DATA,
-} from '../actions/types/authTypes';
-import { ActionsType } from '../actions/types/profileTypes';
+import { authActionType } from '../actions/types/authTypes';
+import { profileActionType } from '../actions/types/profileTypes';
 
 import { UpdateProfileSuccessType, UploadUserPhotoSuccessType } from './profileReducer';
 
@@ -35,22 +31,22 @@ export const authReducer = (
   action: AuthActionsType,
 ): AuthStateType => {
   switch (action.type) {
-    case SET_USER_DATA:
+    case authActionType.SET_USER_DATA:
+    case authActionType.SET_CURRENT_USER:
+    case authActionType.GET_CAPTCHA_URL_SUCCESS:
       return {
         ...state,
         ...action.payload,
       };
-    case SET_CURRENT_USER:
+    case profileActionType.UPLOAD_USER_PHOTO_SUCCESS:
       return {
         ...state,
-        currentUser: action.currentUser,
+        currentUser: {
+          ...state.currentUser,
+          photos: action.payload.photos,
+        } as ProfileType,
       };
-    case ActionsType.UPLOAD_USER_PHOTO_SUCCESS:
-      return {
-        ...state,
-        currentUser: { ...state.currentUser, photos: action.photos } as ProfileType,
-      };
-    case ActionsType.UPDATE_PROFILE_SUCCESS:
+    case profileActionType.UPDATE_PROFILE_SUCCESS:
       return {
         ...state,
         currentUser: {
@@ -58,8 +54,6 @@ export const authReducer = (
           ...action.payload.updatedProfile,
         } as ProfileType,
       };
-    case GET_CAPTCHA_URL_SUCCESS:
-      return { ...state, captchaUrl: action.url };
     default:
       return state;
   }

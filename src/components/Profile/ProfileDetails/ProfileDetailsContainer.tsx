@@ -2,11 +2,8 @@ import React, { ChangeEvent, FC } from 'react';
 
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import {
-  followUser,
-  unfollowUser,
-  uploadUserPhoto,
-} from '../../../store/middlewares/profile/actions';
+import { uploadUserPhoto } from '../../../store/middlewares/profile/actions';
+import { followUser, unfollowUser } from '../../../store/middlewares/users/actions';
 
 import { ProfileDetails } from './ProfileDetails';
 

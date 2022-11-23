@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { logout } from '../../store/middlewares/auth/sagas';
+import { logoutUser } from '../../store/middlewares/auth/actions';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 
 import { Header } from './Header';
@@ -22,7 +22,7 @@ export const HeaderContainer = (): ReturnComponentType => {
   const navigateToMessages = () => navigate('/messages');
 
   const logoutHandler = useCallback(() => {
-    dispatch(logout());
+    dispatch(logoutUser());
   }, []);
 
   return (

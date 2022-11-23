@@ -1,9 +1,10 @@
-import { SET_ERROR_MESSAGE, SET_INITIALIZED } from './types/actionTypes';
+import { appActionType } from './types/actionTypes';
 
-export const initializedSuccess = () => ({ type: SET_INITIALIZED } as const);
+export const initializedSuccess = () =>
+  ({ type: appActionType.SET_INITIALIZED } as const);
 
 export const setAppErrorMessage = (errorMessage: null | string) =>
   ({
-    type: SET_ERROR_MESSAGE,
-    errorMessage,
+    type: appActionType.SET_ERROR_MESSAGE,
+    payload: { errorMessage },
   } as const);
