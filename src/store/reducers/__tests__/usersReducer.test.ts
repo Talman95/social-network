@@ -6,9 +6,8 @@ import {
   toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
-  usersReducer,
-  UsersStateType,
-} from '../usersReducer';
+} from '../../actions/usersActions';
+import { usersReducer, UsersStateType } from '../usersReducer';
 
 let startState: UsersStateType = {
   users: [],
@@ -65,22 +64,27 @@ beforeEach(() => {
   };
 });
 
-/* eslint-disable */
-
 test('user should be followed success', () => {
   const userId = 2;
+  const secondElement = 1;
+
   const endState = usersReducer(startState, followSuccess(userId));
 
-  expect(endState.users[1].followed).toBe(true);
+  expect(endState.users[secondElement].followed).toBe(true);
 });
 
 test('user should ne unfollowed success', () => {
-  const endState = usersReducer(startState, unfollowSuccess(1));
+  const userId = 1;
+  const firstElement = 0;
 
-  expect(endState.users[0].followed).toBe(false);
+  const endState = usersReducer(startState, unfollowSuccess(userId));
+
+  expect(endState.users[firstElement].followed).toBe(false);
 });
 
 test('users should be set in state', () => {
+  const expectUsersLength = 3;
+
   const users = [
     {
       name: 'Victor',
@@ -117,7 +121,6 @@ test('users should be set in state', () => {
     },
   ];
   const endState = usersReducer(startState, setUsers(users));
-  const expectUsersLength = 3;
 
   expect(endState.users.length).toBe(expectUsersLength);
   expect(endState.users).toEqual(users);
@@ -125,18 +128,18 @@ test('users should be set in state', () => {
 
 test('new page should be set', () => {
   const page = 2;
+
   const endState = usersReducer(startState, setCurrentPage(page));
 
-  const number = 2;
-
-  expect(endState.currentPage).toBe(number);
+  expect(endState.currentPage).toBe(page);
 });
 
 test('should be set total users in state', () => {
-  const number = 777;
-  const endState = usersReducer(startState, setTotalMembers(number));
+  const totalCount = 777;
 
-  expect(endState.totalCount).toBe(number);
+  const endState = usersReducer(startState, setTotalMembers(totalCount));
+
+  expect(endState.totalCount).toBe(totalCount);
 });
 
 test('fetching should be toggle', () => {
@@ -146,13 +149,17 @@ test('fetching should be toggle', () => {
 });
 
 test('users should be in array while they are waiting and after deleted', () => {
-  const number = 2;
-  const endState = usersReducer(startState, togglePressingInProgress(true, number));
+  const count = 2;
+  const startCountLength = 1;
+  const firstElement = 0;
+  const finishCountLength = 0;
 
-  expect(endState.pressingInProgress.length).toBe(1);
-  expect(endState.pressingInProgress[0]).toBe(number);
+  const endState = usersReducer(startState, togglePressingInProgress(true, count));
 
-  const endState2 = usersReducer(startState, togglePressingInProgress(false, number));
+  expect(endState.pressingInProgress.length).toBe(startCountLength);
+  expect(endState.pressingInProgress[firstElement]).toBe(count);
 
-  expect(endState2.pressingInProgress.length).toBe(0);
+  const endState2 = usersReducer(startState, togglePressingInProgress(false, count));
+
+  expect(endState2.pressingInProgress.length).toBe(finishCountLength);
 });

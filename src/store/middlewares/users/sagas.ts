@@ -4,7 +4,7 @@ import { usersAPI } from '../../../api/users';
 import { GetUsersResponseType } from '../../../api/users/types';
 import { resultCode } from '../../../enums/resultCode';
 import { ResponseType } from '../../../types/ResponseType';
-import { FriendTypeConverter } from '../../../utils/utils';
+import { convertParam } from '../../../utils/convertParam';
 import { setAppErrorMessage } from '../../actions/appActions';
 import { setFriendship } from '../../actions/profileActions';
 import {
@@ -25,7 +25,8 @@ export function* getUsersWorker() {
   yield put(toggleIsFetching(true));
   const { currentPage, pageSize, filter } = yield select(state => state.users);
 
-  const friend = FriendTypeConverter.toBoolean(filter.userFriends);
+  const friend = convertParam.toBoolean(filter.userFriends);
+
   const params = {
     currentPage,
     pageSize,
@@ -97,7 +98,7 @@ function* unfollowUserWorker(action: UnfollowUserActionType) {
 }
 
 export function* usersWatcher() {
-  yield takeEvery(sagaType.GET_USERS, getUsersWorker);
+  yield takeLatest(sagaType.GET_USERS, getUsersWorker);
   yield takeEvery(sagaType.GET_FRIENDS, getFriendsWorker);
   yield takeLatest(sagaType.FOLLOW_USER, followUserWorker);
   yield takeLatest(sagaType.UNFOLLOW_USER, unfollowUserWorker);

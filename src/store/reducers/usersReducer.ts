@@ -1,3 +1,4 @@
+import { UsersFilterType } from '../../types/UsersFilterType';
 import { UserType } from '../../types/UserType';
 import { usersActionType } from '../actions/types/usersTypes';
 import {
@@ -29,11 +30,6 @@ export const initialState = {
 };
 
 export type UsersStateType = typeof initialState;
-export type UsersFilterType = {
-  searchName: string;
-  userFriends: FriendUiType;
-};
-export type FriendUiType = 'all' | 'follow' | 'unfollow';
 export type UsersActionsType =
   | ReturnType<typeof followSuccess>
   | ReturnType<typeof unfollowSuccess>

@@ -1,6 +1,6 @@
 import { usersAPI } from '../../../api/users';
 import { resultCode } from '../../../enums/resultCode';
-import { FriendTypeConverter } from '../../../utils/utils';
+import { convertParam } from '../../../utils/convertParam';
 import { setAppErrorMessage } from '../../actions/appActions';
 import {
   followSuccess,
@@ -22,7 +22,7 @@ export const getUsers = (): AppThunk => async (dispatch, getState) => {
   const { currentPage, pageSize } = getState().users;
   const { userFriends, searchName } = getState().users.filter;
 
-  const friend = FriendTypeConverter.toBoolean(userFriends);
+  const friend = convertParam.toBoolean(userFriends);
 
   const res = await usersAPI.getUsers({
     currentPage,

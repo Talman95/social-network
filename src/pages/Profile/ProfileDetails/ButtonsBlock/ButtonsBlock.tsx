@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useSelector } from 'react-redux';
 
+import { followUnfollowFrom } from '../../../../enums/followUnfollowFrom';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { followUser, unfollowUser } from '../../../../store/middlewares/users/actions';
 import { selectIsFriend } from '../../../../store/selectors/profileSelectors';
@@ -21,13 +22,17 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
 
   const onFollowClick = () => {
     if (userId) {
-      dispatch(followUser(+userId, 'profile'));
+      const id = Number(userId);
+
+      dispatch(followUser(id, followUnfollowFrom.profile));
     }
   };
 
   const onUnfollowClick = () => {
     if (userId) {
-      dispatch(unfollowUser(+userId, 'profile'));
+      const id = Number(userId);
+
+      dispatch(unfollowUser(id, followUnfollowFrom.profile));
     }
   };
 

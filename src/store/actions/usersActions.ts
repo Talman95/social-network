@@ -1,5 +1,5 @@
+import { UsersFilterType } from '../../types/UsersFilterType';
 import { UserType } from '../../types/UserType';
-import { UsersFilterType } from '../reducers/usersReducer';
 
 import { usersActionType } from './types/usersTypes';
 

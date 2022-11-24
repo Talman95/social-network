@@ -8,41 +8,41 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { setUsersFilter } from '../../../store/actions/usersActions';
-import { FriendUiType } from '../../../store/reducers/usersReducer';
+import { selectIsFetching } from '../../../store/selectors/usersSelectors';
+import { FriendUiType } from '../../../types/FriendUiType';
 
 type PropsType = {
   searchName: string;
   userFriends: FriendUiType;
-  isFetching: boolean;
 };
 
-export const UsersSearchBox: FC<PropsType> = ({
-  searchName,
-  userFriends,
-  isFetching,
-}) => {
+export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
   const dispatch = useAppDispatch();
+
+  const isFetching = useSelector(selectIsFetching);
 
   const [searchTerm, setSearchTerm] = useState(searchName);
   const [friends, setFriends] = useState(userFriends);
 
   useEffect(() => {
     setSearchTerm(searchName);
+
     setFriends(userFriends);
   }, [searchName, userFriends]);
 
-  const handleSetSearchTerm = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
+  const onSearchTermChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSearchTerm(e.currentTarget.value);
   };
-  const handleSearchClick = () => {
+
+  const onSearchNameChange = () => {
     dispatch(setUsersFilter({ searchName: searchTerm, userFriends: friends }));
   };
-  const handleSelectFilter = (e: SelectChangeEvent) => {
+
+  const onFriendsFilterChange = (e: SelectChangeEvent) => {
     const resultFriend = e.target.value as FriendUiType;
 
     setFriends(resultFriend);
@@ -56,13 +56,14 @@ export const UsersSearchBox: FC<PropsType> = ({
         label="Search"
         variant="outlined"
         value={searchTerm}
-        onChange={handleSetSearchTerm}
+        onChange={onSearchTermChange}
         disabled={isFetching}
       />
+
       <Select
         labelId="select-label"
         id="simple-select"
-        onChange={handleSelectFilter}
+        onChange={onFriendsFilterChange}
         style={{ width: 163 }}
         value={friends}
         disabled={isFetching}
@@ -71,7 +72,8 @@ export const UsersSearchBox: FC<PropsType> = ({
         <MenuItem value="follow">Only followed</MenuItem>
         <MenuItem value="unfollow">Only unfollowed</MenuItem>
       </Select>
-      <Button variant="contained" onClick={handleSearchClick} disabled={isFetching}>
+
+      <Button variant="contained" onClick={onSearchNameChange} disabled={isFetching}>
         Search
       </Button>
     </Stack>
