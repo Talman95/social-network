@@ -4,7 +4,7 @@ import { resultCode } from '../../../enums/resultCode';
 import { setAppErrorMessage } from '../../actions/appActions';
 import {
   setFriendship,
-  setProfileLoad,
+  setIsFetching,
   setProfileStatus,
   setUserProfile,
   updateProfileSuccess,
@@ -51,13 +51,13 @@ export const isFollow =
 export const loadProfilePage =
   (userId: number): AppThunk =>
   async dispatch => {
-    dispatch(setProfileLoad(true));
+    dispatch(setIsFetching(true));
     await Promise.allSettled([
       dispatch(getUserProfile(userId)),
       dispatch(getProfileStatus(userId)),
       dispatch(isFollow(userId)),
     ]);
-    dispatch(setProfileLoad(false));
+    dispatch(setIsFetching(false));
   };
 
 export const updateProfileStatus =

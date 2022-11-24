@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, KeyboardEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -11,37 +11,40 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import { blue } from '@mui/material/colors';
+import { useSelector } from 'react-redux';
 
 import { COLOR_BLUE } from '../../../../constants/colors';
-import { ProfileType } from '../../../../types/ProfileType';
-import { Preloader } from '../../../common/Preloader/Preloader';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { addPost } from '../../../../store/actions/profileActions';
+import { selectProfile } from '../../../../store/selectors/profileSelectors';
 
-type PropsType = {
-  postMessage: string;
-  updateMessage: (newMessage: string) => void;
-  addPost: () => void;
-  profile: ProfileType | null;
-};
+export const WriteField = () => {
+  const dispatch = useAppDispatch();
 
-export const WriteField: FC<PropsType> = ({
-  postMessage,
-  updateMessage,
-  addPost,
-  profile,
-}) => {
-  const onUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    updateMessage(e.currentTarget.value);
+  const profile = useSelector(selectProfile);
+
+  const [message, setMessage] = useState('');
+
+  const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.currentTarget.value);
   };
-  const onAddPost = () => addPost();
+
+  const onAddPostClick = () => {
+    const trimMessage = message.trim();
+    if (trimMessage === '') {
+      return;
+    }
+
+    dispatch(addPost(trimMessage));
+    setMessage('');
+  };
+
   const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      addPost();
+      onAddPostClick();
+      e.preventDefault();
     }
   };
-
-  if (!profile) {
-    return <Preloader />;
-  }
 
   return (
     <Card sx={{ margin: 1 }}>
@@ -50,30 +53,32 @@ export const WriteField: FC<PropsType> = ({
           <Avatar
             sx={{ bgcolor: blue[COLOR_BLUE] }}
             aria-label="Field for write"
-            alt={profile.fullName}
-            src={profile.photos.small ? profile.photos.small : ''}
+            alt={profile?.fullName}
+            src={profile?.photos.small || ''}
           />
         }
-        title={profile.fullName}
-        subheader={profile.aboutMe || ''}
+        title={profile?.fullName}
+        subheader={profile?.aboutMe || ''}
       />
+
       <CardContent>
         <TextField
           fullWidth
           placeholder={"What's up"}
           multiline
           rows={4}
-          value={postMessage}
-          onChange={onUpdateMessage}
+          value={message}
+          onChange={onMessageChange}
           onKeyPress={onEnterPress}
         />
       </CardContent>
+
       <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           variant="contained"
           endIcon={<SendIcon />}
           sx={{ marginRight: '10px' }}
-          onClick={onAddPost}
+          onClick={onAddPostClick}
         >
           Send
         </Button>

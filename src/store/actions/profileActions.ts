@@ -4,10 +4,11 @@ import { UpdateProfileModal } from '../reducers/profileReducer';
 
 import { profileActionType } from './types/profileTypes';
 
-export const addPost = () => ({ type: profileActionType.ADD_POST } as const);
-
-export const updateMessage = (newMessage: string) =>
-  ({ type: profileActionType.UPDATE_POST_MESSAGE, payload: { newMessage } } as const);
+export const addPost = (message: string) =>
+  ({
+    type: profileActionType.ADD_POST,
+    payload: { message },
+  } as const);
 
 export const deletePost = (postId: number) =>
   ({ type: profileActionType.DELETE_POST, payload: { postId } } as const);
@@ -36,8 +37,8 @@ export const updateProfileSuccess = (updatedProfile: UpdateProfileModal) =>
     payload: { updatedProfile },
   } as const);
 
-export const setProfileLoad = (isLoad: boolean) =>
+export const setIsFetching = (isFetching: boolean) =>
   ({
-    type: profileActionType.SET_PROFILE_LOAD,
-    payload: { isLoad },
+    type: profileActionType.SET_IS_FETCHING,
+    payload: { isFetching },
   } as const);

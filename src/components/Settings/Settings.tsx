@@ -138,8 +138,16 @@ export const Settings = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <FormControlLabel
-                    control={<Checkbox {...formik.getFieldProps('lookingForAJob')} />}
+                    control={
+                      <Checkbox
+                        checked={formik.values.lookingForAJob}
+                        onChange={formik.handleChange}
+                        name="lookingForAJob"
+                      />
+                    }
                     label="Looking for a job?"
+                    name="lookingForAJob"
+                    id="lookingForAJob"
                   />
                 </Grid>
 

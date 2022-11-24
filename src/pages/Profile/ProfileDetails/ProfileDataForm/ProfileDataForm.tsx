@@ -10,7 +10,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -19,66 +18,15 @@ import { updateProfile } from '../../../../store/middlewares/profile/thunks';
 import { UpdateProfileModal } from '../../../../store/reducers/profileReducer';
 import { ContactsType, ProfileType } from '../../../../types/ProfileType';
 
-const TitleContainer = styled('span')(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  fontWeight: '400',
-  width: '110px',
-  [theme.breakpoints.up('sm')]: {
-    ...theme.typography.body1,
-    width: '140px',
-    fontWeight: '500',
-  },
-}));
-const ValueContainer = styled('span')(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  wordWrap: 'break-word',
-  [theme.breakpoints.up('sm')]: {
-    ...theme.typography.body1,
-    fontWeight: '400',
-  },
-}));
-const ContactContainer = styled(Box)(({ theme }) => ({
-  display: 'grid',
-  wordWrap: 'break-word',
-  [theme.breakpoints.up('sm')]: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flexStart',
-  },
-}));
+import { Contact } from './Contact/Contact';
+import { ContactContainer, TitleContainer, ValueContainer } from './Contact/styles';
 
-type ContactType = {
-  name: string;
-  onChange: (e: React.ChangeEvent<any>) => void;
-  value: string;
-};
-
-const Contact: FC<ContactType> = ({ name, onChange, value }) => {
-  const id = `contacts.${name}`;
-
-  return (
-    <ContactContainer>
-      <TitleContainer>{name}:</TitleContainer>
-      <ValueContainer>
-        <TextField
-          id={id}
-          variant="standard"
-          fullWidth
-          name={id}
-          onChange={onChange}
-          value={value}
-        />
-      </ValueContainer>
-    </ContactContainer>
-  );
-};
-
-type ProfileDataFormType = {
+type PropsType = {
   profile: ProfileType;
   offEditMode: () => void;
 };
 
-export const ProfileDataForm: FC<ProfileDataFormType> = ({ profile, offEditMode }) => {
+export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
   const dispatch = useAppDispatch();
 
   const validationSchema = Yup.object({
@@ -89,6 +37,7 @@ export const ProfileDataForm: FC<ProfileDataFormType> = ({ profile, offEditMode 
     dispatch(updateProfile(values));
     offEditMode();
   };
+
   const formik = useFormik({
     initialValues: {
       aboutMe: profile?.aboutMe,
@@ -142,43 +91,40 @@ export const ProfileDataForm: FC<ProfileDataFormType> = ({ profile, offEditMode 
           />
         </Box>
 
-        <ContactContainer>
-          <TitleContainer>Description:</TitleContainer>
-          <ValueContainer>
-            <TextField
-              id="looking-for-description"
-              variant="standard"
-              fullWidth
-              {...formik.getFieldProps('lookingForAJobDescription')}
-            />
-          </ValueContainer>
-        </ContactContainer>
+        <Contact
+          id="looking-for-description"
+          title="Description"
+          value={formik.values.lookingForAJobDescription}
+          onChange={formik.handleChange}
+        />
 
-        <ContactContainer>
-          <TitleContainer>About me:</TitleContainer>
-          <ValueContainer>
-            <TextField
-              id="about-me"
-              variant="standard"
-              fullWidth
-              {...formik.getFieldProps('aboutMe')}
-            />
-          </ValueContainer>
-        </ContactContainer>
+        <Contact
+          id="aboutMe"
+          title="About me"
+          value={formik.values.aboutMe}
+          onChange={formik.handleChange}
+        />
 
         <Divider sx={{ marginTop: '15px', marginBottom: '15px' }} />
 
         <Typography component="div" variant="h6" sx={{ fontWeight: '400' }}>
           Contacts
         </Typography>
-        {Object.keys(profile.contacts).map(key => (
-          <Contact
-            key={key}
-            name={key}
-            onChange={formik.handleChange}
-            value={formik.values.contacts[key as keyof ContactsType]}
-          />
-        ))}
+
+        {Object.keys(profile.contacts).map(key => {
+          const id = `contacts.${key}`;
+
+          return (
+            <Contact
+              key={key}
+              id={id}
+              title={key}
+              onChange={formik.handleChange}
+              value={formik.values.contacts[key as keyof ContactsType]}
+            />
+          );
+        })}
+
         <Box sx={{ alignSelf: 'flex-start', marginTop: '15px' }}>
           <Button
             variant="contained"

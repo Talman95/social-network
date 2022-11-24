@@ -1,5 +1,4 @@
 export enum profileActionType {
-  UPDATE_POST_MESSAGE = 'profile/UPDATE_POST_MESSAGE',
   ADD_POST = 'profile/ADD_POST',
   DELETE_POST = 'profile/DELETE_POST',
   SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
@@ -7,5 +6,5 @@ export enum profileActionType {
   SET_FRIENDSHIP = 'profile/SET_FRIENDSHIP',
   UPLOAD_USER_PHOTO_SUCCESS = 'profile/UPLOAD_USER_PHOTO_SUCCESS',
   UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS',
-  SET_PROFILE_LOAD = 'profile/SET_PROFILE_LOAD',
+  SET_IS_FETCHING = 'profile/SET_IS_FETCHING',
 }

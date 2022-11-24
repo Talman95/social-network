@@ -7,10 +7,10 @@ import { ChatPage } from '../components/Chat/ChatPage';
 import { Dialogs } from '../components/Dialogs/Dialogs';
 import { Login } from '../components/Login/Login';
 import Messages from '../components/Messages/Messages';
-import { ProfileContainer } from '../components/Profile/ProfileContainer';
 import { Settings } from '../components/Settings/Settings';
 import { UsersContainer } from '../components/Users/UsersContainer';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { Profile } from '../pages/Profile/Profile';
 import { ReturnComponentType } from '../types/ReturnComponentType';
 
 import { Error404 } from './Error404';
@@ -23,8 +23,8 @@ export const AppRouter = (): ReturnComponentType => {
       {isAuth ? (
         <Routes>
           <Route path="/" element={<Navigate to="/profile" />} />
-          <Route path="/profile" element={<ProfileContainer />} />
-          <Route path="/profile/:userId" element={<ProfileContainer />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/messages/*" element={<Messages />} />
           <Route path="/dialogs" element={<Dialogs />} />
           <Route path="/chat" element={<ChatPage />} />

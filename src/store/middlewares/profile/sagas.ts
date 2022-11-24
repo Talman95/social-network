@@ -9,7 +9,7 @@ import { ResponseType } from '../../../types/ResponseType';
 import { setAppErrorMessage } from '../../actions/appActions';
 import {
   setFriendship,
-  setProfileLoad,
+  setIsFetching,
   setProfileStatus,
   setUserProfile,
   updateProfileSuccess,
@@ -41,13 +41,13 @@ function* getUserIsFollowWorker(userId: number) {
 }
 
 function* getProfilePageWorker(action: GetProfilePageActionType) {
-  yield put(setProfileLoad(true));
+  yield put(setIsFetching(true));
   yield all([
     call(getUserProfileWorker, action.payload.userId),
     call(getProfileStatusWorker, action.payload.userId),
     call(getUserIsFollowWorker, action.payload.userId),
   ]);
-  yield put(setProfileLoad(false));
+  yield put(setIsFetching(false));
 }
 
 function* updateProfileStatusWorker(action: UpdateProfileStatusActionType) {

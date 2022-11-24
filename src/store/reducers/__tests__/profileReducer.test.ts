@@ -4,7 +4,6 @@ import {
   setFriendship,
   setProfileStatus,
   setUserProfile,
-  updateMessage,
   updateProfileSuccess,
   uploadUserPhotoSuccess,
 } from '../../actions/profileActions';
@@ -13,10 +12,9 @@ import { PostType, profileReducer, ProfileStateType } from '../profileReducer';
 let startState: ProfileStateType = {
   profile: null,
   posts: [] as PostType[],
-  postMessage: '',
   status: '',
   isFriend: false,
-  isLoad: true,
+  isFetching: true,
 };
 
 beforeEach(() => {
@@ -43,34 +41,27 @@ beforeEach(() => {
       },
     },
     posts: [
-      { id: 4, message: 'Hi, how are you guys?', picture: '4' },
-      { id: 3, message: 'Yo yo yo!!!', picture: '3' },
-      { id: 2, message: 'My hometown', picture: '2' },
-      { id: 1, message: "It's my first post! Hello everyone!", picture: '1' },
+      { id: 4, message: 'Hi, how are you guys?' },
+      { id: 3, message: 'Yo yo yo!!!' },
+      { id: 2, message: 'My hometown' },
+      { id: 1, message: "It's my first post! Hello everyone!" },
     ],
-    postMessage: '',
     status: '',
     isFriend: false,
-    isLoad: true,
+    isFetching: false,
   };
 });
 
 test('correct post should be added', () => {
-  const endState = profileReducer(startState, addPost());
+  const message = 'hello';
+  const endState = profileReducer(startState, addPost(message));
 
   const postsLength = 5;
   const firstElement = 0;
 
   expect(endState.posts.length).toBe(postsLength);
   expect(endState.posts[firstElement].id).toBeDefined();
-  expect(endState.posts[firstElement].message).toBe(startState.postMessage);
-  expect(endState.posts[firstElement].picture).toBe('');
-});
-
-test('correct message should be updated', () => {
-  const endState = profileReducer(startState, updateMessage('Some user information'));
-
-  expect(endState.postMessage).toBe('Some user information');
+  expect(endState.posts[firstElement].message).toBe(message);
 });
 
 test('correct post should be removed', () => {
@@ -80,9 +71,9 @@ test('correct post should be removed', () => {
 
   expect(endState.posts.length).toBe(expectedPostsLength);
   expect(endState.posts).toEqual([
-    { id: 4, message: 'Hi, how are you guys?', picture: '4' },
-    { id: 3, message: 'Yo yo yo!!!', picture: '3' },
-    { id: 1, message: "It's my first post! Hello everyone!", picture: '1' },
+    { id: 4, message: 'Hi, how are you guys?' },
+    { id: 3, message: 'Yo yo yo!!!' },
+    { id: 1, message: "It's my first post! Hello everyone!" },
   ]);
 });
 
