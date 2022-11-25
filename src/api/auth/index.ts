@@ -1,7 +1,7 @@
 import { ResponseType } from '../../types/ResponseType';
 import { instance } from '../config';
 
-import { AuthMeDataType } from './types';
+import { AuthMeDataType, loginValuesFormModel } from './types';
 
 export const authAPI = {
   async authMe() {
@@ -10,7 +10,7 @@ export const authAPI = {
     return response.data;
   },
 
-  async login(email: string, password: string, rememberMe: boolean, captcha: string) {
+  async login({ email, password, rememberMe, captcha }: loginValuesFormModel) {
     const response = await instance.post<ResponseType<{ userId: number }>>(
       '/auth/login',
       {

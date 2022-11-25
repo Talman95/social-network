@@ -1,6 +1,6 @@
 import { authAPI } from '../../../api/auth';
+import { loginValuesFormModel } from '../../../api/auth/types';
 import { profileAPI } from '../../../api/profile';
-import { formValuesModel } from '../../../components/Login/Login';
 import { resultCode } from '../../../enums/resultCode';
 import { setAppErrorMessage } from '../../actions/appActions';
 import {
@@ -36,10 +36,10 @@ export const getCaptchaUrl = (): AppThunk => async dispatch => {
 };
 
 export const login =
-  ({ email, password, rememberMe, captcha }: formValuesModel): AppThunk =>
+  ({ email, password, rememberMe, captcha }: loginValuesFormModel): AppThunk =>
   async dispatch => {
     try {
-      const response = await authAPI.login(email, password, rememberMe, captcha);
+      const response = await authAPI.login({ email, password, rememberMe, captcha });
 
       if (response.resultCode === resultCode.SUCCESS) {
         dispatch(getAuthUserData());

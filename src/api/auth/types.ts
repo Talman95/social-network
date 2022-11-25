@@ -3,3 +3,10 @@ export type AuthMeDataType = {
   login: string;
   email: string;
 };
+
+export type loginValuesFormModel = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
+};

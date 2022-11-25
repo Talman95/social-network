@@ -50,10 +50,7 @@ function* loginWorker(action: LoginActionType) {
   try {
     const res: ResponseType<{ userId: number }> = yield call(
       authAPI.login,
-      action.email,
-      action.password,
-      action.rememberMe,
-      action.captcha,
+      action.payload,
     );
 
     if (res.resultCode === resultCode.SUCCESS) {

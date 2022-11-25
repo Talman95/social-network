@@ -7,40 +7,32 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  FormLabel,
   TextField,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
+import { loginValuesFormModel } from '../../api/auth/types';
+import { Preloader } from '../../components/common/Preloader/Preloader';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { loginUser } from '../../store/middlewares/auth/actions';
-import { ReturnComponentType } from '../../types/ReturnComponentType';
-import { Preloader } from '../common/Preloader/Preloader';
+import { selectCaptchaUrl } from '../../store/selectors/authSelectors';
 
-export type formValuesModel = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha: string;
-};
-
-export const Login = (): ReturnComponentType => {
-  const captchaUrl = useAppSelector(state => state.auth.captchaUrl);
+export const Login = () => {
   const dispatch = useAppDispatch();
+
+  const captchaUrl = useSelector(selectCaptchaUrl);
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
 
-  const submit = async (
-    values: formValuesModel,
-    { resetForm }: FormikHelpers<formValuesModel>,
-  ) => {
-    await dispatch(loginUser(values));
-    resetForm({});
+  const onFormSubmit = async (values: loginValuesFormModel) => {
+    dispatch(loginUser(values));
   };
 
   const formik = useFormik({
@@ -51,22 +43,35 @@ export const Login = (): ReturnComponentType => {
       captcha: '',
     },
     validationSchema,
-    onSubmit: submit,
+    onSubmit: onFormSubmit,
   });
 
   if (formik.isSubmitting) {
-    return (
-      <div>
-        <Preloader />
-      </div>
-    );
+    return <Preloader />;
   }
 
   return (
     <Grid container justifyContent="center">
       <Grid item justifyContent="center">
-        <FormControl>
-          <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
+          <FormControl>
+            <FormLabel>
+              <p>
+                To log in get registered
+                <a
+                  href="https://social-network.samuraijs.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {' '}
+                  here
+                </a>
+              </p>
+              <p>or use common test account credentials:</p>
+              <p>Email: free@samuraijs.com</p>
+              <p>Password: free</p>
+            </FormLabel>
+
             <FormGroup>
               <TextField
                 id="email"
@@ -77,6 +82,7 @@ export const Login = (): ReturnComponentType => {
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
               />
+
               <TextField
                 id="password"
                 label="Password"
@@ -86,10 +92,12 @@ export const Login = (): ReturnComponentType => {
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
               />
+
               <FormControlLabel
                 label="Remember me?"
                 control={<Checkbox {...formik.getFieldProps('rememberMe')} />}
               />
+
               {captchaUrl && (
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <img alt="captcha" src={captchaUrl} />
@@ -101,12 +109,13 @@ export const Login = (): ReturnComponentType => {
                   />
                 </Box>
               )}
+
               <Button color="primary" variant="contained" type="submit">
                 Sign In
               </Button>
             </FormGroup>
-          </form>
-        </FormControl>
+          </FormControl>
+        </form>
       </Grid>
     </Grid>
   );
