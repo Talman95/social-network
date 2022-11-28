@@ -1,11 +1,6 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import EmailIcon from '@mui/icons-material/Email';
-import MessageIcon from '@mui/icons-material/Message';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
-import PeopleIcon from '@mui/icons-material/People';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,25 +8,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Switch from '@mui/material/Switch';
 
-import { ReturnComponentType } from '../../types/ReturnComponentType';
+import { navigationList } from '../../../constants/navigationList';
 
 import { CustomNavLink } from './CustomNavLink/CustomNavLink';
 
-type LinkType = {
-  to: string;
-  title: string;
-  icon: ReactElement;
-};
-
-const navigationList: LinkType[] = [
-  { to: '/profile', title: 'Profile', icon: <AccountBoxIcon /> },
-  { to: '/dialogs', title: 'Dialogs', icon: <MessageIcon /> },
-  { to: '/chat', title: 'Chat', icon: <EmailIcon /> },
-  { to: '/users', title: 'Developers', icon: <PeopleIcon /> },
-  { to: '/settings', title: 'Settings', icon: <SettingsIcon /> },
-];
-
-export const Nav = (): ReturnComponentType => (
+export const Nav = () => (
   <Box flex={1} p={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
     <Box position="fixed">
       <List>

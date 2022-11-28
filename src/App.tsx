@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { ErrorSnackbar } from './components/common/ErrorSnackbar/ErrorSnackbar';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { HeaderContainer } from './components/Header/HeaderContainer';
-import { Nav } from './components/Nav/Nav';
+import { Nav } from './components/layout/Nav/Nav';
 import { SidebarContainer } from './components/Sidebar/SidebarContainer';
 import { useAppDispatch } from './hooks/useAppDispatch';
 import { useAppSelector } from './hooks/useAppSelector';

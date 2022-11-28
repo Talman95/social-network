@@ -15,12 +15,12 @@ type PropsType = {
 export const CustomNavLink: FC<PropsType> = ({ children, to, title }) => {
   const match = useMatch(to);
 
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>): void => {
+  const onNavLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (match) e.preventDefault();
   };
 
   return (
-    <NavLink to={to} onClick={handleClick}>
+    <NavLink to={to} onClick={onNavLinkClick}>
       <ListItem disablePadding selected={!!match}>
         <ListItemButton>
           <ListItemIcon>{children}</ListItemIcon>
