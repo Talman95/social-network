@@ -8,7 +8,7 @@ import { ErrorSnackbar } from './components/common/ErrorSnackbar/ErrorSnackbar';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { HeaderContainer } from './components/Header/HeaderContainer';
 import { Nav } from './components/layout/Nav/Nav';
-import { SidebarContainer } from './components/Sidebar/SidebarContainer';
+import { Sidebar } from './components/layout/Sidebar/Sidebar';
 import { useAppDispatch } from './hooks/useAppDispatch';
 import { useAppSelector } from './hooks/useAppSelector';
 import { AppRouter } from './router/AppRouter';
@@ -35,7 +35,7 @@ export const App = (): ReturnComponentType => {
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <Nav />
         <AppRouter />
-        <SidebarContainer />
+        <Sidebar />
       </Stack>
     </Box>
   );

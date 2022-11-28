@@ -13,3 +13,6 @@ export const selectPressingInProgress = (state: RootState) =>
 
 export const selectSearchName = (state: RootState) => state.users.filter.searchName;
 export const selectUserFriends = (state: RootState) => state.users.filter.userFriends;
+
+export const selectFollowings = (state: RootState) => state.users.followings;
+export const selectFollowingsCount = (state: RootState) => state.users.followingsCount;

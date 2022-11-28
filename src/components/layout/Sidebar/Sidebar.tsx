@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Avatar,
@@ -9,31 +9,37 @@ import {
   Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
 import { NavLink, useMatch, useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setUsersFilter } from '../../store/actions/usersActions';
-import { UserType } from '../../types/UserType';
-
-type SidebarPropsType = {
-  followings: UserType[];
-  followingsCount: number;
-  isAuth: boolean;
-};
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { setUsersFilter } from '../../../store/actions/usersActions';
+import { getFriends } from '../../../store/middlewares/users/actions';
+import { selectIsAuth } from '../../../store/selectors/authSelectors';
+import {
+  selectFollowings,
+  selectFollowingsCount,
+} from '../../../store/selectors/usersSelectors';
 
 const NO_USERS = 0;
 
-export const Sidebar: FC<SidebarPropsType> = ({
-  followings,
-  followingsCount,
-  isAuth,
-}) => {
+export const Sidebar = () => {
   const dispatch = useAppDispatch();
 
-  const match = useMatch('/users');
+  const followings = useSelector(selectFollowings);
+  const followingsCount = useSelector(selectFollowingsCount);
+
+  const isAuth = useSelector(selectIsAuth);
+
   const navigate = useNavigate();
 
-  const handleClick = async () => {
+  const match = useMatch('/users');
+
+  useEffect(() => {
+    dispatch(getFriends());
+  }, [isAuth]);
+
+  const onFollowingClick = async () => {
     if (match) {
       dispatch(setUsersFilter({ searchName: '', userFriends: 'follow' }));
     } else {
@@ -46,11 +52,15 @@ export const Sidebar: FC<SidebarPropsType> = ({
       <Box position="fixed">
         <Card sx={{ margin: 1 }}>
           <CardContent>
-            <CardActionArea style={{ marginBottom: 5, padding: 5 }} onClick={handleClick}>
+            <CardActionArea
+              style={{ marginBottom: 5, padding: 5 }}
+              onClick={onFollowingClick}
+            >
               <Typography variant="h6" fontWeight={100}>
                 Following
               </Typography>
             </CardActionArea>
+
             {followingsCount === NO_USERS || !isAuth ? (
               <Typography variant="body1">Following your friends</Typography>
             ) : (
