@@ -26,7 +26,7 @@ export type PostType = {
 export type ProfileStateType = typeof initialState;
 export type UploadUserPhotoSuccessType = ReturnType<typeof uploadUserPhotoSuccess>;
 export type UpdateProfileSuccessType = ReturnType<typeof updateProfileSuccess>;
-export type UpdateProfileModal = {
+export type UpdateProfileModel = {
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;

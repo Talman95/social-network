@@ -1,12 +1,5 @@
 import React from 'react';
 
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LaptopIcon from '@mui/icons-material/Laptop';
-import LinkIcon from '@mui/icons-material/Link';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
   Box,
   Button,
@@ -23,51 +16,25 @@ import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
+import { contacts } from '../../constants/contacts';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { updateProfile } from '../../store/middlewares/profile/actions';
-import { AppStateType } from '../../store/store';
-import { ProfileType } from '../../types/ProfileType';
+import { UpdateProfileModel } from '../../store/reducers/profileReducer';
+import { selectAuthUser } from '../../store/selectors/authSelectors';
+import { ContactsType } from '../../types/ProfileType';
 
-export type formValuesModel = {
-  aboutMe: string;
-  contacts: {
-    facebook: string;
-    website: string;
-    vk: string;
-    twitter: string;
-    instagram: string;
-    youtube: string;
-    github: string;
-    mainLink: string;
-  };
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-};
-
-const contacts = [
-  { title: 'GitHub', icon: <GitHubIcon />, propsTitle: 'contacts.github' },
-  { title: 'VK', icon: null, propsTitle: 'contacts.vk' },
-  { title: 'Facebook', icon: <FacebookIcon />, propsTitle: 'contacts.facebook' },
-  { title: 'Instagram', icon: <InstagramIcon />, propsTitle: 'contacts.instagram' },
-  { title: 'Twitter', icon: <TwitterIcon />, propsTitle: 'contacts.twitter' },
-  { title: 'Website', icon: <LaptopIcon />, propsTitle: 'contacts.website' },
-  { title: 'YouTube', icon: <YouTubeIcon />, propsTitle: 'contacts.youtube' },
-  { title: 'MainLink', icon: <LinkIcon />, propsTitle: 'contacts.mainLink' },
-];
+import { Contact } from './Contact/Contact';
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
 
-  const profile = useSelector<AppStateType, ProfileType | null>(
-    state => state.auth.currentUser,
-  );
+  const profile = useSelector(selectAuthUser);
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required('Name is required'),
   });
 
-  const submit = (values: formValuesModel): void => {
+  const onFormSubmit = (values: UpdateProfileModel) => {
     dispatch(updateProfile(values));
   };
 
@@ -89,7 +56,7 @@ export const Settings = () => {
       fullName: profile?.fullName || '',
     },
     validationSchema,
-    onSubmit: submit,
+    onSubmit: onFormSubmit,
   });
 
   return (
@@ -170,27 +137,14 @@ export const Settings = () => {
               <Typography variant="h5">Contacts</Typography>
 
               <Grid container spacing={2}>
-                {contacts.map(({ title, propsTitle, icon }) => (
-                  <>
-                    <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                      {icon}
-                      <Typography
-                        variant="subtitle1"
-                        color="text.secondary"
-                        component="div"
-                      >
-                        {title}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        id="standard-basic"
-                        variant="standard"
-                        fullWidth
-                        {...formik.getFieldProps(`${propsTitle}`)}
-                      />
-                    </Grid>
-                  </>
+                {contacts.map(({ title, formikName, value }) => (
+                  <Contact
+                    key={title}
+                    title={title}
+                    name={formikName}
+                    onChange={formik.handleChange}
+                    value={formik.values.contacts[value as keyof ContactsType]}
+                  />
                 ))}
               </Grid>
 

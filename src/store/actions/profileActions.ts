@@ -1,6 +1,6 @@
 import { PhotosType } from '../../types/PhotosType';
 import { ProfileType } from '../../types/ProfileType';
-import { UpdateProfileModal } from '../reducers/profileReducer';
+import { UpdateProfileModel } from '../reducers/profileReducer';
 
 import { profileActionType } from './types/profileTypes';
 
@@ -31,7 +31,7 @@ export const uploadUserPhotoSuccess = (photos: PhotosType) =>
     payload: { photos },
   } as const);
 
-export const updateProfileSuccess = (updatedProfile: UpdateProfileModal) =>
+export const updateProfileSuccess = (updatedProfile: UpdateProfileModel) =>
   ({
     type: profileActionType.UPDATE_PROFILE_SUCCESS,
     payload: { updatedProfile },

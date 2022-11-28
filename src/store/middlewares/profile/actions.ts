@@ -1,4 +1,4 @@
-import { UpdateProfileModal } from '../../reducers/profileReducer';
+import { UpdateProfileModel } from '../../reducers/profileReducer';
 
 import { sagaType } from './sagaType';
 
@@ -17,7 +17,7 @@ export const uploadUserPhoto = (userPhoto: File) => ({
   payload: { userPhoto },
 });
 
-export const updateProfile = (profile: UpdateProfileModal) => ({
+export const updateProfile = (profile: UpdateProfileModel) => ({
   type: sagaType.UPDATE_PROFILE,
   payload: { profile },
 });

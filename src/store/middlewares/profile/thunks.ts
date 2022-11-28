@@ -10,7 +10,7 @@ import {
   updateProfileSuccess,
   uploadUserPhotoSuccess,
 } from '../../actions/profileActions';
-import { UpdateProfileModal } from '../../reducers/profileReducer';
+import { UpdateProfileModel } from '../../reducers/profileReducer';
 import { AppStateType, AppThunk } from '../../store';
 import { getFriends } from '../users/thunks';
 
@@ -119,7 +119,7 @@ export const uploadUserPhoto =
   };
 
 export const updateProfile =
-  (profileData: UpdateProfileModal): AppThunk =>
+  (profileData: UpdateProfileModel): AppThunk =>
   async (dispatch, getState: () => AppStateType) => {
     try {
       const { id } = getState().auth;

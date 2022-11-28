@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { updateProfile } from '../../../../store/middlewares/profile/thunks';
-import { UpdateProfileModal } from '../../../../store/reducers/profileReducer';
+import { UpdateProfileModel } from '../../../../store/reducers/profileReducer';
 import { ContactsType, ProfileType } from '../../../../types/ProfileType';
 
 import { Contact } from './Contact/Contact';
@@ -33,7 +33,7 @@ export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
     fullName: Yup.string().required('Name is required'),
   });
 
-  const submit = (values: UpdateProfileModal): void => {
+  const submit = (values: UpdateProfileModel): void => {
     dispatch(updateProfile(values));
     offEditMode();
   };
@@ -92,15 +92,15 @@ export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
         </Box>
 
         <Contact
-          id="looking-for-description"
           title="Description"
+          name="lookingForAJobDescription"
           value={formik.values.lookingForAJobDescription}
           onChange={formik.handleChange}
         />
 
         <Contact
-          id="aboutMe"
           title="About me"
+          name="aboutMe"
           value={formik.values.aboutMe}
           onChange={formik.handleChange}
         />
@@ -111,19 +111,15 @@ export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
           Contacts
         </Typography>
 
-        {Object.keys(profile.contacts).map(key => {
-          const id = `contacts.${key}`;
-
-          return (
-            <Contact
-              key={key}
-              id={id}
-              title={key}
-              onChange={formik.handleChange}
-              value={formik.values.contacts[key as keyof ContactsType]}
-            />
-          );
-        })}
+        {Object.keys(profile.contacts).map(key => (
+          <Contact
+            key={key}
+            title={key}
+            name={key}
+            onChange={formik.handleChange}
+            value={formik.values.contacts[key as keyof ContactsType]}
+          />
+        ))}
 
         <Box sx={{ alignSelf: 'flex-start', marginTop: '15px' }}>
           <Button
