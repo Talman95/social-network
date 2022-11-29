@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import { ErrorSnackbar } from './components/common/ErrorSnackbar/ErrorSnackbar';
 import { Preloader } from './components/common/Preloader/Preloader';
-import { HeaderContainer } from './components/Header/HeaderContainer';
+import { Header } from './components/layout/Header/Header';
 import { Nav } from './components/layout/Nav/Nav';
 import { Sidebar } from './components/layout/Sidebar/Sidebar';
 import { useAppDispatch } from './hooks/useAppDispatch';
@@ -31,7 +31,7 @@ export const App = (): ReturnComponentType => {
   return (
     <Box>
       <ErrorSnackbar />
-      <HeaderContainer />
+      <Header />
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <Nav />
         <AppRouter />
