@@ -11,6 +11,7 @@ import { RootSaga } from './middlewares/rootSaga';
 import { UsersSagasType } from './middlewares/users/sagas';
 import { appReducer, InitActionsType } from './reducers/appReducer';
 import { AuthActionsType, authReducer } from './reducers/authReducer';
+import { ChatActionsType, chatReducer } from './reducers/chatReducer';
 import { dialogsReducer } from './reducers/dialogsReducer';
 import { ProfileActionsType, profileReducer } from './reducers/profileReducer';
 import { UsersActionsType, usersReducer } from './reducers/usersReducer';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   auth: authReducer,
   app: appReducer,
+  chat: chatReducer,
   dialogs: dialogsReducer,
 });
 
@@ -49,7 +51,8 @@ export type AppActionsType =
   | AuthSagasType
   | UsersSagasType
   | ProfileSagasType
-  | DialogsSagasType;
+  | DialogsSagasType
+  | ChatActionsType;
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 export type RootState = ReturnType<typeof rootReducer>;
