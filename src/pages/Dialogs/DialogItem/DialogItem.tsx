@@ -2,13 +2,15 @@ import React, { FC } from 'react';
 
 import {
   Avatar,
+  Box,
   Divider,
-  IconButton,
   ListItem,
   ListItemAvatar,
   ListItemButton,
   ListItemText,
 } from '@mui/material';
+
+import cl from './DialogItem.module.css';
 
 type PropsType = {
   userName: string;
@@ -29,20 +31,20 @@ export const DialogItem: FC<PropsType> = ({
 
   return (
     <>
-      <ListItem
-        secondaryAction={
-          hasNewMessages && (
-            <IconButton edge="end" aria-label="comments">
-              {newMessagesCount}
-            </IconButton>
-          )
-        }
-      >
-        <ListItemButton>
-          <ListItemAvatar>
-            <Avatar alt={userName} src={photo} />
-          </ListItemAvatar>
-          <ListItemText primary={userName} secondary={formattedDate} />
+      <ListItem>
+        <ListItemButton style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box style={{ display: 'flex', alignItems: 'center' }}>
+            <ListItemAvatar>
+              <Avatar alt={userName} src={photo} />
+            </ListItemAvatar>
+            <ListItemText primary={userName} secondary={formattedDate} />
+          </Box>
+
+          {hasNewMessages && (
+            <Box>
+              <span className={cl.chat_notice}>{newMessagesCount}</span>
+            </Box>
+          )}
         </ListItemButton>
       </ListItem>
       <Divider />

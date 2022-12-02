@@ -1,0 +1,7 @@
+.chat_notice {
+    text-align: center;
+    border-radius: 50%;
+    background: #1876f2;
+    color: #ededed;
+    padding: 4px;
+}

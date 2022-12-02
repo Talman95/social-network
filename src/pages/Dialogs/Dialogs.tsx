@@ -33,7 +33,7 @@ export const Dialogs = () => {
       >
         Dialogs
       </Typography>
-      <List component="nav" sx={{ maxWidth: 360, margin: 'auto' }}>
+      <List component="nav">
         {dialogs.length === NO_DIALOGS ? (
           <Typography sx={{ display: 'flex', justifyContent: 'center' }}>
             No Dialogs

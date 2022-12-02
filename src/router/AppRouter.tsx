@@ -3,10 +3,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Dialogs } from '../components/Dialogs/Dialogs';
 import Messages from '../components/Messages/Messages';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { Chat } from '../pages/Chat/Chat';
+import { Dialogs } from '../pages/Dialogs/Dialogs';
 import { Login } from '../pages/Login/Login';
 import { Profile } from '../pages/Profile/Profile';
 import { Settings } from '../pages/Settings/Settings';
