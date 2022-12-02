@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { List } from '@mui/material';
+import { useSelector } from 'react-redux';
 
-import { useAppSelector } from '../../../../hooks/useAppSelector';
+import { selectMessages } from '../../../../store/selectors/chatSelectors';
 
 import { MessageItem } from './MessageItem/MessageItem';
 
 export const Messages = () => {
-  const messages = useAppSelector(state => state.chat.messages);
+  const messages = useSelector(selectMessages);
 
   return (
     <List

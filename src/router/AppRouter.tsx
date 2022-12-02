@@ -1,22 +1,21 @@
 import React from 'react';
 
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Messages from '../components/Messages/Messages';
-import { useAppSelector } from '../hooks/useAppSelector';
 import { Chat } from '../pages/Chat/Chat';
 import { Dialogs } from '../pages/Dialogs/Dialogs';
 import { Login } from '../pages/Login/Login';
 import { Profile } from '../pages/Profile/Profile';
 import { Settings } from '../pages/Settings/Settings';
 import { Users } from '../pages/Users/Users';
-import { ReturnComponentType } from '../types/ReturnComponentType';
+import { selectIsAuth } from '../store/selectors/authSelectors';
 
 import { Error404 } from './Error404';
 
-export const AppRouter = (): ReturnComponentType => {
-  const isAuth = useAppSelector(state => state.auth.isAuth);
+export const AppRouter = () => {
+  const isAuth = useSelector(selectIsAuth);
 
   return (
     <Box flex={4} p={2}>
@@ -25,7 +24,6 @@ export const AppRouter = (): ReturnComponentType => {
           <Route path="/" element={<Navigate to="/profile" />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:userId" element={<Profile />} />
-          <Route path="/messages/*" element={<Messages />} />
           <Route path="/dialogs" element={<Dialogs />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/users" element={<Users />} />
