@@ -2,7 +2,8 @@ import { authAPI } from '../../../api/auth';
 import { loginValuesFormModel } from '../../../api/auth/types';
 import { profileAPI } from '../../../api/profile';
 import { resultCode } from '../../../enums/resultCode';
-import { setAppErrorMessage } from '../../actions/appActions';
+import { snackbarType } from '../../../enums/snackbarType';
+import { setAppMessage } from '../../actions/appActions';
 import {
   getCaptchaUrlSuccess,
   setCurrentUser,
@@ -25,14 +26,14 @@ export const getAuthUserData = (): AppThunk => async dispatch => {
       dispatch(setCurrentUser(res));
     }
   } catch (error: any) {
-    dispatch(setAppErrorMessage(error.message));
+    dispatch(setAppMessage(snackbarType.ERROR, error.message));
   }
 };
 
 export const getCaptchaUrl = (): AppThunk => async dispatch => {
   const res = await authAPI.getCaptcha();
 
-  dispatch(getCaptchaUrlSuccess(res.data.url));
+  dispatch(getCaptchaUrlSuccess(res.url));
 };
 
 export const login =
@@ -46,12 +47,12 @@ export const login =
       } else if (response.resultCode === resultCode.CAPTCHA_ERROR) {
         dispatch(getCaptchaUrl());
       } else if (response.messages.length) {
-        dispatch(setAppErrorMessage(response.messages[firstElement]));
+        dispatch(setAppMessage(snackbarType.ERROR, response.messages[firstElement]));
       } else {
-        dispatch(setAppErrorMessage('Some error occurred'));
+        dispatch(setAppMessage(snackbarType.ERROR, 'Some error occurred'));
       }
     } catch (error: any) {
-      dispatch(setAppErrorMessage(error.message));
+      dispatch(setAppMessage(snackbarType.ERROR, error.message));
     }
   };
 
@@ -65,6 +66,6 @@ export const logout = (): AppThunk => async dispatch => {
       dispatch(getCaptchaUrlSuccess(null));
     }
   } catch (error: any) {
-    dispatch(setAppErrorMessage(error.message));
+    dispatch(setAppMessage(snackbarType.ERROR, error.message));
   }
 };

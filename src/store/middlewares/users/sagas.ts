@@ -5,7 +5,10 @@ import { GetUsersResponseType } from '../../../api/users/types';
 import { resultCode } from '../../../enums/resultCode';
 import { ResponseType } from '../../../types/ResponseType';
 import { convertParam } from '../../../utils/convertParam';
-import { setAppErrorMessage } from '../../actions/appActions';
+import {
+  showAppErrorHandler,
+  showNetworkErrorHandler,
+} from '../../../utils/showAppMessageUtils';
 import { setFriendship } from '../../actions/profileActions';
 import {
   followSuccess,
@@ -22,35 +25,43 @@ import { followUser, getFriends, getUsers, unfollowUser } from './actions';
 import { sagaType } from './sagaType';
 
 export function* getUsersWorker() {
-  yield put(toggleIsFetching(true));
-  const { currentPage, pageSize, filter } = yield select(state => state.users);
+  try {
+    yield put(toggleIsFetching(true));
+    const { currentPage, pageSize, filter } = yield select(state => state.users);
 
-  const friend = convertParam.toBoolean(filter.userFriends);
+    const friend = convertParam.toBoolean(filter.userFriends);
 
-  const params = {
-    currentPage,
-    pageSize,
-    searchName: filter.searchName,
-    userFriends: friend,
-  };
+    const params = {
+      currentPage,
+      pageSize,
+      searchName: filter.searchName,
+      userFriends: friend,
+    };
 
-  const res: GetUsersResponseType = yield call(usersAPI.getUsers, params);
+    const res: GetUsersResponseType = yield call(usersAPI.getUsers, params);
 
-  yield put(setUsers(res.items));
-  yield put(setTotalMembers(res.totalCount));
-  yield put(toggleIsFetching(false));
+    yield put(setUsers(res.items));
+    yield put(setTotalMembers(res.totalCount));
+    yield put(toggleIsFetching(false));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 export function* getFriendsWorker() {
-  const isAuth: boolean = yield select((state: RootState) => state.auth.isAuth);
+  try {
+    const isAuth: boolean = yield select((state: RootState) => state.auth.isAuth);
 
-  if (isAuth) {
-    const res: GetUsersResponseType = yield call(usersAPI.getUsers, {
-      userFriends: true,
-    });
+    if (isAuth) {
+      const res: GetUsersResponseType = yield call(usersAPI.getUsers, {
+        userFriends: true,
+      });
 
-    yield put(setFriends(res.items));
-    yield put(setFriendsCount(res.totalCount));
+      yield put(setFriends(res.items));
+      yield put(setFriendsCount(res.totalCount));
+    }
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
@@ -64,15 +75,16 @@ function* followHelper(userId: number, page: string) {
 }
 
 function* followUserWorker(action: FollowUserActionType) {
-  const res: ResponseType<{}> = yield call(usersAPI.follow, action.payload.userId);
+  try {
+    const res: ResponseType<{}> = yield call(usersAPI.follow, action.payload.userId);
 
-  if (res.resultCode === resultCode.SUCCESS) {
-    yield call(followHelper, action.payload.userId, action.payload.page);
-  } else if (res.messages.length) {
-    const firstElement = 0;
-    yield put(setAppErrorMessage(res.messages[firstElement]));
-  } else {
-    yield put(setAppErrorMessage('Some error occurred'));
+    if (res.resultCode === resultCode.SUCCESS) {
+      yield call(followHelper, action.payload.userId, action.payload.page);
+    } else {
+      showAppErrorHandler(res);
+    }
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
@@ -91,9 +103,11 @@ function* unfollowUserWorker(action: UnfollowUserActionType) {
 
     if (res.resultCode === resultCode.SUCCESS) {
       yield call(unfollowHelper, action.payload.userId, action.payload.page);
+    } else {
+      showAppErrorHandler(res);
     }
   } catch (e: any) {
-    yield put(setAppErrorMessage(e.message));
+    showNetworkErrorHandler(e);
   }
 }
 

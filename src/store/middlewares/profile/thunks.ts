@@ -1,7 +1,8 @@
 import { profileAPI } from '../../../api/profile';
 import { usersAPI } from '../../../api/users';
 import { resultCode } from '../../../enums/resultCode';
-import { setAppErrorMessage } from '../../actions/appActions';
+import { snackbarType } from '../../../enums/snackbarType';
+import { setAppMessage } from '../../actions/appActions';
 import {
   setFriendship,
   setIsFetching,
@@ -44,7 +45,7 @@ export const isFollow =
         dispatch(setFriendship(res));
       }
     } catch (e: any) {
-      dispatch(setAppErrorMessage(e.message));
+      dispatch(setAppMessage(snackbarType.ERROR, e.message));
     }
   };
 
@@ -81,7 +82,7 @@ export const followFromProfile =
         dispatch(getFriends());
       }
     } catch (e: any) {
-      dispatch(setAppErrorMessage(e.message));
+      dispatch(setAppMessage(snackbarType.ERROR, e.message));
     }
   };
 
@@ -96,7 +97,7 @@ export const unfollowFromProfile =
         dispatch(getFriends());
       }
     } catch (e: any) {
-      dispatch(setAppErrorMessage(e.message));
+      dispatch(setAppMessage(snackbarType.ERROR, e.message));
     }
   };
 
@@ -109,12 +110,12 @@ export const uploadUserPhoto =
       if (res.resultCode === resultCode.SUCCESS) {
         dispatch(uploadUserPhotoSuccess(res.data.photos));
       } else if (res.messages.length) {
-        dispatch(setAppErrorMessage(res.messages[FIRST_ELEMENT]));
+        dispatch(setAppMessage(snackbarType.ERROR, res.messages[FIRST_ELEMENT]));
       } else {
-        dispatch(setAppErrorMessage('Some error occurred'));
+        dispatch(setAppMessage(snackbarType.ERROR, 'Some error occurred'));
       }
     } catch (err: any) {
-      dispatch(setAppErrorMessage(err.message));
+      dispatch(setAppMessage(snackbarType.ERROR, err.message));
     }
   };
 
@@ -131,12 +132,12 @@ export const updateProfile =
         if (res.resultCode === resultCode.SUCCESS) {
           dispatch(updateProfileSuccess(profileData));
         } else if (res.messages.length) {
-          dispatch(setAppErrorMessage(res.messages[FIRST_ELEMENT]));
+          dispatch(setAppMessage(snackbarType.ERROR, res.messages[FIRST_ELEMENT]));
         } else {
-          dispatch(setAppErrorMessage('Some error occurred'));
+          dispatch(setAppMessage(snackbarType.ERROR, 'Some error occurred'));
         }
       }
     } catch (error: any) {
-      dispatch(setAppErrorMessage(error.message));
+      dispatch(setAppMessage(snackbarType.ERROR, error.message));
     }
   };

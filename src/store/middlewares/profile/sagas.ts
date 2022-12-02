@@ -6,7 +6,10 @@ import { resultCode } from '../../../enums/resultCode';
 import { PhotosType } from '../../../types/PhotosType';
 import { ProfileType } from '../../../types/ProfileType';
 import { ResponseType } from '../../../types/ResponseType';
-import { setAppErrorMessage } from '../../actions/appActions';
+import {
+  showAppErrorHandler,
+  showNetworkErrorHandler,
+} from '../../../utils/showAppMessageUtils';
 import {
   setFriendship,
   setIsFetching,
@@ -26,38 +29,60 @@ import {
 import { sagaType } from './sagaType';
 
 function* getUserProfileWorker(userId: number) {
-  const res: ProfileType = yield call(profileAPI.getProfile, userId);
-  yield put(setUserProfile(res));
+  try {
+    const res: ProfileType = yield call(profileAPI.getProfile, userId);
+    yield put(setUserProfile(res));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 function* getProfileStatusWorker(userId: number) {
-  const res: string = yield call(profileAPI.getStatus, userId);
-  yield put(setProfileStatus(res));
+  try {
+    const res: string = yield call(profileAPI.getStatus, userId);
+    yield put(setProfileStatus(res));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 function* getUserIsFollowWorker(userId: number) {
-  const res: boolean = yield call(usersAPI.isFollow, userId);
-  yield put(setFriendship(res));
+  try {
+    const res: boolean = yield call(usersAPI.isFollow, userId);
+    yield put(setFriendship(res));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 function* getProfilePageWorker(action: GetProfilePageActionType) {
-  yield put(setIsFetching(true));
-  yield all([
-    call(getUserProfileWorker, action.payload.userId),
-    call(getProfileStatusWorker, action.payload.userId),
-    call(getUserIsFollowWorker, action.payload.userId),
-  ]);
-  yield put(setIsFetching(false));
+  try {
+    yield put(setIsFetching(true));
+    yield all([
+      call(getUserProfileWorker, action.payload.userId),
+      call(getProfileStatusWorker, action.payload.userId),
+      call(getUserIsFollowWorker, action.payload.userId),
+    ]);
+    yield put(setIsFetching(false));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 function* updateProfileStatusWorker(action: UpdateProfileStatusActionType) {
-  const res: ResponseType<{}> = yield call(
-    profileAPI.updateStatus,
-    action.payload.status,
-  );
+  try {
+    const res: ResponseType<{}> = yield call(
+      profileAPI.updateStatus,
+      action.payload.status,
+    );
 
-  if (res.resultCode === resultCode.SUCCESS) {
-    yield put(setProfileStatus(action.payload.status));
+    if (res.resultCode === resultCode.SUCCESS) {
+      yield put(setProfileStatus(action.payload.status));
+    } else {
+      yield call(showAppErrorHandler, res);
+    }
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
@@ -70,14 +95,11 @@ function* uploadUserPhotoWorker(action: UploadUserPhotoActionType) {
 
     if (res.resultCode === resultCode.SUCCESS) {
       yield put(uploadUserPhotoSuccess(res.data.photos));
-    } else if (res.messages.length) {
-      const firstElement = 0;
-      yield put(setAppErrorMessage(res.messages[firstElement]));
     } else {
-      yield put(setAppErrorMessage('Some error occurred'));
+      yield call(showAppErrorHandler, res);
     }
   } catch (e: any) {
-    yield put(setAppErrorMessage(e.message));
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
@@ -91,15 +113,12 @@ function* updateUserWorker(action: UpdateProfileActionType) {
 
       if (res.resultCode === resultCode.SUCCESS) {
         yield put(updateProfileSuccess(action.payload.profile));
-      } else if (res.messages.length) {
-        const firstElement = 0;
-        yield put(setAppErrorMessage(res.messages[firstElement]));
       } else {
-        yield put(setAppErrorMessage('Some error occurred'));
+        yield call(showAppErrorHandler, res);
       }
     }
-  } catch (error: any) {
-    yield put(setAppErrorMessage(error.message));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
   }
 }
 

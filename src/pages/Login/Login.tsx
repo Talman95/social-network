@@ -99,7 +99,9 @@ export const Login = () => {
               />
 
               {captchaUrl && (
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box
+                  sx={{ display: 'flex', flexDirection: 'column', marginBottom: '50px' }}
+                >
                   <img alt="captcha" src={captchaUrl} />
                   <TextField
                     id="captcha"

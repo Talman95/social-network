@@ -1,7 +1,8 @@
 import { usersAPI } from '../../../api/users';
 import { resultCode } from '../../../enums/resultCode';
+import { snackbarType } from '../../../enums/snackbarType';
 import { convertParam } from '../../../utils/convertParam';
-import { setAppErrorMessage } from '../../actions/appActions';
+import { setAppMessage } from '../../actions/appActions';
 import {
   followSuccess,
   setFriends,
@@ -58,12 +59,12 @@ export const follow =
         dispatch(followSuccess(userId));
         dispatch(getFriends());
       } else if (response.messages.length) {
-        dispatch(setAppErrorMessage(response.messages[firstElement]));
+        dispatch(setAppMessage(snackbarType.ERROR, response.messages[firstElement]));
       } else {
-        dispatch(setAppErrorMessage('Some error occurred'));
+        dispatch(setAppMessage(snackbarType.ERROR, 'Some error occurred'));
       }
     } catch (error: any) {
-      dispatch(setAppErrorMessage(error.message));
+      dispatch(setAppMessage(snackbarType.ERROR, error.message));
     }
     dispatch(togglePressingInProgress(false, userId));
   };
@@ -79,12 +80,12 @@ export const unfollow =
         dispatch(unfollowSuccess(userId));
         dispatch(getFriends());
       } else if (response.messages.length) {
-        dispatch(setAppErrorMessage(response.messages[firstElement]));
+        dispatch(setAppMessage(snackbarType.ERROR, response.messages[firstElement]));
       } else {
-        dispatch(setAppErrorMessage('Some error occurred'));
+        dispatch(setAppMessage(snackbarType.ERROR, 'Some error occurred'));
       }
     } catch (error: any) {
-      dispatch(setAppErrorMessage(error.message));
+      dispatch(setAppMessage(snackbarType.ERROR, error.message));
     }
     dispatch(togglePressingInProgress(false, userId));
   };

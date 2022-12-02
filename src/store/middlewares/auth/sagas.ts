@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { authAPI } from '../../../api/auth';
@@ -7,7 +6,11 @@ import { profileAPI } from '../../../api/profile';
 import { resultCode } from '../../../enums/resultCode';
 import { ProfileType } from '../../../types/ProfileType';
 import { ResponseType } from '../../../types/ResponseType';
-import { initializedSuccess, setAppErrorMessage } from '../../actions/appActions';
+import {
+  showAppErrorHandler,
+  showNetworkErrorHandler,
+} from '../../../utils/showAppMessageUtils';
+import { initializedSuccess } from '../../actions/appActions';
 import {
   getCaptchaUrlSuccess,
   setCurrentUser,
@@ -18,9 +21,13 @@ import { authorize, loginUser, logoutUser } from './actions';
 import { sagaType } from './sagaType';
 
 export function* getAuthUserWorker(id: number) {
-  const res: ProfileType = yield call(profileAPI.getProfile, id);
+  try {
+    const res: ProfileType = yield call(profileAPI.getProfile, id);
 
-  yield put(setCurrentUser(res));
+    yield put(setCurrentUser(res));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 export function* authorizeWorker() {
@@ -36,14 +43,18 @@ export function* authorizeWorker() {
     }
     yield put(initializedSuccess());
   } catch (e: any) {
-    yield put(setAppErrorMessage(e.message));
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
 function* getCaptchaUrlWorker() {
-  const res: AxiosResponse<{ url: string }> = yield call(authAPI.getCaptcha);
+  try {
+    const res: { url: string } = yield call(authAPI.getCaptcha);
 
-  yield put(getCaptchaUrlSuccess(res.data.url));
+    yield put(getCaptchaUrlSuccess(res.url));
+  } catch (e: any) {
+    yield call(showNetworkErrorHandler, e);
+  }
 }
 
 function* loginWorker(action: LoginActionType) {
@@ -56,15 +67,13 @@ function* loginWorker(action: LoginActionType) {
     if (res.resultCode === resultCode.SUCCESS) {
       yield call(authorizeWorker);
     } else if (res.resultCode === resultCode.CAPTCHA_ERROR) {
+      yield call(showAppErrorHandler, res);
       yield call(getCaptchaUrlWorker);
-    } else if (res.messages.length) {
-      const firstElement = 0;
-      yield put(setAppErrorMessage(res.messages[firstElement]));
     } else {
-      yield put(setAppErrorMessage('Some error occurred'));
+      yield call(showAppErrorHandler, res);
     }
   } catch (e: any) {
-    yield put(setAppErrorMessage(e.message));
+    yield call(showNetworkErrorHandler, e);
   }
 }
 
@@ -76,9 +85,11 @@ function* logoutWorker() {
       yield put(setUserData(null, null, null, false));
       yield put(setCurrentUser(null));
       yield put(getCaptchaUrlSuccess(null));
+    } else {
+      yield call(showAppErrorHandler, res);
     }
   } catch (e: any) {
-    yield put(setAppErrorMessage(e.message));
+    yield call(showNetworkErrorHandler, e);
   }
 }
 

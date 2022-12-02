@@ -22,5 +22,5 @@ export const setCurrentUser = (currentUser: ProfileType | null) =>
 export const getCaptchaUrlSuccess = (url: string | null) =>
   ({
     type: authActionType.GET_CAPTCHA_URL_SUCCESS,
-    payload: { url },
+    payload: { captchaUrl: url },
   } as const);

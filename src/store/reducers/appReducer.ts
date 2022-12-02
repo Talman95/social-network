@@ -1,15 +1,17 @@
-import { initializedSuccess, setAppErrorMessage } from '../actions/appActions';
+import { SnackbarMessageType } from '../../types/SnackbarMessageType';
+import { initializedSuccess, setAppMessage } from '../actions/appActions';
 import { appActionType } from '../actions/types/actionTypes';
 
 const initialState = {
   isInitialized: false,
-  errorMessage: null as null | string,
+  messageType: 'error' as SnackbarMessageType,
+  message: null as null | string,
 };
 
 type InitStateType = typeof initialState;
 export type InitActionsType =
   | ReturnType<typeof initializedSuccess>
-  | ReturnType<typeof setAppErrorMessage>;
+  | ReturnType<typeof setAppMessage>;
 
 export const appReducer = (
   state = initialState,
@@ -18,7 +20,7 @@ export const appReducer = (
   switch (action.type) {
     case appActionType.SET_INITIALIZED:
       return { ...state, isInitialized: true };
-    case appActionType.SET_ERROR_MESSAGE:
+    case appActionType.SET_APP_MESSAGE:
       return { ...state, ...action.payload };
     default:
       return state;

@@ -5,32 +5,31 @@ import { AuthMeDataType, loginValuesFormModel } from './types';
 
 export const authAPI = {
   async authMe() {
-    const response = await instance.get<ResponseType<AuthMeDataType>>('/auth/me');
+    const res = await instance.get<ResponseType<AuthMeDataType>>('/auth/me');
 
-    return response.data;
+    return res.data;
   },
 
   async login({ email, password, rememberMe, captcha }: loginValuesFormModel) {
-    const response = await instance.post<ResponseType<{ userId: number }>>(
-      '/auth/login',
-      {
-        email,
-        password,
-        rememberMe,
-        captcha,
-      },
-    );
+    const res = await instance.post<ResponseType<{ userId: number }>>('/auth/login', {
+      email,
+      password,
+      rememberMe,
+      captcha,
+    });
 
-    return response.data;
+    return res.data;
   },
 
   async logout() {
-    const response = await instance.delete<ResponseType<{}>>('/auth/login');
+    const res = await instance.delete<ResponseType<{}>>('/auth/login');
 
-    return response.data;
+    return res.data;
   },
 
-  getCaptcha() {
-    return instance.get<{ url: string }>('/security/get-captcha-url');
+  async getCaptcha() {
+    const res = await instance.get<{ url: string }>('/security/get-captcha-url');
+
+    return res.data;
   },
 };
