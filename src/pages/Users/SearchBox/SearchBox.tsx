@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 
+import { appStatus } from '../../../enums/appStatus';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { setUsersFilter } from '../../../store/actions/usersActions';
-import { selectIsFetching } from '../../../store/selectors/usersSelectors';
+import { selectAppStatus } from '../../../store/selectors/appSelectors';
 import { FriendUiType } from '../../../types/FriendUiType';
 
 type PropsType = {
@@ -23,7 +24,7 @@ type PropsType = {
 export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
   const dispatch = useAppDispatch();
 
-  const isFetching = useSelector(selectIsFetching);
+  const status = useSelector(selectAppStatus);
 
   const [searchTerm, setSearchTerm] = useState(searchName);
   const [friends, setFriends] = useState(userFriends);
@@ -57,7 +58,7 @@ export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
         variant="outlined"
         value={searchTerm}
         onChange={onSearchTermChange}
-        disabled={isFetching}
+        disabled={status === appStatus.LOADING}
       />
 
       <Select
@@ -66,14 +67,18 @@ export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
         onChange={onFriendsFilterChange}
         style={{ width: 163 }}
         value={friends}
-        disabled={isFetching}
+        disabled={status === appStatus.LOADING}
       >
         <MenuItem value="all">All</MenuItem>
         <MenuItem value="follow">Only followed</MenuItem>
         <MenuItem value="unfollow">Only unfollowed</MenuItem>
       </Select>
 
-      <Button variant="contained" onClick={onSearchNameChange} disabled={isFetching}>
+      <Button
+        variant="contained"
+        onClick={onSearchNameChange}
+        disabled={status === appStatus.LOADING}
+      >
         Search
       </Button>
     </Stack>

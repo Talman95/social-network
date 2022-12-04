@@ -6,8 +6,6 @@ export const selectCurrentPage = (state: RootState) => state.users.currentPage;
 export const selectPageSize = (state: RootState) => state.users.pageSize;
 export const selectTotalCount = (state: RootState) => state.users.totalCount;
 
-export const selectIsFetching = (state: RootState) => state.users.isFetching;
-
 export const selectPressingInProgress = (state: RootState) =>
   state.users.pressingInProgress;
 

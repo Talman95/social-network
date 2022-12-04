@@ -4,13 +4,14 @@ import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-import { Preloader } from '../../components/common/Preloader/Preloader';
+import { UsersSkeleton } from '../../components/common/UsersSkeleton/UsersSkeleton';
+import { appStatus } from '../../enums/appStatus';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setCurrentPage, setUsersFilter } from '../../store/actions/usersActions';
 import { getUsers } from '../../store/middlewares/users/actions';
+import { selectAppStatus } from '../../store/selectors/appSelectors';
 import {
   selectCurrentPage,
-  selectIsFetching,
   selectSearchName,
   selectUserFriends,
 } from '../../store/selectors/usersSelectors';
@@ -28,7 +29,8 @@ export const Users = () => {
 
   const currentPage = useSelector(selectCurrentPage);
 
-  const isFetching = useSelector(selectIsFetching);
+  // const isFetching = useSelector(selectIsFetching);
+  const status = useSelector(selectAppStatus);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -66,7 +68,7 @@ export const Users = () => {
     <Box>
       <SearchBox searchName={searchName} userFriends={userFriends} />
 
-      {isFetching ? <Preloader /> : <MappedUsers />}
+      {status === appStatus.LOADING ? <UsersSkeleton /> : <MappedUsers />}
 
       <UsersPagination />
     </Box>

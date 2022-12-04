@@ -3,7 +3,6 @@ import {
   setCurrentPage,
   setTotalMembers,
   setUsers,
-  toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
 } from '../../actions/usersActions';
@@ -14,7 +13,6 @@ let startState: UsersStateType = {
   currentPage: 1,
   pageSize: 10,
   totalCount: 0,
-  isFetching: false,
   pressingInProgress: [],
   filter: {
     searchName: '',
@@ -53,7 +51,6 @@ beforeEach(() => {
     currentPage: 1,
     pageSize: 10,
     totalCount: 0,
-    isFetching: false,
     pressingInProgress: [],
     filter: {
       searchName: '',
@@ -140,12 +137,6 @@ test('should be set total users in state', () => {
   const endState = usersReducer(startState, setTotalMembers(totalCount));
 
   expect(endState.totalCount).toBe(totalCount);
-});
-
-test('fetching should be toggle', () => {
-  const endState = usersReducer(startState, toggleIsFetching(true));
-
-  expect(endState.isFetching).toBe(true);
 });
 
 test('users should be in array while they are waiting and after deleted', () => {

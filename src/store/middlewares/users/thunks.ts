@@ -9,7 +9,6 @@ import {
   setFriendsCount,
   setTotalMembers,
   setUsers,
-  toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
 } from '../../actions/usersActions';
@@ -18,8 +17,6 @@ import { AppThunk } from '../../store';
 const firstElement = 0;
 
 export const getUsers = (): AppThunk => async (dispatch, getState) => {
-  dispatch(toggleIsFetching(true));
-
   const { currentPage, pageSize } = getState().users;
   const { userFriends, searchName } = getState().users.filter;
 
@@ -34,7 +31,6 @@ export const getUsers = (): AppThunk => async (dispatch, getState) => {
 
   dispatch(setUsers(res.items));
   dispatch(setTotalMembers(res.totalCount));
-  dispatch(toggleIsFetching(false));
 };
 
 export const getFriends = (): AppThunk => async (dispatch, getState) => {

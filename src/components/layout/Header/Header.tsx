@@ -24,7 +24,7 @@ export const Header = () => {
   const onMenuBlur = () => setAnchorEl(null);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" style={{ height: '64px' }}>
       <StyledToolbar>
         <Typography variant="h6">SOCIAL NETWORK</Typography>
         {isAuth ? (

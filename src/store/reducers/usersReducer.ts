@@ -9,7 +9,6 @@ import {
   setTotalMembers,
   setUsers,
   setUsersFilter,
-  toggleIsFetching,
   togglePressingInProgress,
   unfollowSuccess,
 } from '../actions/usersActions';
@@ -19,7 +18,6 @@ export const initialState = {
   currentPage: 1,
   pageSize: 10,
   totalCount: 0,
-  isFetching: false,
   pressingInProgress: [] as Array<number>,
   filter: {
     searchName: '',
@@ -36,7 +34,6 @@ export type UsersActionsType =
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof setTotalMembers>
-  | ReturnType<typeof toggleIsFetching>
   | ReturnType<typeof togglePressingInProgress>
   | ReturnType<typeof setUsersFilter>
   | ReturnType<typeof setFriends>
@@ -64,7 +61,6 @@ export const usersReducer = (
     case usersActionType.SET_USERS:
     case usersActionType.SET_CURRENT_PAGE:
     case usersActionType.SET_TOTAL_MEMBERS:
-    case usersActionType.TOGGLE_IS_FETCHING:
     case usersActionType.SET_USERS_FILTER:
     case usersActionType.SET_FOLLOWINGS:
     case usersActionType.SET_FOLLOWINGS_COUNT:

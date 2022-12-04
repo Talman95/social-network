@@ -27,9 +27,6 @@ export const setCurrentPage = (currentPage: number) =>
 export const setTotalMembers = (totalCount: number) =>
   ({ type: usersActionType.SET_TOTAL_MEMBERS, payload: { totalCount } } as const);
 
-export const toggleIsFetching = (isFetching: boolean) =>
-  ({ type: usersActionType.TOGGLE_IS_FETCHING, payload: { isFetching } } as const);
-
 export const togglePressingInProgress = (isPressed: boolean, userId: number) =>
   ({
     type: usersActionType.TOGGLE_PRESSING_IN_PROGRESS,

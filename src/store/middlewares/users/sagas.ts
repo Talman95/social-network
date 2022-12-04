@@ -2,6 +2,8 @@ import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { usersAPI } from '../../../api/users';
 import { GetUsersResponseType } from '../../../api/users/types';
+import { appStatus } from '../../../enums/appStatus';
+import { followUnfollowFrom } from '../../../enums/followUnfollowFrom';
 import { resultCode } from '../../../enums/resultCode';
 import { ResponseType } from '../../../types/ResponseType';
 import { convertParam } from '../../../utils/convertParam';
@@ -9,6 +11,7 @@ import {
   showAppErrorHandler,
   showNetworkErrorHandler,
 } from '../../../utils/showAppMessageUtils';
+import { setAppStatus } from '../../actions/appActions';
 import { setFriendship } from '../../actions/profileActions';
 import {
   followSuccess,
@@ -16,7 +19,7 @@ import {
   setFriendsCount,
   setTotalMembers,
   setUsers,
-  toggleIsFetching,
+  togglePressingInProgress,
   unfollowSuccess,
 } from '../../actions/usersActions';
 import { RootState } from '../../store';
@@ -26,7 +29,7 @@ import { sagaType } from './sagaType';
 
 export function* getUsersWorker() {
   try {
-    yield put(toggleIsFetching(true));
+    yield put(setAppStatus(appStatus.LOADING));
     const { currentPage, pageSize, filter } = yield select(state => state.users);
 
     const friend = convertParam.toBoolean(filter.userFriends);
@@ -42,7 +45,7 @@ export function* getUsersWorker() {
 
     yield put(setUsers(res.items));
     yield put(setTotalMembers(res.totalCount));
-    yield put(toggleIsFetching(false));
+    yield put(setAppStatus(appStatus.IDLE));
   } catch (e: any) {
     yield call(showNetworkErrorHandler, e);
   }
@@ -66,7 +69,7 @@ export function* getFriendsWorker() {
 }
 
 function* followHelper(userId: number, page: string) {
-  if (page === 'profile') {
+  if (page === followUnfollowFrom.PROFILE) {
     yield put(setFriendship(true));
   } else {
     yield put(followSuccess(userId));
@@ -76,20 +79,24 @@ function* followHelper(userId: number, page: string) {
 
 function* followUserWorker(action: FollowUserActionType) {
   try {
+    yield put(togglePressingInProgress(true, action.payload.userId));
+
     const res: ResponseType<{}> = yield call(usersAPI.follow, action.payload.userId);
 
     if (res.resultCode === resultCode.SUCCESS) {
       yield call(followHelper, action.payload.userId, action.payload.page);
     } else {
-      showAppErrorHandler(res);
+      yield call(showAppErrorHandler, res);
     }
   } catch (e: any) {
     yield call(showNetworkErrorHandler, e);
+  } finally {
+    yield put(togglePressingInProgress(false, action.payload.userId));
   }
 }
 
 function* unfollowHelper(userId: number, page: string) {
-  if (page === 'profile') {
+  if (page === followUnfollowFrom.PROFILE) {
     yield put(setFriendship(false));
   } else {
     yield put(unfollowSuccess(userId));
@@ -99,15 +106,19 @@ function* unfollowHelper(userId: number, page: string) {
 
 function* unfollowUserWorker(action: UnfollowUserActionType) {
   try {
+    yield put(togglePressingInProgress(true, action.payload.userId));
+
     const res: ResponseType<{}> = yield call(usersAPI.unfollow, action.payload.userId);
 
     if (res.resultCode === resultCode.SUCCESS) {
       yield call(unfollowHelper, action.payload.userId, action.payload.page);
     } else {
-      showAppErrorHandler(res);
+      yield call(showAppErrorHandler, res);
     }
   } catch (e: any) {
-    showNetworkErrorHandler(e);
+    yield call(showNetworkErrorHandler, e);
+  } finally {
+    yield put(togglePressingInProgress(false, action.payload.userId));
   }
 }
 

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const IconsContainer = styled(Box)(({ theme }) => ({
@@ -24,7 +24,7 @@ export const UserInfoContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const UserNameContainer = styled(Typography)({
+export const UserNameContainer = styled(Box)({
   display: '-webkit-box',
   overflow: 'hidden',
   WebkitBoxOrient: 'vertical',

@@ -24,7 +24,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
     if (userId) {
       const id = Number(userId);
 
-      dispatch(followUser(id, followUnfollowFrom.profile));
+      dispatch(followUser(id, followUnfollowFrom.PROFILE));
     }
   };
 
@@ -32,7 +32,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
     if (userId) {
       const id = Number(userId);
 
-      dispatch(unfollowUser(id, followUnfollowFrom.profile));
+      dispatch(unfollowUser(id, followUnfollowFrom.PROFILE));
     }
   };
 

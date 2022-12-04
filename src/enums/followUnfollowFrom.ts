@@ -1,4 +1,4 @@
 export enum followUnfollowFrom {
-  profile = 'profile',
-  users = 'users',
+  PROFILE = 'profile',
+  USERS = 'users',
 }
