@@ -2,6 +2,7 @@ import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 import { profileAPI } from '../../../api/profile';
 import { usersAPI } from '../../../api/users';
+import { appStatus } from '../../../enums/appStatus';
 import { resultCode } from '../../../enums/resultCode';
 import { PhotosType } from '../../../types/PhotosType';
 import { ProfileType } from '../../../types/ProfileType';
@@ -10,9 +11,9 @@ import {
   showAppErrorHandler,
   showNetworkErrorHandler,
 } from '../../../utils/showAppMessageUtils';
+import { setAppStatus } from '../../actions/appActions';
 import {
   setFriendship,
-  setIsFetching,
   setProfileStatus,
   setUserProfile,
   updateProfileSuccess,
@@ -57,15 +58,16 @@ function* getUserIsFollowWorker(userId: number) {
 
 function* getProfilePageWorker(action: GetProfilePageActionType) {
   try {
-    yield put(setIsFetching(true));
+    yield put(setAppStatus(appStatus.LOADING));
     yield all([
       call(getUserProfileWorker, action.payload.userId),
       call(getProfileStatusWorker, action.payload.userId),
       call(getUserIsFollowWorker, action.payload.userId),
     ]);
-    yield put(setIsFetching(false));
   } catch (e: any) {
     yield call(showNetworkErrorHandler, e);
+  } finally {
+    yield put(setAppStatus(appStatus.IDLE));
   }
 }
 

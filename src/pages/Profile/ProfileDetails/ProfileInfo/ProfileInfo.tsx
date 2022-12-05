@@ -7,18 +7,18 @@ import { ContactsType, ProfileType } from '../../../../types/ProfileType';
 import { Contact } from './Contact/Contact';
 
 type ProfileInfoType = {
-  profile: ProfileType;
+  profile: ProfileType | null;
   onEditMode: () => void;
   userId: string | undefined;
 };
 
 export const ProfileInfo: FC<ProfileInfoType> = ({ profile, onEditMode, userId }) => (
   <>
-    {profile.lookingForAJob && (
-      <Contact title="Looking for a job" value={profile.lookingForAJobDescription} />
+    {profile?.lookingForAJob && (
+      <Contact title="Looking for a job" value={profile?.lookingForAJobDescription} />
     )}
 
-    <Contact title="About me" value={profile.aboutMe} />
+    <Contact title="About me" value={profile?.aboutMe || ''} />
 
     <Divider sx={{ marginTop: '15px', marginBottom: '15px' }} />
 
@@ -26,11 +26,11 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ profile, onEditMode, userId }
       Contacts
     </Typography>
 
-    {Object.keys(profile.contacts).map(key => (
+    {Object.keys(profile?.contacts || {}).map(key => (
       <Contact
         key={key}
         title={key}
-        value={profile.contacts[key as keyof ContactsType]}
+        value={profile?.contacts[key as keyof ContactsType] || ''}
       />
     ))}
 

@@ -3,7 +3,6 @@ import { applyMiddleware, combineReducers, compose, legacy_createStore } from 'r
 import createSagaMiddleware from 'redux-saga';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { MessagesActionsType, messagesReducer } from './messagesReducer';
 import { AuthSagasType } from './middlewares/auth/sagas';
 import { DialogsSagasType } from './middlewares/dialogs/sagas';
 import { ProfileSagasType } from './middlewares/profile/sagas';
@@ -18,7 +17,6 @@ import { UsersActionsType, usersReducer } from './reducers/usersReducer';
 
 const rootReducer = combineReducers({
   profile: profileReducer,
-  messages: messagesReducer,
   users: usersReducer,
   auth: authReducer,
   app: appReducer,
@@ -44,7 +42,6 @@ sagaMiddleware.run(RootSaga);
 
 export type AppActionsType =
   | ProfileActionsType
-  | MessagesActionsType
   | UsersActionsType
   | AuthActionsType
   | InitActionsType

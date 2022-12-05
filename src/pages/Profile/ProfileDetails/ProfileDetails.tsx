@@ -4,7 +4,6 @@ import { Avatar, Box, Card, CardContent, Divider, Typography } from '@mui/materi
 import { blue } from '@mui/material/colors';
 import { useSelector } from 'react-redux';
 
-import { Preloader } from '../../../components/common/Preloader/Preloader';
 import { COLOR_BLUE } from '../../../constants/colors';
 import { useOutside } from '../../../hooks/useOutside';
 import { selectProfile, selectStatus } from '../../../store/selectors/profileSelectors';
@@ -32,10 +31,6 @@ export const ProfileDetails: FC<PropsType> = ({ userId }) => {
   const offEditMode = () => {
     setIsShow(false);
   };
-
-  if (!profile) {
-    return <Preloader />;
-  }
 
   return (
     <Card

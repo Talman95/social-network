@@ -22,7 +22,7 @@ import { Contact } from './Contact/Contact';
 import { ContactContainer, TitleContainer, ValueContainer } from './Contact/styles';
 
 type PropsType = {
-  profile: ProfileType;
+  profile: ProfileType | null;
   offEditMode: () => void;
 };
 
@@ -40,20 +40,20 @@ export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
 
   const formik = useFormik({
     initialValues: {
-      aboutMe: profile?.aboutMe,
+      aboutMe: profile?.aboutMe || '',
       contacts: {
-        facebook: profile?.contacts.facebook,
-        website: profile?.contacts.website,
-        vk: profile?.contacts.vk,
-        twitter: profile?.contacts.twitter,
-        instagram: profile?.contacts.instagram,
-        youtube: profile?.contacts.youtube,
-        github: profile?.contacts.github,
-        mainLink: profile?.contacts.mainLink,
+        facebook: profile?.contacts.facebook || '',
+        website: profile?.contacts.website || '',
+        vk: profile?.contacts.vk || '',
+        twitter: profile?.contacts.twitter || '',
+        instagram: profile?.contacts.instagram || '',
+        youtube: profile?.contacts.youtube || '',
+        github: profile?.contacts.github || '',
+        mainLink: profile?.contacts.mainLink || '',
       },
-      lookingForAJob: profile?.lookingForAJob,
-      lookingForAJobDescription: profile?.lookingForAJobDescription,
-      fullName: profile?.fullName,
+      lookingForAJob: profile?.lookingForAJob || !!profile?.lookingForAJob,
+      lookingForAJobDescription: profile?.lookingForAJobDescription || '',
+      fullName: profile?.fullName || '',
     },
     validationSchema,
     onSubmit: submit,
@@ -111,7 +111,7 @@ export const ProfileDataForm: FC<PropsType> = ({ profile, offEditMode }) => {
           Contacts
         </Typography>
 
-        {Object.keys(profile.contacts).map(key => (
+        {Object.keys(profile?.contacts || {}).map(key => (
           <Contact
             key={key}
             title={key}

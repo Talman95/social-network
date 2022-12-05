@@ -4,7 +4,7 @@ import { ContactContainer, TitleContainer, ValueContainer } from './styles';
 
 type PropsType = {
   title: string;
-  value: string;
+  value: string | null;
 };
 
 export const Contact: FC<PropsType> = ({ title, value }) => (
