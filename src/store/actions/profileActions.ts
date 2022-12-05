@@ -36,9 +36,3 @@ export const updateProfileSuccess = (updatedProfile: UpdateProfileModel) =>
     type: profileActionType.UPDATE_PROFILE_SUCCESS,
     payload: { updatedProfile },
   } as const);
-
-export const setIsFetching = (isFetching: boolean) =>
-  ({
-    type: profileActionType.SET_IS_FETCHING,
-    payload: { isFetching },
-  } as const);

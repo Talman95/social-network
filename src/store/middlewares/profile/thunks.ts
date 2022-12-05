@@ -5,7 +5,6 @@ import { snackbarType } from '../../../enums/snackbarType';
 import { setAppMessage } from '../../actions/appActions';
 import {
   setFriendship,
-  setIsFetching,
   setProfileStatus,
   setUserProfile,
   updateProfileSuccess,
@@ -52,13 +51,11 @@ export const isFollow =
 export const loadProfilePage =
   (userId: number): AppThunk =>
   async dispatch => {
-    dispatch(setIsFetching(true));
     await Promise.allSettled([
       dispatch(getUserProfile(userId)),
       dispatch(getProfileStatus(userId)),
       dispatch(isFollow(userId)),
     ]);
-    dispatch(setIsFetching(false));
   };
 
 export const updateProfileStatus =

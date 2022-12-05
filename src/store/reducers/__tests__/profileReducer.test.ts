@@ -14,7 +14,6 @@ let startState: ProfileStateType = {
   posts: [] as PostType[],
   status: '',
   isFriend: false,
-  isFetching: true,
 };
 
 beforeEach(() => {
@@ -48,7 +47,6 @@ beforeEach(() => {
     ],
     status: '',
     isFriend: false,
-    isFetching: false,
   };
 });
 

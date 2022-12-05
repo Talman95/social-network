@@ -3,7 +3,6 @@ import {
   addPost,
   deletePost,
   setFriendship,
-  setIsFetching,
   setProfileStatus,
   setUserProfile,
   updateProfileSuccess,
@@ -16,7 +15,6 @@ const initialState = {
   posts: [{ id: 1, message: 'Hi, how are you guys?' }] as PostType[],
   status: '',
   isFriend: false,
-  isFetching: false,
 };
 
 export type PostType = {
@@ -48,7 +46,6 @@ export type ProfileActionsType =
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setProfileStatus>
   | ReturnType<typeof setFriendship>
-  | ReturnType<typeof setIsFetching>
   | UploadUserPhotoSuccessType
   | UpdateProfileSuccessType;
 
@@ -74,7 +71,6 @@ export const profileReducer = (
     case profileActionType.SET_USER_PROFILE:
     case profileActionType.SET_PROFILE_STATUS:
     case profileActionType.SET_FRIENDSHIP:
-    case profileActionType.SET_IS_FETCHING:
       return {
         ...state,
         ...action.payload,
