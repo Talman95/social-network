@@ -11,7 +11,7 @@ const initialState = {
   status: appStatus.IDLE as AppStatusType,
 };
 
-type InitStateType = typeof initialState;
+export type InitAppStateType = typeof initialState;
 export type InitActionsType =
   | ReturnType<typeof initializedSuccess>
   | ReturnType<typeof setAppMessage>
@@ -20,7 +20,7 @@ export type InitActionsType =
 export const appReducer = (
   state = initialState,
   action: InitActionsType,
-): InitStateType => {
+): InitAppStateType => {
   switch (action.type) {
     case appActionType.SET_INITIALIZED:
       return { ...state, isInitialized: true };
