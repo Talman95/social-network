@@ -12,7 +12,7 @@ const initialState = {
   status: chatStatus.PENDING as chatStatus,
 };
 
-type ChatStateType = typeof initialState;
+export type ChatStateType = typeof initialState;
 export type ChatActionsType =
   | ReturnType<typeof messagesReceived>
   | ReturnType<typeof statusChanged>
