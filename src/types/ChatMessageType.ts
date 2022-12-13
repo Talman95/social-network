@@ -1,6 +1,5 @@
-export type ChatMessageType = {
-  message: string;
-  photo: string;
-  userId: number;
-  userName: string;
+import { ChatMessageApiType } from '../api/chat/types';
+
+export type ChatMessageType = ChatMessageApiType & {
+  id: string;
 };
