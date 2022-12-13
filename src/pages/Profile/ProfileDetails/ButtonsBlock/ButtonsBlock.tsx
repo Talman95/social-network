@@ -57,7 +57,6 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
           FOLLOW
         </Button>
       )}
-      <Button variant="contained">Message</Button>
     </Stack>
   );
 };

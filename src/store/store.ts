@@ -4,14 +4,12 @@ import createSagaMiddleware from 'redux-saga';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AuthSagasType } from './middlewares/auth/sagas';
-import { DialogsSagasType } from './middlewares/dialogs/sagas';
 import { ProfileSagasType } from './middlewares/profile/sagas';
 import { RootSaga } from './middlewares/rootSaga';
 import { UsersSagasType } from './middlewares/users/sagas';
 import { appReducer, InitActionsType } from './reducers/appReducer';
 import { AuthActionsType, authReducer } from './reducers/authReducer';
 import { ChatActionsType, chatReducer } from './reducers/chatReducer';
-import { dialogsReducer } from './reducers/dialogsReducer';
 import { ProfileActionsType, profileReducer } from './reducers/profileReducer';
 import { UsersActionsType, usersReducer } from './reducers/usersReducer';
 
@@ -21,7 +19,6 @@ const rootReducer = combineReducers({
   auth: authReducer,
   app: appReducer,
   chat: chatReducer,
-  dialogs: dialogsReducer,
 });
 
 declare global {
@@ -48,7 +45,6 @@ export type AppActionsType =
   | AuthSagasType
   | UsersSagasType
   | ProfileSagasType
-  | DialogsSagasType
   | ChatActionsType;
 
 export type AppStateType = ReturnType<typeof rootReducer>;

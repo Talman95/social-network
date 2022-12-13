@@ -15,6 +15,7 @@ export const TitleContainer = styled('span')(({ theme }) => ({
 export const ValueContainer = styled('span')(({ theme }) => ({
   ...theme.typography.subtitle2,
   wordWrap: 'break-word',
+  width: '200px',
   [theme.breakpoints.up('sm')]: {
     ...theme.typography.body1,
     fontWeight: '400',

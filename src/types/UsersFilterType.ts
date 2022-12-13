@@ -1,6 +1,6 @@
-import { FriendUiType } from './FriendUiType';
+import { showUsers } from '../enums/showUsers';
 
 export type UsersFilterType = {
   searchName: string;
-  userFriends: FriendUiType;
+  userFriends: showUsers;
 };

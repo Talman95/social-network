@@ -11,14 +11,14 @@ import {
 import { useSelector } from 'react-redux';
 
 import { appStatus } from '../../../enums/appStatus';
+import { showUsers } from '../../../enums/showUsers';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { setUsersFilter } from '../../../store/actions/usersActions';
 import { selectAppStatus } from '../../../store/selectors/appSelectors';
-import { FriendUiType } from '../../../types/FriendUiType';
 
 type PropsType = {
   searchName: string;
-  userFriends: FriendUiType;
+  userFriends: showUsers;
 };
 
 export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
@@ -44,7 +44,7 @@ export const SearchBox: FC<PropsType> = ({ searchName, userFriends }) => {
   };
 
   const onFriendsFilterChange = (e: SelectChangeEvent) => {
-    const resultFriend = e.target.value as FriendUiType;
+    const resultFriend = e.target.value as showUsers;
 
     setFriends(resultFriend);
     dispatch(setUsersFilter({ searchName: searchTerm, userFriends: resultFriend }));

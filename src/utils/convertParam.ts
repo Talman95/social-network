@@ -1,16 +1,18 @@
+import { showUsers } from '../enums/showUsers';
+
 export const convertParam = {
   toFriendType: (friend: string) => {
-    if (friend === 'true') return 'follow';
+    if (friend === 'true') return showUsers.FOLLOW;
 
-    if (friend === 'false') return 'unfollow';
+    if (friend === 'false') return showUsers.UNFOLLOW;
 
-    return 'all';
+    return showUsers.ALL;
   },
 
   toBoolean: (friend: string) => {
-    if (friend === 'follow') return true;
+    if (friend === showUsers.FOLLOW) return true;
 
-    if (friend === 'unfollow') return false;
+    if (friend === showUsers.UNFOLLOW) return false;
 
     return null;
   },

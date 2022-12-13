@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { UsersSkeleton } from '../../components/common/UsersSkeleton/UsersSkeleton';
 import { appStatus } from '../../enums/appStatus';
+import { showUsers } from '../../enums/showUsers';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setCurrentPage, setUsersFilter } from '../../store/actions/usersActions';
 import { getUsers } from '../../store/middlewares/users/actions';
@@ -29,7 +30,6 @@ export const Users = () => {
 
   const currentPage = useSelector(selectCurrentPage);
 
-  // const isFetching = useSelector(selectIsFetching);
   const status = useSelector(selectAppStatus);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -58,8 +58,8 @@ export const Users = () => {
 
     if (currentPage > page) params.page = String(currentPage);
     if (searchName) params.term = searchName;
-    if (userFriends === 'follow') params.friend = true;
-    if (userFriends === 'unfollow') params.friend = false;
+    if (userFriends === showUsers.FOLLOW) params.friend = true;
+    if (userFriends === showUsers.UNFOLLOW) params.friend = false;
 
     setSearchParams(params);
   }, [currentPage, searchName, userFriends]);

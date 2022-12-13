@@ -28,14 +28,14 @@ export const HeaderMenu: FC<PropsType> = ({ anchorEl, open, onCloseClick }) => {
     navigate(path.CHAT);
   };
 
-  const onDialogsClick = () => {
-    onCloseClick();
-    navigate(path.DIALOGS);
-  };
-
   const onUsersClick = () => {
     onCloseClick();
     navigate(path.USERS);
+  };
+
+  const onSettingsClick = () => {
+    onCloseClick();
+    navigate(path.SETTINGS);
   };
 
   const onLogoutClick = () => {
@@ -54,9 +54,9 @@ export const HeaderMenu: FC<PropsType> = ({ anchorEl, open, onCloseClick }) => {
       }}
     >
       <MenuItem onClick={onProfileClick}>Profile</MenuItem>
-      <MenuItem onClick={onDialogsClick}>Dialogs</MenuItem>
       <MenuItem onClick={onChatClick}>Chat</MenuItem>
       <MenuItem onClick={onUsersClick}>Devs</MenuItem>
+      <MenuItem onClick={onSettingsClick}>Settings</MenuItem>
       <Divider />
       <MenuItem onClick={onLogoutClick}>LogOut</MenuItem>
     </Menu>

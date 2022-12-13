@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 import { NavLink, useMatch, useNavigate } from 'react-router-dom';
 
+import { path } from '../../../enums/path';
+import { showUsers } from '../../../enums/showUsers';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { setUsersFilter } from '../../../store/actions/usersActions';
 import { getFriends } from '../../../store/middlewares/users/actions';
@@ -33,7 +35,7 @@ export const Sidebar = () => {
 
   const navigate = useNavigate();
 
-  const match = useMatch('/users');
+  const match = useMatch(path.USERS);
 
   useEffect(() => {
     dispatch(getFriends());
@@ -41,7 +43,7 @@ export const Sidebar = () => {
 
   const onFollowingClick = async () => {
     if (match) {
-      dispatch(setUsersFilter({ searchName: '', userFriends: 'follow' }));
+      dispatch(setUsersFilter({ searchName: '', userFriends: showUsers.FOLLOW }));
     } else {
       navigate('users?friend=true');
     }
@@ -66,7 +68,7 @@ export const Sidebar = () => {
             ) : (
               <AvatarGroup max={8} total={followingsCount}>
                 {followings.map(f => (
-                  <NavLink to={`/profile/${f.id}`} key={f.id}>
+                  <NavLink to={`${path.PROFILE}${f.id}`} key={f.id}>
                     <Avatar alt={f.name} src={f.photos.small ? f.photos.small : ''} />
                   </NavLink>
                 ))}

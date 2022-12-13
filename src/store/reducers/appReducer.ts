@@ -1,14 +1,13 @@
 import { appStatus } from '../../enums/appStatus';
-import { AppStatusType } from '../../types/AppStatusType';
-import { SnackbarMessageType } from '../../types/SnackbarMessageType';
+import { snackbarType } from '../../enums/snackbarType';
 import { initializedSuccess, setAppMessage, setAppStatus } from '../actions/appActions';
 import { appActionType } from '../actions/types/actionTypes';
 
 const initialState = {
   isInitialized: false,
-  messageType: 'error' as SnackbarMessageType,
+  messageType: 'error' as snackbarType,
   message: null as null | string,
-  status: appStatus.IDLE as AppStatusType,
+  status: appStatus.IDLE as appStatus,
 };
 
 export type InitAppStateType = typeof initialState;
