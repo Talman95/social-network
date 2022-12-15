@@ -10,7 +10,7 @@ import { COLOR_BLUE } from '../../../../constants/colors';
 import { followUnfollowFrom } from '../../../../enums/followUnfollowFrom';
 import { path } from '../../../../enums/path';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { followUser, unfollowUser } from '../../../../store/middlewares/users/actions';
+import { follow, unfollow } from '../../../../store/middlewares/users';
 import { selectPressingInProgress } from '../../../../store/selectors/usersSelectors';
 
 import { StatusContainer, UserInfoContainer, UserNameContainer } from './styles';
@@ -32,12 +32,12 @@ export const User: FC<PropsType> = ({ userId, name, smallPhoto, status, followed
 
   const onFollowClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    dispatch(followUser(userId, followUnfollowFrom.USERS));
+    dispatch(follow(userId, followUnfollowFrom.USERS));
   };
 
   const onUnfollowClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    dispatch(unfollowUser(userId, followUnfollowFrom.USERS));
+    dispatch(unfollow(userId, followUnfollowFrom.USERS));
   };
 
   const onProfileNavigate = () => {

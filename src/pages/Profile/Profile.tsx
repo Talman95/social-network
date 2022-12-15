@@ -7,7 +7,7 @@ import { ProfileSkeleton } from '../../components/common/ProfileSkeleton/Profile
 import { appStatus } from '../../enums/appStatus';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setUserProfile } from '../../store/actions/profileActions';
-import { getProfilePage } from '../../store/middlewares/profile/actions';
+import { loadProfilePage } from '../../store/middlewares/profile';
 import { selectAppStatus } from '../../store/selectors/appSelectors';
 import { selectAuthId } from '../../store/selectors/authSelectors';
 
@@ -26,7 +26,7 @@ export const Profile = () => {
     if (!userId) {
       userId = String(authId);
     }
-    dispatch(getProfilePage(+userId));
+    dispatch(loadProfilePage(+userId));
   }, [userId]);
 
   useEffect(
@@ -36,7 +36,7 @@ export const Profile = () => {
     [],
   );
 
-  if (status === appStatus.LOADING) {
+  if (status !== appStatus.IDLE) {
     return <ProfileSkeleton />;
   }
 

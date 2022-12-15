@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { updateProfileStatus } from '../../../../store/middlewares/profile/actions';
+import { updateProfileStatus } from '../../../../store/middlewares/profile';
 
 type PropsType = {
   status: string;

@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 import { loginValuesFormModel } from '../../api/auth/types';
 import { Preloader } from '../../components/common/Preloader/Preloader';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { loginUser } from '../../store/middlewares/auth/actions';
+import { login } from '../../store/middlewares/auth';
 import { selectCaptchaUrl } from '../../store/selectors/authSelectors';
 
 export const Login = () => {
@@ -32,7 +32,7 @@ export const Login = () => {
   });
 
   const onFormSubmit = async (values: loginValuesFormModel) => {
-    dispatch(loginUser(values));
+    dispatch(login(values));
   };
 
   const formik = useFormik({

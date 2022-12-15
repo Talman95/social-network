@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 
 import { contacts } from '../../constants/contacts';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { updateProfile } from '../../store/middlewares/profile/actions';
+import { updateProfile } from '../../store/middlewares/profile';
 import { UpdateProfileModel } from '../../store/reducers/profileReducer';
 import { selectAuthUser } from '../../store/selectors/authSelectors';
 import { ContactsType } from '../../types/ProfileType';

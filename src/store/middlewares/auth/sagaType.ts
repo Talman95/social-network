@@ -1,5 +1,0 @@
-export enum sagaType {
-  GET_AUTH_USER_DATA = 'SAGA/GET_AUTH_USER_DATA',
-  LOGIN = 'SAGA/LOGIN',
-  LOGOUT = 'SAGA/LOGOUT',
-}

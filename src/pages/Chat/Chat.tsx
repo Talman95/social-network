@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import {
   startMessagesListening,
   stopMessagesListeningWorker,
-} from '../../store/middlewares/chat/thunks';
+} from '../../store/middlewares/chat';
 
 import { AddMessageBox } from './AddMessageBox/AddMessageBox';
 import { ChatWindow } from './ChatWindow/ChatWindow';

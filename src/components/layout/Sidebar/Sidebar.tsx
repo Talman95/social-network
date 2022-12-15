@@ -16,7 +16,7 @@ import { path } from '../../../enums/path';
 import { showUsers } from '../../../enums/showUsers';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { setUsersFilter } from '../../../store/actions/usersActions';
-import { getFriends } from '../../../store/middlewares/users/actions';
+import { getFriends } from '../../../store/middlewares/users';
 import { selectIsAuth } from '../../../store/selectors/authSelectors';
 import {
   selectFollowings,
@@ -68,7 +68,7 @@ export const Sidebar = () => {
             ) : (
               <AvatarGroup max={8} total={followingsCount}>
                 {followings.map(f => (
-                  <NavLink to={`${path.PROFILE}${f.id}`} key={f.id}>
+                  <NavLink to={`${path.PROFILE}/${f.id}`} key={f.id}>
                     <Avatar alt={f.name} src={f.photos.small ? f.photos.small : ''} />
                   </NavLink>
                 ))}

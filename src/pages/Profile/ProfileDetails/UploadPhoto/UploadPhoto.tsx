@@ -4,16 +4,16 @@ import { PhotoCamera } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
 
-import { uploadUserPhoto } from '../../../../store/middlewares/profile/actions';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { uploadUserPhoto } from '../../../../store/middlewares/profile';
 
 const Input = styled('input')({
   display: 'none',
 });
 
 export const UploadPhoto = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     const firstElement = 0;

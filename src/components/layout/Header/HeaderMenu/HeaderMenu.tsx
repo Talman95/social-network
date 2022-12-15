@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { path } from '../../../../enums/path';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { logout } from '../../../../store/middlewares/auth/thunks';
+import { logout } from '../../../../store/middlewares/auth';
 
 type PropsType = {
   anchorEl: null | HTMLElement;

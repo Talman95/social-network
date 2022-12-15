@@ -9,7 +9,7 @@ import { appStatus } from '../../enums/appStatus';
 import { showUsers } from '../../enums/showUsers';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setCurrentPage, setUsersFilter } from '../../store/actions/usersActions';
-import { getUsers } from '../../store/middlewares/users/actions';
+import { getUsers } from '../../store/middlewares/users';
 import { selectAppStatus } from '../../store/selectors/appSelectors';
 import {
   selectCurrentPage,

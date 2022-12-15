@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { followUnfollowFrom } from '../../../../enums/followUnfollowFrom';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { followUser, unfollowUser } from '../../../../store/middlewares/users/actions';
+import { follow, unfollow } from '../../../../store/middlewares/users';
 import { selectIsFriend } from '../../../../store/selectors/profileSelectors';
 
 type PropsType = {
@@ -24,7 +24,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
     if (userId) {
       const id = Number(userId);
 
-      dispatch(followUser(id, followUnfollowFrom.PROFILE));
+      dispatch(follow(id, followUnfollowFrom.PROFILE));
     }
   };
 
@@ -32,7 +32,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
     if (userId) {
       const id = Number(userId);
 
-      dispatch(unfollowUser(id, followUnfollowFrom.PROFILE));
+      dispatch(unfollow(id, followUnfollowFrom.PROFILE));
     }
   };
 

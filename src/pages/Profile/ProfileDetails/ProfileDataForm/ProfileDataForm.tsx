@@ -14,7 +14,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { updateProfile } from '../../../../store/middlewares/profile/thunks';
+import { updateProfile } from '../../../../store/middlewares/profile';
 import { UpdateProfileModel } from '../../../../store/reducers/profileReducer';
 import { ContactsType, ProfileType } from '../../../../types/ProfileType';
 

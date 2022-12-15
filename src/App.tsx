@@ -12,7 +12,7 @@ import { Nav } from './components/layout/Nav/Nav';
 import { Sidebar } from './components/layout/Sidebar/Sidebar';
 import { useAppDispatch } from './hooks/useAppDispatch';
 import { AppRouter } from './router/AppRouter';
-import { authorize } from './store/middlewares/auth/actions';
+import { authorize } from './store/middlewares/auth';
 import { selectIsInitialized } from './store/selectors/appSelectors';
 import { ReturnComponentType } from './types/ReturnComponentType';
 
