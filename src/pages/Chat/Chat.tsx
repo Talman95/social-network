@@ -11,7 +11,7 @@ import {
 import { AddMessageBox } from './AddMessageBox/AddMessageBox';
 import { ChatWindow } from './ChatWindow/ChatWindow';
 
-export const Chat = () => {
+const Chat = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -29,3 +29,5 @@ export const Chat = () => {
     </Box>
   );
 };
+
+export default Chat;

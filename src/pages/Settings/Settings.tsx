@@ -25,7 +25,7 @@ import { ContactsType } from '../../types/ProfileType';
 
 import { Contact } from './Contact/Contact';
 
-export const Settings = () => {
+const Settings = () => {
   const dispatch = useAppDispatch();
 
   const profile = useSelector(selectAuthUser);
@@ -160,3 +160,5 @@ export const Settings = () => {
     </Card>
   );
 };
+
+export default Settings;

@@ -5,8 +5,12 @@ import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { protectedRoutes } from '../constants/protectedRoutes';
-import { Login } from '../pages/Login/Login';
+import { withSuspense } from '../hoc/withSuspense';
 import { selectAuthId } from '../store/selectors/authSelectors';
+
+const Login = React.lazy(() => import('../pages/Login/Login'));
+
+const LoginSuspense = withSuspense(Login);
 
 export const AppRouter = () => {
   const id = useSelector(selectAuthId);
@@ -23,7 +27,7 @@ export const AppRouter = () => {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<LoginSuspense />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       )}

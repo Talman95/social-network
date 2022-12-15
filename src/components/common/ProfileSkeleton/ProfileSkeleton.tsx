@@ -18,7 +18,6 @@ export const ProfileSkeleton = () => (
 
       <Stack spacing={2} direction="column">
         <Skeleton variant="rectangular" width={167} height={36} />
-        <Skeleton variant="rectangular" width={167} height={36} />
       </Stack>
     </Box>
 

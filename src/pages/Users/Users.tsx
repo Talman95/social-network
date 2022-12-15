@@ -22,7 +22,7 @@ import { MappedUsers } from './MappedUsers/MappedUsers';
 import { SearchBox } from './SearchBox/SearchBox';
 import { UsersPagination } from './UsersPagination/UsersPagination';
 
-export const Users = () => {
+const Users = () => {
   const dispatch = useAppDispatch();
 
   const searchName = useSelector(selectSearchName);
@@ -74,3 +74,5 @@ export const Users = () => {
     </Box>
   );
 };
+
+export default Users;

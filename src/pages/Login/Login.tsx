@@ -21,7 +21,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { login } from '../../store/middlewares/auth';
 import { selectCaptchaUrl } from '../../store/selectors/authSelectors';
 
-export const Login = () => {
+const Login = () => {
   const dispatch = useAppDispatch();
 
   const captchaUrl = useSelector(selectCaptchaUrl);
@@ -122,3 +122,5 @@ export const Login = () => {
     </Grid>
   );
 };
+
+export default Login;
