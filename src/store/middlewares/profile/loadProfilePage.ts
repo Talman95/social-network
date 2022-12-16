@@ -57,11 +57,11 @@ export const loadProfilePage =
     try {
       dispatch(setAppStatus(appStatus.LOADING));
 
-      Promise.allSettled([
+      Promise.all([
         dispatch(getUserProfile(userId)),
         dispatch(getProfileStatus(userId)),
         dispatch(isFollow(userId)),
-      ]).finally(() => {
+      ]).then(() => {
         dispatch(setAppStatus(appStatus.IDLE));
       });
     } catch (e: any) {

@@ -1,8 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import { Dispatch } from 'redux';
 
+import { appStatus } from '../enums/appStatus';
 import { snackbarType } from '../enums/snackbarType';
-import { setAppMessage } from '../store/actions/appActions';
+import { setAppMessage, setAppStatus } from '../store/actions/appActions';
 import { ResponseType } from '../types/ResponseType';
 
 export function showAppErrorHandler<D>(dispatch: Dispatch, data: ResponseType<D>) {
@@ -22,4 +23,5 @@ export function showNetworkErrorHandler(dispatch: Dispatch, e: any) {
   } else {
     dispatch(setAppMessage(snackbarType.ERROR, `Native error ${err.message}`));
   }
+  dispatch(setAppStatus(appStatus.ERROR));
 }

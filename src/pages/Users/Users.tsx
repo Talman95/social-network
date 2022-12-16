@@ -68,7 +68,7 @@ const Users = () => {
     <Box>
       <SearchBox searchName={searchName} userFriends={userFriends} />
 
-      {status === appStatus.LOADING ? <UsersSkeleton /> : <MappedUsers />}
+      {status === appStatus.IDLE ? <MappedUsers /> : <UsersSkeleton />}
 
       <UsersPagination />
     </Box>

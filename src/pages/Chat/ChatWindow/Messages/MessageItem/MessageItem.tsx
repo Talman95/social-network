@@ -24,7 +24,11 @@ export const MessageItem: FC<{ message: ChatMessageType }> = memo(({ message }) 
         />
       </ListItemAvatar>
 
-      <ListItemText primary={message.userName} secondary={message.message} />
+      <ListItemText
+        primary={message.userName}
+        secondary={message.message}
+        style={{ wordBreak: 'break-word' }}
+      />
     </ListItem>
   );
 });
