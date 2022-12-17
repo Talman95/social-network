@@ -11,6 +11,7 @@ import { followUnfollowFrom } from '../../../../enums/followUnfollowFrom';
 import { path } from '../../../../enums/path';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { follow, unfollow } from '../../../../store/middlewares/users';
+import { selectAuthId } from '../../../../store/selectors/authSelectors';
 import { selectPressingInProgress } from '../../../../store/selectors/usersSelectors';
 
 import { StatusContainer, UserInfoContainer, UserNameContainer } from './styles';
@@ -28,6 +29,7 @@ export const User: FC<PropsType> = memo(
     const dispatch = useAppDispatch();
 
     const pressingInProgress = useSelector(selectPressingInProgress);
+    const authId = useSelector(selectAuthId);
 
     const navigate = useNavigate();
 
@@ -89,7 +91,9 @@ export const User: FC<PropsType> = memo(
               {followed ? (
                 <Button
                   variant="outlined"
-                  disabled={pressingInProgress.some(id => id === userId)}
+                  disabled={
+                    pressingInProgress.some(id => id === userId) || authId === userId
+                  }
                   sx={{ display: 'flex', width: { xs: '80px', sm: '132px' } }}
                   onClick={onUnfollowClick}
                 >
@@ -98,7 +102,9 @@ export const User: FC<PropsType> = memo(
               ) : (
                 <Button
                   variant="contained"
-                  disabled={pressingInProgress.some(id => id === userId)}
+                  disabled={
+                    pressingInProgress.some(id => id === userId) || authId === userId
+                  }
                   sx={{ display: 'flex', width: { xs: '80px', sm: '132px' } }}
                   onClick={onFollowClick}
                 >

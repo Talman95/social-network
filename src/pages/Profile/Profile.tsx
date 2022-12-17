@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { ProfileSkeleton } from '../../components/common/ProfileSkeleton/ProfileSkeleton';
 import { appStatus } from '../../enums/appStatus';
+import { path } from '../../enums/path';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setUserProfile } from '../../store/actions/profileActions';
 import { loadProfilePage } from '../../store/middlewares/profile';
@@ -23,9 +24,16 @@ export const Profile = () => {
   let { userId } = useParams();
 
   useEffect(() => {
+    if (userId && authId) {
+      if (Number(userId) === authId) {
+        return;
+      }
+    }
+
     if (!userId) {
       userId = String(authId);
     }
+
     dispatch(loadProfilePage(+userId));
   }, [userId]);
 
@@ -38,6 +46,12 @@ export const Profile = () => {
 
   if (status !== appStatus.IDLE) {
     return <ProfileSkeleton />;
+  }
+
+  if (userId && authId) {
+    if (Number(userId) === authId) {
+      return <Navigate to={path.PROFILE} />;
+    }
   }
 
   return (
