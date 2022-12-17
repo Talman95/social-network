@@ -8,7 +8,11 @@ import { UsersSkeleton } from '../../components/common/UsersSkeleton/UsersSkelet
 import { appStatus } from '../../enums/appStatus';
 import { showUsers } from '../../enums/showUsers';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setCurrentPage, setUsersFilter } from '../../store/actions/usersActions';
+import {
+  resetUsersData,
+  setCurrentPage,
+  setUsersFilter,
+} from '../../store/actions/usersActions';
 import { getUsers } from '../../store/middlewares/users';
 import { selectAppStatus } from '../../store/selectors/appSelectors';
 import {
@@ -45,6 +49,10 @@ const Users = () => {
 
     dispatch(setUsersFilter({ searchName: term, userFriends: friend }));
     dispatch(setCurrentPage(+page));
+
+    return () => {
+      dispatch(resetUsersData());
+    };
   }, []);
 
   useEffect(() => {
@@ -66,7 +74,7 @@ const Users = () => {
 
   return (
     <Box>
-      <SearchBox searchName={searchName} userFriends={userFriends} />
+      <SearchBox />
 
       {status === appStatus.IDLE ? <MappedUsers /> : <UsersSkeleton />}
 

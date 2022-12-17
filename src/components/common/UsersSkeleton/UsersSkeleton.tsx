@@ -27,7 +27,7 @@ export const UsersSkeleton = () => {
 
               <CardContent sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <UserNameContainer>
-                  <Typography component="div" variant="h6" width={150}>
+                  <Typography component="div" variant="h6" width={90}>
                     <Skeleton />
                   </Typography>
                 </UserNameContainer>

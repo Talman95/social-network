@@ -1,9 +1,13 @@
+import { showUsers } from '../../enums/showUsers';
 import { UsersFilterType } from '../../types/UsersFilterType';
 import { UserType } from '../../types/UserType';
 import { usersActionType } from '../actions/types/usersTypes';
 import {
   followSuccess,
+  resetUsersData,
   setCurrentPage,
+  setFilterSearchName,
+  setFilterUserFriend,
   setFriends,
   setFriendsCount,
   setTotalMembers,
@@ -37,7 +41,10 @@ export type UsersActionsType =
   | ReturnType<typeof togglePressingInProgress>
   | ReturnType<typeof setUsersFilter>
   | ReturnType<typeof setFriends>
-  | ReturnType<typeof setFriendsCount>;
+  | ReturnType<typeof setFriendsCount>
+  | ReturnType<typeof setFilterSearchName>
+  | ReturnType<typeof setFilterUserFriend>
+  | ReturnType<typeof resetUsersData>;
 
 export const usersReducer = (
   state = initialState,
@@ -74,6 +81,27 @@ export const usersReducer = (
         pressingInProgress: action.payload.isPressed
           ? [...state.pressingInProgress, action.payload.userId]
           : state.pressingInProgress.filter(id => id !== action.payload.userId),
+      };
+    case usersActionType.SET_FILTER_SEARCH_NAME:
+    case usersActionType.SET_FILTER_USER_FRIEND:
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          ...action.payload,
+        },
+      };
+    case usersActionType.RESET_USERS_DATA:
+      return {
+        ...state,
+        users: [],
+        currentPage: 1,
+        totalCount: 0,
+        filter: {
+          ...state.filter,
+          searchName: '',
+          userFriends: showUsers.ALL,
+        },
       };
     default:
       return state;

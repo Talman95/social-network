@@ -1,3 +1,4 @@
+import { showUsers } from '../../enums/showUsers';
 import { UsersFilterType } from '../../types/UsersFilterType';
 import { UserType } from '../../types/UserType';
 
@@ -47,3 +48,11 @@ export const setFriends = (followings: Array<UserType>) =>
 
 export const setFriendsCount = (followingsCount: number) =>
   ({ type: usersActionType.SET_FOLLOWINGS_COUNT, payload: { followingsCount } } as const);
+
+export const setFilterSearchName = (searchName: string) =>
+  ({ type: usersActionType.SET_FILTER_SEARCH_NAME, payload: { searchName } } as const);
+
+export const setFilterUserFriend = (userFriends: showUsers) =>
+  ({ type: usersActionType.SET_FILTER_USER_FRIEND, payload: { userFriends } } as const);
+
+export const resetUsersData = () => ({ type: usersActionType.RESET_USERS_DATA } as const);
