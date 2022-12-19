@@ -24,11 +24,11 @@ export const ProfileDetails: FC<PropsType> = ({ userId }) => {
 
   const { ref, isShow, setIsShow } = useOutside(false);
 
-  const onEditMode = () => {
+  const onEditMode = (): void => {
     setIsShow(true);
   };
 
-  const offEditMode = () => {
+  const offEditMode = (): void => {
     setIsShow(false);
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -7,7 +7,7 @@ import { selectPosts } from '../../../store/selectors/profileSelectors';
 import { Post } from './Post/Post';
 import { WriteField } from './WriteField/WriteField';
 
-export const MyPosts = () => {
+export const MyPosts: FC = () => {
   const posts = useSelector(selectPosts);
 
   return (

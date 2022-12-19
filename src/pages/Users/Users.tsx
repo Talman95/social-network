@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ import { MappedUsers } from './MappedUsers/MappedUsers';
 import { SearchBox } from './SearchBox/SearchBox';
 import { UsersPagination } from './UsersPagination/UsersPagination';
 
-const Users = () => {
+const Users: FC = () => {
   const dispatch = useAppDispatch();
 
   const searchName = useSelector(selectSearchName);

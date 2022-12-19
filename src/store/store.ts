@@ -1,4 +1,3 @@
-// eslint-disable-next-line camelcase
 import { applyMiddleware, combineReducers, compose, legacy_createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 

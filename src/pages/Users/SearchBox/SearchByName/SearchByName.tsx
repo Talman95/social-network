@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useState, useRef, FC } from 'react';
 
 import { TextField } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { useDebounce } from '../../../../hooks/useDebounce';
 import { setFilterSearchName } from '../../../../store/actions/usersActions';
 import { selectSearchName } from '../../../../store/selectors/usersSelectors';
 
-export const SearchByName = () => {
+export const SearchByName: FC = () => {
   const dispatch = useAppDispatch();
 
   const searchName = useSelector(selectSearchName);
@@ -33,7 +33,9 @@ export const SearchByName = () => {
     setSearchTerm(searchName);
   }, [searchName]);
 
-  const onSearchTermChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const onSearchTermChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ): void => {
     setSearchTerm(e.currentTarget.value);
   };
 

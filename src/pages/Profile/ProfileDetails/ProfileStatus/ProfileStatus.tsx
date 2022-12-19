@@ -17,16 +17,16 @@ export const ProfileStatus: FC<PropsType> = ({ status }) => {
     setProfileStatus(status);
   }, [status]);
 
-  const onEditModeClick = () => {
+  const onEditModeClick = (): void => {
     setEditMode(true);
   };
 
-  const onEditModeBlur = () => {
+  const onEditModeBlur = (): void => {
     setEditMode(false);
     dispatch(updateProfileStatus(profileStatus));
   };
 
-  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setProfileStatus(e.currentTarget.value);
   };
 

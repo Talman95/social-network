@@ -1,3 +1,4 @@
+import { showUsers } from '../../../enums/showUsers';
 import {
   followSuccess,
   setCurrentPage,
@@ -16,7 +17,7 @@ let startState: UsersStateType = {
   pressingInProgress: [],
   filter: {
     searchName: '',
-    userFriends: 'all',
+    userFriends: showUsers.ALL,
   },
   followings: [],
   followingsCount: 0,
@@ -54,7 +55,7 @@ beforeEach(() => {
     pressingInProgress: [],
     filter: {
       searchName: '',
-      userFriends: 'all',
+      userFriends: showUsers.ALL,
     },
     followings: [],
     followingsCount: 0,

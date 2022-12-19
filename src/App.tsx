@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import './App.css';
 import Box from '@mui/material/Box';
@@ -14,9 +14,8 @@ import { useAppDispatch } from './hooks/useAppDispatch';
 import { AppRouter } from './router/AppRouter';
 import { authorize } from './store/middlewares/auth';
 import { selectIsInitialized } from './store/selectors/appSelectors';
-import { ReturnComponentType } from './types/ReturnComponentType';
 
-export const App = (): ReturnComponentType => {
+export const App: FC = () => {
   const dispatch = useAppDispatch();
 
   const isInitialized = useSelector(selectIsInitialized);

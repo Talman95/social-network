@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Box, Card, CardContent, Skeleton, Typography } from '@mui/material';
 
@@ -7,7 +7,7 @@ import {
   UserNameContainer,
 } from '../../../pages/Users/MappedUsers/User/styles';
 
-export const UsersSkeleton = () => {
+export const UsersSkeleton: FC = () => {
   const skeletonUserCount = '0123456789';
 
   return (

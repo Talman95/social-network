@@ -13,6 +13,7 @@ import { authorize } from './authorize';
 export const getCaptchaUrl = (): AppThunk => async dispatch => {
   try {
     const res = await authAPI.getCaptcha();
+
     dispatch(getCaptchaUrlSuccess(res.url));
   } catch (e: any) {
     showNetworkErrorHandler(dispatch, e);

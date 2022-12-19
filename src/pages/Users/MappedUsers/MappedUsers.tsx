@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { User } from './User/User';
 
 const NO_USERS = 0;
 
-export const MappedUsers = () => {
+export const MappedUsers: FC = () => {
   const users = useSelector(selectUsers);
 
   return (

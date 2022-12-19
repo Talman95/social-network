@@ -11,12 +11,13 @@ import {
   selectAppMessage,
   selectAppTypeMessage,
 } from '../../../store/selectors/appSelectors';
+import { ReturnComponentType } from '../../../types/ReturnComponentType';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 ));
 
-export const ErrorSnackbar = () => {
+export const ErrorSnackbar = (): ReturnComponentType => {
   const dispatch = useAppDispatch();
 
   const message = useSelector(selectAppMessage);
@@ -24,7 +25,7 @@ export const ErrorSnackbar = () => {
 
   const isOpen = message !== null;
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string): void => {
     if (reason === 'clickaway') {
       return;
     }

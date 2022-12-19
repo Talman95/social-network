@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
 import { List } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -7,14 +7,14 @@ import { selectMessages } from '../../../../store/selectors/chatSelectors';
 
 import { MessageItem } from './MessageItem/MessageItem';
 
-export const Messages = () => {
+export const Messages: FC = () => {
   const messages = useSelector(selectMessages);
 
   const messagesAnchorRef = useRef<HTMLDivElement>(null);
 
   const [autoScroll, setAutoScroll] = useState(true);
 
-  const onChatListScroll = (e: React.UIEvent) => {
+  const onChatListScroll = (e: React.UIEvent): void => {
     const element = e.currentTarget;
     const scrollError = 300;
 

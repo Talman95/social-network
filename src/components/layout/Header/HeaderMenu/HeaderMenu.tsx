@@ -18,27 +18,27 @@ export const HeaderMenu: FC<PropsType> = ({ anchorEl, open, onCloseClick }) => {
 
   const navigate = useNavigate();
 
-  const onProfileClick = () => {
+  const onProfileClick = (): void => {
     onCloseClick();
     navigate(path.PROFILE);
   };
 
-  const onChatClick = () => {
+  const onChatClick = (): void => {
     onCloseClick();
     navigate(path.CHAT);
   };
 
-  const onUsersClick = () => {
+  const onUsersClick = (): void => {
     onCloseClick();
     navigate(path.USERS);
   };
 
-  const onSettingsClick = () => {
+  const onSettingsClick = (): void => {
     onCloseClick();
     navigate(path.SETTINGS);
   };
 
-  const onLogoutClick = () => {
+  const onLogoutClick = (): void => {
     onCloseClick();
     dispatch(logout());
   };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import {
   Avatar,
@@ -25,7 +25,7 @@ import {
 
 const NO_USERS = 0;
 
-export const Sidebar = () => {
+export const Sidebar: FC = () => {
   const dispatch = useAppDispatch();
 
   const followings = useSelector(selectFollowings);
@@ -41,7 +41,7 @@ export const Sidebar = () => {
     dispatch(getFriends());
   }, [isAuth]);
 
-  const onFollowingClick = async () => {
+  const onFollowingClick = async (): Promise<void> => {
     if (match) {
       dispatch(setUsersFilter({ searchName: '', userFriends: showUsers.FOLLOW }));
     } else {

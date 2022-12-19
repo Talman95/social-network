@@ -3,7 +3,9 @@ import React from 'react';
 import { Box, Card, CardContent, Divider, Skeleton, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
-export const ProfileSkeleton = () => (
+import { ReturnComponentType } from '../../../types/ReturnComponentType';
+
+export const ProfileSkeleton = (): ReturnComponentType => (
   <Card
     sx={{
       display: 'flex',

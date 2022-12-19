@@ -3,7 +3,7 @@ import React from 'react';
 import { path } from '../enums/path';
 import { withSuspense } from '../hoc/withSuspense';
 import { Profile } from '../pages/Profile/Profile';
-import { Error404 } from '../router/Error404';
+import { PageNotFound } from '../router/PageNotFound';
 
 const Users = React.lazy(() => import('../pages/Users/Users'));
 const Chat = React.lazy(() => import('../pages/Chat/Chat'));
@@ -19,5 +19,5 @@ export const protectedRoutes = [
   { path: path.USERS, component: <UsersSuspense /> },
   { path: path.SETTINGS, component: <SettingsSuspense /> },
   { path: path.CHAT, component: <ChatSuspense /> },
-  { path: path.PAGE_NOT_FOUND, component: <Error404 /> },
+  { path: path.PAGE_NOT_FOUND, component: <PageNotFound /> },
 ];

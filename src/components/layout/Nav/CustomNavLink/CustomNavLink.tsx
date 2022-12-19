@@ -15,7 +15,7 @@ type PropsType = {
 export const CustomNavLink: FC<PropsType> = ({ children, to, title }) => {
   const match = useMatch(to);
 
-  const onNavLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
+  const onNavLinkClick = (e: MouseEvent<HTMLAnchorElement>): void => {
     if (match) e.preventDefault();
   };
 

@@ -1,9 +1,12 @@
+import { ProfileType } from '../../types/ProfileType';
+import { PostType } from '../reducers/profileReducer';
 import { RootState } from '../store';
 
-export const selectProfile = (state: RootState) => state.profile.profile;
+export const selectProfile = (state: RootState): ProfileType | null =>
+  state.profile.profile;
 
-export const selectPosts = (state: RootState) => state.profile.posts;
+export const selectPosts = (state: RootState): PostType[] => state.profile.posts;
 
-export const selectStatus = (state: RootState) => state.profile.status;
+export const selectStatus = (state: RootState): string => state.profile.status;
 
-export const selectIsFriend = (state: RootState) => state.profile.isFriend;
+export const selectIsFriend = (state: RootState): boolean => state.profile.isFriend;

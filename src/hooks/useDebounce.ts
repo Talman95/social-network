@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const DELAY = 500;
 
-export const useDebounce = <T>(value: T, delay: number = DELAY) => {
+export const useDebounce = <T>(value: T, delay: number = DELAY): T => {
   const [message, setMessage] = useState<T>(value);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export const useDebounce = <T>(value: T, delay: number = DELAY) => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [value]);
+  }, [value, delay]);
 
   return message;
 };

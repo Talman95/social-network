@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import { Pagination } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -13,7 +13,7 @@ import {
 } from '../../../store/selectors/usersSelectors';
 import { getCountPages } from '../../../utils/getCountPages';
 
-export const UsersPagination = () => {
+export const UsersPagination: FC = () => {
   const dispatch = useAppDispatch();
 
   const currentPage = useSelector(selectCurrentPage);
@@ -22,7 +22,7 @@ export const UsersPagination = () => {
 
   const countPages = getCountPages(totalCount, pageSize);
 
-  const onPageChange = (event: ChangeEvent<unknown>, pageNumber: number) => {
+  const onPageChange = (event: ChangeEvent<unknown>, pageNumber: number): void => {
     dispatch(setCurrentPage(pageNumber));
   };
 

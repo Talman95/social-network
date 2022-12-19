@@ -31,7 +31,7 @@ export const Post: FC<PropsType> = ({ id, message }) => {
 
   const profile = useSelector(selectProfile);
 
-  const onDeletePostClick = () => {
+  const onDeletePostClick = (): void => {
     dispatch(deletePost(id));
   };
 

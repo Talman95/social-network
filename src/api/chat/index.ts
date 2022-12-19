@@ -13,7 +13,7 @@ let ws: WebSocket | null = null;
 
 const time = 3000;
 
-const closeHandler = () => {
+const closeHandler = (): void => {
   setTimeout(() => {
     ws?.addEventListener('close', closeHandler);
     ws?.close();
@@ -23,33 +23,33 @@ const closeHandler = () => {
   }, time);
 };
 
-const handleMessage = (e: MessageEvent) => {
+const handleMessage = (e: MessageEvent): void => {
   const newMessages = JSON.parse(e.data);
 
   subscribers['messages-received'].forEach(subscriber => subscriber(newMessages));
 };
 
-const notifySubscribersAboutStatus = (status: chatStatus) => {
+const notifySubscribersAboutStatus = (status: chatStatus): void => {
   subscribers['status-changed'].forEach(subscriber => subscriber(status));
 };
 
-const handleOpen = () => {
+const handleOpen = (): void => {
   notifySubscribersAboutStatus(chatStatus.READY);
 };
 
-const handleError = () => {
+const handleError = (): void => {
   notifySubscribersAboutStatus(chatStatus.ERROR);
   console.log('REFRESH PAGE');
 };
 
-const cleanUp = () => {
+const cleanUp = (): void => {
   ws?.removeEventListener('close', closeHandler);
   ws?.removeEventListener('message', handleMessage);
   ws?.removeEventListener('open', handleOpen);
   ws?.removeEventListener('error', handleError);
 };
 
-function createChannel() {
+function createChannel(): void {
   cleanUp();
 
   ws?.close();

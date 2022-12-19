@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import { navigationList } from '../../../constants/navigationList';
 
 import { CustomNavLink } from './CustomNavLink/CustomNavLink';
 
-export const Nav = () => (
+export const Nav: FC = () => (
   <Box flex={1} p={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
     <Box position="fixed">
       <List>

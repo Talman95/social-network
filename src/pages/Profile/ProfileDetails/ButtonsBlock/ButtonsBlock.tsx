@@ -20,7 +20,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
 
   const isFriend = useSelector(selectIsFriend);
 
-  const onFollowClick = () => {
+  const onFollowClick = (): void => {
     if (userId) {
       const id = Number(userId);
 
@@ -28,7 +28,7 @@ export const ButtonsBlock: FC<PropsType> = ({ userId }) => {
     }
   };
 
-  const onUnfollowClick = () => {
+  const onUnfollowClick = (): void => {
     if (userId) {
       const id = Number(userId);
 

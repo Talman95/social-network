@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { selectAuthId } from '../../store/selectors/authSelectors';
 import { MyPosts } from './MyPosts/MyPosts';
 import { ProfileDetails } from './ProfileDetails/ProfileDetails';
 
-export const Profile = () => {
+export const Profile: FC = () => {
   const dispatch = useAppDispatch();
 
   const authId = useSelector(selectAuthId);

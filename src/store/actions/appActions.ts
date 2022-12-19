@@ -12,7 +12,8 @@ export const setAppMessage = (messageType: snackbarType, message: null | string)
     payload: { messageType, message },
   } as const);
 
-export const setAppStatus = (status: appStatus) => ({
-  type: appActionType.SET_APP_STATUS,
-  payload: { status },
-});
+export const setAppStatus = (status: appStatus) =>
+  ({
+    type: appActionType.SET_APP_STATUS,
+    payload: { status },
+  } as const);

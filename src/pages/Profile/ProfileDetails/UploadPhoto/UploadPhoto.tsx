@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import { PhotoCamera } from '@mui/icons-material';
 import { Button } from '@mui/material';
@@ -12,10 +12,10 @@ const Input = styled('input')({
   display: 'none',
 });
 
-export const UploadPhoto = () => {
+export const UploadPhoto: FC = () => {
   const dispatch = useAppDispatch();
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>): void => {
     const firstElement = 0;
     const newFile = e.target.files && e.target.files[firstElement];
 

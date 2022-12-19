@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Card } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { selectStatus } from '../../../store/selectors/chatSelectors';
 import { ChatHeader } from './ChatHeader/ChatHeader';
 import { Messages } from './Messages/Messages';
 
-export const ChatWindow = () => {
+export const ChatWindow: FC = () => {
   const status = useSelector(selectStatus);
 
   return (

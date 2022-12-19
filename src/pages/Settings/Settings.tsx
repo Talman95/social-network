@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   Box,
@@ -25,7 +25,7 @@ import { ContactsType } from '../../types/ProfileType';
 
 import { Contact } from './Contact/Contact';
 
-const Settings = () => {
+const Settings: FC = () => {
   const dispatch = useAppDispatch();
 
   const profile = useSelector(selectAuthUser);
@@ -34,7 +34,7 @@ const Settings = () => {
     fullName: Yup.string().required('Name is required'),
   });
 
-  const onFormSubmit = (values: UpdateProfileModel) => {
+  const onFormSubmit = (values: UpdateProfileModel): void => {
     dispatch(updateProfile(values));
   };
 

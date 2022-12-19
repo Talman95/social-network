@@ -1,25 +1,25 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
 import { Button, Card, TextField } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { chatStatus } from '../../../enums/chatStatus';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
-import { sendMessage } from '../../../store/middlewares/chat/thunks';
+import { sendMessage } from '../../../store/middlewares/chat';
 import { selectStatus } from '../../../store/selectors/chatSelectors';
 
-export const AddMessageBox = () => {
+export const AddMessageBox: FC = () => {
   const dispatch = useAppDispatch();
 
   const status = useSelector(selectStatus);
 
   const [text, setText] = useState('');
 
-  const onTextChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onTextChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setText(e.currentTarget.value);
   };
 
-  const onSendClick = () => {
+  const onSendClick = (): void => {
     const trimmedText = text.trim();
 
     if (trimmedText === '') {
@@ -30,7 +30,7 @@ export const AddMessageBox = () => {
     setText('');
   };
 
-  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>): void => {
     if (e.key === 'Enter' && !e.shiftKey) {
       onSendClick();
       e.preventDefault();

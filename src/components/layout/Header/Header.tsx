@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 
 import { AppBar, Avatar, Box, IconButton, Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
@@ -10,7 +10,7 @@ import { selectAuthUser, selectIsAuth } from '../../../store/selectors/authSelec
 import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { NameContainer, StyledToolbar, UserContainer } from './styles';
 
-export const Header = () => {
+export const Header: FC = () => {
   const isAuth = useSelector(selectIsAuth);
   const authUser = useSelector(selectAuthUser);
 
@@ -18,10 +18,10 @@ export const Header = () => {
 
   const open = Boolean(anchorEl);
 
-  const onMenuClick = (event: MouseEvent<HTMLButtonElement>) =>
+  const onMenuClick = (event: MouseEvent<HTMLButtonElement>): void =>
     setAnchorEl(event.currentTarget);
 
-  const onMenuBlur = () => setAnchorEl(null);
+  const onMenuBlur = (): void => setAnchorEl(null);
 
   return (
     <AppBar position="sticky" style={{ height: '64px' }}>

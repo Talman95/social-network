@@ -12,7 +12,9 @@ import { AppThunk } from '../../store';
 
 let newMessageHandlerMemoized: ((messages: ChatMessageApiType[]) => void) | null = null;
 
-const newMessageHandler = (dispatch: Dispatch) => {
+const newMessageHandler = (
+  dispatch: Dispatch,
+): ((messages: ChatMessageApiType[]) => void) | null => {
   if (newMessageHandlerMemoized === null) {
     newMessageHandlerMemoized = messages => {
       dispatch(messagesReceived(messages));
@@ -24,7 +26,9 @@ const newMessageHandler = (dispatch: Dispatch) => {
 
 let statusChangedHandlerMemoized: ((status: chatStatus) => void) | null = null;
 
-const statusChangedHandler = (dispatch: Dispatch) => {
+const statusChangedHandler = (
+  dispatch: Dispatch,
+): ((status: chatStatus) => void) | null => {
   if (statusChangedHandlerMemoized === null) {
     statusChangedHandlerMemoized = status => {
       dispatch(statusChanged(status));
@@ -36,12 +40,16 @@ const statusChangedHandler = (dispatch: Dispatch) => {
 
 export const startMessagesListening = (): AppThunk => dispatch => {
   chatAPI.start();
+  // @ts-ignore
   chatAPI.subscribe('messages-received', newMessageHandler(dispatch));
+  // @ts-ignore
   chatAPI.subscribe('status-changed', statusChangedHandler(dispatch));
 };
 
 export const stopMessagesListeningWorker = (): AppThunk => dispatch => {
+  // @ts-ignore
   chatAPI.unsubscribe('messages-received', newMessageHandler(dispatch));
+  // @ts-ignore
   chatAPI.unsubscribe('status-changed', statusChangedHandler(dispatch));
   chatAPI.stop();
   dispatch(clearMessages());

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   Box,
@@ -21,7 +21,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { login } from '../../store/middlewares/auth';
 import { selectCaptchaUrl } from '../../store/selectors/authSelectors';
 
-const Login = () => {
+const Login: FC = () => {
   const dispatch = useAppDispatch();
 
   const captchaUrl = useSelector(selectCaptchaUrl);
@@ -31,7 +31,7 @@ const Login = () => {
     password: Yup.string().required('Password is required'),
   });
 
-  const onFormSubmit = async (values: loginValuesFormModel) => {
+  const onFormSubmit = async (values: loginValuesFormModel): Promise<any> => {
     dispatch(login(values));
   };
 

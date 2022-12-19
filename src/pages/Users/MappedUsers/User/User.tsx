@@ -33,17 +33,17 @@ export const User: FC<PropsType> = memo(
 
     const navigate = useNavigate();
 
-    const onFollowClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onFollowClick = (e: MouseEvent<HTMLButtonElement>): void => {
       e.stopPropagation();
       dispatch(follow(userId, followUnfollowFrom.USERS));
     };
 
-    const onUnfollowClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const onUnfollowClick = (e: MouseEvent<HTMLButtonElement>): void => {
       e.stopPropagation();
       dispatch(unfollow(userId, followUnfollowFrom.USERS));
     };
 
-    const onProfileNavigate = () => {
+    const onProfileNavigate = (): void => {
       navigate(`${path.PROFILE}/${userId}`);
     };
 

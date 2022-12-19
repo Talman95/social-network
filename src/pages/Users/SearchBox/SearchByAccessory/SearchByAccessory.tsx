@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import { setFilterUserFriend } from '../../../../store/actions/usersActions';
 import { selectAppStatus } from '../../../../store/selectors/appSelectors';
 import { selectUserFriends } from '../../../../store/selectors/usersSelectors';
 
-export const SearchByAccessory = () => {
+export const SearchByAccessory: FC = () => {
   const dispatch = useAppDispatch();
 
   const status = useSelector(selectAppStatus);
@@ -22,7 +22,7 @@ export const SearchByAccessory = () => {
     setFriends(userFriends);
   }, [userFriends]);
 
-  const onFriendsFilterChange = (e: SelectChangeEvent) => {
+  const onFriendsFilterChange = (e: SelectChangeEvent): void => {
     const resultFriend = e.target.value as showUsers;
 
     setFriends(resultFriend);

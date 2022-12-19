@@ -8,21 +8,25 @@ import { ProfileUpdateType } from './types';
 export const profileAPI = {
   getProfile: async (userId: number) => {
     const res = await instance.get<ProfileType>(`/profile/${userId}`);
+
     return res.data;
   },
 
   getStatus: async (userId: number) => {
     const res = await instance.get<string>(`/profile/status/${userId}`);
+
     return res.data;
   },
 
   updateStatus: async (status: string) => {
     const res = await instance.put<ResponseType<{}>>('/profile/status', { status });
+
     return res.data;
   },
 
   updateProfile: async (profile: ProfileUpdateType) => {
     const res = await instance.put<ResponseType<{}>>('/profile', { ...profile });
+
     return res.data;
   },
 

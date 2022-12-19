@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { Box } from '@mui/material';
 
@@ -11,7 +11,7 @@ import {
 import { AddMessageBox } from './AddMessageBox/AddMessageBox';
 import { ChatWindow } from './ChatWindow/ChatWindow';
 
-const Chat = () => {
+const Chat: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

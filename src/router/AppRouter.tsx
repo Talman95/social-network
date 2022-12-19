@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ const Login = React.lazy(() => import('../pages/Login/Login'));
 
 const LoginSuspense = withSuspense(Login);
 
-export const AppRouter = () => {
+export const AppRouter: FC = () => {
   const id = useSelector(selectAuthId);
 
   return (

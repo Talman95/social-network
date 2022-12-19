@@ -9,7 +9,7 @@ import { ChatMessageType } from '../../../../../types/ChatMessageType';
 export const MessageItem: FC<{ message: ChatMessageType }> = memo(({ message }) => {
   const navigate = useNavigate();
 
-  const onUserAvatarClick = () => {
+  const onUserAvatarClick = (): void => {
     navigate(`${path.PROFILE}/${message.userId}`);
   };
 

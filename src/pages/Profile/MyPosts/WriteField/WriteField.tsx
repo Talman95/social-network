@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -18,19 +18,20 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { addPost } from '../../../../store/actions/profileActions';
 import { selectProfile } from '../../../../store/selectors/profileSelectors';
 
-export const WriteField = () => {
+export const WriteField: FC = () => {
   const dispatch = useAppDispatch();
 
   const profile = useSelector(selectProfile);
 
   const [message, setMessage] = useState('');
 
-  const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setMessage(e.currentTarget.value);
   };
 
-  const onAddPostClick = () => {
+  const onAddPostClick = (): void => {
     const trimMessage = message.trim();
+
     if (trimMessage === '') {
       return;
     }
@@ -39,7 +40,7 @@ export const WriteField = () => {
     setMessage('');
   };
 
-  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>): void => {
     if (e.key === 'Enter' && !e.shiftKey) {
       onAddPostClick();
       e.preventDefault();
