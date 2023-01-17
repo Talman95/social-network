@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { UsersSkeleton } from '../components/common/UsersSkeleton/UsersSkeleton';
 import { path } from '../enums/path';
 import { withSuspense } from '../hoc/withSuspense';
 import { Profile } from '../pages/Profile/Profile';
@@ -9,7 +10,7 @@ const Users = React.lazy(() => import('../pages/Users/Users'));
 const Chat = React.lazy(() => import('../pages/Chat/Chat'));
 const Settings = React.lazy(() => import('../pages/Settings/Settings'));
 
-const UsersSuspense = withSuspense(Users);
+const UsersSuspense = withSuspense(Users, UsersSkeleton);
 const ChatSuspense = withSuspense(Chat);
 const SettingsSuspense = withSuspense(Settings);
 

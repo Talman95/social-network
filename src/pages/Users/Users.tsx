@@ -30,6 +30,7 @@ const Users: FC = () => {
   const dispatch = useAppDispatch();
 
   const searchName = useSelector(selectSearchName);
+
   const userFriends = useSelector(selectUserFriends);
 
   const currentPage = useSelector(selectCurrentPage);
