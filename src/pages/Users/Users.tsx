@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -30,26 +30,27 @@ const Users: FC = () => {
   const dispatch = useAppDispatch();
 
   const searchName = useSelector(selectSearchName);
-
   const userFriends = useSelector(selectUserFriends);
-
   const currentPage = useSelector(selectCurrentPage);
-
   const status = useSelector(selectAppStatus);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
+
   useEffect(() => {
-    const term = searchParams.get('term') || searchName;
+    if (window.location.search) {
+      const term = searchParams.get('term') || searchName;
+      const page = searchParams.get('page') || currentPage;
+      const friendQuery = searchParams.get('friend') || userFriends;
+      const friend = convertParam.toFriendType(friendQuery);
 
-    const friendQuery = searchParams.get('friend') || userFriends;
+      dispatch(setUsersFilter({ searchName: term, userFriends: friend }));
+      dispatch(setCurrentPage(+page));
 
-    const friend = convertParam.toFriendType(friendQuery);
-
-    const page = searchParams.get('page') || currentPage;
-
-    dispatch(setUsersFilter({ searchName: term, userFriends: friend }));
-    dispatch(setCurrentPage(+page));
+      isSearch.current = true;
+    }
 
     return () => {
       dispatch(resetUsersData());
@@ -57,20 +58,32 @@ const Users: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, [searchParams]);
+    if (!isSearch.current) {
+      dispatch(getUsers());
+    }
+
+    if (isSearch.current) {
+      isSearch.current = false;
+    }
+  }, [currentPage, searchName, userFriends]);
 
   useEffect(() => {
-    const params: any = {};
+    if (isMounted.current) {
+      const params: any = {};
 
-    const page = 1;
+      const page = 1;
 
-    if (currentPage > page) params.page = String(currentPage);
-    if (searchName) params.term = searchName;
-    if (userFriends === showUsers.FOLLOW) params.friend = true;
-    if (userFriends === showUsers.UNFOLLOW) params.friend = false;
+      if (currentPage > page) params.page = String(currentPage);
+      if (searchName) params.term = searchName;
+      if (userFriends === showUsers.FOLLOW) params.friend = true;
+      if (userFriends === showUsers.UNFOLLOW) params.friend = false;
 
-    setSearchParams(params);
+      setSearchParams(params);
+    }
+
+    if (!isMounted.current) {
+      isMounted.current = true;
+    }
   }, [currentPage, searchName, userFriends]);
 
   return (
