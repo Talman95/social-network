@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
 import { NavLink, useMatch, useNavigate } from 'react-router-dom';
 
@@ -50,7 +51,7 @@ export const Sidebar: FC = () => {
   };
 
   return (
-    <Box flex={2} p={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
+    <SidebarContainer flex={2} p={2}>
       <Box position="fixed">
         <Card sx={{ margin: 1 }}>
           <CardContent>
@@ -77,6 +78,15 @@ export const Sidebar: FC = () => {
           </CardContent>
         </Card>
       </Box>
-    </Box>
+    </SidebarContainer>
   );
 };
+
+const SCREEN_SIZE = 1040;
+
+export const SidebarContainer = styled(Typography)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up(SCREEN_SIZE)]: {
+    display: 'block',
+  },
+}));

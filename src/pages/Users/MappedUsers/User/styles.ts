@@ -3,15 +3,15 @@ import { styled } from '@mui/material/styles';
 
 export const UserInfoContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
   alignItems: 'center',
   padding: 0,
-  width: '296px',
   height: '90px',
   [theme.breakpoints.up('sm')]: {
     width: 'inherit',
     height: '106px',
     padding: '0 15px',
+    justifyContent: 'space-between',
   },
 }));
 
