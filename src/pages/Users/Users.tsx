@@ -40,7 +40,7 @@ const Users: FC = () => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if (window.location.search) {
+    if (window.location.hash.includes('?')) {
       const term = searchParams.get('term') || searchName;
       const page = searchParams.get('page') || currentPage;
       const friendQuery = searchParams.get('friend') || userFriends;

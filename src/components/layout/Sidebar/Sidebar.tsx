@@ -39,7 +39,9 @@ export const Sidebar: FC = () => {
   const match = useMatch(path.USERS);
 
   useEffect(() => {
-    dispatch(getFriends());
+    if (isAuth) {
+      dispatch(getFriends());
+    }
   }, [isAuth]);
 
   const onFollowingClick = async (): Promise<void> => {
